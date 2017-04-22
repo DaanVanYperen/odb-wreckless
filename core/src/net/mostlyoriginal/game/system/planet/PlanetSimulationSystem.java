@@ -9,9 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import net.mostlyoriginal.game.component.Planet;
 import net.mostlyoriginal.game.component.PlanetCell;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
-import net.mostlyoriginal.game.system.planet.cells.CellSimulator;
-import net.mostlyoriginal.game.system.planet.cells.LavaCellSimulator;
-import net.mostlyoriginal.game.system.planet.cells.StaticCellSimulator;
+import net.mostlyoriginal.game.system.planet.cells.*;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 /**
@@ -31,6 +29,8 @@ public class PlanetSimulationSystem extends FluidIteratingSystem {
 
         addSimulator(PlanetCell.CellType.STATIC, new StaticCellSimulator());
         addSimulator(PlanetCell.CellType.LAVA, new LavaCellSimulator());
+        addSimulator(PlanetCell.CellType.WATER, new WaterCellSimulator());
+        addSimulator(PlanetCell.CellType.ICE, new IceCellSimulator());
     }
 
     private void addSimulator(PlanetCell.CellType cellType, CellSimulator simulator) {

@@ -13,6 +13,8 @@ public class PlanetCell {
 
     public enum CellType {
         STATIC,
-        LAVA
+        LAVA,
+        WATER,
+        ICE
     }
 }
