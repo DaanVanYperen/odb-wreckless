@@ -10,17 +10,15 @@ import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 @Wire
 public class GameScreenAssetSystem extends AbstractAssetSystem {
 
-	public static final int DANCING_MAN_WIDTH = 800;
-	public static final int DANCING_MAN_HEIGHT = 450;
+    public static final int DANCING_MAN_WIDTH = 800;
+    public static final int DANCING_MAN_HEIGHT = 450;
 
-	public GameScreenAssetSystem() {
-		super("planet.jpg");
-	}
+    public GameScreenAssetSystem() {
+        super("cards.png");
+    }
 
-	@Override
-	protected void initialize() {
-		super.initialize();
-
-		add("dancingman", 0, 0, DANCING_MAN_WIDTH, DANCING_MAN_HEIGHT, 1);
-	}
+    @Override
+    protected void initialize() {
+        super.initialize();
+    }
 }

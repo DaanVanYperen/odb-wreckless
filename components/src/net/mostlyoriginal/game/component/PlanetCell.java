@@ -24,6 +24,7 @@ public class PlanetCell {
             {-1, 1},
             {-1, 0}
     };
+    public int sleep;
 
     public int up() {
         return (down + 4) % 8;

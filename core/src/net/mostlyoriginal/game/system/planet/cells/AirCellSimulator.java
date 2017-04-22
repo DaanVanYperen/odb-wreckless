@@ -9,9 +9,11 @@ import net.mostlyoriginal.game.component.PlanetCell;
  */
 public class AirCellSimulator implements CellSimulator {
 
+    private int airColor = Color.rgba8888(0f, MathUtils.random(0.6f, 0.7f), MathUtils.random(0.6f, 1f), 1f);
+
     @Override
     public void process(CellDecorator c, float delta) {
-        c.cell.color = Color.rgba8888(0f, MathUtils.random(0.6f, 0.7f), MathUtils.random(0.6f, 1f), 1f);
+        c.cell.color = airColor;
 
         if (swapIfSwappable(c, c.getNeighbourAbove())) {
             return;
@@ -24,10 +26,12 @@ public class AirCellSimulator implements CellSimulator {
         }
 
         if (MathUtils.randomBoolean()) {
-            c.swapWithBestFlowing(c.getNeighbourLeft());
+            if (c.swapWithBestFlowing(c.getNeighbourLeft())) return;
         } else {
-            c.swapWithBestFlowing(c.getNeighbourRight());
+            if (c.swapWithBestFlowing(c.getNeighbourRight())) return;
         }
+
+        c.cell.sleep = 1;
     }
 
     @Override
@@ -36,7 +40,7 @@ public class AirCellSimulator implements CellSimulator {
     }
 
     private boolean swapIfSwappable(CellDecorator c, PlanetCell neighbourAbove) {
-        if (neighbourAbove != null && neighbourAbove.type.density != null && neighbourAbove.type.isLighter(c.cell.type) ) {
+        if (neighbourAbove != null && neighbourAbove.type.density != null && neighbourAbove.type.isLighter(c.cell.type)) {
             c.swapWith(neighbourAbove);
             return true;
         }

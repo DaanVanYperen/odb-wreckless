@@ -4,6 +4,7 @@ import com.artemis.SuperMapper;
 import com.artemis.World;
 import com.artemis.WorldConfigurationBuilder;
 import com.artemis.link.EntityLinkManager;
+import com.artemis.managers.GroupManager;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.graphics.Color;
 import net.mostlyoriginal.api.screen.core.WorldScreen;
@@ -12,7 +13,10 @@ import net.mostlyoriginal.api.system.graphics.RenderBatchingSystem;
 import net.mostlyoriginal.api.system.mouse.MouseCursorSystem;
 import net.mostlyoriginal.api.system.render.AnimRenderSystem;
 import net.mostlyoriginal.api.system.render.ClearScreenSystem;
+import net.mostlyoriginal.game.GdxArtemisGame;
 import net.mostlyoriginal.game.system.DrawingSystem;
+import net.mostlyoriginal.game.system.dilemma.CardSystem;
+import net.mostlyoriginal.game.system.logic.TransitionSystem;
 import net.mostlyoriginal.game.system.planet.*;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 import net.mostlyoriginal.game.system.view.GameScreenSetupSystem;
@@ -37,7 +41,10 @@ public class GameScreen extends WorldScreen {
                         new SuperMapper(),
                         new TagManager(),
 
-                        // Replace with your own systems!
+                        new GroupManager(),
+                        new CardSystem(),
+                        new TransitionSystem(GdxArtemisGame.getInstance()),
+
                         new CameraSystem(1),
                         new ClearScreenSystem(Color.valueOf(BACKGROUND_COLOR_HEX)),
                         new GameScreenAssetSystem(),

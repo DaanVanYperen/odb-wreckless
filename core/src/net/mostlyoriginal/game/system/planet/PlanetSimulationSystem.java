@@ -76,9 +76,15 @@ public class PlanetSimulationSystem extends FluidIteratingSystem {
     private void simulateCells(Planet planet) {
         CellDecorator planetCell = new CellDecorator(planet);
         final float delta = world.delta;
-        for (int y = 0; y < SIMULATION_HEIGHT; y++) {
-            for (int x = 0; x < SIMULATION_WIDTH; x++) {
+        int IGNORE_BAND_X = 170;
+        int IGNORE_BAND_Y = 5;
+        for (int y = IGNORE_BAND_Y; y < SIMULATION_HEIGHT -  + IGNORE_BAND_Y; y++) {
+            for (int x = IGNORE_BAND_X; x < SIMULATION_WIDTH -  + IGNORE_BAND_X; x++) {
                 final PlanetCell cell = planet.grid[y][x];
+                if ( cell.sleep > 0 ) {
+                    cell.sleep--;
+                    continue;
+                }
                 simulators[cell.type.ordinal()].process(planetCell.proxies(cell), delta);
             }
         }

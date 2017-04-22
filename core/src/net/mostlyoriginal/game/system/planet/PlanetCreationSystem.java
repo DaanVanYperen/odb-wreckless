@@ -3,6 +3,7 @@ package net.mostlyoriginal.game.system.planet;
 import com.artemis.E;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.TextureData;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -154,7 +155,7 @@ public class PlanetCreationSystem extends PassiveSystem {
     }
 
     private void formSurface(Planet planet) {
-        TextureData textureData = ((TextureRegion) gameScreenAssetSystem.get("dancingman").getKeyFrame(0)).getTexture().getTextureData();
+        TextureData textureData = new Texture("planet.jpg").getTextureData();
         textureData.prepare();
         Pixmap pixmap = textureData.consumePixmap();
         for (int y = 0; y < Planet.SIMULATION_HEIGHT; y++) {
