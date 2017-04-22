@@ -14,4 +14,9 @@ public class Planet extends Component {
     }
 
     public PlanetCell[][] grid = new PlanetCell[SIMULATION_HEIGHT][SIMULATION_WIDTH];
+
+    public PlanetCell get(int x, int y) {
+        if ( x < 0 || y < 0 || x >= SIMULATION_WIDTH || y >= SIMULATION_HEIGHT ) return null;
+        return grid[y][x];
+    }
 }

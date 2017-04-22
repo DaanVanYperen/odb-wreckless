@@ -15,6 +15,6 @@ public class PlanetCell {
         STATIC,
         LAVA,
         WATER,
-        ICE
+        AIR, ICE
     }
 }

@@ -1,5 +1,7 @@
 package net.mostlyoriginal.game.system.planet.cells;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.game.component.PlanetCell;
 
 /**
@@ -7,7 +9,10 @@ import net.mostlyoriginal.game.component.PlanetCell;
  */
 public class WaterCellSimulator implements CellSimulator {
     @Override
-    public void process(PlanetCell planetCell, float delta) {
-
+    public void process(CellDecorator c, float delta) {
+        if ( c.countNeighbour(PlanetCell.CellType.ICE) >= 3 ) {
+            c.setType(PlanetCell.CellType.ICE);
+        }
+        c.cell.color = Color.rgba8888(0f,0f, MathUtils.random(0.6f, 1f), 1f);
     }
 }

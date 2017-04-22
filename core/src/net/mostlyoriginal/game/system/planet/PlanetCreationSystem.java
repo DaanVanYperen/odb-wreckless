@@ -60,10 +60,11 @@ public class PlanetCreationSystem extends PassiveSystem {
     private void guessCellType(PlanetCell cell) {
         if (c.r > 0.4f && c.g < 0.9f && c.b < 0.1f) {
             cell.type = PlanetCell.CellType.LAVA;
-        } else if (c.r < 0.2f && c.g < 0.2f && c.b > 0.5f) {
+        } else if (c.r < 0.2f && c.g > 0.40f && c.g < 0.50f && c.b > 0.5f) {
             cell.type = PlanetCell.CellType.WATER;
-        }
-        if (c.r > 0.9f && c.g < 0.9f && c.b > 0.9f) {
+        } else if (c.r < 0.2f && c.g > 0.50f && c.g < 0.70f && c.b > 0.5f) {
+            cell.type = PlanetCell.CellType.AIR;
+        } else if (c.r > 0.8f && c.g > 0.8f && c.b > 0.8f) {
             cell.type = PlanetCell.CellType.ICE;
         }
     }
