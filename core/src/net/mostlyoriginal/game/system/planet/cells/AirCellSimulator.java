@@ -24,9 +24,9 @@ public class AirCellSimulator implements CellSimulator {
         }
 
         if (MathUtils.randomBoolean()) {
-            swapWithBestWater(c, c.getNeighbourLeft());
+            c.swapWithBestFlowing(c.getNeighbourLeft());
         } else {
-            swapWithBestWater(c, c.getNeighbourRight());
+            c.swapWithBestFlowing(c.getNeighbourRight());
         }
     }
 
@@ -35,27 +35,8 @@ public class AirCellSimulator implements CellSimulator {
 
     }
 
-    private boolean swapWithBestWater(CellDecorator c, PlanetCell neighbourLeft) {
-        if (neighbourLeft != null && isFluid(neighbourLeft)) {
-            CellDecorator child = c.forChild(neighbourLeft);
-            PlanetCell aboveChild = child.getNeighbourAbove();
-            if (aboveChild != null && isFluid(aboveChild)) {
-                c.swapWith(aboveChild);
-                return true;
-            } else {
-                c.swapWith(neighbourLeft);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isFluid(PlanetCell neighbourLeft) {
-        return neighbourLeft.type == PlanetCell.CellType.WATER || neighbourLeft.type == PlanetCell.CellType.LAVA;
-    }
-
     private boolean swapIfSwappable(CellDecorator c, PlanetCell neighbourAbove) {
-        if (neighbourAbove != null && neighbourAbove.type != PlanetCell.CellType.AIR && neighbourAbove.type != PlanetCell.CellType.STATIC) {
+        if (neighbourAbove != null && neighbourAbove.type.density != null && neighbourAbove.type.isLighter(c.cell.type) ) {
             c.swapWith(neighbourAbove);
             return true;
         }

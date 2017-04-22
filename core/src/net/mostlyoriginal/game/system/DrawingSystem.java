@@ -24,6 +24,7 @@ public class DrawingSystem extends FluidIteratingSystem {
 
     private PlanetRenderGravityDebugSystem planetRenderGravityDebugSystem;
     private PlanetRenderTemperatureDebugSystem planetRenderTemperatureDebugSystem;
+    private boolean middleMousePressed;
 
     public DrawingSystem() {
         super(Aspect.all(Planet.class));
@@ -36,6 +37,7 @@ public class DrawingSystem extends FluidIteratingSystem {
         super.begin();
         leftMousePressed = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
         rightMousePressed = Gdx.input.isButtonPressed(Input.Buttons.RIGHT);
+        middleMousePressed = Gdx.input.isButtonPressed(Input.Buttons.MIDDLE);
 
         if (Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
             type = PlanetCell.CellType.AIR;
@@ -65,6 +67,9 @@ public class DrawingSystem extends FluidIteratingSystem {
         }
         if (rightMousePressed) {
             draw(e, (int) cursor.posX(), (int) cursor.posY(), 3, type);
+        }
+        if (middleMousePressed) {
+            draw(e, (int) cursor.posX(), (int) cursor.posY(), 100, type);
         }
 
     }

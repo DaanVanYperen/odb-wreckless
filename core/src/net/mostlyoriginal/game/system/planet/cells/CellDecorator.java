@@ -88,6 +88,28 @@ public class CellDecorator {
         }
     }
 
+
+
+    private boolean isFlows(PlanetCell neighbourLeft) {
+        return neighbourLeft.type.flows();
+    }
+
+    public boolean swapWithBestFlowing(PlanetCell neighbourLeft) {
+        if (neighbourLeft != null && neighbourLeft.type != cell.type && isFlows(neighbourLeft)) {
+            CellDecorator child = forChild(neighbourLeft);
+            PlanetCell aboveChild = child.getNeighbourAbove();
+            if (aboveChild != null && isFlows(aboveChild)) {
+                swapWith(aboveChild);
+                return true;
+            } else {
+                swapWith(neighbourLeft);
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     public StatusMask mask() {
         return planet.getStatusMask(cell.x, cell.y);
     }

@@ -10,6 +10,7 @@ import net.mostlyoriginal.game.component.PlanetCell;
 public class WaterCellSimulator implements CellSimulator {
     @Override
     public void process(CellDecorator c, float delta) {
+        c.cell.color = Color.rgba8888(0f, 0f, MathUtils.random(0.6f, 1f), 1f);
 
         if (c.countNeighbour(PlanetCell.CellType.ICE) >= 3) {
             final int temperature = c.mask().temperature;
@@ -18,7 +19,31 @@ public class WaterCellSimulator implements CellSimulator {
             }
         }
 
-        c.cell.color = Color.rgba8888(0f, 0f, MathUtils.random(0.6f, 1f), 1f);
+        int lavaCount = c.countNeighbour(PlanetCell.CellType.LAVA);
+        if (lavaCount >= 1) {
+            if (MathUtils.random(0, 100) < 25f) {
+                // small chance of transforming self.
+                if (c.cell.nextType == null) {
+                    c.setNextType(PlanetCell.CellType.STEAM);
+                }
+            } else {
+                // small chance of transforming nearby.
+                for (int i = 0; i < lavaCount; i++) {
+                    PlanetCell planetCell = c.hasNeighbour(PlanetCell.CellType.AIR);
+                    if (planetCell == null) planetCell = c.hasNeighbour(PlanetCell.CellType.WATER);
+                    if (planetCell != null && planetCell.nextType == null) {
+                        c.forChild(planetCell).setNextType(PlanetCell.CellType.STEAM);
+                    }
+                }
+            }
+        }
+
+        if (MathUtils.randomBoolean()) {
+            c.swapWithBestFlowing(c.getNeighbourLeft());
+        } else {
+            c.swapWithBestFlowing(c.getNeighbourRight());
+        }
+
     }
 
     @Override

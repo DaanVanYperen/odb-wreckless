@@ -35,6 +35,7 @@ public class PlanetSimulationSystem extends FluidIteratingSystem {
         addSimulator(PlanetCell.CellType.WATER, new WaterCellSimulator());
         addSimulator(PlanetCell.CellType.AIR, new AirCellSimulator());
         addSimulator(PlanetCell.CellType.ICE, new IceCellSimulator());
+        addSimulator(PlanetCell.CellType.STEAM, new SteamCellSimulator());
     }
 
     private void addSimulator(PlanetCell.CellType cellType, CellSimulator simulator) {

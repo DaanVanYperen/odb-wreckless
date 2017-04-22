@@ -1,7 +1,5 @@
 package net.mostlyoriginal.game.component;
 
-import com.badlogic.gdx.graphics.Color;
-
 /**
  * @author Daan van Yperen
  */
@@ -30,6 +28,7 @@ public class PlanetCell {
     public int up() {
         return (down + 4) % 8;
     }
+
     public int left() {
         return (down + 6) % 8;
     }
@@ -47,14 +46,39 @@ public class PlanetCell {
     }
 
     public void activateNextType() {
-        if ( nextType != null ) { type = nextType; nextType = null; }
-        if ( nextColor != -1 ) { color = nextColor; nextColor = -1; }
+        if (nextType != null) {
+            type = nextType;
+            nextType = null;
+        }
+        if (nextColor != -1) {
+            color = nextColor;
+            nextColor = -1;
+        }
     }
 
     public enum CellType {
-        STATIC,
-        LAVA,
-        WATER,
-        AIR, ICE
+        STATIC(null, false),
+        LAVA(5f, true),
+        WATER(1f, true),
+        AIR(0f, true),
+        ICE(null, false),
+        STEAM(-0.5f, true);
+
+        public final Float density;
+        private boolean flows;
+
+        CellType(Float density, boolean flows) {
+            this.density = density;
+            this.flows = flows;
+        }
+
+        public boolean flows() {
+            flows = false;
+            return flows;
+        }
+
+        public boolean isLighter(CellType type) {
+            return type.density != null && density != null && type.density < density;
+        }
     }
 }
