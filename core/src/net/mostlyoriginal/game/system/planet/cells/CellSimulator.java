@@ -5,4 +5,5 @@ package net.mostlyoriginal.game.system.planet.cells;
  */
 public interface CellSimulator {
     void process(CellDecorator c, float delta);
+    void updateMask(CellDecorator c, float delta);
 }

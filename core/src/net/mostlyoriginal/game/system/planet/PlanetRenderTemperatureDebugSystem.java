@@ -14,22 +14,21 @@ import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 /**
  * @author Daan van Yperen
  */
-public class PlanetRenderSystem extends FluidIteratingSystem {
-
+public class PlanetRenderTemperatureDebugSystem extends FluidIteratingSystem {
     private SpriteBatch batch;
     private TextureRegion planetPixel;
 
-    public PlanetRenderSystem() {
+    public PlanetRenderTemperatureDebugSystem() {
         super(Aspect.all(Planet.class));
     }
 
+    public boolean active = false;
     private CameraSystem cameraSystem;
 
     @Override
     protected void initialize() {
         batch = new SpriteBatch(2000);
-
-        planetPixel = new TextureRegion(new Texture("planetcell.png"));
+        planetPixel = new TextureRegion(new Texture("planetcell.png"),1,1);
     }
 
     @Override
@@ -45,16 +44,22 @@ public class PlanetRenderSystem extends FluidIteratingSystem {
         batch.end();
     }
 
-    private Color color = new Color();
+    Color color = new Color();
 
     @Override
     protected void process(E e) {
+        if ( !active ) return;
         Planet planet = e.getPlanet();
         for (int y = 0; y < Planet.SIMULATION_HEIGHT; y++) {
             for (int x = 0; x < Planet.SIMULATION_WIDTH; x++) {
                 final PlanetCell cell = planet.grid[y][x];
-                batch.setColor(color.set(cell.color));
-                batch.draw(planetPixel, x, y);
+
+                int temperature = planet.getStatusMask(x, y).temperature;
+                color.set((temperature > 0 ? temperature * 0.2f : 0), 0, (temperature < 0 ? 1f : 0), Math.abs(temperature) * 0.01f);
+                if (temperature != 0) {
+                    batch.setColor(color);
+                    batch.draw(planetPixel, x, y);
+                }
             }
 
         }

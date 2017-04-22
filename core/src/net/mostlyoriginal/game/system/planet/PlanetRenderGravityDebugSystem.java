@@ -14,12 +14,12 @@ import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 /**
  * @author Daan van Yperen
  */
-public class PlanetRenderSystem extends FluidIteratingSystem {
-
+public class PlanetRenderGravityDebugSystem extends FluidIteratingSystem {
     private SpriteBatch batch;
     private TextureRegion planetPixel;
+    public boolean active;
 
-    public PlanetRenderSystem() {
+    public PlanetRenderGravityDebugSystem() {
         super(Aspect.all(Planet.class));
     }
 
@@ -28,7 +28,6 @@ public class PlanetRenderSystem extends FluidIteratingSystem {
     @Override
     protected void initialize() {
         batch = new SpriteBatch(2000);
-
         planetPixel = new TextureRegion(new Texture("planetcell.png"));
     }
 
@@ -45,16 +44,28 @@ public class PlanetRenderSystem extends FluidIteratingSystem {
         batch.end();
     }
 
-    private Color color = new Color();
+    Color color = new Color();
+    int direction = 0;
+    float cooldown = 1f;
 
     @Override
     protected void process(E e) {
+        if ( !active ) return;
         Planet planet = e.getPlanet();
+        cooldown -= world.delta;
+        if (cooldown <= 0) {
+            cooldown = 1;
+            direction = (direction + 1) % 8;
+            System.out.println(PlanetCell.directions[direction][0] + ", " + PlanetCell.directions[direction][1]);
+        }
         for (int y = 0; y < Planet.SIMULATION_HEIGHT; y++) {
             for (int x = 0; x < Planet.SIMULATION_WIDTH; x++) {
                 final PlanetCell cell = planet.grid[y][x];
-                batch.setColor(color.set(cell.color));
-                batch.draw(planetPixel, x, y);
+                if (cell.down == direction) {
+                    color.set(0, 0, 1f, 0.2f);
+                    batch.setColor(color);
+                    batch.draw(planetPixel, x, y);
+                }
             }
 
         }

@@ -2,6 +2,7 @@ package net.mostlyoriginal.game.system.planet.cells;
 
 import net.mostlyoriginal.game.component.Planet;
 import net.mostlyoriginal.game.component.PlanetCell;
+import net.mostlyoriginal.game.component.StatusMask;
 
 /**
  * @author Daan van Yperen
@@ -9,6 +10,7 @@ import net.mostlyoriginal.game.component.PlanetCell;
 public class CellDecorator {
     public PlanetCell cell;
     public final Planet planet;
+    public CellDecorator helper;
 
     public CellDecorator(Planet planet) {
         this.planet = planet;
@@ -23,35 +25,70 @@ public class CellDecorator {
         return this;
     }
 
-    private static int[][] directions = {
-            {-1, -1},
-            {0, -1},
-            {1, -1},
-            {1, 0},
-            {1, 1},
-            {0, 1},
-            {-1, 1},
-            {-1, 0}
-    };
+    public CellDecorator forChild(PlanetCell cell) {
+        if (helper == null) {
+            helper = new CellDecorator(planet);
+        }
+        return helper.proxies(cell);
+    }
+
+    public PlanetCell getNeighbourAbove() {
+        return planet.get(cell.x + PlanetCell.directions[cell.up()][0], cell.y + PlanetCell.directions[cell.up()][1]);
+    }
+
+    public PlanetCell getNeighbourLeft() {
+        return planet.get(cell.x + PlanetCell.directions[cell.left()][0], cell.y + PlanetCell.directions[cell.left()][1]);
+    }
+
+    public PlanetCell getNeighbourRight() {
+        return planet.get(cell.x + PlanetCell.directions[cell.right()][0], cell.y + PlanetCell.directions[cell.right()][1]);
+    }
+
+    public PlanetCell getNeighbourAboveL() {
+        return planet.get(cell.x + PlanetCell.directions[cell.upL()][0], cell.y + PlanetCell.directions[cell.upR()][1]);
+    }
+
+    public PlanetCell getNeighbourAboveR() {
+        return planet.get(cell.x + PlanetCell.directions[cell.upR()][0], cell.y + PlanetCell.directions[cell.upL()][1]);
+    }
+
+    public PlanetCell getBelow() {
+        return planet.get(cell.x + PlanetCell.directions[cell.down][0], cell.y + PlanetCell.directions[cell.down][1]);
+    }
 
     public PlanetCell hasNeighbour(PlanetCell.CellType type) {
         for (int i = 0; i < 8; i++) {
-            final PlanetCell result = planet.get(cell.x + directions[i][0], cell.y + directions[i][1]);
+            final PlanetCell result = planet.get(cell.x + PlanetCell.directions[i][0], cell.y + PlanetCell.directions[i][1]);
             if (result != null && result.type == type) return result;
         }
         return null;
     }
 
-    public void setType(PlanetCell.CellType type) {
-        cell.type = type;
+    public void setNextType(PlanetCell.CellType type) {
+        cell.nextType = type;
     }
 
     public int countNeighbour(PlanetCell.CellType type) {
         int count = 0;
         for (int i = 0; i < 8; i++) {
-            final PlanetCell result = planet.get(cell.x + directions[i][0], cell.y + directions[i][1]);
+            final PlanetCell result = planet.get(cell.x + PlanetCell.directions[i][0], cell.y + PlanetCell.directions[i][1]);
             if (result != null && result.type == type) count++;
         }
         return count;
+    }
+
+    private PlanetCell temp = new PlanetCell();
+
+    public void swapWith(PlanetCell target) {
+        if (target.nextType == null) {
+            target.nextType = cell.type;
+            target.nextColor = cell.color;
+            cell.nextType = target.type;
+            cell.nextColor = target.color;
+        }
+    }
+
+    public StatusMask mask() {
+        return planet.getStatusMask(cell.x, cell.y);
     }
 }

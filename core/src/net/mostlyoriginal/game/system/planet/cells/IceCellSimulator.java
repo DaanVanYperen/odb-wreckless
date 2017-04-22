@@ -10,10 +10,19 @@ import net.mostlyoriginal.game.component.PlanetCell;
 public class IceCellSimulator implements CellSimulator {
     @Override
     public void process(CellDecorator c, float delta) {
-        if ( c.countNeighbour(PlanetCell.CellType.LAVA) >= 1 ) {
-            c.setType(PlanetCell.CellType.WATER);
+        final int temperature = c.mask().temperature;
+        if ( temperature > 0 && MathUtils.random(0,100) < temperature ) {
+            c.setNextType(PlanetCell.CellType.WATER);
         }
         c.cell.color = Color.rgba8888(MathUtils.random(0.6f, 1f), MathUtils.random(0.6f, 1f), MathUtils.random(0.6f, 1f),  1f);
 
     }
+
+    @Override
+    public void updateMask(CellDecorator c, float delta) {
+        if ( c.mask().temperature > -30) {
+//            c.mask().temperature--;
+        }
+    }
+
 }

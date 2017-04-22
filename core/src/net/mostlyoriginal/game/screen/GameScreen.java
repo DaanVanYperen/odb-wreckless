@@ -4,15 +4,16 @@ import com.artemis.SuperMapper;
 import com.artemis.World;
 import com.artemis.WorldConfigurationBuilder;
 import com.artemis.link.EntityLinkManager;
+import com.artemis.managers.TagManager;
 import com.badlogic.gdx.graphics.Color;
 import net.mostlyoriginal.api.screen.core.WorldScreen;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.system.graphics.RenderBatchingSystem;
+import net.mostlyoriginal.api.system.mouse.MouseCursorSystem;
 import net.mostlyoriginal.api.system.render.AnimRenderSystem;
 import net.mostlyoriginal.api.system.render.ClearScreenSystem;
-import net.mostlyoriginal.game.system.planet.PlanetCreationSystem;
-import net.mostlyoriginal.game.system.planet.PlanetRenderSystem;
-import net.mostlyoriginal.game.system.planet.PlanetSimulationSystem;
+import net.mostlyoriginal.game.system.DrawingSystem;
+import net.mostlyoriginal.game.system.planet.*;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 import net.mostlyoriginal.game.system.view.GameScreenSetupSystem;
 import net.mostlyoriginal.plugin.OperationsPlugin;
@@ -34,15 +35,25 @@ public class GameScreen extends WorldScreen {
                 .dependsOn(EntityLinkManager.class, ProfilerPlugin.class, OperationsPlugin.class)
                 .with(
                         new SuperMapper(),
+                        new TagManager(),
 
                         // Replace with your own systems!
                         new CameraSystem(1),
                         new ClearScreenSystem(Color.valueOf(BACKGROUND_COLOR_HEX)),
                         new GameScreenAssetSystem(),
                         new GameScreenSetupSystem(),
+
+                        new MouseCursorSystem(),
+
                         new PlanetCreationSystem(),
+
+                        new DrawingSystem(),
+
                         new PlanetSimulationSystem(),
                         new PlanetRenderSystem(),
+                        new PlanetRenderGravityDebugSystem(),
+                        new PlanetRenderTemperatureDebugSystem(),
+
                         renderBatchingSystem = new RenderBatchingSystem(),
                         new AnimRenderSystem(renderBatchingSystem)
                 ).build());

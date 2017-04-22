@@ -13,10 +13,21 @@ import static com.artemis.E.E;
 @Wire
 public class GameScreenSetupSystem extends PassiveSystem {
 
-	GameScreenAssetSystem assetSystem;
+    GameScreenAssetSystem assetSystem;
 
-	@Override
-	protected void initialize() {
+    @Override
+    protected void initialize() {
+        createMousecursor();
+    }
 
-	}
+    private Entity createMousecursor() {
+        return E()
+                .pos()
+                .mouseCursor()
+                .bounds()
+                .tag("cursor").entity();
+
+    }
+
+
 }
