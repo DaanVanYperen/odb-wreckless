@@ -10,18 +10,17 @@ import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 @Wire
 public class GameScreenAssetSystem extends AbstractAssetSystem {
 
-	public static final int DANCING_MAN_WIDTH = 24;
-	public static final int DANCING_MAN_HEIGHT = 36;
+	public static final int DANCING_MAN_WIDTH = 800;
+	public static final int DANCING_MAN_HEIGHT = 450;
 
 	public GameScreenAssetSystem() {
-		super("dancingman.png");
+		super("planet.jpg");
 	}
 
 	@Override
 	protected void initialize() {
 		super.initialize();
 
-		final Animation dancingman = add("dancingman", 0, 0, DANCING_MAN_WIDTH, DANCING_MAN_HEIGHT, 7);
-		dancingman.setFrameDuration(1/6f);
+		add("dancingman", 0, 0, DANCING_MAN_WIDTH, DANCING_MAN_HEIGHT, 1);
 	}
 }

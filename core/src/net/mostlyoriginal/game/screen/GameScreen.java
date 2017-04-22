@@ -10,6 +10,9 @@ import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.system.graphics.RenderBatchingSystem;
 import net.mostlyoriginal.api.system.render.AnimRenderSystem;
 import net.mostlyoriginal.api.system.render.ClearScreenSystem;
+import net.mostlyoriginal.game.system.planet.PlanetCreationSystem;
+import net.mostlyoriginal.game.system.planet.PlanetRenderSystem;
+import net.mostlyoriginal.game.system.planet.PlanetSimulationSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 import net.mostlyoriginal.game.system.view.GameScreenSetupSystem;
 import net.mostlyoriginal.plugin.OperationsPlugin;
@@ -37,6 +40,9 @@ public class GameScreen extends WorldScreen {
                         new ClearScreenSystem(Color.valueOf(BACKGROUND_COLOR_HEX)),
                         new GameScreenAssetSystem(),
                         new GameScreenSetupSystem(),
+                        new PlanetCreationSystem(),
+                        new PlanetSimulationSystem(),
+                        new PlanetRenderSystem(),
                         renderBatchingSystem = new RenderBatchingSystem(),
                         new AnimRenderSystem(renderBatchingSystem)
                 ).build());
