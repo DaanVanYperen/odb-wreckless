@@ -1,4 +1,6 @@
-package net.mostlyoriginal.game.system.dilemma;
+package net.mostlyoriginal.game.component;
+
+import com.artemis.Component;
 
 /**
  * Created by Daan on 10-9-2014.

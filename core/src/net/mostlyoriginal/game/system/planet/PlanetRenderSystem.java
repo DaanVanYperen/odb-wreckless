@@ -11,6 +11,8 @@ import net.mostlyoriginal.game.component.Planet;
 import net.mostlyoriginal.game.component.PlanetCell;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 
+import static net.mostlyoriginal.game.component.G.*;
+
 /**
  * @author Daan van Yperen
  */
@@ -29,7 +31,7 @@ public class PlanetRenderSystem extends FluidIteratingSystem {
     protected void initialize() {
         batch = new SpriteBatch(2000);
 
-        planetPixel = new TextureRegion(new Texture("planetcell.png"));
+        planetPixel = new TextureRegion(new Texture("planetcell.png"),1,1);
     }
 
     @Override
@@ -50,11 +52,14 @@ public class PlanetRenderSystem extends FluidIteratingSystem {
     @Override
     protected void process(E e) {
         Planet planet = e.getPlanet();
-        for (int y = 0; y < Planet.SIMULATION_HEIGHT; y++) {
-            for (int x = 0; x < Planet.SIMULATION_WIDTH; x++) {
+        for (int y = 0; y < SIMULATION_HEIGHT; y++) {
+            for (int x = 0; x < SIMULATION_WIDTH; x++) {
                 final PlanetCell cell = planet.grid[y][x];
-                batch.setColor(color.set(cell.color));
-                batch.draw(planetPixel, x, y);
+                if ( cell.color == 0 )
+                    continue;
+                Color.rgba8888ToColor(color,cell.color);
+                batch.setColor(color);
+                batch.draw(planetPixel, x+PLANET_X, y + PLANET_Y);
             }
 
         }

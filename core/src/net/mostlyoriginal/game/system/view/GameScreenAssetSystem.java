@@ -10,9 +10,6 @@ import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 @Wire
 public class GameScreenAssetSystem extends AbstractAssetSystem {
 
-    public static final int DANCING_MAN_WIDTH = 800;
-    public static final int DANCING_MAN_HEIGHT = 450;
-
     public GameScreenAssetSystem() {
         super("cards.png");
     }

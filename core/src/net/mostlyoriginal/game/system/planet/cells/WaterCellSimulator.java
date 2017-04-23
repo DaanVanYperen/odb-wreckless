@@ -10,7 +10,7 @@ import net.mostlyoriginal.game.component.PlanetCell;
 public class WaterCellSimulator implements CellSimulator {
     @Override
     public void process(CellDecorator c, float delta) {
-        c.cell.color = Color.rgba8888(0f, 0f, MathUtils.random(0.6f, 1f), 1f);
+        c.cell.color = c.planet.cellColor[PlanetCell.CellType.WATER.ordinal()];
 
         if (c.countNeighbour(PlanetCell.CellType.ICE) >= 3) {
             final int temperature = c.mask().temperature;
@@ -19,7 +19,7 @@ public class WaterCellSimulator implements CellSimulator {
             }
         }
 
-        int lavaCount = c.countNeighbour(PlanetCell.CellType.LAVA);
+        int lavaCount = c.countNeighbour(PlanetCell.CellType.LAVA) + c.countNeighbour(PlanetCell.CellType.LAVA_CRUST);
         if (lavaCount >= 1) {
             if (MathUtils.random(0, 100) < 25f) {
                 // small chance of transforming self.

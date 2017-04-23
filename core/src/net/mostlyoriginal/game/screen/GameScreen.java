@@ -11,13 +11,16 @@ import net.mostlyoriginal.api.screen.core.WorldScreen;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.system.graphics.RenderBatchingSystem;
 import net.mostlyoriginal.api.system.mouse.MouseCursorSystem;
+import net.mostlyoriginal.api.system.physics.CollisionSystem;
 import net.mostlyoriginal.api.system.render.AnimRenderSystem;
 import net.mostlyoriginal.api.system.render.ClearScreenSystem;
 import net.mostlyoriginal.game.GdxArtemisGame;
+import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.system.DrawingSystem;
 import net.mostlyoriginal.game.system.dilemma.CardSystem;
 import net.mostlyoriginal.game.system.logic.TransitionSystem;
 import net.mostlyoriginal.game.system.planet.*;
+import net.mostlyoriginal.game.system.ui.MouseClickSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 import net.mostlyoriginal.game.system.view.GameScreenSetupSystem;
 import net.mostlyoriginal.plugin.OperationsPlugin;
@@ -30,7 +33,7 @@ import net.mostlyoriginal.plugin.ProfilerPlugin;
  */
 public class GameScreen extends WorldScreen {
 
-    public static final String BACKGROUND_COLOR_HEX = "969291";
+    public static final String BACKGROUND_COLOR_HEX = "000000";
 
     @Override
     protected World createWorld() {
@@ -43,20 +46,23 @@ public class GameScreen extends WorldScreen {
 
                         new GroupManager(),
                         new CardSystem(),
+                        new CollisionSystem(),
                         new TransitionSystem(GdxArtemisGame.getInstance()),
 
-                        new CameraSystem(1),
                         new ClearScreenSystem(Color.valueOf(BACKGROUND_COLOR_HEX)),
+                        new CameraSystem(G.CAMERA_ZOOM),
                         new GameScreenAssetSystem(),
                         new GameScreenSetupSystem(),
 
                         new MouseCursorSystem(),
+                        new MouseClickSystem(),
 
                         new PlanetCreationSystem(),
 
                         new DrawingSystem(),
 
                         new PlanetSimulationSystem(),
+
                         new PlanetRenderSystem(),
                         new PlanetRenderGravityDebugSystem(),
                         new PlanetRenderTemperatureDebugSystem(),

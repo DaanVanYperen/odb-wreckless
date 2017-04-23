@@ -7,9 +7,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
+import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.Planet;
 import net.mostlyoriginal.game.component.PlanetCell;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
+
+import static net.mostlyoriginal.game.component.G.PLANET_X;
+import static net.mostlyoriginal.game.component.G.PLANET_Y;
 
 /**
  * @author Daan van Yperen
@@ -28,7 +32,7 @@ public class PlanetRenderGravityDebugSystem extends FluidIteratingSystem {
     @Override
     protected void initialize() {
         batch = new SpriteBatch(2000);
-        planetPixel = new TextureRegion(new Texture("planetcell.png"));
+        planetPixel = new TextureRegion(new Texture("planetcell.png"),1,1);
     }
 
     @Override
@@ -58,13 +62,13 @@ public class PlanetRenderGravityDebugSystem extends FluidIteratingSystem {
             direction = (direction + 1) % 8;
             System.out.println(PlanetCell.directions[direction][0] + ", " + PlanetCell.directions[direction][1]);
         }
-        for (int y = 0; y < Planet.SIMULATION_HEIGHT; y++) {
-            for (int x = 0; x < Planet.SIMULATION_WIDTH; x++) {
+        for (int y = 0; y < G.SIMULATION_HEIGHT; y++) {
+            for (int x = 0; x < G.SIMULATION_WIDTH; x++) {
                 final PlanetCell cell = planet.grid[y][x];
                 if (cell.down == direction) {
-                    color.set(0, 0, 1f, 0.2f);
+                    color.set(0, 0, 1f, 0.8f);
                     batch.setColor(color);
-                    batch.draw(planetPixel, x, y);
+                    batch.draw(planetPixel, x+PLANET_X, y+ PLANET_Y);
                 }
             }
 

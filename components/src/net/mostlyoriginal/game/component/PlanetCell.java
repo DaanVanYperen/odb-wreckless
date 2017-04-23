@@ -63,7 +63,7 @@ public class PlanetCell {
         WATER(1f, true),
         AIR(0f, true),
         ICE(null, false),
-        STEAM(-0.5f, true);
+        STEAM(-0.5f, true), LAVA_CRUST(5f, true);
 
         public final Float density;
         private boolean flows;

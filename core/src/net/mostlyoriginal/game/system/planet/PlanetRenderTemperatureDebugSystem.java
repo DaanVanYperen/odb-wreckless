@@ -11,6 +11,8 @@ import net.mostlyoriginal.game.component.Planet;
 import net.mostlyoriginal.game.component.PlanetCell;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 
+import static net.mostlyoriginal.game.component.G.*;
+
 /**
  * @author Daan van Yperen
  */
@@ -50,15 +52,15 @@ public class PlanetRenderTemperatureDebugSystem extends FluidIteratingSystem {
     protected void process(E e) {
         if ( !active ) return;
         Planet planet = e.getPlanet();
-        for (int y = 0; y < Planet.SIMULATION_HEIGHT; y++) {
-            for (int x = 0; x < Planet.SIMULATION_WIDTH; x++) {
+        for (int y = 0; y < SIMULATION_HEIGHT; y++) {
+            for (int x = 0; x < SIMULATION_WIDTH; x++) {
                 final PlanetCell cell = planet.grid[y][x];
 
                 int temperature = planet.getStatusMask(x, y).temperature;
                 color.set((temperature > 0 ? temperature * 0.2f : 0), 0, (temperature < 0 ? 1f : 0), Math.abs(temperature) * 0.01f);
                 if (temperature != 0) {
                     batch.setColor(color);
-                    batch.draw(planetPixel, x, y);
+                    batch.draw(planetPixel, x+PLANET_X, y+ PLANET_Y);
                 }
             }
 

@@ -11,8 +11,7 @@ public class SteamCellSimulator implements CellSimulator {
 
     @Override
     public void process(CellDecorator c, float delta) {
-        float cp = MathUtils.random(0.4f, 0.9f);
-        c.cell.color = Color.rgba8888(cp, cp, cp, 1f);
+        c.cell.color = c.planet.cellColor[PlanetCell.CellType.STEAM.ordinal()];
 
         if (c.cell.nextType == null) {
             if (MathUtils.random(0,100) < 1f) {

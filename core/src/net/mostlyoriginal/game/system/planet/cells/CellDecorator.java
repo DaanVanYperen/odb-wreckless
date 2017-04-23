@@ -77,6 +77,16 @@ public class CellDecorator {
         return count;
     }
 
+    public int countNonLavaNeighbour() {
+        int count = 0;
+        for (int i = 0; i < 8; i++) {
+            final PlanetCell result = planet.get(cell.x + PlanetCell.directions[i][0], cell.y + PlanetCell.directions[i][1]);
+            if (result != null && (result.type != PlanetCell.CellType.LAVA_CRUST && result.type != PlanetCell.CellType.LAVA))
+                count++;
+        }
+        return count;
+    }
+
     private PlanetCell temp = new PlanetCell();
 
     public void swapWith(PlanetCell target) {
@@ -87,7 +97,6 @@ public class CellDecorator {
             cell.nextColor = target.color;
         }
     }
-
 
 
     private boolean isFlows(PlanetCell neighbourLeft) {

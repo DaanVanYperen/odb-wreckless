@@ -1,0 +1,35 @@
+{
+  "planets": [
+    {
+      "id": "TEMPLATE",
+      "comment": "Example planet.",
+      "texture": "planet.png",
+      "types": [
+        {
+          "color": "ff6015",
+          "type": "LAVA"
+        },
+        {
+          "color": "f28430",
+          "type": "LAVA_CRUST"
+        },
+        {
+          "color": "0667ac",
+          "type": "WATER"
+        },
+        {
+          "color": "0795fe",
+          "type": "AIR"
+        },
+        {
+          "color": "e0e6ff",
+          "type": "ICE"
+        },
+        {
+          "color": "ffffff",
+          "type": "STEAM"
+        }
+      ]
+    }
+  ]
+}

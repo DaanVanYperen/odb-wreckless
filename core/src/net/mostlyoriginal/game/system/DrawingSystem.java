@@ -5,13 +5,15 @@ import com.artemis.E;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.game.component.Planet;
 import net.mostlyoriginal.game.component.PlanetCell;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.planet.PlanetRenderGravityDebugSystem;
 import net.mostlyoriginal.game.system.planet.PlanetRenderTemperatureDebugSystem;
+
+import static net.mostlyoriginal.game.component.G.PLANET_X;
+import static net.mostlyoriginal.game.component.G.PLANET_Y;
 
 /**
  * @author Daan van Yperen
@@ -77,6 +79,8 @@ public class DrawingSystem extends FluidIteratingSystem {
     Vector2 v = new Vector2();
 
     private void draw(E e, int x1, int y1, int size, PlanetCell.CellType air) {
+        y1 -= PLANET_Y;
+        x1 -= PLANET_X;
         for (int y = y1 - size; y < y1 + size; y++) {
             for (int x = x1 - size; x < x1 + size; x++) {
                 if (v.set(x1, y1).sub(x, y).len() < size) {

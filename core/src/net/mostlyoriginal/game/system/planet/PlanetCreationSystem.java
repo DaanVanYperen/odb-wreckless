@@ -1,19 +1,22 @@
 package net.mostlyoriginal.game.system.planet;
 
 import com.artemis.E;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.TextureData;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Json;
 import net.mostlyoriginal.api.system.core.PassiveSystem;
+import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.Planet;
 import net.mostlyoriginal.game.component.PlanetCell;
 import net.mostlyoriginal.game.component.StatusMask;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
-import static com.badlogic.gdx.utils.Align.center;
+import static net.mostlyoriginal.game.component.G.SIMULATION_HEIGHT;
+import static net.mostlyoriginal.game.component.G.SIMULATION_WIDTH;
 
 /**
  * @author Daan van Yperen
@@ -21,21 +24,38 @@ import static com.badlogic.gdx.utils.Align.center;
 public class PlanetCreationSystem extends PassiveSystem {
 
     GameScreenAssetSystem gameScreenAssetSystem;
+    PlanetLibrary planetLibrary = new PlanetLibrary();
 
     @Override
     protected void initialize() {
         super.initialize();
-        Planet planet = E.E()
-                .planet()
-                .pos(0, 0)
-                .getPlanet();
-        populate(planet);
-        gravity(planet);
+        loadPlanets();
+    }
+
+    private void loadPlanets() {
+        final Json json = new Json();
+        planetLibrary = json.fromJson(PlanetLibrary.class, Gdx.files.internal("planets.json"));
+
+        for (PlanetData planet : planetLibrary.planets) {
+
+            Planet planetE = E.E()
+                    .planet()
+                    .pos(0, 0)
+                    .getPlanet();
+
+            for (PlanetData.CellType type : planet.types) {
+                Color color = Color.valueOf(type.color);
+                planetE.cellColor[type.type.ordinal()] = type.intColor = Color.rgba8888(color);
+            }
+
+            populate(planet, planetE);
+            gravity(planetE);
+        }
     }
 
     private void gravity(Planet planet) {
-        int centerX = Planet.SIMULATION_WIDTH / 2;
-        int centerY = Planet.SIMULATION_HEIGHT / 2;
+        int centerX = SIMULATION_WIDTH / 2;
+        int centerY = SIMULATION_HEIGHT / 2;
         int granularity = 30;
         for (int sub = 0; sub < granularity; sub++) {
             for (int degrees = 0; degrees < 360; degrees++) {
@@ -98,8 +118,8 @@ public class PlanetCreationSystem extends PassiveSystem {
     private int dirOfSmart(int x, int y) {
         int x0 = x;
         int y0 = y;
-        int x1 = Planet.SIMULATION_WIDTH / 2;
-        int y1 = Planet.SIMULATION_HEIGHT / 2;
+        int x1 = G.SIMULATION_WIDTH / 2;
+        int y1 = G.SIMULATION_HEIGHT / 2;
         int Dx = x0 - x1;
         int Dy = y0 - y1;
 
@@ -149,26 +169,26 @@ public class PlanetCreationSystem extends PassiveSystem {
         return 0;
     }
 
-    private void populate(Planet planet) {
-        formSurface(planet);
+    private void populate(PlanetData planetData, Planet planet) {
+        formSurface(planet, new Texture(planetData.texture), planetData);
         formMask(planet);
     }
 
-    private void formSurface(Planet planet) {
-        TextureData textureData = new Texture("planet.jpg").getTextureData();
+    private void formSurface(Planet planet, Texture texture, PlanetData planetData) {
+        TextureData textureData = texture.getTextureData();
         textureData.prepare();
         Pixmap pixmap = textureData.consumePixmap();
-        for (int y = 0; y < Planet.SIMULATION_HEIGHT; y++) {
-            for (int x = 0; x < Planet.SIMULATION_WIDTH; x++) {
-                planet.grid[y][x] = formCell(planet, y, x, pixmap.getPixel(x, y));
+        for (int y = 0; y < G.SIMULATION_HEIGHT; y++) {
+            for (int x = 0; x < G.SIMULATION_WIDTH; x++) {
+                planet.grid[y][x] = formCell(planet, y, x, pixmap.getPixel(x, y), planetData);
             }
         }
         pixmap.dispose();
     }
 
     private void formMask(Planet planet) {
-        for (int y = 0; y < Planet.SIMULATION_HEIGHT / Planet.GRADIENT_SCALE; y++) {
-            for (int x = 0; x < Planet.SIMULATION_WIDTH / Planet.GRADIENT_SCALE; x++) {
+        for (int y = 0; y < G.SIMULATION_HEIGHT / G.GRADIENT_SCALE; y++) {
+            for (int x = 0; x < G.SIMULATION_WIDTH / G.GRADIENT_SCALE; x++) {
                 planet.mask[y][x] = new StatusMask();
                 planet.tempMask[y][x] = new StatusMask();
             }
@@ -177,15 +197,14 @@ public class PlanetCreationSystem extends PassiveSystem {
 
     Color c = new Color();
 
-    private PlanetCell formCell(Planet planet, int y, int x, int color) {
+    private PlanetCell formCell(Planet planet, int y, int x, int color, PlanetData planetData) {
 
         PlanetCell cell = new PlanetCell();
         cell.x = x;
         cell.y = y;
         cell.color = color;
         c.set(color);
-
-        guessCellType(cell);
+        guessCellType(cell, planetData);
 
         return cell;
     }
@@ -201,15 +220,12 @@ public class PlanetCreationSystem extends PassiveSystem {
         return 0;
     }
 
-    private void guessCellType(PlanetCell cell) {
-        if (c.r > 0.38f &&c.b < 0.25f) {
-            cell.type = PlanetCell.CellType.LAVA;
-        } else if (c.r < 0.03f && c.g > 0.40f && c.g < 0.50f && c.b > 0.5f) {
-            cell.type = PlanetCell.CellType.WATER;
-        } else if (c.r < 0.2f && c.g > 0.50f && c.g < 0.70f && c.b > 0.5f) {
-            cell.type = PlanetCell.CellType.AIR;
-        } else if (c.r > 0.7f && c.g > 0.7f && c.b > 0.8f) {
-            cell.type = PlanetCell.CellType.ICE;
+    private void guessCellType(PlanetCell cell, PlanetData planetData) {
+        for (PlanetData.CellType type : planetData.types) {
+            if (cell.color == type.intColor) {
+                cell.type = type.type;
+                return;
+            }
         }
     }
 }

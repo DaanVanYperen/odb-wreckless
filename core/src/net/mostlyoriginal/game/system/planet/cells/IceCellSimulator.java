@@ -14,8 +14,7 @@ public class IceCellSimulator implements CellSimulator {
         if ( temperature > 0 && MathUtils.random(0,100) < temperature ) {
             c.setNextType(PlanetCell.CellType.WATER);
         }
-        c.cell.color = Color.rgba8888(MathUtils.random(0.9f, 1f), MathUtils.random(0.9f, 1f), MathUtils.random(0.9f, 1f),  1f);
-
+        c.cell.color = c.planet.cellColor[PlanetCell.CellType.ICE.ordinal()];
     }
 
     @Override

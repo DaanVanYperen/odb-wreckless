@@ -9,11 +9,9 @@ import net.mostlyoriginal.game.component.PlanetCell;
  */
 public class AirCellSimulator implements CellSimulator {
 
-    private int airColor = Color.rgba8888(0f, MathUtils.random(0.6f, 0.7f), MathUtils.random(0.6f, 1f), 1f);
-
     @Override
     public void process(CellDecorator c, float delta) {
-        c.cell.color = airColor;
+        c.cell.color = c.planet.cellColor[PlanetCell.CellType.AIR.ordinal()];
 
         if (swapIfSwappable(c, c.getNeighbourAbove())) {
             return;

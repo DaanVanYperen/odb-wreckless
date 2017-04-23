@@ -2,8 +2,24 @@
   "cards": [
     {
       "id": "TEMPLATE",
-      "comment": "Example dilemma.",
+      "comment": "Example card.",
       "x": 0,
+      "y": 0,
+      "width": 66,
+      "height": 90
+    },
+    {
+      "id": "TEMPLATE2",
+      "comment": "Example card.",
+      "x": 66,
+      "y": 0,
+      "width": 66,
+      "height": 90
+    }
+    {
+      "id": "TEMPLATE3",
+      "comment": "Example card.",
+      "x": 132,
       "y": 0,
       "width": 66,
       "height": 90

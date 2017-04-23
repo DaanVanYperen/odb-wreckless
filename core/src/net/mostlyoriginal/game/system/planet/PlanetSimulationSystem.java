@@ -10,9 +10,9 @@ import net.mostlyoriginal.game.component.StatusMask;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.planet.cells.*;
 
-import static net.mostlyoriginal.game.component.Planet.GRADIENT_SCALE;
-import static net.mostlyoriginal.game.component.Planet.SIMULATION_HEIGHT;
-import static net.mostlyoriginal.game.component.Planet.SIMULATION_WIDTH;
+import static net.mostlyoriginal.game.component.G.GRADIENT_SCALE;
+import static net.mostlyoriginal.game.component.G.SIMULATION_HEIGHT;
+import static net.mostlyoriginal.game.component.G.SIMULATION_WIDTH;
 
 /**
  * @author Daan van Yperen
@@ -32,6 +32,7 @@ public class PlanetSimulationSystem extends FluidIteratingSystem {
 
         addSimulator(PlanetCell.CellType.STATIC, new StaticCellSimulator());
         addSimulator(PlanetCell.CellType.LAVA, new LavaCellSimulator());
+        addSimulator(PlanetCell.CellType.LAVA_CRUST, new LavaCellSimulator());
         addSimulator(PlanetCell.CellType.WATER, new WaterCellSimulator());
         addSimulator(PlanetCell.CellType.AIR, new AirCellSimulator());
         addSimulator(PlanetCell.CellType.ICE, new IceCellSimulator());
@@ -76,8 +77,8 @@ public class PlanetSimulationSystem extends FluidIteratingSystem {
     private void simulateCells(Planet planet) {
         CellDecorator planetCell = new CellDecorator(planet);
         final float delta = world.delta;
-        int IGNORE_BAND_X = 170;
-        int IGNORE_BAND_Y = 5;
+        int IGNORE_BAND_X = 0;
+        int IGNORE_BAND_Y = 0;
         for (int y = IGNORE_BAND_Y; y < SIMULATION_HEIGHT -  + IGNORE_BAND_Y; y++) {
             for (int x = IGNORE_BAND_X; x < SIMULATION_WIDTH -  + IGNORE_BAND_X; x++) {
                 final PlanetCell cell = planet.grid[y][x];
