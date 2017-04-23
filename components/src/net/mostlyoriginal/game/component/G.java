@@ -7,7 +7,7 @@ public class G {
 
     public static final int LOGO_WIDTH = 280;
     public static final int LOGO_HEIGHT = 221;
-    public static boolean DEBUG_SKIP_INTRO = false;
+    public static boolean DEBUG_SKIP_INTRO = true;
 
     public static final float CARD_X = 5;
     public static final float CARD_Y = 5;

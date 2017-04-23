@@ -68,9 +68,16 @@ public class CardSortSystem extends FluidIteratingSystem {
     }
 
     public void resortCards() {
-        float x = (int) G.CARD_X;
         IntBag entities = getEntityIds();
         int[] ids = entities.getData();
+        int count=0;
+        for (int i = 0, s = entities.size(); s > i; i++) {
+            E e = E.E(ids[i]);
+            if (e.hasClickable())
+                count++;
+        }
+        float x = G.PLANET_CENTER_X - (count*33) - (MathUtils.clamp(count-1,0,99)*G.MARGIN_BETWEEN_CARDS);
+
         for (int i = 0, s = entities.size(); s > i; i++) {
             E e = E.E(ids[i]);
             if (!e.hasClickable())

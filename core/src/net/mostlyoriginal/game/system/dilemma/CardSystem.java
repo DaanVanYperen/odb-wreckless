@@ -71,6 +71,10 @@ public class CardSystem extends FluidIteratingSystem {
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) {
             dealRandomCards(1);
         }
+
+        if (getEntityIds().size() <= 1) {
+            dealRandomCards(2);
+        }
     }
 
     @Override

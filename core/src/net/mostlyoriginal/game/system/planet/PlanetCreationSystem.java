@@ -108,7 +108,7 @@ public class PlanetCreationSystem extends PassiveSystem {
             }
         }
 
-        for (int degrees = 0; degrees < 360; degrees += 5) {
+        for (int degrees = 0; degrees < 360; degrees += 15) {
             spawnDude(degrees);
         }
     }
