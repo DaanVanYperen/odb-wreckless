@@ -84,7 +84,7 @@ public class PlanetCreationSystem extends PassiveSystem {
             Vector2 source = v.set(130, 0).rotate(degrees).add(centerX, centerY);
             E.E()
                     .anim("dude")
-                    .renderLayer(1000)
+                    .renderLayer(G.LAYER_DUDES)
                     .pos(source.x + G.PLANET_X, source.y + G.PLANET_Y)
                     .angle()
                     .physics()

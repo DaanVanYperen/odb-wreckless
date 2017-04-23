@@ -60,7 +60,7 @@ public class PlanetRenderGravityDebugSystem extends FluidIteratingSystem {
         if (cooldown <= 0) {
             cooldown = 1;
             direction = (direction + 1) % 8;
-            System.out.println(PlanetCell.directions[direction][0] + ", " + PlanetCell.directions[direction][1]);
+//            System.out.println(PlanetCell.directions[direction][0] + ", " + PlanetCell.directions[direction][1]);
         }
         for (int y = 0; y < G.SIMULATION_HEIGHT; y++) {
             for (int x = 0; x < G.SIMULATION_WIDTH; x++) {

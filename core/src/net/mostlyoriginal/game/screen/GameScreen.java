@@ -18,6 +18,7 @@ import net.mostlyoriginal.api.system.render.ClearScreenSystem;
 import net.mostlyoriginal.game.GdxArtemisGame;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.system.DrawingSystem;
+import net.mostlyoriginal.game.system.MyCameraSystem;
 import net.mostlyoriginal.game.system.dilemma.CardScriptSystem;
 import net.mostlyoriginal.game.system.dilemma.CardSystem;
 import net.mostlyoriginal.game.system.logic.TransitionSystem;
@@ -54,7 +55,7 @@ public class GameScreen extends WorldScreen {
                         new CollisionSystem(),
                         new TransitionSystem(GdxArtemisGame.getInstance()),
 
-                        new CameraSystem(G.CAMERA_ZOOM),
+                        new MyCameraSystem(G.CAMERA_ZOOM),
                         new GameScreenAssetSystem(),
                         new GameScreenSetupSystem(),
 
