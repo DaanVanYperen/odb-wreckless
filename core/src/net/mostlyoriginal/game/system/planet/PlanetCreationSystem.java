@@ -64,7 +64,7 @@ public class PlanetCreationSystem extends PassiveSystem {
     private void height(Planet planetE) {
         for (int y = 0; y < G.SIMULATION_HEIGHT; y++) {
             for (int x = 0; x < G.SIMULATION_WIDTH; x++) {
-                planetE.grid[y][x].height = (v.set(x,y).sub(G.SIMULATION_WIDTH/2f, G.SIMULATION_HEIGHT/2f).len());
+                planetE.grid[y][x].height = (v.set(x, y).sub(G.SIMULATION_WIDTH / 2f, G.SIMULATION_HEIGHT / 2f).len());
             }
         }
     }
@@ -78,6 +78,19 @@ public class PlanetCreationSystem extends PassiveSystem {
                 Vector2 source = v.set(240, 0).rotate(degrees + sub * (1f / granularity)).add(centerX, centerY);
                 drawGravity(planet, Math.round(source.x), Math.round(source.y), centerX, centerY);
             }
+        }
+
+        for (int degrees = 0; degrees < 360; degrees += 5) {
+            Vector2 source = v.set(130, 0).rotate(degrees).add(centerX, centerY);
+            E.E()
+                    .anim("dude")
+                    .renderLayer(1000)
+                    .pos(source.x + G.PLANET_X, source.y + G.PLANET_Y)
+                    .angle()
+                    .physics()
+                    .wander()
+                    .mass()
+                    .orientToGravity();
         }
     }
 

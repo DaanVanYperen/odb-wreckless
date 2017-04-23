@@ -1,0 +1,12 @@
+{
+  "sprites": [
+    {
+      "id": "dude",
+      "comment": "Player dude.",
+      "x": 0,
+      "y": 90,
+      "width": 8,
+      "height": 8
+    }
+  ]
+}

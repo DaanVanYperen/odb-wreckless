@@ -12,6 +12,7 @@ import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.system.graphics.RenderBatchingSystem;
 import net.mostlyoriginal.api.system.mouse.MouseCursorSystem;
 import net.mostlyoriginal.api.system.physics.CollisionSystem;
+import net.mostlyoriginal.api.system.physics.PhysicsSystem;
 import net.mostlyoriginal.api.system.render.AnimRenderSystem;
 import net.mostlyoriginal.api.system.render.ClearScreenSystem;
 import net.mostlyoriginal.game.GdxArtemisGame;
@@ -21,6 +22,8 @@ import net.mostlyoriginal.game.system.dilemma.CardScriptSystem;
 import net.mostlyoriginal.game.system.dilemma.CardSystem;
 import net.mostlyoriginal.game.system.logic.TransitionSystem;
 import net.mostlyoriginal.game.system.planet.*;
+import net.mostlyoriginal.game.system.planet.physics.GravitySystem;
+import net.mostlyoriginal.game.system.planet.physics.OrientToGravitySystem;
 import net.mostlyoriginal.game.system.stencil.PlanetStencilSystem;
 import net.mostlyoriginal.game.system.ui.MouseClickSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
@@ -65,6 +68,10 @@ public class GameScreen extends WorldScreen {
 
                         new PlanetStencilSystem(),
                         new PlanetSimulationSystem(),
+
+                        new OrientToGravitySystem(),
+                        new GravitySystem(),
+                        new PhysicsSystem(),
 
                         new PlanetBackgroundRenderSystem(),
                         new PlanetRenderSystem(),
