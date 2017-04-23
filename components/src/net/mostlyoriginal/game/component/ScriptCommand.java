@@ -6,5 +6,6 @@ package net.mostlyoriginal.game.component;
 public enum ScriptCommand {
     LAVA_TENDRIL,
     LAVA_PRESSURE_UP,
-    ANGRY_RANDOMIZE
+    ANGRY_RANDOMIZE,
+    DOLPHINIZE
 }

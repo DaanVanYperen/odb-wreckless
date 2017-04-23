@@ -59,25 +59,29 @@ public class CardSystem extends FluidIteratingSystem {
     }
 
     private void dealRandomCards(int count) {
-        int x = (int) G.CARD_X;
         for (int i = 0; i < count; i++) {
             CardData card = cardLibrary.cards[MathUtils.random(0, cardLibrary.cards.length - 1)];
             spawnCard(card, x);
-            x += card.width + G.MARGIN_BETWEEN_CARDS;
         }
     }
 
     @Override
     protected void begin() {
         super.begin();
+        x = (int) G.CARD_X;
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) {
             dealRandomCards(1);
         }
     }
 
+    float x = 0;
+
     @Override
     protected void process(E e) {
+
+        e.posX(x);
+        x += e.playableCardCard().width + G.MARGIN_BETWEEN_CARDS;
 
         e.scale(e.clickableState() == Clickable.ClickState.HOVER ? 1.2f : 1.0f);
         int layer = e.clickableState() == Clickable.ClickState.HOVER ? G.LAYER_CARDS_HOVER : G.LAYER_CARDS;
@@ -96,7 +100,7 @@ public class CardSystem extends FluidIteratingSystem {
                                     moveBetween(e.posX(), e.posY(), G.PLANET_CENTER_X - e.boundsCx() * FINAL_CARD_SCALE, G.PLANET_CENTER_Y - e.boundsCy() * FINAL_CARD_SCALE, MOVE_DURATION, Interpolation.smooth),
                                     scaleBetween(1f, FINAL_CARD_SCALE, MOVE_DURATION, Interpolation.smooth),
                                     sequence(
-                                            delay(MOVE_DURATION-0.2f),
+                                            delay(MOVE_DURATION - 0.2f),
                                             tween(Tint.WHITE, Tint.TRANSPARENT, 0.2f)
                                     )),
                             add(new CardScript(e.playableCardCard().script))

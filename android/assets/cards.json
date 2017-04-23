@@ -17,7 +17,7 @@
       "width": 66,
       "height": 90,
       "script": ["LAVA_TENDRIL", "LAVA_PRESSURE_UP"]
-    }
+    },
     {
       "id": "TRUMP",
       "comment": "Shakes things up",
@@ -26,6 +26,15 @@
       "width": 66,
       "height": 90,
       "script": ["ANGRY_RANDOMIZE"]
+    },
+    {
+      "id": "DOLPHIN",
+      "comment": "Dolphin card.",
+      "x": 132,
+      "y": 180,
+      "width": 66,
+      "height": 90,
+      "script": ["DOLPHINIZE"]
     }
   ]
 }

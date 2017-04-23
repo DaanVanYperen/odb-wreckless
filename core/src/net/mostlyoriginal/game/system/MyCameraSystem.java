@@ -25,7 +25,7 @@ public class MyCameraSystem extends CameraSystem {
 
     @Override
     protected void processSystem() {
-        if ( cooldown > 0 ) {
+        if ( cooldown > 0 && !G.DEBUG_SKIP_INTRO ) {
             cooldown -= world.delta;
             if (cooldown < 0) cooldown = 0;
             camera.position.y = Interpolation.pow2In.apply(y,y+G.SCREEN_HEIGHT/2, cooldown / INTO_FOCUS_COOLDOWN);

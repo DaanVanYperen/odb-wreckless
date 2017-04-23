@@ -4,6 +4,7 @@ import com.artemis.Aspect;
 import com.artemis.E;
 import com.artemis.utils.IntBag;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.game.component.CardScript;
 import net.mostlyoriginal.game.component.Planet;
 import net.mostlyoriginal.game.component.ScriptCommand;
@@ -46,11 +47,30 @@ public class CardScriptSystem extends FluidIteratingSystem {
             case ANGRY_RANDOMIZE:
                 randomizeAnger();
                 break;
+            case DOLPHINIZE:
+                randomizeDolphin();
+                break;
+        }
+    }
+
+    Vector2 v = new Vector2();
+
+    private void randomizeDolphin() {
+        IntBag entities = getWanderers();
+        int[] ids = entities.getData();
+        for (int i = 0, s = entities.size(); s > i; i++) {
+            E e = E.E(ids[i]);
+            Vector2 gravityVector = v.set(e.planetCoordGravity()).rotate(180f);
+            e
+                    .dolphinized()
+                    .physicsVr(1000f)
+                    .physicsVx(gravityVector.x * 100f)
+                    .physicsVy(gravityVector.y * 100f);
         }
     }
 
     private void randomizeAnger() {
-        IntBag entities = world.getAspectSubscriptionManager().get(Aspect.all(Wander.class)).getEntities();
+        IntBag entities = getWanderers();
         int[] ids = entities.getData();
         for (int i = 0, s = entities.size(); s > i; i++) {
             E e = E.E(ids[i]);
@@ -60,6 +80,10 @@ public class CardScriptSystem extends FluidIteratingSystem {
                 e.angry();
             }
         }
+    }
+
+    private IntBag getWanderers() {
+        return world.getAspectSubscriptionManager().get(Aspect.all(Wander.class)).getEntities();
     }
 
     private Planet getPlanet() {

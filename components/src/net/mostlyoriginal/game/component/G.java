@@ -4,6 +4,9 @@ package net.mostlyoriginal.game.component;
  * @author Daan van Yperen
  */
 public class G {
+
+    public static boolean DEBUG_SKIP_INTRO = true;
+
     public static final float CARD_X = 5;
     public static final float CARD_Y = 5;
 

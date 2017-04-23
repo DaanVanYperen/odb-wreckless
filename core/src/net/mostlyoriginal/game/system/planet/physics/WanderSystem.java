@@ -8,6 +8,7 @@ import net.mostlyoriginal.api.component.basic.Angle;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.OrientToGravity;
+import net.mostlyoriginal.game.component.PlanetCell;
 import net.mostlyoriginal.game.component.Wander;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 
@@ -17,12 +18,14 @@ import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 public class WanderSystem extends FluidIteratingSystem {
 
     private TagManager tagManager;
+    PlanetCoordSystem planetCoordSystem;
 
     public WanderSystem() {
         super(Aspect.all(Pos.class, Wander.class));
     }
 
     private Vector2 v = new Vector2();
+    Pos tmpPos = new Pos();
 
     @Override
     protected void process(E e) {
@@ -31,15 +34,43 @@ public class WanderSystem extends FluidIteratingSystem {
                         e.angleRotation() - 180f - 45f
                         : e.angleRotation() + 45f).scl(world.delta);
 
+        // save pos for later.
+        tmpPos.set(e.getPos());
+
+        // move and see what happens.
         Pos pos = e.getPos();
         pos.xy.x += v.x;
         pos.xy.y += v.y;
 
-        if (e.hasAngry()) {
+        planetCoordSystem.updateCoord(e);
+        if (!canSurvive(e)) {
+            e.pos(tmpPos);
+        }
+
+        if (e.hasDolphinized()) {
+            e.anim("dolphin").removeAngry();
+        } else if (e.hasAngry()) {
             e.anim("angrydude");
         } else {
             e.anim("dude");
-
         }
+
+        if (!canSurvive(e)) {
+            e.died();
+        }
+    }
+
+    private boolean canSurvive(E e) {
+        PlanetCell cell = e.planetCoordCell();
+        if (cell != null) {
+            if (e.hasDolphinized() && !((cell.type == PlanetCell.CellType.AIR) || (cell.type == PlanetCell.CellType.WATER))) {
+                return false;
+            }
+
+            if (cell.type == PlanetCell.CellType.LAVA || cell.type == PlanetCell.CellType.LAVA_CRUST) {
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -24,7 +24,7 @@
       "width": 8,
       "height": 8,
       "countX": 4
-    }
+    },
     {
       "id": "whitepixel",
       "comment": ".",
@@ -32,6 +32,14 @@
       "y": 90,
       "width": 1,
       "height": 1
+    },
+    {
+      "id": "dolphin",
+      "comment": "Dude as dolphin",
+      "x": 16,
+      "y": 122,
+      "width": 16,
+      "height": 8
     }
   ]
 }
