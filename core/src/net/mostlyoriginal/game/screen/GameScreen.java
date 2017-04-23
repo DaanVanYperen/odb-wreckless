@@ -24,6 +24,7 @@ import net.mostlyoriginal.game.system.logic.TransitionSystem;
 import net.mostlyoriginal.game.system.planet.*;
 import net.mostlyoriginal.game.system.planet.physics.GravitySystem;
 import net.mostlyoriginal.game.system.planet.physics.OrientToGravitySystem;
+import net.mostlyoriginal.game.system.planet.physics.WanderSystem;
 import net.mostlyoriginal.game.system.stencil.PlanetStencilSystem;
 import net.mostlyoriginal.game.system.ui.MouseClickSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
@@ -61,6 +62,7 @@ public class GameScreen extends WorldScreen {
 
                         new MouseCursorSystem(),
                         new MouseClickSystem(),
+                        new WanderSystem(),
 
                         new PlanetCreationSystem(),
 

@@ -15,7 +15,7 @@ public class Wander extends Component {
 
     public Direction direction = MathUtils.randomBoolean() ? LEFT : RIGHT;
 
-    enum Direction {
+    public enum Direction {
         LEFT,
         RIGHT;
     }
