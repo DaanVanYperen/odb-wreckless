@@ -8,6 +8,7 @@ public class PlanetCell {
     public int y;
     public int color = 0;
     public int down = -1;
+    public float height = 0;
     public CellType type = CellType.STATIC;
 
 

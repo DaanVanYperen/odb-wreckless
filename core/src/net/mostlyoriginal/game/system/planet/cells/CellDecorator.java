@@ -95,7 +95,7 @@ public class CellDecorator {
     private PlanetCell temp = new PlanetCell();
 
     public void swapWith(PlanetCell target) {
-        if (target.nextType == null) {
+        if (target.nextType == null && cell.nextType == null) {
             target.nextType = cell.type;
             target.nextColor = cell.color;
             cell.nextType = target.type;

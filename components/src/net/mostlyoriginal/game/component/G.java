@@ -8,8 +8,8 @@ public class G {
     public static final float CARD_Y = 5;
 
 
-    public static final int SIMULATION_WIDTH = 220;
-    public static final int SIMULATION_HEIGHT = 220;
+    public static final int SIMULATION_WIDTH = 220 + 50;
+    public static final int SIMULATION_HEIGHT = 220 + 50;
     public static final int MARGIN_BETWEEN_CARDS = 5;
 
     public static int CAMERA_ZOOM = 2;

@@ -2,6 +2,7 @@ package net.mostlyoriginal.game.system.planet.cells;
 
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.game.component.PlanetCell;
+import net.mostlyoriginal.game.component.StatusMask;
 
 /**
  * @author Daan van Yperen
@@ -41,7 +42,7 @@ public class WaterCellSimulator implements CellSimulator {
 
         if ( c.cell.nextType == null ) {
             final float temperature = c.mask().temperature;
-            if (temperature > 50 && MathUtils.random(0, 100) < 4) {
+            if (temperature >= StatusMask.ARID_TEMPERATURE && MathUtils.random(0, 100) < 4) {
                 c.setNextType(PlanetCell.CellType.AIR);
             }
         }

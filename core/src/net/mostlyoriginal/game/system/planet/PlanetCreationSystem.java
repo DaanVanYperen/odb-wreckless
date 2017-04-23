@@ -56,6 +56,15 @@ public class PlanetCreationSystem extends PassiveSystem {
 
             populate(planet, planetE);
             gravity(planetE);
+            height(planetE);
+        }
+    }
+
+    private void height(Planet planetE) {
+        for (int y = 0; y < G.SIMULATION_HEIGHT; y++) {
+            for (int x = 0; x < G.SIMULATION_WIDTH; x++) {
+                planetE.grid[y][x].height = (v.set(x,y).sub(G.SIMULATION_WIDTH/2f, G.SIMULATION_HEIGHT/2f).len());
+            }
         }
     }
 

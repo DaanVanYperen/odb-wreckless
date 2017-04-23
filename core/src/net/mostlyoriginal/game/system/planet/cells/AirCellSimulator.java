@@ -3,6 +3,7 @@ package net.mostlyoriginal.game.system.planet.cells;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
+import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.PlanetCell;
 import net.mostlyoriginal.game.component.StatusMask;
 
@@ -12,6 +13,7 @@ import net.mostlyoriginal.game.component.StatusMask;
  */
 public class AirCellSimulator implements CellSimulator {
 
+    public static final float AIR_FADE_BAND_WIDTH = 50f;
     Color coldColor;
     Color aridColor;
     Color workColor = new Color();
@@ -19,19 +21,20 @@ public class AirCellSimulator implements CellSimulator {
     @Override
     public void process(CellDecorator c, float delta) {
 
-        if ( aridColor == null ) {
-            coldColor=new Color();
-            aridColor=new Color();
+        if (aridColor == null) {
+            coldColor = new Color();
+            aridColor = new Color();
 
             Color.rgba8888ToColor(coldColor, c.planet.cellColor[PlanetCell.CellType.AIR.ordinal()]);
             Color.rgba8888ToColor(aridColor, c.planet.cellColorArid[PlanetCell.CellType.AIR.ordinal()]);
-            coldColor.a = aridColor.a = workColor.a = 1f;
+            coldColor.a = aridColor.a = 1f;
         }
 
-        float a = MathUtils.clamp((c.mask().temperature / StatusMask.ARID_TEMPERATURE),0f,1f);
-        workColor.r = Interpolation.linear.apply( coldColor.r, aridColor.r, a);
-        workColor.g = Interpolation.linear.apply( coldColor.g, aridColor.g, a);
-        workColor.b = Interpolation.linear.apply( coldColor.b, aridColor.b, a);
+        float a = MathUtils.clamp((c.mask().temperature / StatusMask.ARID_TEMPERATURE), 0f, 1f);
+        workColor.r = Interpolation.linear.apply(coldColor.r, aridColor.r, a);
+        workColor.g = Interpolation.linear.apply(coldColor.g, aridColor.g, a);
+        workColor.b = Interpolation.linear.apply(coldColor.b, aridColor.b, a);
+        workColor.a = ((G.SIMULATION_WIDTH / 2) - c.cell.height) < AIR_FADE_BAND_WIDTH ? MathUtils.clamp(((G.SIMULATION_WIDTH /2)  - c.cell.height) / AIR_FADE_BAND_WIDTH, 0.05f, 1f): 1f;
 
         c.cell.color = Color.rgba8888(workColor);
 
