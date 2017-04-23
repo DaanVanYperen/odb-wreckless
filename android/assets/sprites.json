@@ -7,6 +7,31 @@
       "y": 90,
       "width": 8,
       "height": 8
+    },
+    {
+      "id": "angrydude",
+      "comment": "Angry Player dude.",
+      "x": 0,
+      "y": 106,
+      "width": 8,
+      "height": 8
+    },
+    {
+      "id": "dudeghost",
+      "comment": ".",
+      "x": 16,
+      "y": 90,
+      "width": 8,
+      "height": 8,
+      "countX": 4
+    }
+    {
+      "id": "whitepixel",
+      "comment": ".",
+      "x": 56,
+      "y": 90,
+      "width": 1,
+      "height": 1
     }
   ]
 }

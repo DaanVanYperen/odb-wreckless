@@ -10,6 +10,7 @@ import net.mostlyoriginal.api.component.physics.Physics;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.Mass;
 import net.mostlyoriginal.game.component.PlanetCell;
+import net.mostlyoriginal.game.component.PlanetCoord;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.planet.PlanetCreationSystem;
 
@@ -19,24 +20,22 @@ import net.mostlyoriginal.game.system.planet.PlanetCreationSystem;
 public class GravitySystem extends FluidIteratingSystem {
 
     private TagManager tagManager;
-    private PlanetCreationSystem planetCreationSystem;
 
     public GravitySystem() {
-        super(Aspect.all(Pos.class, Mass.class, Angle.class));
+        super(Aspect.all(Pos.class, PlanetCoord.class, Mass.class, Angle.class));
     }
 
     Vector2 v = new Vector2();
 
     @Override
     protected void process(E e) {
-        Vector2 gravityVector = v.set(G.PLANET_CENTER_X, G.PLANET_CENTER_Y).sub(e.posX(), e.posY()).nor();
+        Vector2 gravityVector = v.set(e.planetCoordGravity());
 
         // apply gravity.
         Physics physics = e.getPhysics();
 
         // don't move through solid matter.
-        E planet = planetCreationSystem.planetEntity;
-        PlanetCell cell = planet.getPlanet().get((int) (e.posX() - G.PLANET_X), (int) (e.posY() - G.PLANET_Y));
+        PlanetCell cell = e.planetCoordCell();
         if (cell != null && cell.type != null && (cell.type.density == null || cell.type.density >= 1f)) {
             if (cell.type.flows()) {
                 gravityVector.rotate(180);

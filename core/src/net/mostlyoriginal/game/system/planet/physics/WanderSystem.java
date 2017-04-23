@@ -34,5 +34,12 @@ public class WanderSystem extends FluidIteratingSystem {
         Pos pos = e.getPos();
         pos.xy.x += v.x;
         pos.xy.y += v.y;
+
+        if (e.hasAngry()) {
+            e.anim("angrydude");
+        } else {
+            e.anim("dude");
+
+        }
     }
 }

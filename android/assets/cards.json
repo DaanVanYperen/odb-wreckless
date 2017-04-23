@@ -19,13 +19,13 @@
       "script": ["LAVA_TENDRIL", "LAVA_PRESSURE_UP"]
     }
     {
-      "id": "UNUSED",
-      "comment": "",
+      "id": "TRUMP",
+      "comment": "Shakes things up",
       "x": 132,
       "y": 0,
       "width": 66,
       "height": 90,
-      "script": []
+      "script": ["ANGRY_RANDOMIZE"]
     }
   ]
 }

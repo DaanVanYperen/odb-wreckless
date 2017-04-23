@@ -88,6 +88,8 @@ public class PlanetCreationSystem extends PassiveSystem {
                     .pos(source.x + G.PLANET_X, source.y + G.PLANET_Y)
                     .angle()
                     .physics()
+                    .planetCoord()
+                    .flammable()
                     .wander()
                     .mass()
                     .orientToGravity();
