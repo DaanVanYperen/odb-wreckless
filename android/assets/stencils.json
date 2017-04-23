@@ -9,9 +9,20 @@
       ]
     },
     {
-      "id": "NOCORE",
+      "id": "HOLLOWEARTH",
       "comment": "No core!.",
       "texture": "nocore.png",
+      "replaceTypes": [
+        "STATIC",
+        "LAVA",
+        "WATER",
+        "LAVA_CRUST"
+      ]
+    },
+    {
+      "id": "WATERWORLD",
+      "comment": "Everything is waterrr!",
+      "texture": "waterworld.png",
       "replaceTypes": [
         "STATIC",
         "LAVA",

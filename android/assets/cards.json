@@ -16,7 +16,10 @@
       "y": 0,
       "width": 66,
       "height": 90,
-      "script": ["LAVA_TENDRIL", "LAVA_PRESSURE_UP"]
+      "script": [
+        "LAVA_TENDRIL",
+        "LAVA_PRESSURE_UP"
+      ]
     },
     {
       "id": "TRUMP",
@@ -25,7 +28,9 @@
       "y": 0,
       "width": 66,
       "height": 90,
-      "script": ["ANGRY_RANDOMIZE"]
+      "script": [
+        "ANGRY_RANDOMIZE"
+      ]
     },
     {
       "id": "DOLPHIN",
@@ -34,7 +39,9 @@
       "y": 180,
       "width": 66,
       "height": 90,
-      "script": ["DOLPHINIZE"]
+      "script": [
+        "DOLPHINIZE"
+      ]
     },
     {
       "id": "PEACE",
@@ -43,7 +50,64 @@
       "y": 90,
       "width": 66,
       "height": 90,
-      "script": ["ANGRY_NONE"]
+      "script": [
+        "ANGRY_NONE"
+      ]
     },
+    {
+      "id": "HOLLOWEARTH",
+      "comment": "Who needs a planet center!",
+      "x": 198,
+      "y": 0,
+      "width": 66,
+      "height": 90,
+      "script": [
+        "HOLLOWEARTH"
+      ]
+    },
+    {
+      "id": "WATERWORLD",
+      "comment": "World is water!",
+      "x": 66,
+      "y": 180,
+      "width": 66,
+      "height": 90,
+      "script": [
+        "WATERWORLD"
+      ]
+    },
+    {
+      "id": "FOOD1",
+      "comment": "Food1",
+      "x": 264,
+      "y": 0,
+      "width": 66,
+      "height": 90,
+      "script": [
+        "ADD_DUDES"
+      ]
+    },
+    {
+      "id": "FOOD2",
+      "comment": "Food2",
+      "x": 264,
+      "y": 90,
+      "width": 66,
+      "height": 90,
+      "script": [
+        "ADD_DUDES"
+      ]
+    },
+    {
+      "id": "FOOD3",
+      "comment": "Food3",
+      "x": 264,
+      "y": 180,
+      "width": 66,
+      "height": 90,
+      "script": [
+        "ADD_DUDES"
+      ]
+    }
   ]
 }

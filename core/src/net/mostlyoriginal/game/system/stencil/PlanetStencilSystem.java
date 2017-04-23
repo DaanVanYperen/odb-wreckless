@@ -36,29 +36,42 @@ public class PlanetStencilSystem extends PassiveSystem {
         stencilLibrary = json.fromJson(StencilLibrary.class, Gdx.files.internal("stencils.json"));
     }
 
+    public void stencilRotateCenter(String id) {
+        final StencilData stencilData = stencilLibrary.getById(id);
+        if (stencilData != null) {
+            stencil(planetCreationSystem.planetEntity.getPlanet(),
+                    new Texture(stencilData.texture),
+                    stencilData.replaceTypes,
+                    MathUtils.random(360),
+                    G.SIMULATION_WIDTH / 2, G.SIMULATION_HEIGHT / 2);
+        }
+    }
+
     public void stencil(String id) {
         final StencilData stencilData = stencilLibrary.getById(id);
         if (stencilData != null) {
-            stencil(planetCreationSystem.planetEntity.getPlanet(), new Texture(stencilData.texture), stencilData.replaceTypes);
+            Texture texture = new Texture(stencilData.texture);
+            stencil(planetCreationSystem.planetEntity.getPlanet(), texture,
+                    stencilData.replaceTypes, 0,
+                    (G.SIMULATION_WIDTH / 2) - texture.getWidth() / 2, (G.SIMULATION_HEIGHT / 2) - texture.getHeight() / 2);
         }
     }
 
     Vector2 tv = new Vector2();
 
-    private void stencil(Planet planet, Texture texture, PlanetCell.CellType[] replaceTypes) {
+    private void stencil(Planet planet, Texture texture, PlanetCell.CellType[] replaceTypes, int degrees, int x1, int y1) {
         final TextureData textureData = texture.getTextureData();
         textureData.prepare();
 
-        int degrees = MathUtils.random(360);
         final Pixmap pixmap = textureData.consumePixmap();
         for (int y = 0; y < texture.getHeight(); y++) {
             for (int x = 0; x < texture.getWidth(); x++) {
 
-                tv.set(x,y).rotate(degrees).add(G.SIMULATION_WIDTH / 2, G.SIMULATION_HEIGHT / 2);
+                tv.set(x, y).rotate(degrees).add(x1, y1);
 
-                final PlanetCell.CellType type = getSourceCellType(planet, pixmap.getPixel(x, texture.getHeight()-y));
+                final PlanetCell.CellType type = getSourceCellType(planet, pixmap.getPixel(x, texture.getHeight() - y));
                 if (type != null) {
-                    replaceCell(planet, Math.round(tv.x),Math.round(tv.y), replaceTypes, type);
+                    replaceCell(planet, Math.round(tv.x), Math.round(tv.y), replaceTypes, type);
                 }
 
             }

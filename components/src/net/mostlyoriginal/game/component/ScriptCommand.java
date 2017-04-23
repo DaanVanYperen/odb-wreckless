@@ -9,4 +9,7 @@ public enum ScriptCommand {
     ANGRY_RANDOMIZE,
     DOLPHINIZE,
     ANGRY_NONE,
+    HOLLOWEARTH,
+    WATERWORLD,
+    ADD_DUDES
 }

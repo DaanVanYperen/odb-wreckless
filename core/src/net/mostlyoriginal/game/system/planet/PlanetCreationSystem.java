@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.TextureData;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Json;
 import net.mostlyoriginal.api.system.core.PassiveSystem;
-import net.mostlyoriginal.api.system.render.ClearScreenSystem;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.Planet;
 import net.mostlyoriginal.game.component.PlanetCell;
@@ -82,19 +81,23 @@ public class PlanetCreationSystem extends PassiveSystem {
         }
 
         for (int degrees = 0; degrees < 360; degrees += 5) {
-            Vector2 source = v.set(130, 0).rotate(degrees).add(centerX, centerY);
-            E.E()
-                    .anim("dude")
-                    .renderLayer(G.LAYER_DUDES)
-                    .pos(source.x + G.PLANET_X, source.y + G.PLANET_Y)
-                    .angle()
-                    .physics()
-                    .planetCoord()
-                    .flammable()
-                    .wander()
-                    .mass()
-                    .orientToGravity();
+            spawnDude(degrees);
         }
+    }
+
+    public void spawnDude(int degrees) {
+        Vector2 source = v.set(130, 0).rotate(degrees).add(SIMULATION_WIDTH / 2, SIMULATION_HEIGHT / 2);
+        E.E()
+                .anim("dude")
+                .renderLayer(G.LAYER_DUDES)
+                .pos(source.x + G.PLANET_X, source.y + G.PLANET_Y)
+                .angle()
+                .physics()
+                .planetCoord()
+                .flammable()
+                .wander()
+                .mass()
+                .orientToGravity();
     }
 
     public void drawGravity(Planet planet, int ox, int oy, int x2, int y2) {

@@ -39,7 +39,16 @@ public class CardScriptSystem extends FluidIteratingSystem {
     private void runScriptStep(ScriptCommand c) {
         switch (c) {
             case LAVA_TENDRIL:
-                planetStencilSystem.stencil("AIRPOCKET");
+                planetStencilSystem.stencilRotateCenter("AIRPOCKET");
+                break;
+            case HOLLOWEARTH:
+                planetStencilSystem.stencil("HOLLOWEARTH");
+                break;
+            case WATERWORLD:
+                planetStencilSystem.stencil("WATERWORLD");
+                break;
+            case ADD_DUDES:
+                spawnDudes();
                 break;
             case LAVA_PRESSURE_UP:
                 getPlanet().lavaPressure += 1000;
@@ -53,6 +62,12 @@ public class CardScriptSystem extends FluidIteratingSystem {
             case DOLPHINIZE:
                 randomizeDolphin();
                 break;
+        }
+    }
+
+    private void spawnDudes() {
+        for (int i = 0; i < 5; i++) {
+            planetCreationSystem.spawnDude(MathUtils.random(0, 360));
         }
     }
 
@@ -77,6 +92,7 @@ public class CardScriptSystem extends FluidIteratingSystem {
         int[] ids = entities.getData();
         for (int i = 0, s = entities.size(); s > i; i++) {
             E e = E.E(ids[i]);
+            e.removeDolphinized();
             if (MathUtils.randomBoolean()) {
                 e.removeAngry();
             } else {

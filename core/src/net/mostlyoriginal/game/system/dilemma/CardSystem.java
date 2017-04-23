@@ -59,7 +59,7 @@ public class CardSystem extends FluidIteratingSystem {
 
     private void dealRandomCards(int count) {
         for (int i = 0; i < count; i++) {
-            CardData card = cardLibrary.cards[MathUtils.random(0, cardLibrary.cards.length - 1)];
+            CardData card = cardLibrary.cards[MathUtils.random(1, cardLibrary.cards.length - 1)];
             spawnCard(card);
         }
     }
