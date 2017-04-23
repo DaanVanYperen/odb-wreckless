@@ -34,7 +34,7 @@ public class AirCellSimulator implements CellSimulator {
         workColor.r = Interpolation.linear.apply(coldColor.r, aridColor.r, a);
         workColor.g = Interpolation.linear.apply(coldColor.g, aridColor.g, a);
         workColor.b = Interpolation.linear.apply(coldColor.b, aridColor.b, a);
-        workColor.a = ((G.SIMULATION_WIDTH / 2) - c.cell.height) < AIR_FADE_BAND_WIDTH ? MathUtils.clamp(((G.SIMULATION_WIDTH /2)  - c.cell.height) / AIR_FADE_BAND_WIDTH, 0.05f, 1f): 1f;
+        workColor.a = c.cell.depth() < AIR_FADE_BAND_WIDTH ? MathUtils.clamp(c.cell.depth() / AIR_FADE_BAND_WIDTH, 0.05f, 1f) : 1f;
 
         c.cell.color = Color.rgba8888(workColor);
 

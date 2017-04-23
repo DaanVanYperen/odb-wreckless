@@ -4,6 +4,7 @@ package net.mostlyoriginal.game.component;
  * @author Daan van Yperen
  */
 public class PlanetCell {
+    public static final int SPACE_AIR_STARTS_AT_DEPTH = 20;
     public int x;
     public int y;
     public int color = 0;
@@ -59,6 +60,10 @@ public class PlanetCell {
         }
     }
 
+    public float depth() {
+        return ((G.SIMULATION_WIDTH / 2) - height);
+    }
+
     public enum CellType {
         STATIC(null, false),
         LAVA(5f, true),
@@ -83,5 +88,9 @@ public class PlanetCell {
         public boolean isLighter(CellType type) {
             return type.density != null && density != null && type.density < density;
         }
+    }
+
+    public boolean isSpaceAir() {
+        return depth() < SPACE_AIR_STARTS_AT_DEPTH && type == PlanetCell.CellType.AIR;
     }
 }

@@ -49,7 +49,7 @@ public class SteamCellSimulator implements CellSimulator {
     }
 
     private boolean swapIfSwappable(CellDecorator c, PlanetCell neighbourAbove) {
-        if (neighbourAbove != null && neighbourAbove.type.density != null && neighbourAbove.type.isLighter(c.cell.type)) {
+        if (neighbourAbove != null && neighbourAbove.type.density != null && neighbourAbove.type.isLighter(c.cell.type) && !neighbourAbove.isSpaceAir()) {
             c.swapWith(neighbourAbove);
             return true;
         }
