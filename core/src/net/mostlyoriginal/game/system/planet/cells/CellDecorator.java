@@ -41,6 +41,10 @@ public class CellDecorator {
         return planet.get(cell.x + PlanetCell.directions[cell.left()][0], cell.y + PlanetCell.directions[cell.left()][1]);
     }
 
+    public PlanetCell getNeighbourDownLeft() {
+        return planet.get(cell.x + PlanetCell.directions[cell.downL()][0], cell.y + PlanetCell.directions[cell.downL()][1]);
+    }
+
     public PlanetCell getNeighbourDown() {
         return cell.down != -1 ? planet.get(cell.x + PlanetCell.directions[cell.down][0], cell.y + PlanetCell.directions[cell.down][1]) : null;
     }

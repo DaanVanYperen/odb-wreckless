@@ -38,6 +38,7 @@ public class PlanetSimulationSystem extends FluidIteratingSystem {
         addSimulator(PlanetCell.CellType.AIR, new AirCellSimulator());
         addSimulator(PlanetCell.CellType.ICE, new IceCellSimulator());
         addSimulator(PlanetCell.CellType.STEAM, new SteamCellSimulator());
+        addSimulator(PlanetCell.CellType.CLOUD, new CloudCellSimulator());
     }
 
     private void addSimulator(PlanetCell.CellType cellType, CellSimulator simulator) {
@@ -66,10 +67,13 @@ public class PlanetSimulationSystem extends FluidIteratingSystem {
     }
 
     private void activateChanges(Planet planet) {
+        CellDecorator planetCell = new CellDecorator(planet);
+        final float delta = world.delta;
         for (int y = 0; y < SIMULATION_HEIGHT; y++) {
             for (int x = 0; x < SIMULATION_WIDTH; x++) {
                 final PlanetCell cell = planet.grid[y][x];
                 cell.activateNextType();
+                simulators[cell.type.ordinal()].color(planetCell.proxies(cell), delta);
             }
         }
     }

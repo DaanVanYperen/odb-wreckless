@@ -2,10 +2,13 @@ package net.mostlyoriginal.game.system.planet;
 
 import com.artemis.Aspect;
 import com.artemis.E;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.game.component.Planet;
 import net.mostlyoriginal.game.component.PlanetCell;
@@ -20,6 +23,7 @@ public class PlanetRenderSystem extends FluidIteratingSystem {
 
     private SpriteBatch batch;
     private TextureRegion planetPixel;
+    private TextureRegion cloudPixel;
 
     public PlanetRenderSystem() {
         super(Aspect.all(Planet.class));
@@ -31,7 +35,8 @@ public class PlanetRenderSystem extends FluidIteratingSystem {
     protected void initialize() {
         batch = new SpriteBatch(2000);
 
-        planetPixel = new TextureRegion(new Texture("planetcell.png"),1,1);
+        planetPixel = new TextureRegion(new Texture("planetcell.png"), 1, 1);
+        cloudPixel = new TextureRegion(new Texture("planetcell.png"), 11, 17, 17, 13);
     }
 
     @Override
@@ -52,14 +57,36 @@ public class PlanetRenderSystem extends FluidIteratingSystem {
     @Override
     protected void process(E e) {
         Planet planet = e.getPlanet();
+        renderMain(planet);
+        renderClouds(planet);
+    }
+
+    private void renderMain(Planet planet) {
         for (int y = 0; y < SIMULATION_HEIGHT; y++) {
             for (int x = 0; x < SIMULATION_WIDTH; x++) {
                 final PlanetCell cell = planet.grid[y][x];
-                if ( cell.color == 0 )
+                if (cell.color == 0)
                     continue;
-                Color.rgba8888ToColor(color,cell.color);
-                batch.setColor(color);
-                batch.draw(planetPixel, x+PLANET_X, y + PLANET_Y);
+                if (cell.type != PlanetCell.CellType.CLOUD) {
+                    Color.rgba8888ToColor(color, cell.color);
+                    batch.setColor(color);
+                    batch.draw(planetPixel, x + PLANET_X, y + PLANET_Y);
+                }
+            }
+
+        }
+    }
+
+    private void renderClouds(Planet planet) {
+        for (int y = 0; y < SIMULATION_HEIGHT; y++) {
+            for (int x = 0; x < SIMULATION_WIDTH; x++) {
+                final PlanetCell cell = planet.grid[y][x];
+                if (cell.type == PlanetCell.CellType.CLOUD ) {
+                    int rndSize = 3;
+                    Color.rgba8888ToColor(color, cell.color);
+                    batch.setColor(color);
+                    batch.draw(planetPixel, x + PLANET_X - ((rndSize - 1) / 2), y + PLANET_Y - ((rndSize - 1) / 2), rndSize, rndSize);
+                }
             }
 
         }

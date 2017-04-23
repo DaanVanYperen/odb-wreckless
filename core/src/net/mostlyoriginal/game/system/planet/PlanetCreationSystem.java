@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.TextureData;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Json;
 import net.mostlyoriginal.api.system.core.PassiveSystem;
+import net.mostlyoriginal.api.system.render.ClearScreenSystem;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.Planet;
 import net.mostlyoriginal.game.component.PlanetCell;

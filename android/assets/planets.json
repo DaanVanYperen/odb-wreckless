@@ -4,6 +4,7 @@
       "id": "TEMPLATE",
       "comment": "Example planet.",
       "texture": "planet.png",
+      "spaceBackgroundColor": "331111",
       "types": [
         {
           "color": "ff6015",
@@ -16,6 +17,10 @@
         {
           "color": "0667ac",
           "type": "WATER"
+        },
+        {
+          "color": "ffffff50",
+          "type": "CLOUD"
         },
         {
           "color": "0795fe",

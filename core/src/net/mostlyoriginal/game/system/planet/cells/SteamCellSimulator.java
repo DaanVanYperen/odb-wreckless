@@ -10,8 +10,12 @@ import net.mostlyoriginal.game.component.PlanetCell;
 public class SteamCellSimulator implements CellSimulator {
 
     @Override
-    public void process(CellDecorator c, float delta) {
+    public void color(CellDecorator c, float delta) {
         c.cell.color = c.planet.cellColor[PlanetCell.CellType.STEAM.ordinal()];
+    }
+
+    @Override
+    public void process(CellDecorator c, float delta) {
 
         if (c.cell.nextType == null) {
             if (MathUtils.random(0,100) < 1f) {

@@ -53,6 +53,12 @@ public class DrawingSystem extends FluidIteratingSystem {
         if (Gdx.input.isKeyPressed(Input.Keys.NUM_4)) {
             type = PlanetCell.CellType.ICE;
         }
+        if (Gdx.input.isKeyPressed(Input.Keys.NUM_5)) {
+            type = PlanetCell.CellType.STEAM;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.NUM_6)) {
+            type = PlanetCell.CellType.CLOUD;
+        }
         if (Gdx.input.isKeyJustPressed(Input.Keys.F1)) {
             planetRenderGravityDebugSystem.active = !planetRenderGravityDebugSystem.active;
         }

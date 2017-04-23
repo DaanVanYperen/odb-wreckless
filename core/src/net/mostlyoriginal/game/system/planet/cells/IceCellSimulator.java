@@ -14,6 +14,10 @@ public class IceCellSimulator implements CellSimulator {
         if ( temperature > 0 && MathUtils.random(0,100) < temperature ) {
             c.setNextType(PlanetCell.CellType.WATER);
         }
+    }
+
+    @Override
+    public void color(CellDecorator c, float delta) {
         c.cell.color = c.planet.cellColor[PlanetCell.CellType.ICE.ordinal()];
     }
 

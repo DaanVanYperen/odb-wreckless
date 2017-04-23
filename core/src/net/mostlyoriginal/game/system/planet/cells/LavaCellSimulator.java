@@ -9,12 +9,15 @@ import net.mostlyoriginal.game.component.StatusMask;
  */
 public class LavaCellSimulator implements CellSimulator {
     @Override
-    public void process(CellDecorator c, float delta) {
+    public void color(CellDecorator c, float delta) {
         c.cell.color = c.planet.cellColor[c.cell.type.ordinal()];
+    }
 
+    @Override
+    public void process(CellDecorator c, float delta) {
         // releave pressure.
         if (c.cell.nextType == null) {
-            if (c.planet.lavaPressure > 0) {
+            if (c.planet.lavaPressure > 0 && MathUtils.random(1,5000) < c.planet.lavaPressure && (c.cell.depth() > 50 || MathUtils.random(1,100) < 5)) {
                 if (attemptReleavePressure(c, c.getNeighbourDown())) return;
                 boolean b = MathUtils.randomBoolean(); // flip direction randomly.
                 if (attemptReleavePressure(c, b ? c.getNeighbourLeft() : c.getNeighbourRight())) return;

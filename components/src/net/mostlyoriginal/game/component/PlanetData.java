@@ -11,6 +11,7 @@ public class PlanetData {
     public String comment; // not used.
     public String texture;
     public CellType[] types;
+    public String spaceBackgroundColor;
 
     public static class CellType {
         public String color;

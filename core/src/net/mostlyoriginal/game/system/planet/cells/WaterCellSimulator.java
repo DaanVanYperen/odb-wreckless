@@ -9,8 +9,12 @@ import net.mostlyoriginal.game.component.StatusMask;
  */
 public class WaterCellSimulator implements CellSimulator {
     @Override
-    public void process(CellDecorator c, float delta) {
+    public void color(CellDecorator c, float delta) {
         c.cell.color = c.planet.cellColor[PlanetCell.CellType.WATER.ordinal()];
+    }
+
+    @Override
+    public void process(CellDecorator c, float delta) {
 
         // Freeze by ice.
         if (c.countNeighbour(PlanetCell.CellType.ICE) >= 3) {

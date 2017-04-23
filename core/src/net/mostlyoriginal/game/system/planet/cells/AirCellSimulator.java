@@ -19,8 +19,7 @@ public class AirCellSimulator implements CellSimulator {
     Color workColor = new Color();
 
     @Override
-    public void process(CellDecorator c, float delta) {
-
+    public void color(CellDecorator c, float delta) {
         if (aridColor == null) {
             coldColor = new Color();
             aridColor = new Color();
@@ -37,6 +36,10 @@ public class AirCellSimulator implements CellSimulator {
         workColor.a = c.cell.depth() < AIR_FADE_BAND_WIDTH ? MathUtils.clamp(c.cell.depth() / AIR_FADE_BAND_WIDTH, 0.05f, 1f) : 1f;
 
         c.cell.color = Color.rgba8888(workColor);
+    }
+
+    @Override
+    public void process(CellDecorator c, float delta) {
 
         if (swapIfSwappable(c, c.getNeighbourAbove())) {
             return;

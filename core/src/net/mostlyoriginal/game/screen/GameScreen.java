@@ -35,7 +35,7 @@ import net.mostlyoriginal.plugin.ProfilerPlugin;
  */
 public class GameScreen extends WorldScreen {
 
-    public static final String BACKGROUND_COLOR_HEX = "000000";
+    public static final String BACKGROUND_COLOR_HEX = "0000FF";
 
     @Override
     protected World createWorld() {
@@ -52,7 +52,6 @@ public class GameScreen extends WorldScreen {
                         new CollisionSystem(),
                         new TransitionSystem(GdxArtemisGame.getInstance()),
 
-                        new ClearScreenSystem(Color.valueOf(BACKGROUND_COLOR_HEX)),
                         new CameraSystem(G.CAMERA_ZOOM),
                         new GameScreenAssetSystem(),
                         new GameScreenSetupSystem(),
@@ -67,6 +66,7 @@ public class GameScreen extends WorldScreen {
                         new PlanetStencilSystem(),
                         new PlanetSimulationSystem(),
 
+                        new PlanetBackgroundRenderSystem(),
                         new PlanetRenderSystem(),
                         new PlanetRenderGravityDebugSystem(),
                         new PlanetRenderTemperatureDebugSystem(),
