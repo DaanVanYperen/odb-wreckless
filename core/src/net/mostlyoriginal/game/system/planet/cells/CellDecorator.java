@@ -1,5 +1,6 @@
 package net.mostlyoriginal.game.system.planet.cells;
 
+import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.game.component.Planet;
 import net.mostlyoriginal.game.component.PlanetCell;
 import net.mostlyoriginal.game.component.StatusMask;
@@ -40,6 +41,10 @@ public class CellDecorator {
         return planet.get(cell.x + PlanetCell.directions[cell.left()][0], cell.y + PlanetCell.directions[cell.left()][1]);
     }
 
+    public PlanetCell getNeighbourDown() {
+        return cell.down != -1 ? planet.get(cell.x + PlanetCell.directions[cell.down][0], cell.y + PlanetCell.directions[cell.down][1]) : null;
+    }
+
     public PlanetCell getNeighbourRight() {
         return planet.get(cell.x + PlanetCell.directions[cell.right()][0], cell.y + PlanetCell.directions[cell.right()][1]);
     }
@@ -56,7 +61,7 @@ public class CellDecorator {
         return planet.get(cell.x + PlanetCell.directions[cell.down][0], cell.y + PlanetCell.directions[cell.down][1]);
     }
 
-    public PlanetCell hasNeighbour(PlanetCell.CellType type) {
+    public PlanetCell getNeighbour(PlanetCell.CellType type) {
         for (int i = 0; i < 8; i++) {
             final PlanetCell result = planet.get(cell.x + PlanetCell.directions[i][0], cell.y + PlanetCell.directions[i][1]);
             if (result != null && result.type == type) return result;
@@ -99,19 +104,14 @@ public class CellDecorator {
     }
 
 
-    private boolean isFlows(PlanetCell neighbourLeft) {
-        return neighbourLeft.type.flows();
-    }
-
-    public boolean swapWithBestFlowing(PlanetCell neighbourLeft) {
-        if (neighbourLeft != null && neighbourLeft.type != cell.type && isFlows(neighbourLeft)) {
-            CellDecorator child = forChild(neighbourLeft);
-            PlanetCell aboveChild = child.getNeighbourAbove();
-            if (aboveChild != null && isFlows(aboveChild)) {
-                swapWith(aboveChild);
+    public boolean swapWithBestFlowing(PlanetCell target) {
+        if (target != null && target.type != cell.type && target.type.flows() && target.type.density < cell.type.density) {
+            final PlanetCell belowTarget = forChild(target).getNeighbourDown();
+            if (belowTarget != null && belowTarget.type.flows() && belowTarget.type.density < cell.type.density) {
+                swapWith(belowTarget);
                 return true;
             } else {
-                swapWith(neighbourLeft);
+                swapWith(target);
                 return true;
             }
         }
@@ -121,5 +121,13 @@ public class CellDecorator {
 
     public StatusMask mask() {
         return planet.getStatusMask(cell.x, cell.y);
+    }
+
+    public void flow() {
+        if (MathUtils.randomBoolean()) {
+            swapWithBestFlowing(getNeighbourLeft());
+        } else {
+            swapWithBestFlowing(getNeighbourRight());
+        }
     }
 }

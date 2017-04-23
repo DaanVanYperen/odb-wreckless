@@ -1,17 +1,17 @@
 {
   "cards": [
     {
-      "id": "TEMPLATE",
-      "comment": "Example card.",
+      "id": "BLANK",
+      "comment": "Blank card.",
       "x": 0,
       "y": 0,
       "width": 66,
       "height": 90,
-      "script": ["LAVA_TENDRIL", "LAVA_PRESSURE_UP"]
+      "script": []
     },
     {
-      "id": "TEMPLATE2",
-      "comment": "Example card.",
+      "id": "VOLCANO",
+      "comment": "Volcano card.",
       "x": 66,
       "y": 0,
       "width": 66,
@@ -19,13 +19,13 @@
       "script": ["LAVA_TENDRIL", "LAVA_PRESSURE_UP"]
     }
     {
-      "id": "TEMPLATE3",
-      "comment": "Example card.",
+      "id": "UNUSED",
+      "comment": "",
       "x": 132,
       "y": 0,
       "width": 66,
       "height": 90,
-      "script": ["LAVA_TENDRIL", "LAVA_PRESSURE_UP"]
+      "script": []
     }
   ]
 }

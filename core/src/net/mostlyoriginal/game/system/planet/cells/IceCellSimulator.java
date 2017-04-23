@@ -10,7 +10,7 @@ import net.mostlyoriginal.game.component.PlanetCell;
 public class IceCellSimulator implements CellSimulator {
     @Override
     public void process(CellDecorator c, float delta) {
-        final int temperature = c.mask().temperature;
+        final float temperature = c.mask().temperature;
         if ( temperature > 0 && MathUtils.random(0,100) < temperature ) {
             c.setNextType(PlanetCell.CellType.WATER);
         }

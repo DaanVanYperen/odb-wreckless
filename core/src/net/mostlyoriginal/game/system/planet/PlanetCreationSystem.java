@@ -49,7 +49,9 @@ public class PlanetCreationSystem extends PassiveSystem {
 
             for (net.mostlyoriginal.game.component.PlanetData.CellType type : planet.types) {
                 Color color = Color.valueOf(type.color);
+                Color colorArid = type.colorArid != null ? Color.valueOf(type.colorArid) : color;
                 planetE.cellColor[type.type.ordinal()] = type.intColor = Color.rgba8888(color);
+                planetE.cellColorArid[type.type.ordinal()] = type.intColorArid = Color.rgba8888(colorArid);
             }
 
             populate(planet, planetE);

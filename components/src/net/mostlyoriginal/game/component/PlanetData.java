@@ -14,7 +14,9 @@ public class PlanetData {
 
     public static class CellType {
         public String color;
+        public String colorArid;
         public PlanetCell.CellType type;
         public int intColor;
+        public int intColorArid;
     }
 }

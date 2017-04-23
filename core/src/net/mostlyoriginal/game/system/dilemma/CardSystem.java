@@ -2,12 +2,12 @@ package net.mostlyoriginal.game.system.dilemma;
 
 import com.artemis.Aspect;
 import com.artemis.E;
-import com.artemis.Entity;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Json;
 import net.mostlyoriginal.api.component.basic.Pos;
-import net.mostlyoriginal.api.operation.common.Operation;
 import net.mostlyoriginal.game.component.CardData;
 import net.mostlyoriginal.game.component.CardScript;
 import net.mostlyoriginal.game.component.G;
@@ -17,6 +17,8 @@ import net.mostlyoriginal.game.screen.GameScreen;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.logic.TransitionSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
+
+import java.security.Key;
 
 import static com.artemis.E.E;
 import static net.mostlyoriginal.api.operation.JamOperationFactory.moveBetween;
@@ -49,16 +51,30 @@ public class CardSystem extends FluidIteratingSystem {
     private void loadCards() {
         final Json json = new Json();
         cardLibrary = json.fromJson(CardLibrary.class, Gdx.files.internal("cards.json"));
+        dealRandomCards(3);
+    }
 
+    private void dealRandomCards(int count) {
         int x = (int) G.CARD_X;
-        for (CardData card : cardLibrary.cards) {
+        for (int i = 0; i < count; i++) {
+            CardData card = cardLibrary.cards[MathUtils.random(0, cardLibrary.cards.length - 1)];
             spawnCard(card, x);
             x += card.width + G.MARGIN_BETWEEN_CARDS;
         }
     }
 
     @Override
+    protected void begin() {
+        super.begin();
+
+        if ( Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) {
+            dealRandomCards(1);
+        }
+    }
+
+    @Override
     protected void process(E e) {
+
         e.scale(e.clickableState() == Clickable.ClickState.HOVER ? 1.2f : 1.0f);
         e.renderLayer(e.clickableState() == Clickable.ClickState.HOVER ? 110 : 100);
         if (e.clickableState() == Clickable.ClickState.CLICKED) {

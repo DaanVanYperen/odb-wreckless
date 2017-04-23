@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.game.component.Planet;
 import net.mostlyoriginal.game.component.PlanetCell;
+import net.mostlyoriginal.game.component.StatusMask;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 
 import static net.mostlyoriginal.game.component.G.*;
@@ -30,7 +31,7 @@ public class PlanetRenderTemperatureDebugSystem extends FluidIteratingSystem {
     @Override
     protected void initialize() {
         batch = new SpriteBatch(2000);
-        planetPixel = new TextureRegion(new Texture("planetcell.png"),1,1);
+        planetPixel = new TextureRegion(new Texture("planetcell.png"), 1, 1);
     }
 
     @Override
@@ -50,17 +51,18 @@ public class PlanetRenderTemperatureDebugSystem extends FluidIteratingSystem {
 
     @Override
     protected void process(E e) {
-        if ( !active ) return;
+        if (!active) return;
         Planet planet = e.getPlanet();
         for (int y = 0; y < SIMULATION_HEIGHT; y++) {
             for (int x = 0; x < SIMULATION_WIDTH; x++) {
                 final PlanetCell cell = planet.grid[y][x];
 
-                int temperature = planet.getStatusMask(x, y).temperature;
-                color.set((temperature > 0 ? temperature * 0.2f : 0), 0, (temperature < 0 ? 1f : 0), Math.abs(temperature) * 0.01f);
-                if (temperature != 0) {
+                float temperature = planet.getStatusMask(x, y).temperature;
+                if (temperature > 0) {
+                    float strength = (temperature / StatusMask.MAX_TEMPERATURE);
+                    color.set(strength, 0, 0,strength);
                     batch.setColor(color);
-                    batch.draw(planetPixel, x+PLANET_X, y+ PLANET_Y);
+                    batch.draw(planetPixel, x + PLANET_X, y + PLANET_Y);
                 }
             }
 

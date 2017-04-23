@@ -19,6 +19,7 @@ import static net.mostlyoriginal.game.component.G.SIMULATION_WIDTH;
  */
 public class PlanetSimulationSystem extends FluidIteratingSystem {
 
+    public static final float TEMPERATURE_LOSS = 0.9f;
     private CellSimulator[] simulators = new CellSimulator[PlanetCell.CellType.values().length];
     private Vector2 v = new Vector2();
 
@@ -59,8 +60,7 @@ public class PlanetSimulationSystem extends FluidIteratingSystem {
                 planet.mask[y][x].reset();
                 planet.tempMask[y][x].reset();
                 planet.mask[y][x].temperature =
-
-                        (int) MathUtils.clamp((h/4f)- (v.set(w / 2, h / 2).sub(w / 4 + x / 2,  y).len()), -200, 200)/5;
+                        (int) MathUtils.clamp((h / 4f) - (v.set(w / 2, h / 2).sub(w / 4 + x / 2, y).len()), -200, 200) / 5;
             }
         }
     }
@@ -79,10 +79,10 @@ public class PlanetSimulationSystem extends FluidIteratingSystem {
         final float delta = world.delta;
         int IGNORE_BAND_X = 0;
         int IGNORE_BAND_Y = 0;
-        for (int y = IGNORE_BAND_Y; y < SIMULATION_HEIGHT -  + IGNORE_BAND_Y; y++) {
-            for (int x = IGNORE_BAND_X; x < SIMULATION_WIDTH -  + IGNORE_BAND_X; x++) {
+        for (int y = IGNORE_BAND_Y; y < SIMULATION_HEIGHT - +IGNORE_BAND_Y; y++) {
+            for (int x = IGNORE_BAND_X; x < SIMULATION_WIDTH - +IGNORE_BAND_X; x++) {
                 final PlanetCell cell = planet.grid[y][x];
-                if ( cell.sleep > 0 ) {
+                if (cell.sleep > 0) {
                     cell.sleep--;
                     continue;
                 }
@@ -92,7 +92,7 @@ public class PlanetSimulationSystem extends FluidIteratingSystem {
     }
 
     private void generateMask(Planet planet) {
-        clearMask(planet);
+        //clearMask(planet);
         CellDecorator planetCell = new CellDecorator(planet);
         final float delta = world.delta;
         for (int y = 0; y < SIMULATION_HEIGHT; y++) {
@@ -102,9 +102,6 @@ public class PlanetSimulationSystem extends FluidIteratingSystem {
             }
         }
         smoothMask(planet);
-        smoothMask(planet);
-        smoothMask(planet);
-        smoothMask(planet);
     }
 
     private void smoothMask(Planet planet) {
@@ -112,15 +109,17 @@ public class PlanetSimulationSystem extends FluidIteratingSystem {
             for (int x = 1; x < (SIMULATION_WIDTH / GRADIENT_SCALE) - 1; x++) {
                 planet.tempMask[y][x].temperature = planet.mask[y][x].temperature;
                 for (int i = 0; i < 8; i++) {
-                    planet.tempMask[y][x].temperature +=
-                            planet.mask[y + PlanetCell.directions[i][1]][x + PlanetCell.directions[i][0]].temperature;
+                    planet.tempMask[y][x].temperature =
+                            Math.max(
+                                    (planet.mask[y + PlanetCell.directions[i][1]][x + PlanetCell.directions[i][0]].temperature) * TEMPERATURE_LOSS,
+                                    planet.tempMask[y][x].temperature
+                            );
                 }
-                planet.tempMask[y][x].temperature /= 4;
             }
         }
         for (int y = 1; y < (SIMULATION_HEIGHT / GRADIENT_SCALE) - 1; y++) {
             for (int x = 1; x < (SIMULATION_WIDTH / GRADIENT_SCALE) - 1; x++) {
-                planet.mask[y][x].temperature = planet.tempMask[y][x].temperature;
+                planet.mask[y][x].temperature = MathUtils.clamp(planet.tempMask[y][x].temperature, -100f, StatusMask.MAX_TEMPERATURE) * 0.95f;
             }
         }
     }

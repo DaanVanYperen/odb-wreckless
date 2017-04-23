@@ -15,7 +15,7 @@ public class SteamCellSimulator implements CellSimulator {
 
         if (c.cell.nextType == null) {
             if (MathUtils.random(0,100) < 1f) {
-                if (MathUtils.random(0,100) > (c.mask().temperature > 100 ? 25 : 50 ) ) {
+                if (MathUtils.random(0,100) < (c.mask().temperature > 100 ? 90 : 75 ) ) {
                     c.setNextType(PlanetCell.CellType.AIR);
                 } else {
                     c.setNextType(PlanetCell.CellType.WATER);

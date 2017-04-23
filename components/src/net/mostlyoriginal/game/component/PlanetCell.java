@@ -24,6 +24,7 @@ public class PlanetCell {
             {-1, 1},
             {-1, 0}
     };
+
     public int sleep;
 
     public int up() {
@@ -63,7 +64,8 @@ public class PlanetCell {
         WATER(1f, true),
         AIR(0f, true),
         ICE(null, false),
-        STEAM(-0.5f, true), LAVA_CRUST(5f, true);
+        STEAM(-0.5f, true),
+        LAVA_CRUST(5f, true);
 
         public final Float density;
         private boolean flows;
@@ -74,7 +76,6 @@ public class PlanetCell {
         }
 
         public boolean flows() {
-            flows = false;
             return flows;
         }
 

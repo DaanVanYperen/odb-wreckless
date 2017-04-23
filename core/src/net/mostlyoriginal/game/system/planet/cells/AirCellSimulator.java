@@ -1,17 +1,39 @@
 package net.mostlyoriginal.game.system.planet.cells;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.game.component.PlanetCell;
+import net.mostlyoriginal.game.component.StatusMask;
+
 
 /**
  * @author Daan van Yperen
  */
 public class AirCellSimulator implements CellSimulator {
 
+    Color coldColor;
+    Color aridColor;
+    Color workColor = new Color();
+
     @Override
     public void process(CellDecorator c, float delta) {
-        c.cell.color = c.planet.cellColor[PlanetCell.CellType.AIR.ordinal()];
+
+        if ( aridColor == null ) {
+            coldColor=new Color();
+            aridColor=new Color();
+
+            Color.rgba8888ToColor(coldColor, c.planet.cellColor[PlanetCell.CellType.AIR.ordinal()]);
+            Color.rgba8888ToColor(aridColor, c.planet.cellColorArid[PlanetCell.CellType.AIR.ordinal()]);
+            coldColor.a = aridColor.a = workColor.a = 1f;
+        }
+
+        float a = MathUtils.clamp((c.mask().temperature / StatusMask.ARID_TEMPERATURE),0f,1f);
+        workColor.r = Interpolation.linear.apply( coldColor.r, aridColor.r, a);
+        workColor.g = Interpolation.linear.apply( coldColor.g, aridColor.g, a);
+        workColor.b = Interpolation.linear.apply( coldColor.b, aridColor.b, a);
+
+        c.cell.color = Color.rgba8888(workColor);
 
         if (swapIfSwappable(c, c.getNeighbourAbove())) {
             return;
