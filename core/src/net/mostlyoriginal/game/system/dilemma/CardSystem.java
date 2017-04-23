@@ -2,9 +2,14 @@ package net.mostlyoriginal.game.system.dilemma;
 
 import com.artemis.Aspect;
 import com.artemis.E;
+import com.artemis.Entity;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.utils.Json;
 import net.mostlyoriginal.api.component.basic.Pos;
+import net.mostlyoriginal.api.operation.common.Operation;
+import net.mostlyoriginal.game.component.CardData;
+import net.mostlyoriginal.game.component.CardScript;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.PlayableCard;
 import net.mostlyoriginal.game.component.ui.Clickable;
@@ -14,6 +19,10 @@ import net.mostlyoriginal.game.system.logic.TransitionSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 import static com.artemis.E.E;
+import static net.mostlyoriginal.api.operation.JamOperationFactory.moveBetween;
+import static net.mostlyoriginal.api.operation.JamOperationFactory.moveTo;
+import static net.mostlyoriginal.api.operation.JamOperationFactory.scaleBetween;
+import static net.mostlyoriginal.api.operation.OperationFactory.*;
 
 /**
  * Responsible for serving and processing cards.
@@ -27,7 +36,7 @@ public class CardSystem extends FluidIteratingSystem {
     private GameScreenAssetSystem gameScreenAssetSystem;
 
     public CardSystem() {
-        super(Aspect.all(Pos.class, PlayableCard.class));
+        super(Aspect.all(Pos.class, PlayableCard.class, Clickable.class));
     }
 
     @Override
@@ -42,7 +51,7 @@ public class CardSystem extends FluidIteratingSystem {
         cardLibrary = json.fromJson(CardLibrary.class, Gdx.files.internal("cards.json"));
 
         int x = (int) G.CARD_X;
-        for (net.mostlyoriginal.game.component.Card card : cardLibrary.cards) {
+        for (CardData card : cardLibrary.cards) {
             spawnCard(card, x);
             x += card.width + G.MARGIN_BETWEEN_CARDS;
         }
@@ -53,16 +62,20 @@ public class CardSystem extends FluidIteratingSystem {
         e.scale(e.clickableState() == Clickable.ClickState.HOVER ? 1.2f : 1.0f);
         e.renderLayer(e.clickableState() == Clickable.ClickState.HOVER ? 110 : 100);
         if (e.clickableState() == Clickable.ClickState.CLICKED) {
-            play(e.getPlayableCard());
-            e.deleteFromWorld();
+            e.removeClickable();
+            float MOVE_DURATION = 1.5f;
+            float FINAL_CARD_SCALE = 0.2f;
+            e.script(
+                    sequence(
+                            parallel(
+                                    moveBetween(e.posX(), e.posY(), G.PLANET_CENTER_X - e.boundsCx() * FINAL_CARD_SCALE, G.PLANET_CENTER_Y - e.boundsCy() * FINAL_CARD_SCALE, MOVE_DURATION, Interpolation.smooth),
+                                    scaleBetween(1f, FINAL_CARD_SCALE, MOVE_DURATION, Interpolation.smooth)),
+                            add(new CardScript(e.playableCardCard().script))
+                    ));
         }
     }
 
-    private void play(PlayableCard playableCard) {
-
-    }
-
-    private void spawnCard(net.mostlyoriginal.game.component.Card card, float x) {
+    private void spawnCard(CardData card, float x) {
 
         String cardGfx = "card" + card.id;
         gameScreenAssetSystem.add(cardGfx, card.x, card.y, card.width, card.height, 1);

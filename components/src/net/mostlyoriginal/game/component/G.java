@@ -22,5 +22,8 @@ public class G {
     private static final int MARGIN_BETWEEN_SIM_AND_ROOF = 10;
     public static final int SCREEN_HEIGHT = (SIMULATION_HEIGHT + CARD_HEIGHT + MARGIN_BETWEEN_CARD_AND_SIM + MARGIN_BETWEEN_SIM_AND_ROOF) * CAMERA_ZOOM;
 
+    public static final int PLANET_CENTER_X = PLANET_X + (SIMULATION_WIDTH / 2);
+    public static final int PLANET_CENTER_Y = PLANET_Y + (SIMULATION_HEIGHT / 2);
+
     public static final int GRADIENT_SCALE = 5;
 }

@@ -1,4 +1,4 @@
-package net.mostlyoriginal.game.system.planet;
+package net.mostlyoriginal.game.component;
 
 import net.mostlyoriginal.game.component.PlanetCell;
 
@@ -13,8 +13,8 @@ public class PlanetData {
     public CellType[] types;
 
     public static class CellType {
-        String color;
-        PlanetCell.CellType type;
+        public String color;
+        public PlanetCell.CellType type;
         public int intColor;
     }
 }

@@ -1,5 +1,7 @@
 package net.mostlyoriginal.game.system.dilemma;
 
+import net.mostlyoriginal.game.component.CardData;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,18 +10,18 @@ import java.util.Map;
  * Repository for all cards.
  */
 public class CardLibrary {
-    public net.mostlyoriginal.game.component.Card[] cards;
+    public CardData[] cards;
 
     public CardLibrary() {
     }
 
-    Map<String, List<net.mostlyoriginal.game.component.Card>> grouped = new HashMap<String, List<net.mostlyoriginal.game.component.Card>>();
+    Map<String, List<CardData>> grouped = new HashMap<String, List<CardData>>();
 
     /**
      * Return dilemma, or <code>null</code> if empty.
      */
-    public net.mostlyoriginal.game.component.Card getById(String id) {
-        for (net.mostlyoriginal.game.component.Card card : cards) {
+    public CardData getById(String id) {
+        for (CardData card : cards) {
             if (card.id != null && card.id.equals(id)) return card;
         }
         return null;

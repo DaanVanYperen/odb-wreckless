@@ -9,5 +9,5 @@ public class PlayableCard extends Component {
     public PlayableCard() {
     }
 
-    public Card card;
+    public CardData card;
 }

@@ -1,0 +1,12 @@
+{
+  "stencils": [
+    {
+      "id": "AIRPOCKET",
+      "comment": "Airpocket for lava.",
+      "texture": "airpocket.png",
+      "replaceTypes": [
+        "STATIC"
+      ]
+    }
+  ]
+}

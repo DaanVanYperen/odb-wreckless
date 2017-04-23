@@ -25,6 +25,7 @@ public class PlanetCreationSystem extends PassiveSystem {
 
     GameScreenAssetSystem gameScreenAssetSystem;
     PlanetLibrary planetLibrary = new PlanetLibrary();
+    public E planetEntity;
 
     @Override
     protected void initialize() {
@@ -36,14 +37,17 @@ public class PlanetCreationSystem extends PassiveSystem {
         final Json json = new Json();
         planetLibrary = json.fromJson(PlanetLibrary.class, Gdx.files.internal("planets.json"));
 
-        for (PlanetData planet : planetLibrary.planets) {
+        for (net.mostlyoriginal.game.component.PlanetData planet : planetLibrary.planets) {
 
-            Planet planetE = E.E()
+            planetEntity = E.E();
+            Planet planetE = planetEntity
                     .planet()
                     .pos(0, 0)
                     .getPlanet();
 
-            for (PlanetData.CellType type : planet.types) {
+            planetE.data = planet;
+
+            for (net.mostlyoriginal.game.component.PlanetData.CellType type : planet.types) {
                 Color color = Color.valueOf(type.color);
                 planetE.cellColor[type.type.ordinal()] = type.intColor = Color.rgba8888(color);
             }
@@ -169,12 +173,12 @@ public class PlanetCreationSystem extends PassiveSystem {
         return 0;
     }
 
-    private void populate(PlanetData planetData, Planet planet) {
+    private void populate(net.mostlyoriginal.game.component.PlanetData planetData, Planet planet) {
         formSurface(planet, new Texture(planetData.texture), planetData);
         formMask(planet);
     }
 
-    private void formSurface(Planet planet, Texture texture, PlanetData planetData) {
+    private void formSurface(Planet planet, Texture texture, net.mostlyoriginal.game.component.PlanetData planetData) {
         TextureData textureData = texture.getTextureData();
         textureData.prepare();
         Pixmap pixmap = textureData.consumePixmap();
@@ -197,7 +201,7 @@ public class PlanetCreationSystem extends PassiveSystem {
 
     Color c = new Color();
 
-    private PlanetCell formCell(Planet planet, int y, int x, int color, PlanetData planetData) {
+    private PlanetCell formCell(Planet planet, int y, int x, int color, net.mostlyoriginal.game.component.PlanetData planetData) {
 
         PlanetCell cell = new PlanetCell();
         cell.x = x;
@@ -220,8 +224,8 @@ public class PlanetCreationSystem extends PassiveSystem {
         return 0;
     }
 
-    private void guessCellType(PlanetCell cell, PlanetData planetData) {
-        for (PlanetData.CellType type : planetData.types) {
+    private void guessCellType(PlanetCell cell, net.mostlyoriginal.game.component.PlanetData planetData) {
+        for (net.mostlyoriginal.game.component.PlanetData.CellType type : planetData.types) {
             if (cell.color == type.intColor) {
                 cell.type = type.type;
                 return;

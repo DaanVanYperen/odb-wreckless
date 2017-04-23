@@ -13,6 +13,14 @@ public class LavaCellSimulator implements CellSimulator {
     public void process(CellDecorator c, float delta) {
         c.cell.color = c.planet.cellColor[c.cell.type.ordinal()];
 
+        if (c.planet.lavaPressure > 0) {
+            PlanetCell neighbour = c.hasNeighbour(PlanetCell.CellType.AIR);
+            if (neighbour != null && neighbour.nextType == null) {
+                neighbour.nextType = PlanetCell.CellType.LAVA;
+                c.planet.lavaPressure--;
+            }
+        }
+
         if (c.cell.nextType == null) {
             int nonLavaNeighbours = c.countNonLavaNeighbour();
             if (c.cell.type == PlanetCell.CellType.LAVA_CRUST && nonLavaNeighbours == 0) {

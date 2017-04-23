@@ -17,9 +17,11 @@ import net.mostlyoriginal.api.system.render.ClearScreenSystem;
 import net.mostlyoriginal.game.GdxArtemisGame;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.system.DrawingSystem;
+import net.mostlyoriginal.game.system.dilemma.CardScriptSystem;
 import net.mostlyoriginal.game.system.dilemma.CardSystem;
 import net.mostlyoriginal.game.system.logic.TransitionSystem;
 import net.mostlyoriginal.game.system.planet.*;
+import net.mostlyoriginal.game.system.stencil.PlanetStencilSystem;
 import net.mostlyoriginal.game.system.ui.MouseClickSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 import net.mostlyoriginal.game.system.view.GameScreenSetupSystem;
@@ -46,6 +48,7 @@ public class GameScreen extends WorldScreen {
 
                         new GroupManager(),
                         new CardSystem(),
+                        new CardScriptSystem(),
                         new CollisionSystem(),
                         new TransitionSystem(GdxArtemisGame.getInstance()),
 
@@ -61,6 +64,7 @@ public class GameScreen extends WorldScreen {
 
                         new DrawingSystem(),
 
+                        new PlanetStencilSystem(),
                         new PlanetSimulationSystem(),
 
                         new PlanetRenderSystem(),

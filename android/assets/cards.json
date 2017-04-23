@@ -6,7 +6,8 @@
       "x": 0,
       "y": 0,
       "width": 66,
-      "height": 90
+      "height": 90,
+      "script": ["LAVA_TENDRIL", "LAVA_PRESSURE_UP"]
     },
     {
       "id": "TEMPLATE2",
@@ -14,7 +15,8 @@
       "x": 66,
       "y": 0,
       "width": 66,
-      "height": 90
+      "height": 90,
+      "script": ["LAVA_TENDRIL", "LAVA_PRESSURE_UP"]
     }
     {
       "id": "TEMPLATE3",
@@ -22,7 +24,8 @@
       "x": 132,
       "y": 0,
       "width": 66,
-      "height": 90
+      "height": 90,
+      "script": ["LAVA_TENDRIL", "LAVA_PRESSURE_UP"]
     }
   ]
 }

@@ -11,12 +11,15 @@ import static net.mostlyoriginal.game.component.G.SIMULATION_WIDTH;
  */
 public class Planet extends Component {
 
+
     public Planet() {
     }
 
     public PlanetCell[][] grid = new PlanetCell[SIMULATION_HEIGHT][SIMULATION_WIDTH];
     public StatusMask[][] mask = new StatusMask[SIMULATION_HEIGHT/ GRADIENT_SCALE][SIMULATION_WIDTH / GRADIENT_SCALE];
     public StatusMask[][] tempMask = new StatusMask[SIMULATION_HEIGHT/ GRADIENT_SCALE][SIMULATION_WIDTH / GRADIENT_SCALE];
+    public PlanetData data;
+    public int lavaPressure = 0;
 
     public int cellColor[] = new int[PlanetCell.CellType.values().length];
 
