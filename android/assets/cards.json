@@ -35,6 +35,15 @@
       "width": 66,
       "height": 90,
       "script": ["DOLPHINIZE"]
-    }
+    },
+    {
+      "id": "PEACE",
+      "comment": "Peace strikes",
+      "x": 132,
+      "y": 90,
+      "width": 66,
+      "height": 90,
+      "script": ["ANGRY_NONE"]
+    },
   ]
 }

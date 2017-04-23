@@ -7,6 +7,17 @@
       "replaceTypes": [
         "STATIC"
       ]
+    },
+    {
+      "id": "NOCORE",
+      "comment": "No core!.",
+      "texture": "nocore.png",
+      "replaceTypes": [
+        "STATIC",
+        "LAVA",
+        "WATER",
+        "LAVA_CRUST"
+      ]
     }
   ]
 }

@@ -2,6 +2,7 @@ package net.mostlyoriginal.game.system.dilemma;
 
 import com.artemis.Aspect;
 import com.artemis.E;
+import com.artemis.utils.IntBag;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Interpolation;
@@ -11,10 +12,7 @@ import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.system.graphics.RenderBatchingSystem;
 import net.mostlyoriginal.api.system.render.AnimRenderSystem;
-import net.mostlyoriginal.game.component.CardData;
-import net.mostlyoriginal.game.component.CardScript;
-import net.mostlyoriginal.game.component.G;
-import net.mostlyoriginal.game.component.PlayableCard;
+import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.component.ui.Clickable;
 import net.mostlyoriginal.game.screen.GameScreen;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
@@ -40,6 +38,7 @@ public class CardSystem extends FluidIteratingSystem {
     private CardLibrary cardLibrary;
     private GameScreenAssetSystem gameScreenAssetSystem;
     private RenderBatchingSystem renderBatchingSystem;
+    CardSortSystem cardSortSystem;
 
     public CardSystem() {
         super(Aspect.all(Pos.class, PlayableCard.class, Clickable.class));
@@ -61,27 +60,21 @@ public class CardSystem extends FluidIteratingSystem {
     private void dealRandomCards(int count) {
         for (int i = 0; i < count; i++) {
             CardData card = cardLibrary.cards[MathUtils.random(0, cardLibrary.cards.length - 1)];
-            spawnCard(card, x);
+            spawnCard(card);
         }
     }
 
     @Override
     protected void begin() {
         super.begin();
-        x = (int) G.CARD_X;
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) {
             dealRandomCards(1);
         }
     }
 
-    float x = 0;
-
     @Override
     protected void process(E e) {
-
-        e.posX(x);
-        x += e.playableCardCard().width + G.MARGIN_BETWEEN_CARDS;
 
         e.scale(e.clickableState() == Clickable.ClickState.HOVER ? 1.2f : 1.0f);
         int layer = e.clickableState() == Clickable.ClickState.HOVER ? G.LAYER_CARDS_HOVER : G.LAYER_CARDS;
@@ -105,23 +98,24 @@ public class CardSystem extends FluidIteratingSystem {
                                     )),
                             add(new CardScript(e.playableCardCard().script))
                     ));
+            cardSortSystem.shouldResort=true;
         }
     }
 
-    private void spawnCard(CardData card, float x) {
+    private void spawnCard(CardData card) {
 
         String cardGfx = "card" + card.id;
         gameScreenAssetSystem.add(cardGfx, card.x, card.y, card.width, card.height, 1);
-
         E()
                 .anim(cardGfx)
                 .clickable()
                 .playableCardCard(card)
                 .bounds(0, 0, card.width, card.height)
-                .pos(x, G.CARD_Y)
+                .pos(-300, G.CARD_Y)
                 .physics()
                 .scale(1.0f)
                 .renderLayer(G.LAYER_CARDS);
+        cardSortSystem.shouldResort=true;
     }
 
     private static void restartGame() {

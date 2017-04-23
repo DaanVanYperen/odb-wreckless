@@ -47,6 +47,9 @@ public class CardScriptSystem extends FluidIteratingSystem {
             case ANGRY_RANDOMIZE:
                 randomizeAnger();
                 break;
+            case ANGRY_NONE:
+                killAnger();
+                break;
             case DOLPHINIZE:
                 randomizeDolphin();
                 break;
@@ -79,6 +82,15 @@ public class CardScriptSystem extends FluidIteratingSystem {
             } else {
                 e.angry();
             }
+        }
+    }
+
+    private void killAnger() {
+        IntBag entities = getWanderers();
+        int[] ids = entities.getData();
+        for (int i = 0, s = entities.size(); s > i; i++) {
+            E e = E.E(ids[i]);
+            e.removeAngry();
         }
     }
 

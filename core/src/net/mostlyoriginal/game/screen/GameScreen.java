@@ -17,6 +17,7 @@ import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.system.DrawingSystem;
 import net.mostlyoriginal.game.system.MyCameraSystem;
 import net.mostlyoriginal.game.system.dilemma.CardScriptSystem;
+import net.mostlyoriginal.game.system.dilemma.CardSortSystem;
 import net.mostlyoriginal.game.system.dilemma.CardSystem;
 import net.mostlyoriginal.game.system.logic.TransitionSystem;
 import net.mostlyoriginal.game.system.planet.*;
@@ -48,6 +49,7 @@ public class GameScreen extends WorldScreen {
 
                         new GroupManager(),
                         new CardSystem(),
+                        new CardSortSystem(),
                         new CardScriptSystem(),
                         new CollisionSystem(),
                         new TransitionSystem(GdxArtemisGame.getInstance()),

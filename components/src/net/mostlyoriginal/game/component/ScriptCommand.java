@@ -7,5 +7,6 @@ public enum ScriptCommand {
     LAVA_TENDRIL,
     LAVA_PRESSURE_UP,
     ANGRY_RANDOMIZE,
-    DOLPHINIZE
+    DOLPHINIZE,
+    ANGRY_NONE,
 }
