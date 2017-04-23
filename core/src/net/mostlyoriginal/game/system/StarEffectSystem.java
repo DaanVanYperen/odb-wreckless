@@ -56,7 +56,7 @@ public class StarEffectSystem extends FluidIteratingSystem {
         E().pos(x, y)
                 .star(kind)
                 .anim()
-                .angleRotation(90f)
+                .angleRotation(-90f)
                 .renderLayer(G.LAYER_STAR)
                 .tint(MathUtils.random(0.6f, 1f), MathUtils.random(0.6f, 1f), MathUtils.random(0.6f, 1f), MathUtils.random(kind == 0 ? 0.1f : 0.5f, 0.9f));
     }
@@ -116,9 +116,9 @@ public class StarEffectSystem extends FluidIteratingSystem {
         Pos pos = e.getPos();
 
         // move star to the left, and randomize location to give the appearance of more stars.
-        pos.xy.y -= ((8f + (speedFactor * 500f)) * world.delta * star.speedFactor);
-        if (pos.xy.y < -BIGGEST_STAR_WIDTH) {
-            pos.xy.y = G.SCREEN_HEIGHT;
+        pos.xy.y += ((8f + (speedFactor * 500f)) * world.delta * star.speedFactor);
+        if (pos.xy.y > G.SCREEN_HEIGHT) {
+            pos.xy.y = -BIGGEST_STAR_WIDTH;
             pos.xy.x = randomStarX();
         }
     }

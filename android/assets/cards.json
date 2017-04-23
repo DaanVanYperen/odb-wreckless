@@ -28,6 +28,7 @@
       "y": 0,
       "width": 66,
       "height": 90,
+      "sfx": "Politic-New Leader",
       "script": [
         "ANGRY_RANDOMIZE"
       ]
@@ -39,6 +40,7 @@
       "y": 180,
       "width": 66,
       "height": 90,
+      "sfx": "Politic-Dolphins",
       "script": [
         "DOLPHINIZE"
       ]
@@ -57,8 +59,8 @@
     {
       "id": "HOLLOWEARTH",
       "comment": "Who needs a planet center!",
-      "x": 198,
-      "y": 0,
+      "x": 132,
+      "y": 270,
       "width": 66,
       "height": 90,
       "script": [
@@ -78,11 +80,12 @@
     },
     {
       "id": "FOOD1",
-      "comment": "Food1",
+      "comment": "Galaxybux",
       "x": 264,
       "y": 0,
       "width": 66,
       "height": 90,
+      "sfx": "nutrition-coffee",
       "script": [
         "ADD_DUDES"
       ]

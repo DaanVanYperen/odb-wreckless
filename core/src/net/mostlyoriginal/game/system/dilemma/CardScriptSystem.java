@@ -12,6 +12,7 @@ import net.mostlyoriginal.game.component.Wander;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.planet.PlanetCreationSystem;
 import net.mostlyoriginal.game.system.stencil.PlanetStencilSystem;
+import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 /**
  * @author Daan van Yperen
@@ -23,9 +24,15 @@ public class CardScriptSystem extends FluidIteratingSystem {
 
     PlanetStencilSystem planetStencilSystem;
     PlanetCreationSystem planetCreationSystem;
+    GameScreenAssetSystem assetSystem;
 
     @Override
     protected void process(E e) {
+        String sfx = e.getPlayableCard().card.sfx;
+        if ( sfx != null ) {
+            assetSystem.playSfx(sfx);
+        }
+
         run(e.cardScriptScript());
         e.deleteFromWorld();
     }

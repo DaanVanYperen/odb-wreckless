@@ -10,6 +10,7 @@ public class CardData {
     public String id;
     public String comment; // not used.
     public ScriptCommand[] script;
+    public String sfx;
 
     public int x;
     public int y;

@@ -1,10 +1,15 @@
 package net.mostlyoriginal.game.system.view;
 
+import com.artemis.E;
 import com.artemis.annotations.Wire;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Json;
 import net.mostlyoriginal.api.manager.AbstractAssetSystem;
+import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.SpriteData;
 import net.mostlyoriginal.game.system.dilemma.CardLibrary;
 import net.mostlyoriginal.game.system.planet.SpriteLibrary;
@@ -43,6 +48,65 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("star-2-3", 40, 152 + offsetY, 4, 1, 1);
         add("star-2-4", 48, 152 + offsetY, 7, 1, 1);
         add("star-2-5", 80, 152 + offsetY, 15, 1, 1);
+
+        loadSounds(
+                new String[]{
+                        "LD1_amb_main",
+                        "LD1_badthing",
+                        "LD1_event1",
+                        "LD1_event2",
+                        "LD1_event3",
+                        "LD1_volcano",
+                        "LD1_volcano2",
+                        "LD_genuine earth men_jingle",
+//                        "LD_titleloop",
+                        "LD_troop_amazing",
+                        "LD_troop_hello",
+                        "LD_troop_no",
+                        "LD_troop_prologue",
+                        "LD_troop_yeah",
+                        "LD_troop_yeah_higher",
+                        "nutrition-coffee",
+                        "Politic-Dolphins",
+                        "Politic-New Leader",
+                        "tech-missiles",
+                        "Tech-particle accel",
+                }
+        );
+
+        loadLogo();
+
+        playMusicTitle();
+        //playMusicInGame();
+    }
+
+    private void loadLogo() {
+        TextureRegion[] regions = new TextureRegion[16];
+        for (int i = 0; i < 16; i++) {
+            regions[i] = new TextureRegion(new Texture("index" + (i + 1) + ".png"), G.LOGO_WIDTH, G.LOGO_HEIGHT);
+        }
+
+        Animation animation = new Animation(0.05f, regions);
+        animation.setPlayMode(Animation.PlayMode.NORMAL);
+        sprites.put("logo", animation);
+    }
+
+    private void playMusicTitle() {
+        Music music = Gdx.audio.newMusic(Gdx.files.internal("sfx/LD_titleloop.mp3"));
+        music.setLooping(true);
+        music.play();
+        music.setPan(0, 0.1f);
+
+        if (!G.DEBUG_SKIP_INTRO) {
+            playSfx("LD_troop_prologue");
+        }
+    }
+
+    private void playMusicInGame() {
+        Music music = Gdx.audio.newMusic(Gdx.files.internal("sfx/LD1_fortune_teller_loop.mp3"));
+        music.setLooping(true);
+        music.play();
+        music.setPan(0, 0.1f);
     }
 
     @Override

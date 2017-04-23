@@ -6,8 +6,11 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.TextureData;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Json;
+import net.mostlyoriginal.api.component.basic.Pos;
+import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.system.core.PassiveSystem;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.Planet;
@@ -15,6 +18,8 @@ import net.mostlyoriginal.game.component.PlanetCell;
 import net.mostlyoriginal.game.component.StatusMask;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
+import static net.mostlyoriginal.api.operation.OperationFactory.*;
+import static net.mostlyoriginal.game.component.G.CAMERA_ZOOM;
 import static net.mostlyoriginal.game.component.G.SIMULATION_HEIGHT;
 import static net.mostlyoriginal.game.component.G.SIMULATION_WIDTH;
 
@@ -27,10 +32,33 @@ public class PlanetCreationSystem extends PassiveSystem {
     PlanetLibrary planetLibrary = new PlanetLibrary();
     public E planetEntity;
 
+    Pos logoStartPos = new Pos((G.SCREEN_WIDTH/CAMERA_ZOOM) / 2 - G.LOGO_WIDTH / 2, (G.SCREEN_HEIGHT) / 2);
+    Pos logoEndPos = new Pos((G.SCREEN_WIDTH/CAMERA_ZOOM) / 2 - G.LOGO_WIDTH / 2, (G.SCREEN_HEIGHT) / 2 + G.LOGO_HEIGHT );
+
     @Override
     protected void initialize() {
         super.initialize();
         loadPlanets();
+
+        if (!G.DEBUG_SKIP_INTRO) {
+            E.E()
+                    .pos()
+                    .anim("logo")
+                    .animLoop(false)
+                    .renderLayer(10000)
+                    .tint(Tint.TRANSPARENT)
+                    .script(
+                            parallel(
+                                    tween(logoStartPos, logoEndPos, 10f, Interpolation.linear),
+                                    sequence(
+                                            delay(2f),
+                                            tween(Tint.TRANSPARENT, Tint.WHITE, 1f, Interpolation.linear),
+                                            delay(2f),
+                                            tween(Tint.WHITE, Tint.TRANSPARENT, 4f, Interpolation.linear)
+                                    )
+                            )
+                    );
+        }
     }
 
     private void loadPlanets() {
