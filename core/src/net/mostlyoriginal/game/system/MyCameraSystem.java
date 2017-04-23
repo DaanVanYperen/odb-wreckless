@@ -16,8 +16,10 @@ public class MyCameraSystem extends CameraSystem {
     public static final float VISIBLE_FOCUS_COOLDOWN = 18f + 2f;
     float cooldown = INTO_FOCUS_COOLDOWN;
     float y = (G.SCREEN_HEIGHT / G.CAMERA_ZOOM) / 2;
+    boolean introDone =false;
 
     StarEffectSystem starEffectSystem;
+    private GameScreenAssetSystem gameScreenAssetSystem;
 
     public MyCameraSystem(int cameraZoom) {
         super(cameraZoom);
@@ -39,7 +41,13 @@ public class MyCameraSystem extends CameraSystem {
             if (cooldown < 0) cooldown = 0;
             camera.position.y = Interpolation.pow2In.apply(y, y + G.SCREEN_HEIGHT / 2, MathUtils.clamp(cooldown / VISIBLE_FOCUS_COOLDOWN,0f,1f));
             camera.update();
-        } else starEffectSystem.active = false;
+        } else  {
+            if ( !introDone ) {
+                introDone=true;
+                gameScreenAssetSystem.playMusicInGame();
+            }
+            starEffectSystem.active = false;
+        }
         super.processSystem();
     }
 }

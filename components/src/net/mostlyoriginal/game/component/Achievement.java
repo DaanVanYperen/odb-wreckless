@@ -5,8 +5,7 @@ import com.artemis.Component;
 /**
  * @author Daan van Yperen
  */
-public class OrientToGravity extends Component {
-    public OrientToGravity() {
+public class Achievement extends Component {
+    public Achievement() {
     }
-    public boolean ignoreFloor=false;
 }

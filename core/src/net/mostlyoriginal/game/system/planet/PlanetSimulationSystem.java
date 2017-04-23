@@ -20,11 +20,24 @@ import static net.mostlyoriginal.game.component.G.SIMULATION_WIDTH;
 public class PlanetSimulationSystem extends FluidIteratingSystem {
 
     public static final float TEMPERATURE_LOSS = 0.9f;
+    public static final int AIR_ORDINAL = PlanetCell.CellType.AIR.ordinal();
     private CellSimulator[] simulators = new CellSimulator[PlanetCell.CellType.values().length];
+    public int[] simulatedBlocks = new int[PlanetCell.CellType.values().length];
     private Vector2 v = new Vector2();
 
     public PlanetSimulationSystem() {
         super(Aspect.all(Planet.class));
+    }
+
+    /**  Don't count air in simualted blocks. */
+    public int totalSimulatedBlocks() {
+        int count = 0;
+        for (int i = 0, s = PlanetCell.CellType.values().length; i < s; i++) {
+            if (i == AIR_ORDINAL)
+                continue;
+            count += simulatedBlocks[i];
+        }
+        return count;
     }
 
     @Override
@@ -43,6 +56,7 @@ public class PlanetSimulationSystem extends FluidIteratingSystem {
 
     private void addSimulator(PlanetCell.CellType cellType, CellSimulator simulator) {
         simulators[cellType.ordinal()] = simulator;
+        simulatedBlocks[cellType.ordinal()] = 0;
     }
 
     @Override
@@ -83,15 +97,24 @@ public class PlanetSimulationSystem extends FluidIteratingSystem {
         final float delta = world.delta;
         int IGNORE_BAND_X = 0;
         int IGNORE_BAND_Y = 0;
+        clearSimulationCounts();
         for (int y = IGNORE_BAND_Y; y < SIMULATION_HEIGHT - +IGNORE_BAND_Y; y++) {
             for (int x = IGNORE_BAND_X; x < SIMULATION_WIDTH - +IGNORE_BAND_X; x++) {
                 final PlanetCell cell = planet.grid[y][x];
+                final int ordinal = cell.type.ordinal();
+                simulatedBlocks[ordinal]++;
                 if (cell.sleep > 0) {
                     cell.sleep--;
                     continue;
                 }
-                simulators[cell.type.ordinal()].process(planetCell.proxies(cell), delta);
+                simulators[ordinal].process(planetCell.proxies(cell), delta);
             }
+        }
+    }
+
+    private void clearSimulationCounts() {
+        for (int i = 0; i < PlanetCell.CellType.values().length; i++) {
+            simulatedBlocks[i] = 0;
         }
     }
 

@@ -54,6 +54,8 @@ public class CardScriptSystem extends FluidIteratingSystem {
             case WATERWORLD:
                 planetStencilSystem.stencil("WATERWORLD");
                 break;
+            case KILL_DUDES:
+                killDudes();
             case ADD_DUDES:
                 spawnDudes();
                 break;
@@ -69,6 +71,18 @@ public class CardScriptSystem extends FluidIteratingSystem {
             case DOLPHINIZE:
                 randomizeDolphin();
                 break;
+        }
+    }
+
+    private void killDudes() {
+        IntBag entities = getWanderers();
+        int[] ids = entities.getData();
+        for (int i = 0, s = entities.size(); s > i; i++) {
+            E e = E.E(ids[i]);
+            e.removeDolphinized();
+            if (MathUtils.randomBoolean()) {
+                e.died();
+            }
         }
     }
 

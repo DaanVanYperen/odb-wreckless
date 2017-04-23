@@ -12,6 +12,7 @@ import net.mostlyoriginal.api.component.physics.Physics;
 import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
+import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 import static net.mostlyoriginal.api.operation.OperationFactory.*;
 
@@ -21,6 +22,7 @@ import static net.mostlyoriginal.api.operation.OperationFactory.*;
 public class GhostSystem extends FluidIteratingSystem {
 
     private TagManager tagManager;
+    private GameScreenAssetSystem gameScreenAssetSystem;
 
     public GhostSystem() {
         super(Aspect.all(PlanetCoord.class, Died.class));
@@ -35,11 +37,13 @@ public class GhostSystem extends FluidIteratingSystem {
                 .anim("dudeghost")
                 .renderLayer(G.LAYER_GHOST)
                 .orientToGravity()
+                .orientToGravityIgnoreFloor(true)
                 .angle()
                 .tint(Tint.WHITE)
                 .physicsVelocity(e.planetCoordGravity().x * -100f, e.planetCoordGravity().y * -100f, 0f)
                 .script(
                         sequence(delay(0.5f), tween(Tint.WHITE, Tint.TRANSPARENT, 1f), deleteFromWorld()));
+        gameScreenAssetSystem.playSfx("LD_troop_no");
         e.deleteFromWorld();
     }
 }

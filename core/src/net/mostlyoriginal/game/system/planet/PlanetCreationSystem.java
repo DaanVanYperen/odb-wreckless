@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.TextureData;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Json;
 import net.mostlyoriginal.api.component.basic.Pos;
@@ -16,12 +17,11 @@ import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.Planet;
 import net.mostlyoriginal.game.component.PlanetCell;
 import net.mostlyoriginal.game.component.StatusMask;
+import net.mostlyoriginal.game.system.DrawingSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 import static net.mostlyoriginal.api.operation.OperationFactory.*;
-import static net.mostlyoriginal.game.component.G.CAMERA_ZOOM;
-import static net.mostlyoriginal.game.component.G.SIMULATION_HEIGHT;
-import static net.mostlyoriginal.game.component.G.SIMULATION_WIDTH;
+import static net.mostlyoriginal.game.component.G.*;
 
 /**
  * @author Daan van Yperen
@@ -34,6 +34,7 @@ public class PlanetCreationSystem extends PassiveSystem {
 
     Pos logoStartPos = new Pos((G.SCREEN_WIDTH/CAMERA_ZOOM) / 2 - G.LOGO_WIDTH / 2, (G.SCREEN_HEIGHT) / 2);
     Pos logoEndPos = new Pos((G.SCREEN_WIDTH/CAMERA_ZOOM) / 2 - G.LOGO_WIDTH / 2, (G.SCREEN_HEIGHT) / 2 + G.LOGO_HEIGHT );
+    private DrawingSystem drawingSystem;
 
     @Override
     protected void initialize() {
@@ -109,16 +110,24 @@ public class PlanetCreationSystem extends PassiveSystem {
         }
 
         for (int degrees = 0; degrees < 360; degrees += 15) {
+            if ( MathUtils.random(1,100) < 25 ) {
+                spawnCloud(degrees);
+            }
             spawnDude(degrees);
         }
     }
 
+    private void spawnCloud(int degrees) {
+        Vector2 source = v.set(125, 0).rotate(degrees).add(SIMULATION_WIDTH / 2, SIMULATION_HEIGHT / 2);
+        drawingSystem.draw(planetEntity,(int)source.x + PLANET_X,(int)source.y + PLANET_Y,MathUtils.random(1,3), PlanetCell.CellType.CLOUD);
+    }
+
     public void spawnDude(int degrees) {
         Vector2 source = v.set(130, 0).rotate(degrees).add(SIMULATION_WIDTH / 2, SIMULATION_HEIGHT / 2);
-        E.E()
+        E dude = E.E()
                 .anim("dude")
                 .renderLayer(G.LAYER_DUDES)
-                .pos(source.x + G.PLANET_X, source.y + G.PLANET_Y)
+                .pos(source.x + PLANET_X, source.y + G.PLANET_Y)
                 .angle()
                 .physics()
                 .planetCoord()
@@ -126,6 +135,10 @@ public class PlanetCreationSystem extends PassiveSystem {
                 .wander()
                 .mass()
                 .orientToGravity();
+
+        if ( MathUtils.random(1,100) < 20 ) {
+            dude.angry();
+        }
     }
 
     public void drawGravity(Planet planet, int ox, int oy, int x2, int y2) {

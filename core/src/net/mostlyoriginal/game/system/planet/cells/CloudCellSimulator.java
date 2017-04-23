@@ -17,7 +17,7 @@ public class CloudCellSimulator implements CellSimulator {
     public void process(CellDecorator c, float delta) {
 
         if (c.cell.nextType == null) {
-            if (MathUtils.random(0, 100) < 1f) {
+            if (MathUtils.random(0, 1000) < 1f) {
                 PlanetCell down = c.getNeighbourDown();
                 if (down != null && down.type == PlanetCell.CellType.AIR) {
                     if (down.nextType == null) {

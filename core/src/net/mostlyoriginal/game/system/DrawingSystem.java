@@ -84,7 +84,7 @@ public class DrawingSystem extends FluidIteratingSystem {
 
     Vector2 v = new Vector2();
 
-    private void draw(E e, int x1, int y1, int size, PlanetCell.CellType air) {
+    public void draw(E e, int x1, int y1, int size, PlanetCell.CellType type) {
         y1 -= PLANET_Y;
         x1 -= PLANET_X;
         for (int y = y1 - size; y < y1 + size; y++) {
@@ -92,7 +92,7 @@ public class DrawingSystem extends FluidIteratingSystem {
                 if (v.set(x1, y1).sub(x, y).len() < size) {
                     PlanetCell cell = e.getPlanet().get(x, y);
                     if (cell != null) {
-                        cell.type = air;
+                        cell.type = type;
                     }
                 }
             }

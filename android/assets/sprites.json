@@ -41,5 +41,176 @@
       "width": 16,
       "height": 8
     }
+    {
+      "id": "spaceship",
+      "comment": "The alien's spaceship.",
+      "x": 32,
+      "y": 111,
+      "width": 20,
+      "height": 19
+    },
+
+    {
+      "id": "alien",
+      "comment": "Alien .",
+      "x": 0,
+      "y": 130,
+      "width": 8,
+      "height": 8
+    },
+
+    {
+      "id": "skyscraper1",
+      "comment": "Skyscraper 1.",
+      "x": 0,
+      "y": 154,
+      "width": 8,
+      "height": 38
+    },
+
+    {
+      "id": "skyscraper2",
+      "comment": "Skyscraper 2.",
+      "x": 8,
+      "y": 155,
+      "width": 8,
+      "height": 37
+    },
+
+    {
+      "id": "skyscraper3",
+      "comment": "Skyscraper 3.",
+      "x": 16,
+      "y": 158,
+      "width": 8,
+      "height": 34
+    },
+
+    {
+      "id": "skyscraper4",
+      "comment": "Skyscraper 4.",
+      "x": 24,
+      "y": 155,
+      "width": 8,
+      "height": 37
+    },
+
+    {
+      "id": "skyscraper5",
+      "comment": "Skyscraper 5.",
+      "x": 32,
+      "y": 166,
+      "width": 8,
+      "height": 26
+    },
+
+    {
+      "id": "skyscraper6",
+      "comment": "Skyscraper 6.",
+      "x": 40,
+      "y": 154,
+      "width": 8,
+      "height": 38
+    },
+
+    {
+      "id": "skyscraper7",
+      "comment": "Skyscraper 7.",
+      "x": 48,
+      "y": 156,
+      "width": 8,
+      "height": 36
+    },
+
+    {
+      "id": "galaxybucks",
+      "comment": "Galaxybucks shop.",
+      "x": 0,
+      "y": 195,
+      "width": 15,
+      "height": 21
+    },
+
+    {
+      "id": "icbm",
+      "comment": "ICBM.",
+      "x": 24,
+      "y": 192,
+      "width": 8,
+      "height": 40
+    },
+
+    {
+      "id": "icbmflame",
+      "comment": "ICBM exhaust flames. ",
+      "x": 24,
+      "y": 232,
+      "width": 8,
+      "height": 8,
+      "countX": 4
+    },
+
+    {
+      "id": "icbmtower",
+      "comment": "ICBM launch platform tower.",
+      "x": 44,
+      "y": 200,
+      "width": 12,
+      "height": 32
+    },
+
+    {
+      "id": "pickacard",
+      "comment": "Pick A Card with arrow.",
+      "x": 0,
+      "y": 296,
+      "width": 60,
+      "height": 14
+    },
+
+    {
+      "id": "rewind",
+      "comment": "Rewind button.",
+      "x": 0,
+      "y": 312,
+      "width": 32,
+      "height": 26
+    },
+
+    {
+      "id": "achievement1",
+      "comment": "Achievement for killing everyone.",
+      "x": 0,
+      "y": 345,
+      "width": 32,
+      "height": 32
+    },
+
+    {
+      "id": "achievement2",
+      "comment": "Achievement for successful dolphins.",
+      "x": 33,
+      "y": 345,
+      "width": 32,
+      "height": 32
+    },
+
+    {
+      "id": "achievement3",
+      "comment": "Achievement for maximum lava.",
+      "x": 66,
+      "y": 345,
+      "width": 32,
+      "height": 32
+    },
+
+    {
+      "id": "achievement4",
+      "comment": "Achievement for destroying the whole planet.",
+      "x": 99,
+      "y": 345,
+      "width": 32,
+      "height": 32
+    },
   ]
 }

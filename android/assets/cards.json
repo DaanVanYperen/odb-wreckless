@@ -92,13 +92,13 @@
     },
     {
       "id": "FOOD2",
-      "comment": "Food2",
+      "comment": "Vegan?",
       "x": 264,
       "y": 90,
       "width": 66,
       "height": 90,
       "script": [
-        "ADD_DUDES"
+        "KILL_DUDES"
       ]
     },
     {

@@ -87,6 +87,7 @@ public class CardSystem extends FluidIteratingSystem {
             renderBatchingSystem.sortedDirty = true;
         }
         if (e.clickableState() == Clickable.ClickState.CLICKED) {
+            gameScreenAssetSystem.playSfx("LD1_event1");
             e.removeClickable();
             float MOVE_DURATION = 1.5f;
             float FINAL_CARD_SCALE = 0.4f;

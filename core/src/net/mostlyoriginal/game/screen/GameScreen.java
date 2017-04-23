@@ -14,6 +14,7 @@ import net.mostlyoriginal.api.system.physics.PhysicsSystem;
 import net.mostlyoriginal.api.system.render.AnimRenderSystem;
 import net.mostlyoriginal.game.GdxArtemisGame;
 import net.mostlyoriginal.game.component.G;
+import net.mostlyoriginal.game.system.AchievementSystem;
 import net.mostlyoriginal.game.system.DrawingSystem;
 import net.mostlyoriginal.game.system.MyCameraSystem;
 import net.mostlyoriginal.game.system.StarEffectSystem;
@@ -68,6 +69,7 @@ public class GameScreen extends WorldScreen {
                         new PlanetStencilSystem(),
                         new PlanetSimulationSystem(),
 
+
                         new PlanetCoordSystem(),
                         new OrientToGravitySystem(),
                         new WanderSystem(),
@@ -77,6 +79,8 @@ public class GameScreen extends WorldScreen {
                         new GhostSystem(),
 
                         new StarEffectSystem(),
+
+                        new AchievementSystem(),
 
                         new PlanetBackgroundRenderSystem(),
                         new PlanetRenderGravityDebugSystem(),

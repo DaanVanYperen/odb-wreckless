@@ -5,7 +5,8 @@
       "comment": "Airpocket for lava.",
       "texture": "airpocket.png",
       "replaceTypes": [
-        "STATIC"
+        "STATIC",
+        "WATER"
       ]
     },
     {

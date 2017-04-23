@@ -11,5 +11,6 @@ public enum ScriptCommand {
     ANGRY_NONE,
     HOLLOWEARTH,
     WATERWORLD,
-    ADD_DUDES
+    ADD_DUDES,
+    KILL_DUDES
 }

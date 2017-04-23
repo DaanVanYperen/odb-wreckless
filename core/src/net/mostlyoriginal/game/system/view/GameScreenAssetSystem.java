@@ -21,6 +21,7 @@ import net.mostlyoriginal.game.system.planet.SpriteLibrary;
 public class GameScreenAssetSystem extends AbstractAssetSystem {
 
     private SpriteLibrary spriteLibrary;
+    private Music music;
 
     public GameScreenAssetSystem() {
         super("cards.png");
@@ -92,7 +93,8 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     }
 
     private void playMusicTitle() {
-        Music music = Gdx.audio.newMusic(Gdx.files.internal("sfx/LD_titleloop.mp3"));
+        if ( music != null ) music.stop();
+        music = Gdx.audio.newMusic(Gdx.files.internal("sfx/LD_titleloop.mp3"));
         music.setLooping(true);
         music.play();
         music.setPan(0, 0.1f);
@@ -102,8 +104,9 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         }
     }
 
-    private void playMusicInGame() {
-        Music music = Gdx.audio.newMusic(Gdx.files.internal("sfx/LD1_fortune_teller_loop.mp3"));
+    public void playMusicInGame() {
+        if ( music != null ) music.stop();
+        music = Gdx.audio.newMusic(Gdx.files.internal("sfx/LD1_fortune_teller_loop.mp3"));
         music.setLooping(true);
         music.play();
         music.setPan(0, 0.1f);
