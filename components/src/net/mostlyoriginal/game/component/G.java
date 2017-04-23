@@ -5,7 +5,7 @@ package net.mostlyoriginal.game.component;
  */
 public class G {
 
-    public static boolean DEBUG_SKIP_INTRO = true;
+    public static boolean DEBUG_SKIP_INTRO = false;
 
     public static final float CARD_X = 5;
     public static final float CARD_Y = 5;
@@ -15,10 +15,13 @@ public class G {
     public static final int SIMULATION_HEIGHT = 220 + 50;
     public static final int MARGIN_BETWEEN_CARDS = 5;
 
+    public static final int LAYER_STAR = -50;
+    public static final int LAYER_PLANET = 0;
     public static final int LAYER_DUDES = 99;
     public static final int LAYER_GHOST = 100;
     public static final int LAYER_CARDS = 1000;
     public static final int LAYER_CARDS_HOVER = 1001;
+    public static final int LAYER_CARDS_FLYING = 1002;
 
     public static int CAMERA_ZOOM = 2;
     public static final int SCREEN_WIDTH = SIMULATION_WIDTH * 2 * CAMERA_ZOOM;

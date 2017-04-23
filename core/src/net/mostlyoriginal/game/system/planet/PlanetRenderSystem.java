@@ -10,8 +10,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
+import net.mostlyoriginal.api.system.delegate.EntityProcessPrincipal;
 import net.mostlyoriginal.game.component.Planet;
 import net.mostlyoriginal.game.component.PlanetCell;
+import net.mostlyoriginal.game.system.common.FluidDeferredEntityProcessingSystem;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 
 import static net.mostlyoriginal.game.component.G.*;
@@ -19,14 +21,14 @@ import static net.mostlyoriginal.game.component.G.*;
 /**
  * @author Daan van Yperen
  */
-public class PlanetRenderSystem extends FluidIteratingSystem {
+public class PlanetRenderSystem extends FluidDeferredEntityProcessingSystem {
 
     private SpriteBatch batch;
     private TextureRegion planetPixel;
     private TextureRegion cloudPixel;
 
-    public PlanetRenderSystem() {
-        super(Aspect.all(Planet.class));
+    public PlanetRenderSystem(EntityProcessPrincipal principal) {
+        super(Aspect.all(Planet.class), principal);
     }
 
     private CameraSystem cameraSystem;
@@ -81,7 +83,7 @@ public class PlanetRenderSystem extends FluidIteratingSystem {
         for (int y = 0; y < SIMULATION_HEIGHT; y++) {
             for (int x = 0; x < SIMULATION_WIDTH; x++) {
                 final PlanetCell cell = planet.grid[y][x];
-                if (cell.type == PlanetCell.CellType.CLOUD ) {
+                if (cell.type == PlanetCell.CellType.CLOUD) {
                     int rndSize = 3;
                     Color.rgba8888ToColor(color, cell.color);
                     batch.setColor(color);

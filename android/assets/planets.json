@@ -4,7 +4,7 @@
       "id": "TEMPLATE",
       "comment": "Example planet.",
       "texture": "planet.png",
-      "spaceBackgroundColor": "331111",
+      "spaceBackgroundColor": "000000",
       "types": [
         {
           "color": "ff6015",

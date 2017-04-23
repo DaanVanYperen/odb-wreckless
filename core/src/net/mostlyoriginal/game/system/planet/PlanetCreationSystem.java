@@ -42,6 +42,7 @@ public class PlanetCreationSystem extends PassiveSystem {
 
             planetEntity = E.E();
             Planet planetE = planetEntity
+                    .renderLayer(G.LAYER_PLANET)
                     .planet()
                     .pos(0, 0)
                     .getPlanet();

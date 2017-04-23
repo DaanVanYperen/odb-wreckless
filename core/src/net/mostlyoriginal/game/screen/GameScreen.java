@@ -16,6 +16,7 @@ import net.mostlyoriginal.game.GdxArtemisGame;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.system.DrawingSystem;
 import net.mostlyoriginal.game.system.MyCameraSystem;
+import net.mostlyoriginal.game.system.StarEffectSystem;
 import net.mostlyoriginal.game.system.dilemma.CardScriptSystem;
 import net.mostlyoriginal.game.system.dilemma.CardSortSystem;
 import net.mostlyoriginal.game.system.dilemma.CardSystem;
@@ -75,13 +76,15 @@ public class GameScreen extends WorldScreen {
 
                         new GhostSystem(),
 
+                        new StarEffectSystem(),
+
                         new PlanetBackgroundRenderSystem(),
-                        new PlanetRenderSystem(),
                         new PlanetRenderGravityDebugSystem(),
                         new PlanetRenderTemperatureDebugSystem(),
 
                         renderBatchingSystem = new RenderBatchingSystem(),
-                        new AnimRenderSystem(renderBatchingSystem)
+                        new AnimRenderSystem(renderBatchingSystem),
+                        new PlanetRenderSystem(renderBatchingSystem)
                 ).build());
     }
 

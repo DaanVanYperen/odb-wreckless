@@ -86,7 +86,7 @@ public class CardSystem extends FluidIteratingSystem {
             e.removeClickable();
             float MOVE_DURATION = 1.5f;
             float FINAL_CARD_SCALE = 0.4f;
-            e.physicsVr(500f).physicsFriction(0).angle().tint(Tint.WHITE);
+            e.physicsVr(500f).physicsFriction(0).angle().tint(Tint.WHITE).renderLayer(G.LAYER_CARDS_FLYING);
             e.script(
                     sequence(
                             parallel(
@@ -98,7 +98,7 @@ public class CardSystem extends FluidIteratingSystem {
                                     )),
                             add(new CardScript(e.playableCardCard().script))
                     ));
-            cardSortSystem.shouldResort=true;
+            cardSortSystem.shouldResort = true;
         }
     }
 
@@ -115,7 +115,7 @@ public class CardSystem extends FluidIteratingSystem {
                 .physics()
                 .scale(1.0f)
                 .renderLayer(G.LAYER_CARDS);
-        cardSortSystem.shouldResort=true;
+        cardSortSystem.shouldResort = true;
     }
 
     private static void restartGame() {
