@@ -4,6 +4,7 @@ import com.artemis.Aspect;
 import com.artemis.E;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.Planet;
 import net.mostlyoriginal.game.component.PlanetCell;
 import net.mostlyoriginal.game.component.StatusMask;
@@ -26,6 +27,8 @@ public class PlanetSimulationSystem extends FluidIntervalIteratingSystem {
     private CellSimulator[] simulators = new CellSimulator[PlanetCell.CellType.values().length];
     public int[] simulatedBlocks = new int[PlanetCell.CellType.values().length];
     private Vector2 v = new Vector2();
+    private int lace = 0;
+    private PlanetCreationSystem planetCreationSystem;
 
     public PlanetSimulationSystem() {
         super(Aspect.all(Planet.class), 1 / 30f);
@@ -58,6 +61,8 @@ public class PlanetSimulationSystem extends FluidIntervalIteratingSystem {
         addSimulator(PlanetCell.CellType.CLOUD, new CloudCellSimulator());
         addSimulator(PlanetCell.CellType.FIRE, new FireCellSimulator());
         addSimulator(PlanetCell.CellType.NOTHING, new NothingCellSimulator());
+
+        process(planetCreationSystem.planetEntity);
     }
 
     private void addSimulator(PlanetCell.CellType cellType, CellSimulator simulator) {
@@ -104,7 +109,17 @@ public class PlanetSimulationSystem extends FluidIntervalIteratingSystem {
         int IGNORE_BAND_X = 0;
         int IGNORE_BAND_Y = 0;
         clearSimulationCounts();
+        lace = (lace + 1) % 2;
+
         for (int y = IGNORE_BAND_Y; y < SIMULATION_HEIGHT - +IGNORE_BAND_Y; y++) {
+            if (G.INTERLACING_SIMULATION && y % 2 == lace) {
+
+                for (int x = IGNORE_BAND_X; x < SIMULATION_WIDTH - +IGNORE_BAND_X; x++) {
+                    final PlanetCell cell = planet.grid[y][x];
+                    simulatedBlocks[cell.type.ordinal()]++;
+                }
+                continue;
+            }
             for (int x = IGNORE_BAND_X; x < SIMULATION_WIDTH - +IGNORE_BAND_X; x++) {
                 final PlanetCell cell = planet.grid[y][x];
                 final int ordinal = cell.type.ordinal();

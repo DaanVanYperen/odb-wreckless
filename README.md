@@ -16,7 +16,7 @@ The project was created on top of [libgdx-artemis-quickstart](https://github.com
 #### License summary
 Code, graphics and sound are under a separate license. Feel free to do whatever with the code, the graphics and sound however may be copyrighted.
 
-[Play online](http://www.mostlyoriginal.net/play-icleantoilet/)
+[Play online](http://www.mostlyoriginal.net/play-littlefortuneplanet/)
 
 
 
