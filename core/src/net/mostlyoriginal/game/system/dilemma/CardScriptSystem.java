@@ -9,6 +9,7 @@ import net.mostlyoriginal.game.component.CardScript;
 import net.mostlyoriginal.game.component.Planet;
 import net.mostlyoriginal.game.component.ScriptCommand;
 import net.mostlyoriginal.game.component.Wander;
+import net.mostlyoriginal.game.system.AchievementSystem;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.planet.PlanetCreationSystem;
 import net.mostlyoriginal.game.system.stencil.PlanetStencilSystem;
@@ -18,6 +19,8 @@ import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
  * @author Daan van Yperen
  */
 public class CardScriptSystem extends FluidIteratingSystem {
+
+
     public CardScriptSystem() {
         super(Aspect.all(CardScript.class));
     }
@@ -25,6 +28,8 @@ public class CardScriptSystem extends FluidIteratingSystem {
     PlanetStencilSystem planetStencilSystem;
     PlanetCreationSystem planetCreationSystem;
     GameScreenAssetSystem assetSystem;
+    AchievementSystem achievementSystem;
+    CardSystem cardSystem;
 
     @Override
     protected void process(E e) {
@@ -71,7 +76,15 @@ public class CardScriptSystem extends FluidIteratingSystem {
             case DOLPHINIZE:
                 randomizeDolphin();
                 break;
+            case RESTART:
+                restartGame();
+                break;
         }
+    }
+
+    private void restartGame() {
+        planetCreationSystem.restart();
+        achievementSystem.gameEnded=false;
     }
 
     private void killDudes() {
@@ -99,7 +112,7 @@ public class CardScriptSystem extends FluidIteratingSystem {
         int[] ids = entities.getData();
         for (int i = 0, s = entities.size(); s > i; i++) {
             E e = E.E(ids[i]);
-            Vector2 gravityVector = v.set(e.planetCoordGravity()).rotate(180f);
+            Vector2 gravityVector = v.set(e.planetboundGravity()).rotate(180f);
             e
                     .dolphinized()
                     .physicsVr(1000f)

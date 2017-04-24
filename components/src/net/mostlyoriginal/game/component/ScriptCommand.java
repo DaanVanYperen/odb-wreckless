@@ -12,5 +12,6 @@ public enum ScriptCommand {
     HOLLOWEARTH,
     WATERWORLD,
     ADD_DUDES,
-    KILL_DUDES
+    KILL_DUDES,
+    RESTART
 }

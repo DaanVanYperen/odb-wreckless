@@ -7,6 +7,7 @@ import com.artemis.utils.IntBag;
 import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
+import net.mostlyoriginal.game.system.dilemma.CardSystem;
 import net.mostlyoriginal.game.system.planet.PlanetSimulationSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
@@ -19,6 +20,8 @@ public class AchievementSystem extends FluidIteratingSystem {
     private GameScreenAssetSystem gameScreenAssetSystem;
     private PlanetSimulationSystem planetSimulationSystem;
     private Vector2 v = new Vector2();
+    public boolean gameEnded = false;
+    private CardSystem cardSystem;
 
 
     public AchievementSystem() {
@@ -40,6 +43,11 @@ public class AchievementSystem extends FluidIteratingSystem {
         super.begin();
         if (dudeCount() == 0) {
             activateAchievement("achievement1");
+            if ( !gameEnded ) {
+                cardSystem.dealResetCard();
+            }
+            gameEnded=true;
+
         }
         if (hasDolphins() && !hasNonDolphins() && isLargelyWater()) {
             activateAchievement("achievement2");

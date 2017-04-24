@@ -4,12 +4,7 @@ import com.artemis.Aspect;
 import com.artemis.E;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.math.Vector2;
-import javafx.scene.paint.Color;
-import net.mostlyoriginal.api.component.basic.Angle;
-import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Tint;
-import net.mostlyoriginal.api.component.physics.Physics;
-import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
@@ -25,7 +20,7 @@ public class GhostSystem extends FluidIteratingSystem {
     private GameScreenAssetSystem gameScreenAssetSystem;
 
     public GhostSystem() {
-        super(Aspect.all(PlanetCoord.class, Died.class));
+        super(Aspect.all(Planetbound.class, Died.class));
     }
 
     Vector2 v = new Vector2();
@@ -40,7 +35,7 @@ public class GhostSystem extends FluidIteratingSystem {
                 .orientToGravityIgnoreFloor(true)
                 .angle()
                 .tint(Tint.WHITE)
-                .physicsVelocity(e.planetCoordGravity().x * -100f, e.planetCoordGravity().y * -100f, 0f)
+                .physicsVelocity(e.planetboundGravity().x * -100f, e.planetboundGravity().y * -100f, 0f)
                 .script(
                         sequence(delay(0.5f), tween(Tint.WHITE, Tint.TRANSPARENT, 1f), deleteFromWorld()));
         gameScreenAssetSystem.playSfx("LD_troop_no");

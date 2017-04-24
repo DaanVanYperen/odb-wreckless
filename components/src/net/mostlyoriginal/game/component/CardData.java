@@ -12,6 +12,8 @@ public class CardData {
     public ScriptCommand[] script;
     public String sfx;
 
+    public boolean manual = false;
+
     public int x;
     public int y;
     public int width;

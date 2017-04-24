@@ -61,7 +61,7 @@ public class WanderSystem extends FluidIteratingSystem {
     }
 
     private boolean canSurvive(E e) {
-        PlanetCell cell = e.planetCoordCell();
+        PlanetCell cell = e.planetboundCell();
         if (cell != null) {
             if (e.hasDolphinized() && !((cell.type == PlanetCell.CellType.AIR) || (cell.type == PlanetCell.CellType.WATER))) {
                 return false;

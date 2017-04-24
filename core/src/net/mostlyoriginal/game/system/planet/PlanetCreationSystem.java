@@ -1,6 +1,9 @@
 package net.mostlyoriginal.game.system.planet;
 
+import com.artemis.Aspect;
 import com.artemis.E;
+import com.artemis.managers.TagManager;
+import com.artemis.utils.IntBag;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -13,10 +16,7 @@ import com.badlogic.gdx.utils.Json;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.system.core.PassiveSystem;
-import net.mostlyoriginal.game.component.G;
-import net.mostlyoriginal.game.component.Planet;
-import net.mostlyoriginal.game.component.PlanetCell;
-import net.mostlyoriginal.game.component.StatusMask;
+import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.system.DrawingSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
@@ -32,9 +32,10 @@ public class PlanetCreationSystem extends PassiveSystem {
     PlanetLibrary planetLibrary = new PlanetLibrary();
     public E planetEntity;
 
-    Pos logoStartPos = new Pos((G.SCREEN_WIDTH/CAMERA_ZOOM) / 2 - G.LOGO_WIDTH / 2, (G.SCREEN_HEIGHT) / 2);
-    Pos logoEndPos = new Pos((G.SCREEN_WIDTH/CAMERA_ZOOM) / 2 - G.LOGO_WIDTH / 2, (G.SCREEN_HEIGHT) / 2 + G.LOGO_HEIGHT );
+    Pos logoStartPos = new Pos((G.SCREEN_WIDTH / CAMERA_ZOOM) / 2 - G.LOGO_WIDTH / 2, (G.SCREEN_HEIGHT) / 2);
+    Pos logoEndPos = new Pos((G.SCREEN_WIDTH / CAMERA_ZOOM) / 2 - G.LOGO_WIDTH / 2, (G.SCREEN_HEIGHT) / 2 + G.LOGO_HEIGHT);
     private DrawingSystem drawingSystem;
+    private TagManager tagManager;
 
     @Override
     protected void initialize() {
@@ -72,6 +73,7 @@ public class PlanetCreationSystem extends PassiveSystem {
             Planet planetE = planetEntity
                     .renderLayer(G.LAYER_PLANET)
                     .planet()
+                    .tag("planet")
                     .pos(0, 0)
                     .getPlanet();
 
@@ -110,7 +112,7 @@ public class PlanetCreationSystem extends PassiveSystem {
         }
 
         for (int degrees = 0; degrees < 360; degrees += 15) {
-            if ( MathUtils.random(1,100) < 25 ) {
+            if (MathUtils.random(1, 100) < 25) {
                 spawnCloud(degrees);
             }
             spawnDude(degrees);
@@ -119,7 +121,7 @@ public class PlanetCreationSystem extends PassiveSystem {
 
     private void spawnCloud(int degrees) {
         Vector2 source = v.set(125, 0).rotate(degrees).add(SIMULATION_WIDTH / 2, SIMULATION_HEIGHT / 2);
-        drawingSystem.draw(planetEntity,(int)source.x + PLANET_X,(int)source.y + PLANET_Y,MathUtils.random(1,3), PlanetCell.CellType.CLOUD);
+        drawingSystem.draw(planetEntity, (int) source.x + PLANET_X, (int) source.y + PLANET_Y, MathUtils.random(1, 3), PlanetCell.CellType.CLOUD);
     }
 
     public void spawnDude(int degrees) {
@@ -130,13 +132,13 @@ public class PlanetCreationSystem extends PassiveSystem {
                 .pos(source.x + PLANET_X, source.y + G.PLANET_Y)
                 .angle()
                 .physics()
-                .planetCoord()
+                .planetbound()
                 .flammable()
                 .wander()
                 .mass()
                 .orientToGravity();
 
-        if ( MathUtils.random(1,100) < 20 ) {
+        if (MathUtils.random(1, 100) < 20) {
             dude.angry();
         }
     }
@@ -303,5 +305,25 @@ public class PlanetCreationSystem extends PassiveSystem {
                 return;
             }
         }
+    }
+
+    public void restart() {
+        deleteInhabitants();
+        deletePlanets();
+        loadPlanets();
+    }
+
+    private void deleteInhabitants() {
+        IntBag entities = world.getAspectSubscriptionManager().get(Aspect.all(Planetbound.class)).getEntities();
+        int[] ids = entities.getData();
+        for (int i = 0, s = entities.size(); s > i; i++) {
+            E e = E.E(ids[i]);
+            e.deleteFromWorld();
+        }
+    }
+
+    private void deletePlanets() {
+
+        E.E(tagManager.getEntityId("planet")).deleteFromWorld();
     }
 }

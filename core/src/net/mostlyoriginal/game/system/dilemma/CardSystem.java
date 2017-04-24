@@ -15,6 +15,7 @@ import net.mostlyoriginal.api.system.render.AnimRenderSystem;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.component.ui.Clickable;
 import net.mostlyoriginal.game.screen.GameScreen;
+import net.mostlyoriginal.game.system.AchievementSystem;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.logic.TransitionSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
@@ -39,6 +40,7 @@ public class CardSystem extends FluidIteratingSystem {
     private GameScreenAssetSystem gameScreenAssetSystem;
     private RenderBatchingSystem renderBatchingSystem;
     CardSortSystem cardSortSystem;
+    private AchievementSystem achievementSystem;
 
     public CardSystem() {
         super(Aspect.all(Pos.class, PlayableCard.class, Clickable.class));
@@ -59,8 +61,22 @@ public class CardSystem extends FluidIteratingSystem {
 
     private void dealRandomCards(int count) {
         for (int i = 0; i < count; i++) {
-            CardData card = cardLibrary.cards[MathUtils.random(1, cardLibrary.cards.length - 1)];
+            CardData card = cardLibrary.random();
             spawnCard(card);
+        }
+    }
+
+    public void dealResetCard() {
+        clearDeck();
+        spawnCard(cardLibrary.getById("RESTART"));
+    }
+
+    private void clearDeck() {
+        IntBag cards = getEntityIds();
+        int[] ids = cards.getData();
+        for (int i = 0, s = cards.size(); s > i; i++) {
+            E e = E.E(ids[i]);
+            e.removeClickable().script(sequence(moveBetween(e.posX(), e.posY(), e.posX(), e.posY() - 100, 1f, Interpolation.smooth), deleteFromWorld()));
         }
     }
 
@@ -69,11 +85,13 @@ public class CardSystem extends FluidIteratingSystem {
         super.begin();
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) {
-            dealRandomCards(1);
+            //dealRandomCards(1);
+            dealResetCard();
         }
 
-        if (getEntityIds().size() <= 1) {
-            dealRandomCards(2);
+        int cards = getEntityIds().size();
+        if (cards <= 1 && !achievementSystem.gameEnded) {
+            dealRandomCards(3-cards);
         }
     }
 

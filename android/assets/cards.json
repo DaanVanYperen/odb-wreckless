@@ -7,6 +7,7 @@
       "y": 0,
       "width": 66,
       "height": 90,
+      "manual": true,
       "script": []
     },
     {
@@ -110,6 +111,18 @@
       "height": 90,
       "script": [
         "ADD_DUDES"
+      ]
+    },
+    {
+      "id": "RESTART",
+      "comment": "Restart game.",
+      "x": 132,
+      "y": 361,
+      "width": 66,
+      "height": 90,
+      "manual": true,
+      "script": [
+        "RESTART"
       ]
     }
   ]
