@@ -212,5 +212,37 @@
       "width": 32,
       "height": 32
     },
+    {
+      "id": "achievement1_cursor",
+      "comment": "",
+      "x": 7,
+      "y": 393,
+      "width": 18,
+      "height": 18
+    },
+    {
+      "id": "WATER_cursor",
+      "comment": "",
+      "x": 25,
+      "y": 393,
+      "width": 18,
+      "height": 18
+    },
+    {
+      "id": "LAVA_cursor",
+      "comment": "",
+      "x": 43,
+      "y": 393,
+      "width": 18,
+      "height": 18
+    },
+    {
+      "id": "AIR_cursor",
+      "comment": "",
+      "x": 61,
+      "y": 393,
+      "width": 18,
+      "height": 18
+    },
   ]
 }

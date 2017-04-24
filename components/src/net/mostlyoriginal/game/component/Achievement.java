@@ -8,4 +8,5 @@ import com.artemis.Component;
 public class Achievement extends Component {
     public Achievement() {
     }
+    public String id;
 }

@@ -6,6 +6,7 @@ import com.artemis.managers.TagManager;
 import com.artemis.utils.IntBag;
 import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.game.component.*;
+import net.mostlyoriginal.game.component.ui.Clickable;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.dilemma.CardSystem;
 import net.mostlyoriginal.game.system.planet.PlanetSimulationSystem;
@@ -22,6 +23,7 @@ public class AchievementSystem extends FluidIteratingSystem {
     private Vector2 v = new Vector2();
     public boolean gameEnded = false;
     private CardSystem cardSystem;
+    private DrawingSystem drawingSystem;
 
 
     public AchievementSystem() {
@@ -36,6 +38,13 @@ public class AchievementSystem extends FluidIteratingSystem {
         createAchievement(1, "achievement2");
         createAchievement(2, "achievement3");
         createAchievement(3, "achievement4");
+
+        if ( G.DEBUG_ACHIEVEMENTS ) {
+            activateAchievement("achievement1");
+            activateAchievement("achievement2");
+            activateAchievement("achievement3");
+            activateAchievement("achievement4");
+        }
     }
 
     @Override
@@ -43,10 +52,10 @@ public class AchievementSystem extends FluidIteratingSystem {
         super.begin();
         if (dudeCount() == 0) {
             activateAchievement("achievement1");
-            if ( !gameEnded ) {
+            if (!gameEnded) {
                 cardSystem.dealResetCard();
             }
-            gameEnded=true;
+            gameEnded = true;
 
         }
         if (hasDolphins() && !hasNonDolphins() && isLargelyWater()) {
@@ -55,7 +64,7 @@ public class AchievementSystem extends FluidIteratingSystem {
         if (isLargelyLava()) {
             activateAchievement("achievement3");
         }
-        if ( isLargelyGone()) {
+        if (isLargelyGone()) {
             activateAchievement("achievement4");
         }
     }
@@ -69,7 +78,6 @@ public class AchievementSystem extends FluidIteratingSystem {
     private boolean isLargelyLava() {
         float lavaBlocks = planetSimulationSystem.simulatedBlocks[PlanetCell.CellType.LAVA.ordinal()] + planetSimulationSystem.simulatedBlocks[PlanetCell.CellType.LAVA_CRUST.ordinal()];
         float totalBlocks = planetSimulationSystem.totalSimulatedBlocks();
-        System.out.println(lavaBlocks);
         return (totalBlocks > 0) && lavaBlocks > 8000 && (lavaBlocks / totalBlocks > 0.30f);
     }
 
@@ -81,7 +89,11 @@ public class AchievementSystem extends FluidIteratingSystem {
     private void activateAchievement(String achievementId) {
         E e = E.E(tagManager.getEntityId(achievementId));
         if (!e.hasAchievement()) {
-            e.tint(1f, 1f, 1f, 1f).achievement();
+            e
+                    .tint(1f, 1f, 1f, 1f)
+                    .clickable()
+                    .bounds(0, 0, 32, 32)
+                    .achievementId(achievementId);
             gameScreenAssetSystem.playSfx("LD_troop_amazing");
             cardSystem.spawnCard(achievementId.toUpperCase());
         }
@@ -130,6 +142,16 @@ public class AchievementSystem extends FluidIteratingSystem {
 
     @Override
     protected void process(E e) {
-
+        if (e.hasClickable()) {
+            e.scale(e.clickableState() == Clickable.ClickState.HOVER ? 1.5f : 1f);
+            if (e.clickableState() == Clickable.ClickState.CLICKED) {
+                PlanetCell.CellType type = null;
+                if ("achievement1".equals(e.achievementId())) type = null;
+                else if ("achievement2".equals(e.achievementId())) type = PlanetCell.CellType.WATER;
+                else if ("achievement3".equals(e.achievementId())) type = PlanetCell.CellType.LAVA;
+                else if ("achievement4".equals(e.achievementId())) type = PlanetCell.CellType.AIR;
+                drawingSystem.startDrawing(type);
+            }
+        }
     }
 }
