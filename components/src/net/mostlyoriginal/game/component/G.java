@@ -22,6 +22,7 @@ public class G {
     public static final int MARGIN_BETWEEN_CARDS = 5;
 
     public static final int LAYER_STAR = -50;
+    public static final int LAYER_STRUCTURES_BACKGROUND = -1;
     public static final int LAYER_PLANET = 0;
     public static final int LAYER_DUDES = 99;
     public static final int LAYER_GHOST = 100;
@@ -29,6 +30,8 @@ public class G {
     public static final int LAYER_CARDS_HOVER = 1001;
     public static final int LAYER_CARDS_FLYING = 1002;
     public static final int LAYER_ACHIEVEMENTS = 900;
+    public static final int LAYER_STRUCTURES = 95;
+    public static final int LAYER_STRUCTURES_FOREGROUND = 101;
 
     public static int CAMERA_ZOOM = 2;
     public static final int SCREEN_WIDTH = SIMULATION_WIDTH * 2 * CAMERA_ZOOM;

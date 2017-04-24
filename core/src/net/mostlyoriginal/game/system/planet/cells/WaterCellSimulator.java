@@ -15,6 +15,18 @@ public class WaterCellSimulator implements CellSimulator {
 
     @Override
     public void process(CellDecorator c, float delta) {
+        // releave pressure.
+        if (c.cell.nextType == null) {
+            if (c.planet.waterPressure > 0 && MathUtils.random(1, 5000) < c.planet.waterPressure && (c.cell.depth() > 50 || MathUtils.random(1, 100) < 5)) {
+                if (attemptReleavePressure(c, c.getNeighbourDown())) return;
+                boolean b = MathUtils.randomBoolean(); // flip direction randomly.
+                if (attemptReleavePressure(c, b ? c.getNeighbourLeft() : c.getNeighbourRight())) return;
+                if (attemptReleavePressure(c, !b ? c.getNeighbourLeft() : c.getNeighbourRight())) return;
+                if (attemptReleavePressure(c, b ? c.getNeighbourAboveL() : c.getNeighbourAboveR())) return;
+                if (attemptReleavePressure(c, !b ? c.getNeighbourAboveL() : c.getNeighbourAboveR())) return;
+                if (attemptReleavePressure(c, c.getNeighbour(PlanetCell.CellType.AIR))) return;
+            }
+        }
 
         // Freeze by ice.
         if (c.countNeighbour(PlanetCell.CellType.ICE) >= 3) {
@@ -44,7 +56,7 @@ public class WaterCellSimulator implements CellSimulator {
             }
         }
 
-        if ( c.cell.nextType == null ) {
+        if (c.cell.nextType == null) {
             final float temperature = c.mask().temperature;
             if (temperature >= StatusMask.ARID_TEMPERATURE && MathUtils.random(0, 100) < 4) {
                 c.setNextType(PlanetCell.CellType.AIR);
@@ -52,6 +64,15 @@ public class WaterCellSimulator implements CellSimulator {
         }
 
         c.flow();
+    }
+
+    private boolean attemptReleavePressure(CellDecorator c, PlanetCell neighbour) {
+        if (neighbour != null && neighbour.nextType == null && neighbour.type == PlanetCell.CellType.AIR) {
+            neighbour.nextType = PlanetCell.CellType.WATER;
+            c.planet.waterPressure--;
+            return true;
+        }
+        return false;
     }
 
     @Override

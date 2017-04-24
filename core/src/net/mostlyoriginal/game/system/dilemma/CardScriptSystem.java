@@ -3,9 +3,9 @@ package net.mostlyoriginal.game.system.dilemma;
 import com.artemis.Aspect;
 import com.artemis.E;
 import com.artemis.utils.IntBag;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.system.AchievementSystem;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
@@ -14,8 +14,7 @@ import net.mostlyoriginal.game.system.stencil.PlanetStencilSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 import static net.mostlyoriginal.api.operation.JamOperationFactory.moveBetween;
-import static net.mostlyoriginal.api.operation.OperationFactory.deleteFromWorld;
-import static net.mostlyoriginal.api.operation.OperationFactory.sequence;
+import static net.mostlyoriginal.api.operation.OperationFactory.*;
 
 /**
  * @author Daan van Yperen
@@ -33,11 +32,12 @@ public class CardScriptSystem extends FluidIteratingSystem {
     AchievementSystem achievementSystem;
     CardSystem cardSystem;
 
-    int statusIndex=0;
+    int statusIndex = 0;
 
     @Override
     protected void initialize() {
         super.initialize();
+        spawnStructures();
     }
 
     public void reset() {
@@ -72,10 +72,10 @@ public class CardScriptSystem extends FluidIteratingSystem {
                 .angleRotation(10f)
                 .pos(
                         33 + ((statusIndex % 2) * 40),
-                        G.SCREEN_HEIGHT/G.CAMERA_ZOOM - 90 - (statusIndex * 40))
+                        G.SCREEN_HEIGHT / G.CAMERA_ZOOM - 90 - (statusIndex * 40))
                 .tint(1f, 1f, 1f, 0.8f)
                 .scale(0.8f)
-                .renderLayer(G.LAYER_CARDS);
+                .renderLayer(G.LAYER_CARDS + statusIndex);
         statusIndex++;
     }
 
@@ -104,6 +104,9 @@ public class CardScriptSystem extends FluidIteratingSystem {
             case LAVA_PRESSURE_UP:
                 getPlanet().lavaPressure += 1000;
                 break;
+            case WATER_PRESSURE_UP:
+                getPlanet().waterPressure += 1000;
+                break;
             case ANGRY_RANDOMIZE:
                 randomizeAnger();
                 break;
@@ -119,7 +122,61 @@ public class CardScriptSystem extends FluidIteratingSystem {
             case CURE_FOR_DEATH:
                 innoculateEveryoneForDeath();
                 break;
+            case SPAWN_ICBMS:
+                spawnIcbms();
+                break;
+            case SPAWN_GALAXYBUCKS:
+                spawnStarbucks();
+                break;
+            case SPAWN_ACCELERATOR:
+                spawnAccelerators();
+                break;
+            case SPAWN_STRUCTURES:
+                spawnStructures();
+                break;
+
         }
+    }
+
+    private void spawnIcbms() {
+        spawnStructure(2, 4, "icbm", G.LAYER_STRUCTURES_FOREGROUND);
+    }
+
+    private void spawnStructures() {
+        for (int i = 0; i < MathUtils.random(30, 40); i++) {
+            spawnStructure("skyscraper" + MathUtils.random(7), G.LAYER_STRUCTURES_BACKGROUND);
+        }
+
+    }
+
+    private void spawnAccelerators() {
+        spawnStructure("spaceship", G.LAYER_STRUCTURES_FOREGROUND);
+        spawnStructure("alien", G.LAYER_STRUCTURES_FOREGROUND);
+    }
+
+    private void spawnStarbucks() {
+        spawnStructure(2, 5, "galaxybucks", G.LAYER_STRUCTURES);
+    }
+
+    private void spawnStructure(int min, int max, String id, int layer) {
+        for (int i = 0; i < MathUtils.random(min, max); i++) {
+            spawnStructure(id, layer);
+        }
+    }
+
+    private void spawnStructure(String id, int layer) {
+        Vector2 location = planetCreationSystem.getSpawnLocation();
+        E.E()
+                .pos(location.x, location.y)
+                .anim(id)
+                .renderLayer(layer)
+                .angle()
+                .physics()
+                .planetbound()
+                .flammable()
+                .tint(Tint.TRANSPARENT)
+                .script(sequence(delay(MathUtils.random(0.1f, 0.4f)), add(Mass.class), tween(Tint.TRANSPARENT, Tint.WHITE, 0.2f)))
+                .orientToGravityIgnoreFloor(true);
     }
 
     private void innoculateEveryoneForDeath() {

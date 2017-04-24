@@ -88,7 +88,7 @@
       "height": 90,
       "sfx": "nutrition-coffee",
       "script": [
-        "ADD_DUDES"
+        "ADD_DUDES", "SPAWN_GALAXYBUCKS"
       ]
     },
     {
@@ -175,6 +175,40 @@
       "height": 90,
       "script": [
         "CURE_FOR_DEATH"
+      ]
+    },
+    {
+      "id": "ICBM",
+      "comment": "ICBM",
+      "x": 198,
+      "y": 90,
+      "width": 66,
+      "height": 90,
+      "script": [
+        "SPAWN_ICBMS"
+      ]
+    },
+    {
+      "id": "ACCELERATOR",
+      "comment": "Alien comes and helps!",
+      "x": 198,
+      "y": 0,
+      "width": 66,
+      "height": 90,
+      "script": [
+        "SPAWN_ACCELERATOR"
+      ]
+    },
+    {
+      "id": "TSUNAMI",
+      "comment": "Flood of death",
+      "x": 66,
+      "y": 90,
+      "width": 66,
+      "height": 90,
+      "script": [
+        "SPAWN_STRUCTURES",
+        "WATER_PRESSURE_UP"
       ]
     }
   ]

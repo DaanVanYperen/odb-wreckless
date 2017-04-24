@@ -125,8 +125,16 @@ public class PlanetCreationSystem extends PassiveSystem {
     }
 
     public void spawnDude(int degrees) {
-        Vector2 source = v.set(130, 0).rotate(degrees).add(SIMULATION_WIDTH / 2, SIMULATION_HEIGHT / 2);
-        spawnDude(source.x + PLANET_X, source.y + G.PLANET_Y);
+        Vector2 source = getSpawnLocation(degrees);
+        spawnDude(source.x, source.y);
+    }
+
+    public Vector2 getSpawnLocation() {
+        return getSpawnLocation(MathUtils.random(0, 359));
+    }
+
+    public Vector2 getSpawnLocation(int degrees) {
+        return v.set(130, 0).rotate(degrees).add(SIMULATION_WIDTH / 2, SIMULATION_HEIGHT / 2).add(PLANET_X,PLANET_Y);
     }
 
     public E spawnDude(float x, float y) {
