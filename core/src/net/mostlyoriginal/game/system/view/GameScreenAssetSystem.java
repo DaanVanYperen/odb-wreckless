@@ -52,7 +52,6 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
 
         loadSounds(
                 new String[]{
-                        "LD1_amb_main",
                         "LD1_badthing",
                         "LD1_event1",
                         "LD1_event2",
@@ -108,12 +107,22 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         }
     }
 
+    int musicIndex = 0;
+    String[] musicFiles = new String[]
+            {
+                    "sfx/LD1_fortune_teller_loop.mp3",
+                    "sfx/LD1_amb_main.mp3",
+                    "sfx/LD_titleloop.mp3"
+            };
+
     public void playMusicInGame() {
         if (music != null) music.stop();
-        music = Gdx.audio.newMusic(Gdx.files.internal("sfx/LD1_fortune_teller_loop.mp3"));
+        music = Gdx.audio.newMusic(Gdx.files.internal(musicFiles[musicIndex]));
         music.setLooping(true);
         music.play();
         music.setPan(0, 0.1f);
+
+        musicIndex = (++musicIndex % 3);
     }
 
     @Override

@@ -13,6 +13,8 @@ import net.mostlyoriginal.game.system.planet.PlanetCreationSystem;
 import net.mostlyoriginal.game.system.stencil.PlanetStencilSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
+import java.util.Arrays;
+
 import static net.mostlyoriginal.api.operation.JamOperationFactory.moveBetween;
 import static net.mostlyoriginal.api.operation.OperationFactory.*;
 
@@ -21,6 +23,8 @@ import static net.mostlyoriginal.api.operation.OperationFactory.*;
  */
 public class CardScriptSystem extends FluidIteratingSystem {
 
+
+    private GameScreenAssetSystem gameScreenAssetSystem;
 
     public CardScriptSystem() {
         super(Aspect.all(CardScript.class));
@@ -37,7 +41,7 @@ public class CardScriptSystem extends FluidIteratingSystem {
     @Override
     protected void initialize() {
         super.initialize();
-        spawnSkyscrapers();
+        reset();
     }
 
     public void reset() {
@@ -46,6 +50,8 @@ public class CardScriptSystem extends FluidIteratingSystem {
         for (int i = 0, s = cards.size(); s > i; i++) {
             E.E(ids[i]).deleteFromWorld();
         }
+        spawnSkyscrapers();
+        spawnIcbms();
     }
 
     @Override
@@ -80,12 +86,14 @@ public class CardScriptSystem extends FluidIteratingSystem {
     }
 
     private void run(ScriptCommand[] commands) {
+        System.out.println(Arrays.toString(commands));
         for (ScriptCommand c : commands) {
             runScriptStep(c);
         }
     }
 
     private void runScriptStep(ScriptCommand c) {
+        System.out.println(c.toString());
         switch (c) {
             case LAVA_TENDRIL:
                 planetStencilSystem.stencilRotateCenter("AIRPOCKET");
@@ -134,12 +142,25 @@ public class CardScriptSystem extends FluidIteratingSystem {
             case SPAWN_STRUCTURES:
                 spawnSkyscrapers();
                 break;
+            case TRIGGER_EXPLOSIVES:
+                triggerExplosives();
+                break;
+        }
+    }
 
+    private void triggerExplosives() {
+        IntBag explosives = world.getAspectSubscriptionManager().get(Aspect.all(Explosive.class)).getEntities();
+        int[] ids = explosives.getData();
+        for (int i = 0, s = explosives.size(); s > i; i++) {
+            E.E(ids[i]).explosivePrimed(true);
         }
     }
 
     private void spawnIcbms() {
-        spawnStructure(2, 4, "icbm", G.LAYER_STRUCTURES_FOREGROUND);
+        for (int i = 0; i < MathUtils.random(2, 4); i++) {
+            spawnStructure("icbm", G.LAYER_STRUCTURES_FOREGROUND)
+                    .explosiveYield(MathUtils.random(20,50));
+        }
     }
 
     private void spawnSkyscrapers() {
@@ -155,18 +176,22 @@ public class CardScriptSystem extends FluidIteratingSystem {
     }
 
     private void spawnStarbucks() {
-        spawnStructure(2, 5, "galaxybucks", G.LAYER_STRUCTURES);
+        for (int i = 0; i < MathUtils.random(2, 5); i++) {
+            spawnStructure("galaxybucks", G.LAYER_STRUCTURES)
+                    .food();
+        }
     }
 
     private void spawnStructure(int min, int max, String id, int layer) {
         for (int i = 0; i < MathUtils.random(min, max); i++) {
-            spawnStructure(id, layer);
+            spawnStructure(id, layer)
+                    .wealth();
         }
     }
 
-    private void spawnStructure(String id, int layer) {
+    private E spawnStructure(String id, int layer) {
         Vector2 location = planetCreationSystem.getSpawnLocation();
-        E.E()
+        return E.E()
                 .pos(location.x, location.y)
                 .anim(id)
                 .originX(0.5f)
@@ -194,6 +219,7 @@ public class CardScriptSystem extends FluidIteratingSystem {
         planetCreationSystem.restart();
         reset();
         achievementSystem.gameEnded = false;
+        gameScreenAssetSystem.playMusicInGame();
     }
 
     private void killDudes() {

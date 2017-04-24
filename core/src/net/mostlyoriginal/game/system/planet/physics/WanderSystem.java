@@ -63,11 +63,12 @@ public class WanderSystem extends FluidIteratingSystem {
     private boolean canSurvive(E e) {
         PlanetCell cell = e.planetboundCell();
         if (cell != null) {
+
             if (e.hasDolphinized() && !((cell.type == null) || (cell.type == PlanetCell.CellType.AIR) || (cell.type == PlanetCell.CellType.CLOUD) || (cell.type == PlanetCell.CellType.STEAM) || (cell.type == PlanetCell.CellType.WATER))) {
                 return false;
             }
 
-            if (cell.type == PlanetCell.CellType.LAVA || cell.type == PlanetCell.CellType.LAVA_CRUST) {
+            if (cell.type == PlanetCell.CellType.LAVA || cell.type == PlanetCell.CellType.LAVA_CRUST || cell.type == PlanetCell.CellType.FIRE) {
                 return false;
             }
         }

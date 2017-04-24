@@ -11,6 +11,11 @@
           "type": "LAVA"
         },
         {
+          "color": "ff6015",
+          "colorArid": "F6F250",
+          "type": "FIRE"
+        },
+        {
           "color": "f28430",
           "type": "LAVA_CRUST"
         },

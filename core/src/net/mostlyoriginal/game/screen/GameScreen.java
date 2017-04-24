@@ -75,6 +75,7 @@ public class GameScreen extends WorldScreen {
 
                         new DeathSystem(),
                         new GhostSystem(),
+                        new ExplosiveSystem(),
 
                         new StarEffectSystem(),
 

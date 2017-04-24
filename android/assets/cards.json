@@ -31,7 +31,8 @@
       "height": 90,
       "sfx": "Politic-New Leader",
       "script": [
-        "ANGRY_RANDOMIZE"
+        "ANGRY_RANDOMIZE",
+        "TRIGGER_EXPLOSIVES"
       ]
     },
     {
