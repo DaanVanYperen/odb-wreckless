@@ -17,7 +17,7 @@ public class WaterCellSimulator implements CellSimulator {
     public void process(CellDecorator c, float delta) {
         // releave pressure.
         if (c.cell.nextType == null) {
-            if (c.planet.waterPressure > 0 && MathUtils.random(1, 5000) < c.planet.waterPressure && (c.cell.depth() > 50 || MathUtils.random(1, 100) < 5)) {
+            if (c.planet.waterPressure > 0 && MathUtils.random(1, 5000) < c.planet.waterPressure && (c.cell.depth() > 50)) {
                 if (attemptReleavePressure(c, c.getNeighbourDown())) return;
                 boolean b = MathUtils.randomBoolean(); // flip direction randomly.
                 if (attemptReleavePressure(c, b ? c.getNeighbourLeft() : c.getNeighbourRight())) return;

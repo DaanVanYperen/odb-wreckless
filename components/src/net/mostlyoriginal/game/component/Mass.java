@@ -8,4 +8,8 @@ import com.artemis.Component;
 public class Mass extends Component {
     public Mass() {
     }
+    public Mass(float density) {
+        this.density=density;
+    }
+    public float density=1f;
 }

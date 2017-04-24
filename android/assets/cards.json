@@ -207,7 +207,6 @@
       "width": 66,
       "height": 90,
       "script": [
-        "SPAWN_STRUCTURES",
         "WATER_PRESSURE_UP"
       ]
     }

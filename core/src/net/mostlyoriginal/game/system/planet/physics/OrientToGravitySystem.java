@@ -33,6 +33,7 @@ public class OrientToGravitySystem extends FluidIteratingSystem {
 
                 e.angleRotation(90 + v.set(G.PLANET_CENTER_X, G.PLANET_CENTER_Y).sub(e.posX(), e.posY()).angle()).physicsVr(0);
             }
+            //e.angleRotation(e.angleRotation()+world.delta*100f);
         }
     }
 }

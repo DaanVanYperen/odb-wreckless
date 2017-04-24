@@ -14,10 +14,7 @@ import net.mostlyoriginal.api.system.physics.PhysicsSystem;
 import net.mostlyoriginal.api.system.render.AnimRenderSystem;
 import net.mostlyoriginal.game.GdxArtemisGame;
 import net.mostlyoriginal.game.component.G;
-import net.mostlyoriginal.game.system.AchievementSystem;
-import net.mostlyoriginal.game.system.DrawingSystem;
-import net.mostlyoriginal.game.system.MyCameraSystem;
-import net.mostlyoriginal.game.system.StarEffectSystem;
+import net.mostlyoriginal.game.system.*;
 import net.mostlyoriginal.game.system.dilemma.CardScriptSystem;
 import net.mostlyoriginal.game.system.dilemma.CardSortSystem;
 import net.mostlyoriginal.game.system.dilemma.CardSystem;
@@ -88,7 +85,7 @@ public class GameScreen extends WorldScreen {
                         new PlanetRenderTemperatureDebugSystem(),
 
                         renderBatchingSystem = new RenderBatchingSystem(),
-                        new AnimRenderSystem(renderBatchingSystem),
+                        new MyAnimRenderSystem(renderBatchingSystem),
                         new PlanetRenderSystem(renderBatchingSystem)
                 ).build());
     }

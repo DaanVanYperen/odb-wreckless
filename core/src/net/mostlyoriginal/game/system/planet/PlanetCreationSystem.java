@@ -143,6 +143,8 @@ public class PlanetCreationSystem extends PassiveSystem {
                 .renderLayer(G.LAYER_DUDES)
                 .pos(x, y)
                 .angle()
+                .originX(0.5f)
+                .originY(0.1f)
                 .physics()
                 .planetbound()
                 .flammable()

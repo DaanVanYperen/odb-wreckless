@@ -34,7 +34,7 @@ public class GravitySystem extends FluidIteratingSystem {
 
         // don't move through solid matter.
         PlanetCell cell = e.planetboundCell();
-        if (cell != null && cell.type != null && (cell.type.density == null || cell.type.density >= 1f)) {
+        if (cell != null && cell.type != null && (cell.type.density == null || cell.type.density >= e.massDensity())) {
             if (cell.type.flows() && !e.hasDolphinized()) {
                 gravityVector.rotate(180);
                 physics.vx = 0;

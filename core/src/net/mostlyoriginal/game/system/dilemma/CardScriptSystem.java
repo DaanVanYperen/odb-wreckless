@@ -37,7 +37,7 @@ public class CardScriptSystem extends FluidIteratingSystem {
     @Override
     protected void initialize() {
         super.initialize();
-        spawnStructures();
+        spawnSkyscrapers();
     }
 
     public void reset() {
@@ -105,7 +105,7 @@ public class CardScriptSystem extends FluidIteratingSystem {
                 getPlanet().lavaPressure += 1000;
                 break;
             case WATER_PRESSURE_UP:
-                getPlanet().waterPressure += 1000;
+                getPlanet().waterPressure += 3000;
                 break;
             case ANGRY_RANDOMIZE:
                 randomizeAnger();
@@ -132,7 +132,7 @@ public class CardScriptSystem extends FluidIteratingSystem {
                 spawnAccelerators();
                 break;
             case SPAWN_STRUCTURES:
-                spawnStructures();
+                spawnSkyscrapers();
                 break;
 
         }
@@ -142,8 +142,8 @@ public class CardScriptSystem extends FluidIteratingSystem {
         spawnStructure(2, 4, "icbm", G.LAYER_STRUCTURES_FOREGROUND);
     }
 
-    private void spawnStructures() {
-        for (int i = 0; i < MathUtils.random(30, 40); i++) {
+    private void spawnSkyscrapers() {
+        for (int i = 0; i < MathUtils.random(10, 20); i++) {
             spawnStructure("skyscraper" + MathUtils.random(7), G.LAYER_STRUCTURES_BACKGROUND);
         }
 
@@ -169,13 +169,15 @@ public class CardScriptSystem extends FluidIteratingSystem {
         E.E()
                 .pos(location.x, location.y)
                 .anim(id)
+                .originX(0.5f)
+                .originY(0.1f)
                 .renderLayer(layer)
                 .angle()
                 .physics()
                 .planetbound()
                 .flammable()
                 .tint(Tint.TRANSPARENT)
-                .script(sequence(delay(MathUtils.random(0.1f, 0.4f)), add(Mass.class), tween(Tint.TRANSPARENT, Tint.WHITE, 0.2f)))
+                .script(sequence(delay(MathUtils.random(0.1f, 0.4f)), add(new Mass(1.1f)), tween(Tint.TRANSPARENT, Tint.WHITE, 0.2f)))
                 .orientToGravityIgnoreFloor(true);
     }
 
