@@ -164,6 +164,18 @@
       "height": 90,
       "manual": true,
       "script": []
+    },
+    {
+      "id": "CURE_FOR_DEATH",
+      "comment": "Nobody dies... for long!",
+      "statuseffect": true,
+      "x": 198,
+      "y": 180,
+      "width": 66,
+      "height": 90,
+      "script": [
+        "CURE_FOR_DEATH"
+      ]
     }
   ]
 }

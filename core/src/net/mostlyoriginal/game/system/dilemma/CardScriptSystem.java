@@ -3,17 +3,19 @@ package net.mostlyoriginal.game.system.dilemma;
 import com.artemis.Aspect;
 import com.artemis.E;
 import com.artemis.utils.IntBag;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import net.mostlyoriginal.game.component.CardScript;
-import net.mostlyoriginal.game.component.Planet;
-import net.mostlyoriginal.game.component.ScriptCommand;
-import net.mostlyoriginal.game.component.Wander;
+import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.system.AchievementSystem;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.planet.PlanetCreationSystem;
 import net.mostlyoriginal.game.system.stencil.PlanetStencilSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
+
+import static net.mostlyoriginal.api.operation.JamOperationFactory.moveBetween;
+import static net.mostlyoriginal.api.operation.OperationFactory.deleteFromWorld;
+import static net.mostlyoriginal.api.operation.OperationFactory.sequence;
 
 /**
  * @author Daan van Yperen
@@ -31,15 +33,50 @@ public class CardScriptSystem extends FluidIteratingSystem {
     AchievementSystem achievementSystem;
     CardSystem cardSystem;
 
+    int statusIndex=0;
+
+    @Override
+    protected void initialize() {
+        super.initialize();
+    }
+
+    public void reset() {
+        IntBag cards = world.getAspectSubscriptionManager().get(Aspect.all(StatusEffect.class)).getEntities();
+        int[] ids = cards.getData();
+        for (int i = 0, s = cards.size(); s > i; i++) {
+            E.E(ids[i]).deleteFromWorld();
+        }
+    }
+
     @Override
     protected void process(E e) {
-        String sfx = e.getPlayableCard().card.sfx;
-        if ( sfx != null ) {
+        CardData cardData = e.getPlayableCard().card;
+        String sfx = cardData.sfx;
+        if (sfx != null) {
             assetSystem.playSfx(sfx);
+        }
+
+        if (cardData.statuseffect) {
+            String cardGfx = "card" + cardData.id;
+            addStatusEffect(cardGfx);
         }
 
         run(e.cardScriptScript());
         e.deleteFromWorld();
+    }
+
+    private void addStatusEffect(String cardGfx) {
+        E.E().anim(cardGfx)
+                .clickable()
+                .statusEffect()
+                .angleRotation(10f)
+                .pos(
+                        33 + ((statusIndex % 2) * 40),
+                        G.SCREEN_HEIGHT/G.CAMERA_ZOOM - 90 - (statusIndex * 40))
+                .tint(1f, 1f, 1f, 0.8f)
+                .scale(0.8f)
+                .renderLayer(G.LAYER_CARDS);
+        statusIndex++;
     }
 
     private void run(ScriptCommand[] commands) {
@@ -79,12 +116,25 @@ public class CardScriptSystem extends FluidIteratingSystem {
             case RESTART:
                 restartGame();
                 break;
+            case CURE_FOR_DEATH:
+                innoculateEveryoneForDeath();
+                break;
+        }
+    }
+
+    private void innoculateEveryoneForDeath() {
+        IntBag entities = getWanderers();
+        int[] ids = entities.getData();
+        for (int i = 0, s = entities.size(); s > i; i++) {
+            E e = E.E(ids[i]);
+            e.reviveAfterDeath();
         }
     }
 
     private void restartGame() {
         planetCreationSystem.restart();
-        achievementSystem.gameEnded=false;
+        reset();
+        achievementSystem.gameEnded = false;
     }
 
     private void killDudes() {

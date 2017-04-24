@@ -13,5 +13,6 @@ public enum ScriptCommand {
     WATERWORLD,
     ADD_DUDES,
     KILL_DUDES,
-    RESTART
+    RESTART,
+    CURE_FOR_DEATH
 }

@@ -126,10 +126,14 @@ public class PlanetCreationSystem extends PassiveSystem {
 
     public void spawnDude(int degrees) {
         Vector2 source = v.set(130, 0).rotate(degrees).add(SIMULATION_WIDTH / 2, SIMULATION_HEIGHT / 2);
+        spawnDude(source.x + PLANET_X, source.y + G.PLANET_Y);
+    }
+
+    public E spawnDude(float x, float y) {
         E dude = E.E()
                 .anim("dude")
                 .renderLayer(G.LAYER_DUDES)
-                .pos(source.x + PLANET_X, source.y + G.PLANET_Y)
+                .pos(x, y)
                 .angle()
                 .physics()
                 .planetbound()
@@ -141,6 +145,7 @@ public class PlanetCreationSystem extends PassiveSystem {
         if (MathUtils.random(1, 100) < 20) {
             dude.angry();
         }
+        return dude;
     }
 
     public void drawGravity(Planet planet, int ox, int oy, int x2, int y2) {

@@ -72,6 +72,10 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
                         "Politic-New Leader",
                         "tech-missiles",
                         "Tech-particle accel",
+
+                        "LD_ghostflipper",
+                        "LD_ghostflipper2",
+                        "LD_rebornflipper",
                 }
         );
 
@@ -87,13 +91,13 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
             regions[i] = new TextureRegion(new Texture("index" + (i + 1) + ".png"), G.LOGO_WIDTH, G.LOGO_HEIGHT);
         }
 
-        Animation animation = new Animation(0.05f, regions);
+        Animation animation = new Animation<TextureRegion>(0.05f, regions);
         animation.setPlayMode(Animation.PlayMode.NORMAL);
         sprites.put("logo", animation);
     }
 
     private void playMusicTitle() {
-        if ( music != null ) music.stop();
+        if (music != null) music.stop();
         music = Gdx.audio.newMusic(Gdx.files.internal("sfx/LD_titleloop.mp3"));
         music.setLooping(true);
         music.play();
@@ -105,7 +109,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     }
 
     public void playMusicInGame() {
-        if ( music != null ) music.stop();
+        if (music != null) music.stop();
         music = Gdx.audio.newMusic(Gdx.files.internal("sfx/LD1_fortune_teller_loop.mp3"));
         music.setLooping(true);
         music.play();
