@@ -9,7 +9,7 @@ public class G {
     public static final int LOGO_HEIGHT = 221;
     public static final int LAYER_CURSOR = 2000;
 
-    public static final boolean PRODUCTION = false;
+    public static final boolean PRODUCTION = true;
 
     public static final boolean DEBUG_SKIP_INTRO = (!PRODUCTION && true);
     public static final boolean DEBUG_ACHIEVEMENTS = (!PRODUCTION && true);
