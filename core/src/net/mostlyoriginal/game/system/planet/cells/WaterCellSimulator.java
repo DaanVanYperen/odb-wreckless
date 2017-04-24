@@ -1,5 +1,6 @@
 package net.mostlyoriginal.game.system.planet.cells;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.game.component.PlanetCell;
 import net.mostlyoriginal.game.component.StatusMask;
@@ -8,16 +9,23 @@ import net.mostlyoriginal.game.component.StatusMask;
  * @author Daan van Yperen
  */
 public class WaterCellSimulator implements CellSimulator {
+
+    public static final int CYAN_COLOR = Color.rgba8888(Color.valueOf("033354"));
+
     @Override
     public void color(CellDecorator c, float delta) {
         c.cell.color = c.planet.cellColor[PlanetCell.CellType.WATER.ordinal()];
+
+        if ((c.getNeighbour(PlanetCell.CellType.AIR) != null && MathUtils.randomBoolean()) || MathUtils.random(0,100) <= 1 ) {
+            c.cell.color = CYAN_COLOR;
+        }
     }
 
     @Override
     public void process(CellDecorator c, float delta) {
         // releave pressure.
         if (c.cell.nextType == null) {
-            if (c.planet.waterPressure > 0 && MathUtils.random(1, 5000) < c.planet.waterPressure && (c.cell.depth() > 50)) {
+            if (c.planet.waterPressure > 0 && MathUtils.random(1, 5000) < c.planet.waterPressure ) {
                 if (attemptReleavePressure(c, c.getNeighbourDown())) return;
                 boolean b = MathUtils.randomBoolean(); // flip direction randomly.
                 if (attemptReleavePressure(c, b ? c.getNeighbourLeft() : c.getNeighbourRight())) return;

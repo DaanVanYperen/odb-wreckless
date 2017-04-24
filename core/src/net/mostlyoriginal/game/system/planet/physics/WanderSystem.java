@@ -47,7 +47,9 @@ public class WanderSystem extends FluidIteratingSystem {
             e.pos(tmpPos);
         }
 
-        if (e.hasDolphinized()) {
+        if ( e.hasAlien() ) {
+            e.anim("alien").removeAngry();
+        } else if (e.hasDolphinized()) {
             e.anim("dolphin").removeAngry();
         } else if (e.hasAngry()) {
             e.anim("angrydude");
@@ -63,6 +65,11 @@ public class WanderSystem extends FluidIteratingSystem {
     private boolean canSurvive(E e) {
         PlanetCell cell = e.planetboundCell();
         if (cell != null) {
+
+            if (e.hasAlien()) {
+                if ( cell.depth() <= 10 ) return false;
+                return true;
+            }
 
             if (e.hasDolphinized() && !((cell.type == null) || (cell.type==PlanetCell.CellType.NOTHING) || (cell.type == PlanetCell.CellType.AIR) || (cell.type == PlanetCell.CellType.CLOUD) || (cell.type == PlanetCell.CellType.STEAM) || (cell.type == PlanetCell.CellType.WATER))) {
                 return false;

@@ -81,7 +81,7 @@ public class DrawingSystem extends FluidIteratingSystem {
     protected void process(E e) {
         final E cursor = E.E(tagManager.getEntity("cursor"));
         if (leftMousePressed && type != null) {
-            draw(e, (int) cursor.posX(), (int) cursor.posY(), 1, type);
+            draw(e, (int) cursor.posX(), (int) cursor.posY(), 3, type);
         }
         if (rightMousePressed) {
             stopDrawing();

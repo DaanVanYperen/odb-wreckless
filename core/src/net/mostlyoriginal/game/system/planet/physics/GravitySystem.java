@@ -29,6 +29,10 @@ public class GravitySystem extends FluidIteratingSystem {
     protected void process(E e) {
         Vector2 gravityVector = v.set(e.planetboundGravity());
 
+        if ( e.massInverse() ){
+            gravityVector.rotate(180);
+        }
+
         // apply gravity.
         Physics physics = e.getPhysics();
 

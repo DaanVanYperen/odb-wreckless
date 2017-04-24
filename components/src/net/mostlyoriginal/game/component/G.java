@@ -9,9 +9,11 @@ public class G {
     public static final int LOGO_HEIGHT = 221;
     public static final int LAYER_CURSOR = 2000;
 
-    public static final boolean DEBUG_SKIP_INTRO = true;
-    public static final boolean DEBUG_ACHIEVEMENTS = true;
-    public static final boolean DEBUG_DRAWING = true;
+    public static final boolean PRODUCTION = false;
+
+    public static final boolean DEBUG_SKIP_INTRO = (!PRODUCTION && true);
+    public static final boolean DEBUG_ACHIEVEMENTS = (!PRODUCTION && true);
+    public static final boolean DEBUG_DRAWING = (!PRODUCTION && true);
 
     public static final float CARD_X = 5;
     public static final float CARD_Y = 5;

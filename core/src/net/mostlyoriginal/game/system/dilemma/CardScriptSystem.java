@@ -68,6 +68,22 @@ public class CardScriptSystem extends FluidIteratingSystem {
 
         run(e.cardScriptScript());
         e.deleteFromWorld();
+
+        timeoutEffects();
+    }
+
+    private void timeoutEffects() {
+        IntBag cards = world.getAspectSubscriptionManager().get(Aspect.all(StatusEffect.class)).getEntities();
+        int[] ids = cards.getData();
+        for (int i = 0, s = cards.size(); s > i; i++) {
+            E e = E.E(ids[i]);
+            StatusEffect statusEffect = e.getStatusEffect();
+            statusEffect.duration--;
+            if ( statusEffect.duration <0 ) {
+                e.deleteFromWorld();
+            }
+            break;
+        }
     }
 
     private void addStatusEffect(String cardGfx) {
@@ -99,6 +115,9 @@ public class CardScriptSystem extends FluidIteratingSystem {
                 break;
             case HOLLOWEARTH:
                 planetStencilSystem.stencil("HOLLOWEARTH");
+                for (int i = 0; i < 5; i++) {
+                    spawnHollowEarther();
+                }
                 break;
             case WATERWORLD:
                 planetStencilSystem.stencil("WATERWORLD");
@@ -151,6 +170,11 @@ public class CardScriptSystem extends FluidIteratingSystem {
                 triggerExplosives();
                 break;
         }
+    }
+
+    private void spawnHollowEarther() {
+        Vector2 location = planetCreationSystem.getSpawnLocationHollowEarth();
+        planetCreationSystem.spawnDude(location.x, location.y).massInverse(true).alien();
     }
 
     private void unspawnIcbms() {

@@ -50,6 +50,7 @@ public class CardSystem extends FluidIteratingSystem {
     protected void initialize() {
         super.initialize();
         loadCards();
+        //spawnCard("HOLLOWEARTH");
     }
 
 

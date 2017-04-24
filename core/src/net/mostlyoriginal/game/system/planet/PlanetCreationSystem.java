@@ -133,8 +133,15 @@ public class PlanetCreationSystem extends PassiveSystem {
         return getSpawnLocation(MathUtils.random(0, 359));
     }
 
+    public Vector2 getSpawnLocationHollowEarth() {
+        return getSpawnLocationHollowEarth(MathUtils.random(0, 359));
+    }
+
     public Vector2 getSpawnLocation(int degrees) {
         return v.set(130, 0).rotate(degrees).add(SIMULATION_WIDTH / 2, SIMULATION_HEIGHT / 2).add(PLANET_X,PLANET_Y);
+    }
+    public Vector2 getSpawnLocationHollowEarth(int degrees) {
+        return v.set(40, 0).rotate(degrees).add(SIMULATION_WIDTH / 2, SIMULATION_HEIGHT / 2).add(PLANET_X,PLANET_Y);
     }
 
     public E spawnDude(float x, float y) {

@@ -12,4 +12,5 @@ public class Mass extends Component {
         this.density=density;
     }
     public float density=1f;
+    public boolean inverse=false;
 }
