@@ -95,7 +95,7 @@ public class CardScriptSystem extends FluidIteratingSystem {
         System.out.println(c.toString());
         switch (c) {
             case LAVA_TENDRIL:
-                planetStencilSystem.stencilRotateCenter("AIRPOCKET");
+                planetStencilSystem.stencilRotateCenter(MathUtils.randomBoolean() ?"AIRPOCKET": "AIRPOCKET2");
                 break;
             case HOLLOWEARTH:
                 planetStencilSystem.stencil("HOLLOWEARTH");
@@ -164,8 +164,13 @@ public class CardScriptSystem extends FluidIteratingSystem {
     private void triggerExplosives() {
         IntBag explosives = world.getAspectSubscriptionManager().get(Aspect.all(Explosive.class)).getEntities();
         int[] ids = explosives.getData();
+        boolean found=false;
         for (int i = 0, s = explosives.size(); s > i; i++) {
             E.E(ids[i]).explosivePrimed(true);
+            found=true;
+        }
+        if ( found ) {
+            gameScreenAssetSystem.playSfx("LD_lowfi_explosion");
         }
     }
 

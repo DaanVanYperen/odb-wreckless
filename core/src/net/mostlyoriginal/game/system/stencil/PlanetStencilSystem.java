@@ -1,6 +1,7 @@
 package net.mostlyoriginal.game.system.stencil;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.TextureData;
@@ -24,6 +25,7 @@ public class PlanetStencilSystem extends PassiveSystem {
     PlanetCreationSystem planetCreationSystem;
 
     StencilLibrary stencilLibrary = new StencilLibrary();
+    private Color c = new Color();
 
     @Override
     protected void initialize() {
@@ -69,9 +71,10 @@ public class PlanetStencilSystem extends PassiveSystem {
 
                 tv.set(x, y).rotate(degrees).add(x1, y1);
 
-                final PlanetCell.CellType type = getSourceCellType(planet, pixmap.getPixel(x, texture.getHeight() - y));
+                int color = pixmap.getPixel(x, texture.getHeight() - y);
+                final PlanetCell.CellType type = getSourceCellType(planet, color);
                 if (type != null) {
-                    replaceCell(planet, Math.round(tv.x), Math.round(tv.y), replaceTypes, type);
+                    replaceCell(planet, Math.round(tv.x), Math.round(tv.y), replaceTypes, type, color);
                 }
 
             }
@@ -79,11 +82,12 @@ public class PlanetStencilSystem extends PassiveSystem {
         pixmap.dispose();
     }
 
-    private void replaceCell(Planet planet, int tx, int ty, PlanetCell.CellType[] replaceTypes, PlanetCell.CellType type) {
+    private void replaceCell(Planet planet, int tx, int ty, PlanetCell.CellType[] replaceTypes, PlanetCell.CellType type, int color) {
         final PlanetCell cell = planet.get(tx, ty);
         if (cell != null) {
             if (isType(replaceTypes, cell.type)) {
                 cell.nextType = type;
+                cell.nextColor = color;
             }
         }
     }
@@ -101,6 +105,11 @@ public class PlanetStencilSystem extends PassiveSystem {
                 return type.type;
             }
         }
+        Color.rgba8888ToColor(c, pixel);
+        if ( c.a != 0 ) {
+            return PlanetCell.CellType.STATIC;
+        }
+
         return null;
     }
 

@@ -10,12 +10,20 @@
       ]
     },
     {
+      "id": "AIRPOCKET2",
+      "comment": "Airpocket for lava.",
+      "texture": "airpocket2.png",
+      "replaceTypes": [
+        "STATIC",
+        "WATER"
+      ]
+    },
+    {
       "id": "HOLLOWEARTH",
       "comment": "No core!.",
       "texture": "nocore.png",
       "replaceTypes": [
         "STATIC",
-        "LAVA",
         "WATER",
         "LAVA_CRUST"
       ]

@@ -66,6 +66,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
                         "LD_troop_prologue",
                         "LD_troop_yeah",
                         "LD_troop_yeah_higher",
+                        "LD_lowfi_explosion",
                         "nutrition-coffee",
                         "Politic-Dolphins",
                         "Politic-New Leader",

@@ -64,7 +64,7 @@ public class WanderSystem extends FluidIteratingSystem {
         PlanetCell cell = e.planetboundCell();
         if (cell != null) {
 
-            if (e.hasDolphinized() && !((cell.type == null) || (cell.type == PlanetCell.CellType.AIR) || (cell.type == PlanetCell.CellType.CLOUD) || (cell.type == PlanetCell.CellType.STEAM) || (cell.type == PlanetCell.CellType.WATER))) {
+            if (e.hasDolphinized() && !((cell.type == null) || (cell.type==PlanetCell.CellType.NOTHING) || (cell.type == PlanetCell.CellType.AIR) || (cell.type == PlanetCell.CellType.CLOUD) || (cell.type == PlanetCell.CellType.STEAM) || (cell.type == PlanetCell.CellType.WATER))) {
                 return false;
             }
 

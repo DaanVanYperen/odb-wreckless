@@ -313,12 +313,18 @@ public class PlanetCreationSystem extends PassiveSystem {
         return 0;
     }
 
+
     private void guessCellType(PlanetCell cell, net.mostlyoriginal.game.component.PlanetData planetData) {
         for (net.mostlyoriginal.game.component.PlanetData.CellType type : planetData.types) {
             if (cell.color == type.intColor) {
                 cell.type = type.type;
                 return;
             }
+        }
+
+        Color.rgba8888ToColor(c, cell.color);
+        if ( c.a == 0 ) {
+            cell.type = PlanetCell.CellType.NOTHING;
         }
     }
 
