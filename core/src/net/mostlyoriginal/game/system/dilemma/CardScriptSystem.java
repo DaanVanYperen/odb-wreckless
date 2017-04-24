@@ -51,7 +51,6 @@ public class CardScriptSystem extends FluidIteratingSystem {
             E.E(ids[i]).deleteFromWorld();
         }
         spawnSkyscrapers();
-        spawnIcbms();
     }
 
     @Override
