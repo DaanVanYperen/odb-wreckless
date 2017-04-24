@@ -152,7 +152,7 @@ public class PlanetCreationSystem extends PassiveSystem {
                 .mass()
                 .orientToGravity();
 
-        if (MathUtils.random(1, 100) < 20) {
+        if (MathUtils.random(1, 100) < 5) {
             dude.angry();
         }
         return dude;

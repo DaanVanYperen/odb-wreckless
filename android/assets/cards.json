@@ -31,8 +31,7 @@
       "height": 90,
       "sfx": "Politic-New Leader",
       "script": [
-        "ANGRY_RANDOMIZE",
-        "TRIGGER_EXPLOSIVES"
+        "ANGRY_RANDOMIZE"
       ]
     },
     {
@@ -55,7 +54,8 @@
       "width": 66,
       "height": 90,
       "script": [
-        "ANGRY_NONE"
+        "ANGRY_NONE",
+        "UNSPAWN_ICBMS"
       ]
     },
     {
@@ -105,13 +105,13 @@
     },
     {
       "id": "FOOD3",
-      "comment": "Food3",
+      "comment": "all angryyyy.",
       "x": 264,
       "y": 180,
       "width": 66,
       "height": 90,
       "script": [
-        "ADD_DUDES"
+        "ANGRY_ALL"
       ]
     },
     {

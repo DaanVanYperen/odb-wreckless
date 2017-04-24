@@ -25,7 +25,7 @@ public class PlanetCoordSystem extends FluidIteratingSystem {
 
     public void updateCoord(E e) {
         E planet = planetCreationSystem.planetEntity;
-        e.planetboundCell(planet.getPlanet().get((int) (e.posX() - G.PLANET_X), (int) (e.posY() - G.PLANET_Y)));
+        e.planetboundCell(planet.getPlanet().get((int) (e.posX() - G.PLANET_X)+2, (int) (e.posY() - G.PLANET_Y)));
         e.getPlanetbound().gravity.set(G.PLANET_CENTER_X, G.PLANET_CENTER_Y).sub(e.posX(), e.posY()).nor();
     }
 }

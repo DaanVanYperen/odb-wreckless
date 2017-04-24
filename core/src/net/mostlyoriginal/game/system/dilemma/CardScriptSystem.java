@@ -117,6 +117,9 @@ public class CardScriptSystem extends FluidIteratingSystem {
             case ANGRY_RANDOMIZE:
                 randomizeAnger();
                 break;
+            case ANGRY_ALL:
+                allAnger();
+                break;
             case ANGRY_NONE:
                 killAnger();
                 break;
@@ -132,6 +135,9 @@ public class CardScriptSystem extends FluidIteratingSystem {
             case SPAWN_ICBMS:
                 spawnIcbms();
                 break;
+            case UNSPAWN_ICBMS:
+                unspawnIcbms();
+                break;
             case SPAWN_GALAXYBUCKS:
                 spawnStarbucks();
                 break;
@@ -144,6 +150,14 @@ public class CardScriptSystem extends FluidIteratingSystem {
             case TRIGGER_EXPLOSIVES:
                 triggerExplosives();
                 break;
+        }
+    }
+
+    private void unspawnIcbms() {
+        IntBag explosives = world.getAspectSubscriptionManager().get(Aspect.all(Explosive.class)).getEntities();
+        int[] ids = explosives.getData();
+        for (int i = 0, s = explosives.size(); s > i; i++) {
+            E.E(ids[i]).deleteFromWorld();
         }
     }
 
@@ -266,6 +280,15 @@ public class CardScriptSystem extends FluidIteratingSystem {
             } else {
                 e.angry();
             }
+        }
+    }
+
+    private void allAnger() {
+        IntBag entities = getWanderers();
+        int[] ids = entities.getData();
+        for (int i = 0, s = entities.size(); s > i; i++) {
+            E e = E.E(ids[i]);
+            e.angry();
         }
     }
 
