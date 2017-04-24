@@ -16,7 +16,7 @@ gwt {
         strict = true;
         disableCastChecking = true;
         //disableAggressiveOptimization = true;
-        //draftCompile = false;
+        draftCompile = true;
         //optimize = 9;
     }
 }

@@ -19,6 +19,11 @@ import net.mostlyoriginal.api.system.core.PassiveSystem;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.system.DrawingSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
+import slim.texture.io.PNGDecoder;
+
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.DirectReadWriteByteBuffer;
 
 import static net.mostlyoriginal.api.operation.OperationFactory.*;
 import static net.mostlyoriginal.game.component.G.*;
@@ -138,10 +143,11 @@ public class PlanetCreationSystem extends PassiveSystem {
     }
 
     public Vector2 getSpawnLocation(int degrees) {
-        return v.set(130, 0).rotate(degrees).add(SIMULATION_WIDTH / 2, SIMULATION_HEIGHT / 2).add(PLANET_X,PLANET_Y);
+        return v.set(130, 0).rotate(degrees).add(SIMULATION_WIDTH / 2, SIMULATION_HEIGHT / 2).add(PLANET_X, PLANET_Y);
     }
+
     public Vector2 getSpawnLocationHollowEarth(int degrees) {
-        return v.set(40, 0).rotate(degrees).add(SIMULATION_WIDTH / 2, SIMULATION_HEIGHT / 2).add(PLANET_X,PLANET_Y);
+        return v.set(40, 0).rotate(degrees).add(SIMULATION_WIDTH / 2, SIMULATION_HEIGHT / 2).add(PLANET_X, PLANET_Y);
     }
 
     public E spawnDude(float x, float y) {
@@ -270,14 +276,11 @@ public class PlanetCreationSystem extends PassiveSystem {
     }
 
     private void populate(net.mostlyoriginal.game.component.PlanetData planetData, Planet planet) {
-        formSurface(planet, new Texture(planetData.texture), planetData);
+        formSurface(planet, new FauxPixMap(planetData.texture), planetData);
         formMask(planet);
     }
 
-    private void formSurface(Planet planet, Texture texture, net.mostlyoriginal.game.component.PlanetData planetData) {
-        TextureData textureData = texture.getTextureData();
-        textureData.prepare();
-        Pixmap pixmap = textureData.consumePixmap();
+    private void formSurface(Planet planet, FauxPixMap pixmap, PlanetData planetData) {
         for (int y = 0; y < G.SIMULATION_HEIGHT; y++) {
             for (int x = 0; x < G.SIMULATION_WIDTH; x++) {
                 planet.grid[y][x] = formCell(planet, y, x, pixmap.getPixel(x, y), planetData);
@@ -323,14 +326,14 @@ public class PlanetCreationSystem extends PassiveSystem {
 
     private void guessCellType(PlanetCell cell, net.mostlyoriginal.game.component.PlanetData planetData) {
         for (net.mostlyoriginal.game.component.PlanetData.CellType type : planetData.types) {
-            if (cell.color == type.intColor) {
+            if (FauxPixMap.sameIsh(cell.color,type.intColor)) {
                 cell.type = type.type;
                 return;
             }
         }
 
         Color.rgba8888ToColor(c, cell.color);
-        if ( c.a == 0 ) {
+        if (c.a == 0) {
             cell.type = PlanetCell.CellType.NOTHING;
         }
     }

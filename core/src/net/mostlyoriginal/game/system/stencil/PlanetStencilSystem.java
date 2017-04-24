@@ -12,6 +12,7 @@ import net.mostlyoriginal.api.system.core.PassiveSystem;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.Planet;
 import net.mostlyoriginal.game.component.PlanetCell;
+import net.mostlyoriginal.game.system.planet.FauxPixMap;
 import net.mostlyoriginal.game.system.planet.PlanetCreationSystem;
 import net.mostlyoriginal.game.component.PlanetData;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
@@ -101,12 +102,12 @@ public class PlanetStencilSystem extends PassiveSystem {
 
     private PlanetCell.CellType getSourceCellType(Planet planet, int pixel) {
         for (PlanetData.CellType type : planet.data.types) {
-            if (pixel == type.intColor) {
+            if (FauxPixMap.sameIsh(pixel, type.intColor)) {
                 return type.type;
             }
         }
         Color.rgba8888ToColor(c, pixel);
-        if ( c.a != 0 ) {
+        if (c.a != 0) {
             return PlanetCell.CellType.STATIC;
         }
 
