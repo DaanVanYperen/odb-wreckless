@@ -11,6 +11,8 @@ public class G {
 
     public static final boolean PRODUCTION = true;
 
+    public static final boolean INTERLACING_SIMULATION = true;
+
     public static final boolean DEBUG_SKIP_INTRO = (!PRODUCTION && true);
     public static final boolean DEBUG_ACHIEVEMENTS = (!PRODUCTION && true);
     public static final boolean DEBUG_DRAWING = (!PRODUCTION && true);

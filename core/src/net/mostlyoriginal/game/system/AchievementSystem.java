@@ -72,7 +72,7 @@ public class AchievementSystem extends FluidIteratingSystem {
     private boolean isLargelyWater() {
         float waterBlocks = planetSimulationSystem.simulatedBlocks[PlanetCell.CellType.WATER.ordinal()];
         float totalBlocks = planetSimulationSystem.totalSimulatedBlocks();
-        return (totalBlocks > 0) && (waterBlocks / totalBlocks > 0.55f);
+        return (totalBlocks > 0) && (waterBlocks / totalBlocks > 0.40f);
     }
 
     private boolean isLargelyLava() {

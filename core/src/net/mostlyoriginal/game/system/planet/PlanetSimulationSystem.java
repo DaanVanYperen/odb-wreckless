@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.game.component.Planet;
 import net.mostlyoriginal.game.component.PlanetCell;
 import net.mostlyoriginal.game.component.StatusMask;
+import net.mostlyoriginal.game.system.common.FluidIntervalIteratingSystem;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.planet.cells.*;
 
@@ -17,23 +18,26 @@ import static net.mostlyoriginal.game.component.G.SIMULATION_WIDTH;
 /**
  * @author Daan van Yperen
  */
-public class PlanetSimulationSystem extends FluidIteratingSystem {
+public class PlanetSimulationSystem extends FluidIntervalIteratingSystem {
 
     public static final float TEMPERATURE_LOSS = 0.9f;
     public static final int AIR_ORDINAL = PlanetCell.CellType.AIR.ordinal();
+    public static final int NOTHING_ORDINAL = PlanetCell.CellType.NOTHING.ordinal();
     private CellSimulator[] simulators = new CellSimulator[PlanetCell.CellType.values().length];
     public int[] simulatedBlocks = new int[PlanetCell.CellType.values().length];
     private Vector2 v = new Vector2();
 
     public PlanetSimulationSystem() {
-        super(Aspect.all(Planet.class));
+        super(Aspect.all(Planet.class), 1 / 30f);
     }
 
-    /**  Don't count air in simualted blocks. */
+    /**
+     * Don't count air in simualted blocks.
+     */
     public int totalSimulatedBlocks() {
         int count = 0;
         for (int i = 0, s = PlanetCell.CellType.values().length; i < s; i++) {
-            if (i == AIR_ORDINAL)
+            if (i == AIR_ORDINAL || i == NOTHING_ORDINAL)
                 continue;
             count += simulatedBlocks[i];
         }
