@@ -78,11 +78,12 @@ public class AchievementSystem extends FluidIteratingSystem {
         return (totalBlocks < 25000);
     }
 
-    private void activateAchievement(String achievement1) {
-        E e = E.E(tagManager.getEntityId(achievement1));
+    private void activateAchievement(String achievementId) {
+        E e = E.E(tagManager.getEntityId(achievementId));
         if (!e.hasAchievement()) {
             e.tint(1f, 1f, 1f, 1f).achievement();
             gameScreenAssetSystem.playSfx("LD_troop_amazing");
+            cardSystem.spawnCard(achievementId.toUpperCase());
         }
     }
 

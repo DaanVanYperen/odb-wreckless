@@ -124,6 +124,46 @@
       "script": [
         "RESTART"
       ]
+    },
+    {
+      "id": "ACHIEVEMENT1",
+      "comment": "Reward card for achievement.",
+      "x": 198,
+      "y": 361,
+      "width": 66,
+      "height": 90,
+      "manual": true,
+      "script": []
+    }
+    {
+      "id": "ACHIEVEMENT2",
+      "comment": "Reward card for achievement.",
+      "x": 264,
+      "y": 361,
+      "width": 66,
+      "height": 90,
+      "manual": true,
+      "script": []
+    }
+    {
+      "id": "ACHIEVEMENT3",
+      "comment": "Reward card for achievement.",
+      "x": 330,
+      "y": 361,
+      "width": 66,
+      "height": 90,
+      "manual": true,
+      "script": []
+    }
+    {
+      "id": "ACHIEVEMENT4",
+      "comment": "Reward card for achievement.",
+      "x": 396,
+      "y": 361,
+      "width": 66,
+      "height": 90,
+      "manual": true,
+      "script": []
     }
   ]
 }

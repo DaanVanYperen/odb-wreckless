@@ -144,4 +144,8 @@ public class CardSystem extends FluidIteratingSystem {
     private static void restartGame() {
         transitionSystem.transition(GameScreen.class, 0f);
     }
+
+    public void spawnCard(String id) {
+        spawnCard(cardLibrary.getById(id));
+    }
 }
