@@ -6,9 +6,6 @@ import com.artemis.managers.TagManager;
 import com.artemis.utils.IntBag;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.TextureData;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -19,11 +16,6 @@ import net.mostlyoriginal.api.system.core.PassiveSystem;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.system.DrawingSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
-import slim.texture.io.PNGDecoder;
-
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.DirectReadWriteByteBuffer;
 
 import static net.mostlyoriginal.api.operation.OperationFactory.*;
 import static net.mostlyoriginal.game.component.G.*;

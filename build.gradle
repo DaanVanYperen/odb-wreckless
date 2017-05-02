@@ -110,9 +110,8 @@ project(":components") {
         compile "net.mostlyoriginal.artemis-odb:contrib-core:$artemisContribVersion"
         compile "net.mostlyoriginal.artemis-odb:contrib-jam:$artemisContribVersion"
 
-        compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
-        compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
     }
 }
 
