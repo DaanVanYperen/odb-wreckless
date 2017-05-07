@@ -233,7 +233,7 @@ public class CardScriptSystem extends FluidIteratingSystem {
 
     private E spawnStructure(String id, int layer) {
         Vector2 location = planetCreationSystem.getSpawnLocation();
-        return E.E()
+        E e = E.E()
                 .pos(location.x, location.y)
                 .anim(id)
                 .originX(0.5f)
@@ -246,6 +246,12 @@ public class CardScriptSystem extends FluidIteratingSystem {
                 .tint(Tint.TRANSPARENT)
                 .script(sequence(delay(MathUtils.random(0.1f, 0.4f)), add(new Mass(1.1f)), tween(Tint.TRANSPARENT, Tint.WHITE, 0.2f)))
                 .orientToGravityIgnoreFloor(true);
+
+        if ( G.DEBUG_NO_ENTITY_RENDERING ) {
+            e.invisible();
+        }
+
+        return e;
     }
 
     private void innoculateEveryoneForDeath() {

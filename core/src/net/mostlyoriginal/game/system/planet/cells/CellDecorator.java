@@ -1,6 +1,7 @@
 package net.mostlyoriginal.game.system.planet.cells;
 
 import com.badlogic.gdx.math.MathUtils;
+import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.Planet;
 import net.mostlyoriginal.game.component.PlanetCell;
 import net.mostlyoriginal.game.component.StatusMask;
@@ -128,10 +129,12 @@ public class CellDecorator {
     }
 
     public void flow() {
-        if (MathUtils.randomBoolean()) {
-            swapWithBestFlowing(getNeighbourLeft());
-        } else {
-            swapWithBestFlowing(getNeighbourRight());
+        if (!G.DEBUG_NO_FLOW ) {
+            if (MathUtils.randomBoolean()) {
+                swapWithBestFlowing(getNeighbourLeft());
+            } else {
+                swapWithBestFlowing(getNeighbourRight());
+            }
         }
     }
 }

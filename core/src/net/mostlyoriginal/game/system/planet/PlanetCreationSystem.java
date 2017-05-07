@@ -101,10 +101,24 @@ public class PlanetCreationSystem extends PassiveSystem {
         int centerX = SIMULATION_WIDTH / 2;
         int centerY = SIMULATION_HEIGHT / 2;
         int granularity = 30;
-        for (int sub = 0; sub < granularity; sub++) {
-            for (int degrees = 0; degrees < 360; degrees++) {
-                Vector2 source = v.set(240, 0).rotate(degrees + sub * (1f / granularity)).add(centerX, centerY);
-                drawGravity(planet, Math.round(source.x), Math.round(source.y), centerX, centerY);
+        if (DEBUG_NAIVE_GRAVITY) {
+            for (int y = 0; y < G.SIMULATION_HEIGHT; y++) {
+                for (int x = 0; x < G.SIMULATION_WIDTH; x++) {
+                    PlanetCell planetCell = planet.get(x, y);
+                    if (planetCell != null) {
+                        if (planetCell.down == -1) {
+                            Vector2 nor = v.set(centerX, centerY).sub(planetCell.x, planetCell.y).nor();
+                            planetCell.down = (dirOf(Math.round(nor.x), Math.round(nor.y)));
+                        }
+                    }
+                }
+            }
+        } else {
+            for (int sub = 0; sub < granularity; sub++) {
+                for (int degrees = 0; degrees < 360; degrees++) {
+                    Vector2 source = v.set(240, 0).rotate(degrees + sub * (1f / granularity)).add(centerX, centerY);
+                    drawGravity(planet, Math.round(source.x), Math.round(source.y), centerX, centerY);
+                }
             }
         }
 
@@ -156,7 +170,9 @@ public class PlanetCreationSystem extends PassiveSystem {
                 .wander()
                 .mass()
                 .orientToGravity();
-
+        if (DEBUG_NO_ENTITY_RENDERING) {
+            dude.invisible();
+        }
         if (MathUtils.random(1, 100) < 5) {
             dude.angry();
         }
@@ -326,9 +342,13 @@ public class PlanetCreationSystem extends PassiveSystem {
 
         for (net.mostlyoriginal.game.component.PlanetData.CellType type : planetData.types) {
             if (FauxPixMap.sameIsh(cell.color, type.intColor)) {
-                cell.type = type.type;
+                cell.type = type.type != PlanetCell.CellType.AIR && DEBUG_AIR_PLANET ? PlanetCell.CellType.AIR : type.type;
                 return;
             }
+        }
+
+        if (DEBUG_AIR_PLANET) {
+            cell.type = PlanetCell.CellType.AIR;
         }
     }
 

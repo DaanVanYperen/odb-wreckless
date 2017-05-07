@@ -50,7 +50,7 @@ public class PlanetRenderGravityDebugSystem extends FluidIteratingSystem {
 
     Color color = new Color();
     int direction = 0;
-    float cooldown = 1f;
+    float cooldown = 0.5f;
 
     @Override
     protected void process(E e) {
@@ -58,7 +58,7 @@ public class PlanetRenderGravityDebugSystem extends FluidIteratingSystem {
         Planet planet = e.getPlanet();
         cooldown -= world.delta;
         if (cooldown <= 0) {
-            cooldown = 1;
+            cooldown = 0.5f;
             direction = (direction + 1) % 8;
 //            System.out.println(PlanetCell.directions[direction][0] + ", " + PlanetCell.directions[direction][1]);
         }
@@ -66,7 +66,7 @@ public class PlanetRenderGravityDebugSystem extends FluidIteratingSystem {
             for (int x = 0; x < G.SIMULATION_WIDTH; x++) {
                 final PlanetCell cell = planet.grid[y][x];
                 if (cell.down == direction) {
-                    color.set(0, 0, 1f, 0.8f);
+                    color.set(1f, 0, 0f, 0.4f);
                     batch.setColor(color);
                     batch.draw(planetPixel, x+PLANET_X, y+ PLANET_Y);
                 }

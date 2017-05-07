@@ -12,9 +12,7 @@ import net.mostlyoriginal.game.system.common.FluidIntervalIteratingSystem;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.planet.cells.*;
 
-import static net.mostlyoriginal.game.component.G.GRADIENT_SCALE;
-import static net.mostlyoriginal.game.component.G.SIMULATION_HEIGHT;
-import static net.mostlyoriginal.game.component.G.SIMULATION_WIDTH;
+import static net.mostlyoriginal.game.component.G.*;
 
 /**
  * @author Daan van Yperen
@@ -97,7 +95,7 @@ public class PlanetSimulationSystem extends FluidIntervalIteratingSystem {
         for (int y = 0; y < SIMULATION_HEIGHT; y++) {
             for (int x = 0; x < SIMULATION_WIDTH; x++) {
                 final PlanetCell cell = planet.grid[y][x];
-                cell.activateNextType();
+                if ( !DEBUG_NO_SECOND_PASS ) cell.activateNextType();
                 simulators[cell.type.ordinal()].color(planetCell.proxies(cell), delta);
             }
         }
@@ -129,6 +127,7 @@ public class PlanetSimulationSystem extends FluidIntervalIteratingSystem {
                     continue;
                 }
                 simulators[ordinal].process(planetCell.proxies(cell), delta);
+                if ( DEBUG_NO_SECOND_PASS ) cell.activateNextType();
             }
         }
     }
