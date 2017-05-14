@@ -64,6 +64,7 @@ public class GameScreen extends WorldScreen {
                         new DrawingSystem(),
 
                         new PlanetStencilSystem(),
+                        new PlanetMaskSystem(),
                         new PlanetSimulationSystem(),
 
 

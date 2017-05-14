@@ -14,6 +14,8 @@ import net.mostlyoriginal.game.component.SpriteData;
 import net.mostlyoriginal.game.system.dilemma.CardLibrary;
 import net.mostlyoriginal.game.system.planet.SpriteLibrary;
 
+import static net.mostlyoriginal.game.component.G.DEBUG_NO_MUSIC;
+
 /**
  * @author Daan van Yperen
  */
@@ -97,6 +99,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     }
 
     private void playMusicTitle() {
+        if (DEBUG_NO_MUSIC) return;
         if (music != null) music.stop();
         music = Gdx.audio.newMusic(Gdx.files.internal("sfx/LD_titleloop.mp3"));
         music.setLooping(true);
@@ -117,6 +120,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
             };
 
     public void playMusicInGame() {
+        if (DEBUG_NO_MUSIC) return;
         if (music != null) music.stop();
         music = Gdx.audio.newMusic(Gdx.files.internal(musicFiles[musicIndex]));
         music.setLooping(true);

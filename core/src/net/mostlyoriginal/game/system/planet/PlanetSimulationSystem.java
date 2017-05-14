@@ -19,10 +19,9 @@ import static net.mostlyoriginal.game.component.G.*;
  */
 public class PlanetSimulationSystem extends FluidIntervalIteratingSystem {
 
-    public static final float TEMPERATURE_LOSS = 0.9f;
     public static final int AIR_ORDINAL = PlanetCell.CellType.AIR.ordinal();
     public static final int NOTHING_ORDINAL = PlanetCell.CellType.NOTHING.ordinal();
-    private CellSimulator[] simulators = new CellSimulator[PlanetCell.CellType.values().length];
+    public CellSimulator[] simulators = new CellSimulator[PlanetCell.CellType.values().length];
     public int[] simulatedBlocks = new int[PlanetCell.CellType.values().length];
     private Vector2 v = new Vector2();
     private int lace = 0;
@@ -71,7 +70,6 @@ public class PlanetSimulationSystem extends FluidIntervalIteratingSystem {
     @Override
     protected void process(E e) {
         final Planet planet = e.getPlanet();
-        generateMask(planet);
         simulateCells(planet);
         activateChanges(planet);
     }
@@ -95,7 +93,7 @@ public class PlanetSimulationSystem extends FluidIntervalIteratingSystem {
         for (int y = 0; y < SIMULATION_HEIGHT; y++) {
             for (int x = 0; x < SIMULATION_WIDTH; x++) {
                 final PlanetCell cell = planet.grid[y][x];
-                if ( !DEBUG_NO_SECOND_PASS ) cell.activateNextType();
+                if (!DEBUG_NO_SECOND_PASS) cell.activateNextType();
                 simulators[cell.type.ordinal()].color(planetCell.proxies(cell), delta);
             }
         }
@@ -127,7 +125,7 @@ public class PlanetSimulationSystem extends FluidIntervalIteratingSystem {
                     continue;
                 }
                 simulators[ordinal].process(planetCell.proxies(cell), delta);
-                if ( DEBUG_NO_SECOND_PASS ) cell.activateNextType();
+                if (DEBUG_NO_SECOND_PASS) cell.activateNextType();
             }
         }
     }
@@ -135,39 +133,6 @@ public class PlanetSimulationSystem extends FluidIntervalIteratingSystem {
     private void clearSimulationCounts() {
         for (int i = 0; i < PlanetCell.CellType.values().length; i++) {
             simulatedBlocks[i] = 0;
-        }
-    }
-
-    private void generateMask(Planet planet) {
-        //clearMask(planet);
-        CellDecorator planetCell = new CellDecorator(planet);
-        final float delta = world.delta;
-        for (int y = 0; y < SIMULATION_HEIGHT; y++) {
-            for (int x = 0; x < SIMULATION_WIDTH; x++) {
-                final PlanetCell cell = planet.grid[y][x];
-                simulators[cell.type.ordinal()].updateMask(planetCell.proxies(cell), delta);
-            }
-        }
-        smoothMask(planet);
-    }
-
-    private void smoothMask(Planet planet) {
-        for (int y = 1; y < (SIMULATION_HEIGHT / GRADIENT_SCALE) - 1; y++) {
-            for (int x = 1; x < (SIMULATION_WIDTH / GRADIENT_SCALE) - 1; x++) {
-                planet.tempMask[y][x].temperature = planet.mask[y][x].temperature;
-                for (int i = 0; i < 8; i++) {
-                    planet.tempMask[y][x].temperature =
-                            Math.max(
-                                    (planet.mask[y + PlanetCell.directions[i][1]][x + PlanetCell.directions[i][0]].temperature) * TEMPERATURE_LOSS,
-                                    planet.tempMask[y][x].temperature
-                            );
-                }
-            }
-        }
-        for (int y = 1; y < (SIMULATION_HEIGHT / GRADIENT_SCALE) - 1; y++) {
-            for (int x = 1; x < (SIMULATION_WIDTH / GRADIENT_SCALE) - 1; x++) {
-                planet.mask[y][x].temperature = MathUtils.clamp(planet.tempMask[y][x].temperature, -100f, StatusMask.MAX_TEMPERATURE) * 0.95f;
-            }
         }
     }
 }

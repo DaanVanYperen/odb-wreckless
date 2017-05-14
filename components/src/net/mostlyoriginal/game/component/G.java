@@ -9,17 +9,18 @@ public class G {
     public static final int LOGO_HEIGHT = 221;
     public static final int LAYER_CURSOR = 2000;
 
-    public static final boolean PRODUCTION = true;
+    public static final boolean PRODUCTION = false;
 
     public static final boolean INTERLACING_SIMULATION = true;
 
     public static final boolean DEBUG_SKIP_INTRO = (!PRODUCTION && true);
     public static final boolean DEBUG_ACHIEVEMENTS = (!PRODUCTION && true);
     public static final boolean DEBUG_DRAWING = (!PRODUCTION && true);
-    public static final boolean DEBUG_NO_ENTITY_RENDERING =(!PRODUCTION && true);
+    public static final boolean DEBUG_NO_MUSIC =(!PRODUCTION && true);
+    public static final boolean DEBUG_NO_ENTITY_RENDERING =(!PRODUCTION && false);
     public static final boolean DEBUG_NO_SECOND_PASS  =(!PRODUCTION && false);
     public static boolean DEBUG_NO_FLOW = (!PRODUCTION && false);
-    public static boolean DEBUG_AIR_PLANET = (!PRODUCTION && true);
+    public static boolean DEBUG_AIR_PLANET = (!PRODUCTION && false);
     public static boolean DEBUG_NAIVE_GRAVITY = (!PRODUCTION && false);
 
     public static final float CARD_X = 5;
