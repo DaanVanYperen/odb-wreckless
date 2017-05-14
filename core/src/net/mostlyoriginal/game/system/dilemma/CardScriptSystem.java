@@ -79,7 +79,7 @@ public class CardScriptSystem extends FluidIteratingSystem {
             E e = E.E(ids[i]);
             StatusEffect statusEffect = e.getStatusEffect();
             statusEffect.duration--;
-            if ( statusEffect.duration <0 ) {
+            if (statusEffect.duration < 0) {
                 e.deleteFromWorld();
             }
             break;
@@ -111,7 +111,7 @@ public class CardScriptSystem extends FluidIteratingSystem {
         System.out.println(c.toString());
         switch (c) {
             case LAVA_TENDRIL:
-                planetStencilSystem.stencilRotateCenter(MathUtils.randomBoolean() ?"AIRPOCKET": "AIRPOCKET2");
+                planetStencilSystem.stencilRotateCenter(MathUtils.randomBoolean() ? "AIRPOCKET" : "AIRPOCKET2");
                 break;
             case HOLLOWEARTH:
                 planetStencilSystem.stencil("HOLLOWEARTH");
@@ -178,22 +178,18 @@ public class CardScriptSystem extends FluidIteratingSystem {
     }
 
     private void unspawnIcbms() {
-        IntBag explosives = world.getAspectSubscriptionManager().get(Aspect.all(Explosive.class)).getEntities();
-        int[] ids = explosives.getData();
-        for (int i = 0, s = explosives.size(); s > i; i++) {
-            E.E(ids[i]).deleteFromWorld();
+        for (E e : allEntitiesWith(Explosive.class)) {
+            e.deleteFromWorld();
         }
     }
 
     private void triggerExplosives() {
-        IntBag explosives = world.getAspectSubscriptionManager().get(Aspect.all(Explosive.class)).getEntities();
-        int[] ids = explosives.getData();
-        boolean found=false;
-        for (int i = 0, s = explosives.size(); s > i; i++) {
-            E.E(ids[i]).explosivePrimed(true);
-            found=true;
+        boolean found = false;
+        for (E e : allEntitiesMatching(Aspect.all(Explosive.class))) {
+            e.explosivePrimed(true);
+            found = true;
         }
-        if ( found ) {
+        if (found) {
             gameScreenAssetSystem.playSfx("LD_lowfi_explosion");
         }
     }
@@ -201,7 +197,7 @@ public class CardScriptSystem extends FluidIteratingSystem {
     private void spawnIcbms() {
         for (int i = 0; i < MathUtils.random(2, 4); i++) {
             spawnStructure("icbm", G.LAYER_STRUCTURES_FOREGROUND)
-                    .explosiveYield(MathUtils.random(20,50));
+                    .explosiveYield(MathUtils.random(20, 50));
         }
     }
 
@@ -247,7 +243,7 @@ public class CardScriptSystem extends FluidIteratingSystem {
                 .script(sequence(delay(MathUtils.random(0.1f, 0.4f)), add(new Mass(1.1f)), tween(Tint.TRANSPARENT, Tint.WHITE, 0.2f)))
                 .orientToGravityIgnoreFloor(true);
 
-        if ( G.DEBUG_NO_ENTITY_RENDERING ) {
+        if (G.DEBUG_NO_ENTITY_RENDERING) {
             e.invisible();
         }
 
@@ -255,10 +251,7 @@ public class CardScriptSystem extends FluidIteratingSystem {
     }
 
     private void innoculateEveryoneForDeath() {
-        IntBag entities = getWanderers();
-        int[] ids = entities.getData();
-        for (int i = 0, s = entities.size(); s > i; i++) {
-            E e = E.E(ids[i]);
+        for (E e : allEntitiesWith(Wander.class)) {
             e.reviveAfterDeath();
         }
     }
@@ -271,10 +264,7 @@ public class CardScriptSystem extends FluidIteratingSystem {
     }
 
     private void killDudes() {
-        IntBag entities = getWanderers();
-        int[] ids = entities.getData();
-        for (int i = 0, s = entities.size(); s > i; i++) {
-            E e = E.E(ids[i]);
+        for (E e : allEntitiesWith(Wander.class)) {
             e.removeDolphinized();
             if (MathUtils.randomBoolean()) {
                 e.died();
@@ -291,10 +281,7 @@ public class CardScriptSystem extends FluidIteratingSystem {
     Vector2 v = new Vector2();
 
     private void randomizeDolphin() {
-        IntBag entities = getWanderers();
-        int[] ids = entities.getData();
-        for (int i = 0, s = entities.size(); s > i; i++) {
-            E e = E.E(ids[i]);
+        for (E e : allEntitiesWith(Wander.class)) {
             Vector2 gravityVector = v.set(e.planetboundGravity()).rotate(180f);
             e
                     .dolphinized()
@@ -305,10 +292,7 @@ public class CardScriptSystem extends FluidIteratingSystem {
     }
 
     private void randomizeAnger() {
-        IntBag entities = getWanderers();
-        int[] ids = entities.getData();
-        for (int i = 0, s = entities.size(); s > i; i++) {
-            E e = E.E(ids[i]);
+        for (E e : allEntitiesWith(Wander.class)) {
             e.removeDolphinized();
             if (MathUtils.randomBoolean()) {
                 e.removeAngry();
@@ -319,25 +303,15 @@ public class CardScriptSystem extends FluidIteratingSystem {
     }
 
     private void allAnger() {
-        IntBag entities = getWanderers();
-        int[] ids = entities.getData();
-        for (int i = 0, s = entities.size(); s > i; i++) {
-            E e = E.E(ids[i]);
+        for (E e : allEntitiesWith(Wander.class)) {
             e.angry();
         }
     }
 
     private void killAnger() {
-        IntBag entities = getWanderers();
-        int[] ids = entities.getData();
-        for (int i = 0, s = entities.size(); s > i; i++) {
-            E e = E.E(ids[i]);
+        for (E e : allEntitiesWith(Wander.class)) {
             e.removeAngry();
         }
-    }
-
-    private IntBag getWanderers() {
-        return world.getAspectSubscriptionManager().get(Aspect.all(Wander.class)).getEntities();
     }
 
     private Planet getPlanet() {
