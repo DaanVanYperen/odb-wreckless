@@ -74,6 +74,14 @@ public class CellDecorator {
         return null;
     }
 
+    public PlanetCell getNeighbour(PlanetCell.CellType type, PlanetCell.CellType type2) {
+        for (int i = 0; i < 8; i++) {
+            final PlanetCell result = planet.get(cell.x + PlanetCell.directions[i][0], cell.y + PlanetCell.directions[i][1]);
+            if (result != null && (result.type == type || result.type == type2)) return result;
+        }
+        return null;
+    }
+
     public void setNextType(PlanetCell.CellType type) {
         cell.nextType = type;
     }
@@ -83,6 +91,15 @@ public class CellDecorator {
         for (int i = 0; i < 8; i++) {
             final PlanetCell result = planet.get(cell.x + PlanetCell.directions[i][0], cell.y + PlanetCell.directions[i][1]);
             if (result != null && result.type == type) count++;
+        }
+        return count;
+    }
+
+    public int countNeighbour(PlanetCell.CellType type, PlanetCell.CellType type2) {
+        int count = 0;
+        for (int i = 0; i < 8; i++) {
+            final PlanetCell result = planet.get(cell.x + PlanetCell.directions[i][0], cell.y + PlanetCell.directions[i][1]);
+            if (result != null && (result.type == type || result.type == type2)) count++;
         }
         return count;
     }
@@ -129,8 +146,8 @@ public class CellDecorator {
     }
 
     public void flow() {
-        if (!G.DEBUG_NO_FLOW ) {
-            if (MathUtils.randomBoolean()) {
+        if (!G.DEBUG_NO_FLOW && cell.nextType == null ) {
+            if (FauxRng.randomBoolean()) {
                 swapWithBestFlowing(getNeighbourLeft());
             } else {
                 swapWithBestFlowing(getNeighbourRight());

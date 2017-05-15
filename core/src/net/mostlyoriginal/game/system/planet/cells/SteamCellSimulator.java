@@ -18,8 +18,8 @@ public class SteamCellSimulator implements CellSimulator {
     public void process(CellDecorator c, float delta) {
 
         if (c.cell.nextType == null) {
-            if (MathUtils.random(0,100) < 1f) {
-                if (MathUtils.random(0,100) < (c.mask().temperature > 100 ? 90 : 75 ) ) {
+            if (FauxRng.random(0,100) < 1f) {
+                if (FauxRng.random(0,100) < (c.mask().temperature > 100 ? 90 : 75 ) ) {
                     c.setNextType(PlanetCell.CellType.AIR);
                 } else {
                     c.setNextType(PlanetCell.CellType.WATER);
@@ -28,14 +28,14 @@ public class SteamCellSimulator implements CellSimulator {
             }
         }
 
-        if (swapIfSwappable(c, MathUtils.randomBoolean() ? c.getNeighbourAboveR() : c.getNeighbourAboveL())) {
+        if (swapIfSwappable(c, FauxRng.randomBoolean() ? c.getNeighbourAboveR() : c.getNeighbourAboveL())) {
             return;
         }
         if (swapIfSwappable(c, c.getNeighbourAbove())) {
             return;
         }
 
-        if (MathUtils.randomBoolean()) {
+        if (FauxRng.randomBoolean()) {
             c.swapWithBestFlowing(c.getNeighbourLeft());
         } else {
             c.swapWithBestFlowing(c.getNeighbourRight());

@@ -15,6 +15,7 @@ import net.mostlyoriginal.game.component.PlanetCell;
 import net.mostlyoriginal.game.system.planet.FauxPixMap;
 import net.mostlyoriginal.game.system.planet.PlanetCreationSystem;
 import net.mostlyoriginal.game.component.PlanetData;
+import net.mostlyoriginal.game.system.planet.cells.FauxRng;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 /**
@@ -45,7 +46,7 @@ public class PlanetStencilSystem extends PassiveSystem {
             stencil(planetCreationSystem.planetEntity.getPlanet(),
                     new Texture(stencilData.texture),
                     stencilData.replaceTypes,
-                    MathUtils.random(360),
+                    FauxRng.random(360),
                     G.SIMULATION_WIDTH / 2, G.SIMULATION_HEIGHT / 2);
         }
     }

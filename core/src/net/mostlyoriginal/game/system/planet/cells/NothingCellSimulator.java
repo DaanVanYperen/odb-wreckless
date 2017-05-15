@@ -12,7 +12,7 @@ public class NothingCellSimulator implements CellSimulator {
 
     @Override
     public void process(CellDecorator c, float delta) {
-        c.cell.sleep = 20 + MathUtils.random(0, 2);
+        c.cell.sleep = 20 + FauxRng.random(0, 2);
     }
 
     @Override

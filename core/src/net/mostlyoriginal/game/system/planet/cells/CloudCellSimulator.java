@@ -17,7 +17,7 @@ public class CloudCellSimulator implements CellSimulator {
     public void process(CellDecorator c, float delta) {
 
         if (c.cell.nextType == null) {
-            if (MathUtils.random(0, 1000) < 1f) {
+            if (FauxRng.random(1000) < 1) {
                 PlanetCell down = c.getNeighbourDown();
                 if (down != null && down.type == PlanetCell.CellType.AIR) {
                     if (down.nextType == null) {
@@ -33,14 +33,14 @@ public class CloudCellSimulator implements CellSimulator {
                         countCloudsAs1(c.getNeighbourAbove()) +
                         countCloudsAs1(c.getNeighbourDown());
 
-        if (c.cell.nextType == null && MathUtils.random(1, 100) < 5 + (cloudsNearby * 10f)) {
+        if (c.cell.nextType == null && FauxRng.random(100) < 5 + (cloudsNearby * 10f)) {
             if (c.cell.depth() > 25) {
                 if (swapWithAirIgnoreSpace(c, c.getNeighbourAbove())) return;
             }
             PlanetCell neighbourLeft = c.getNeighbourLeft();
             if (swapWithAirIgnoreSpace(c,
                     (c.cell.depth() < 15)
-                            || (MathUtils.random(1, 100) < 2)
+                            || (FauxRng.random(100) < 2)
                             || (neighbourLeft != null && neighbourLeft.type == PlanetCell.CellType.CLOUD) ? c.getNeighbourDown() : neighbourLeft)) {
                 return;
             }

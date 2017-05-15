@@ -36,15 +36,11 @@ public class PlanetRenderSystem extends FluidDeferredEntityProcessingSystem {
 
     private SpriteBatch batch;
     private TextureRegion planetPixel;
-    private TextureRegion cloudPixel;
     private Pixmap pixmap;
     private Texture pixmapAsTexture;
-    private ShapeRenderer shapeRenderer;
     private byte[] workingCopy;
     private int[] workingCopyInt;
     private ByteBuffer buffer;
-    //    private ByteBuffer byteBuffer;
-//    private ByteBuffer byteBufferDirect;
 
     public PlanetRenderSystem(EntityProcessPrincipal principal) {
         super(Aspect.all(Planet.class), principal);
@@ -54,11 +50,9 @@ public class PlanetRenderSystem extends FluidDeferredEntityProcessingSystem {
 
     @Override
     protected void initialize() {
-        batch = new SpriteBatch(4000);
-        shapeRenderer = new ShapeRenderer(4000);
+        batch = new SpriteBatch(2000);
 
         planetPixel = new TextureRegion(new Texture("planetcell.png"), 1, 1);
-        cloudPixel = new TextureRegion(new Texture("planetcell.png"), 11, 17, 17, 13);
 
         pixmap = new Pixmap(SIMULATION_WIDTH, SIMULATION_HEIGHT, RGBA8888);
         pixmapAsTexture = new Texture(SIMULATION_WIDTH, SIMULATION_HEIGHT, RGBA8888);
@@ -71,10 +65,13 @@ public class PlanetRenderSystem extends FluidDeferredEntityProcessingSystem {
     @Override
     protected void begin() {
         super.begin();
+        batch.setProjectionMatrix(cameraSystem.camera.combined);
+        batch.begin();
     }
 
     @Override
     protected void end() {
+        batch.end();
         super.end();
     }
 
@@ -91,15 +88,12 @@ public class PlanetRenderSystem extends FluidDeferredEntityProcessingSystem {
 
 
     private void renderMain(Planet planet) {
-        batch.setProjectionMatrix(cameraSystem.camera.combined);
-        batch.begin();
         lastColor = -1;
 
         buffer.rewind();
         for (int y = 0; y < SIMULATION_HEIGHT; y++) {
             for (int x = 0; x < SIMULATION_WIDTH; x++) {
-                final PlanetCell cell = planet.grid[y][x];
-                buffer.putInt(cell.color);
+                buffer.putInt(planet.grid[y][x].color);
             }
         }
         buffer.rewind();
@@ -108,18 +102,18 @@ public class PlanetRenderSystem extends FluidDeferredEntityProcessingSystem {
 
         batch.setColor(1f, 1f, 1f, 1f);
         batch.draw(pixmapAsTexture, PLANET_X, PLANET_Y + G.SIMULATION_HEIGHT, G.SIMULATION_WIDTH, -G.SIMULATION_HEIGHT);
-        batch.end();
     }
 
     private void renderClouds(Planet planet) {
-        batch.setProjectionMatrix(cameraSystem.camera.combined);
-        batch.begin();
+        Color.rgba8888ToColor(color, lastColor);
+        batch.setColor(lastColor);
         for (int y = 0; y < SIMULATION_HEIGHT; y++) {
             for (int x = 0; x < SIMULATION_WIDTH; x++) {
                 final PlanetCell cell = planet.grid[y][x];
                 if (cell.type == PlanetCell.CellType.CLOUD) {
                     if (cell.color != lastColor) {
-                        Color.rgba8888ToColor(color, cell.color);
+                        lastColor = cell.color;
+                        Color.rgba8888ToColor(color, lastColor);
                         batch.setColor(color);
                     }
                     batch.draw(planetPixel, x + PLANET_X - 1, y + PLANET_Y - 1, 3, 3);
@@ -127,6 +121,5 @@ public class PlanetRenderSystem extends FluidDeferredEntityProcessingSystem {
             }
 
         }
-        batch.end();
     }
 }

@@ -11,7 +11,7 @@ public class IceCellSimulator implements CellSimulator {
     @Override
     public void process(CellDecorator c, float delta) {
         final float temperature = c.mask().temperature;
-        if ( temperature > 0 && MathUtils.random(0,100) < temperature ) {
+        if ( temperature > 0 && MathUtils.random(100) < temperature ) {
             c.setNextType(PlanetCell.CellType.WATER);
         }
     }

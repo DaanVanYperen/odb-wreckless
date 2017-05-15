@@ -13,7 +13,7 @@ public class StaticCellSimulator implements CellSimulator {
 
     @Override
     public void process(CellDecorator c, float delta) {
-        c.cell.sleep=4+MathUtils.random(0,2);
+        c.cell.sleep=4+FauxRng.random(0,2);
     }
 
     @Override

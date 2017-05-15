@@ -20,26 +20,30 @@ public class AirCellSimulator implements CellSimulator {
 
     @Override
     public void color(CellDecorator c, float delta) {
-        if (aridColor == null) {
-            coldColor = new Color();
-            aridColor = new Color();
+        if (FauxRng.random(100) < 40) { // expensive, so run less often!
+            if (aridColor == null) {
+                coldColor = new Color();
+                aridColor = new Color();
 
-            Color.rgba8888ToColor(coldColor, c.planet.cellColor[PlanetCell.CellType.AIR.ordinal()]);
-            Color.rgba8888ToColor(aridColor, c.planet.cellColorArid[PlanetCell.CellType.AIR.ordinal()]);
-            coldColor.a = aridColor.a = 1f;
+                Color.rgba8888ToColor(coldColor, c.planet.cellColor[PlanetCell.CellType.AIR.ordinal()]);
+                Color.rgba8888ToColor(aridColor, c.planet.cellColorArid[PlanetCell.CellType.AIR.ordinal()]);
+                coldColor.a = aridColor.a = 1f;
+            }
+
+            float a = MathUtils.clamp((c.mask().temperature / StatusMask.ARID_TEMPERATURE), 0f, 1f);
+            workColor.r = Interpolation.linear.apply(coldColor.r, aridColor.r, a);
+            workColor.g = Interpolation.linear.apply(coldColor.g, aridColor.g, a);
+            workColor.b = Interpolation.linear.apply(coldColor.b, aridColor.b, a);
+            workColor.a = c.cell.depth() < AIR_FADE_BAND_WIDTH ? MathUtils.clamp(c.cell.depth() / AIR_FADE_BAND_WIDTH, 0.05f, 1f) : 1f;
+
+            c.cell.color = Color.rgba8888(workColor);
         }
-
-        float a = MathUtils.clamp((c.mask().temperature / StatusMask.ARID_TEMPERATURE), 0f, 1f);
-        workColor.r = Interpolation.linear.apply(coldColor.r, aridColor.r, a);
-        workColor.g = Interpolation.linear.apply(coldColor.g, aridColor.g, a);
-        workColor.b = Interpolation.linear.apply(coldColor.b, aridColor.b, a);
-        workColor.a = c.cell.depth() < AIR_FADE_BAND_WIDTH ? MathUtils.clamp(c.cell.depth() / AIR_FADE_BAND_WIDTH, 0.05f, 1f) : 1f;
-
-        c.cell.color = Color.rgba8888(workColor);
     }
 
     @Override
     public void process(CellDecorator c, float delta) {
+
+        if (c.cell.nextType != null ) return;
 
         if (swapIfSwappable(c, c.getNeighbourAbove())) {
             return;
@@ -51,7 +55,7 @@ public class AirCellSimulator implements CellSimulator {
             return;
         }
 
-        if (MathUtils.randomBoolean()) {
+        if (FauxRng.randomBoolean()) {
             if (c.swapWithBestFlowing(c.getNeighbourLeft())) return;
         } else {
             if (c.swapWithBestFlowing(c.getNeighbourRight())) return;

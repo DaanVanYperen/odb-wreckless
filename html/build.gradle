@@ -21,10 +21,10 @@ gwt {
         //draftCompile = true;
         //optimize = 9;
 
-        optimize = 5
+        optimize = 9
         // drafCompile = true
     }
-    compiler.setStyle(Style.PRETTY)
+    compiler.setStyle(Style.OBF)
 }
 
 task draftRun(type: JettyRunWar) {

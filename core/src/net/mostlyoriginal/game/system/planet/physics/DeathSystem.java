@@ -9,6 +9,7 @@ import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.planet.PlanetCreationSystem;
+import net.mostlyoriginal.game.system.planet.cells.FauxRng;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 import static net.mostlyoriginal.api.operation.OperationFactory.*;
@@ -51,7 +52,7 @@ public class DeathSystem extends FluidIteratingSystem {
             ghost.reviveAfterDeath();
         }
 
-        gameScreenAssetSystem.playSfx(e.hasDolphinized() ? (MathUtils.randomBoolean() ? "LD_ghostflipper" : "LD_ghostflipper2") : "LD_troop_no");
+        gameScreenAssetSystem.playSfx(e.hasDolphinized() ? (FauxRng.randomBoolean() ? "LD_ghostflipper" : "LD_ghostflipper2") : "LD_troop_no");
         e.deleteFromWorld();
     }
 }
