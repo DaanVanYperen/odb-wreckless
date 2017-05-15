@@ -2,10 +2,12 @@ package net.mostlyoriginal.game.system.planet;
 
 import net.mostlyoriginal.game.component.SpriteData;
 
+import java.io.Serializable;
+
 /**
  * Repository for all cards.
  */
-public class SpriteLibrary {
+public class SpriteLibrary implements Serializable {
     public net.mostlyoriginal.game.component.SpriteData[] sprites;
 
     public SpriteLibrary() {
