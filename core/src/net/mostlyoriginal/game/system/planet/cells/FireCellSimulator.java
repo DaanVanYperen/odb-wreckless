@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.game.component.PlanetCell;
-import net.mostlyoriginal.game.component.StatusMask;
 
 /**
  * @author Daan van Yperen
@@ -21,7 +20,7 @@ public class FireCellSimulator implements CellSimulator {
             coldColor = new Color();
             aridColor = new Color();
             Color.rgba8888ToColor(coldColor, c.planet.cellColor[PlanetCell.CellType.FIRE.ordinal()]);
-            Color.rgba8888ToColor(aridColor, c.planet.cellColorArid[PlanetCell.CellType.FIRE.ordinal()]);
+            Color.rgba8888ToColor(aridColor, c.planet.cellColorSecondary[PlanetCell.CellType.FIRE.ordinal()]);
             coldColor.a = aridColor.a = 1f;
         }
 

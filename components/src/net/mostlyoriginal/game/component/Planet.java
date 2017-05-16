@@ -24,7 +24,7 @@ public class Planet extends Component {
     public float cooldown = 0;
 
     public int cellColor[] = new int[PlanetCell.CellType.values().length];
-    public int cellColorArid[] = new int[PlanetCell.CellType.values().length];
+    public int cellColorSecondary[] = new int[PlanetCell.CellType.values().length];
 
     public PlanetCell get(int x, int y) {
         if ( x < 0 || y < 0 || x >= SIMULATION_WIDTH || y >= SIMULATION_HEIGHT ) return null;

@@ -10,14 +10,13 @@ import net.mostlyoriginal.game.component.StatusMask;
  */
 public class WaterCellSimulator implements CellSimulator {
 
-    public static final int CYAN_COLOR = Color.rgba8888(Color.valueOf("033354"));
     public static final int WATER_ORDINAL = PlanetCell.CellType.WATER.ordinal();
 
     @Override
     public void color(CellDecorator c, float delta) {
         final int random = FauxRng.random(100);
         if (((c.getNeighbour(PlanetCell.CellType.AIR) != null) && (random < 50)) || (random <= 1)) {
-            c.cell.color = CYAN_COLOR;
+            c.cell.color = c.planet.cellColorSecondary[WATER_ORDINAL];
         } else {
             c.cell.color = c.planet.cellColor[WATER_ORDINAL];
         }

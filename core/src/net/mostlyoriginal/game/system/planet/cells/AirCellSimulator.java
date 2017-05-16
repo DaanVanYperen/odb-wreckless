@@ -3,7 +3,6 @@ package net.mostlyoriginal.game.system.planet.cells;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
-import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.PlanetCell;
 import net.mostlyoriginal.game.component.StatusMask;
 
@@ -26,7 +25,7 @@ public class AirCellSimulator implements CellSimulator {
                 aridColor = new Color();
 
                 Color.rgba8888ToColor(coldColor, c.planet.cellColor[PlanetCell.CellType.AIR.ordinal()]);
-                Color.rgba8888ToColor(aridColor, c.planet.cellColorArid[PlanetCell.CellType.AIR.ordinal()]);
+                Color.rgba8888ToColor(aridColor, c.planet.cellColorSecondary[PlanetCell.CellType.AIR.ordinal()]);
                 coldColor.a = aridColor.a = 1f;
             }
 

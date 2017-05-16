@@ -12,7 +12,7 @@
         },
         {
           "color": "ff6015",
-          "colorArid": "F6F250",
+          "colorSecondary": "F6F250",
           "type": "FIRE"
         },
         {
@@ -21,6 +21,7 @@
         },
         {
           "color": "0667ac",
+          "colorSecondary": "033354",
           "type": "WATER"
         },
         {
@@ -29,7 +30,7 @@
         },
         {
           "color": "0795fe",
-          "colorArid": "4794ad",
+          "colorSecondary": "4794ad",
           "type": "AIR"
         },
         {
