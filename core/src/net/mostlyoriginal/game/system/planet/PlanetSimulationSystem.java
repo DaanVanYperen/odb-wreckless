@@ -70,8 +70,12 @@ public class PlanetSimulationSystem extends FluidIntervalIteratingSystem {
     @Override
     protected void process(E e) {
         final Planet planet = e.getPlanet();
-        simulateCells(planet);
-        activateChanges(planet);
+        planet.cooldown -= world.delta;
+        if ( planet.cooldown <= 0 ) {
+            planet.cooldown += 1f/60f;
+            simulateCells(planet);
+            activateChanges(planet);
+        }
     }
 
     private void clearMask(Planet planet) {

@@ -21,10 +21,10 @@ gwt {
         //draftCompile = true;
         //optimize = 9;
 
-        optimize = 9
+        optimize = 1
+        style = Style.OBF
         // drafCompile = true
     }
-    compiler.setStyle(Style.OBF)
 }
 
 task draftRun(type: JettyRunWar) {
@@ -70,6 +70,7 @@ task addSource << {
 
 tasks.compileGwt.dependsOn(addSource)
 tasks.draftCompileGwt.dependsOn(addSource)
+
 
 sourceCompatibility = 1.7
 sourceSets {

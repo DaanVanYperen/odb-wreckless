@@ -21,6 +21,7 @@ public class Planet extends Component {
     public PlanetData data;
     public int lavaPressure = 0;
     public int waterPressure=0;
+    public float cooldown = 0;
 
     public int cellColor[] = new int[PlanetCell.CellType.values().length];
     public int cellColorArid[] = new int[PlanetCell.CellType.values().length];
