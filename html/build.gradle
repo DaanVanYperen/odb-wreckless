@@ -7,7 +7,7 @@ gwt {
     gwtVersion = '2.8.0' // Should match the gwt version used for building the gwt backend
     maxHeapSize = "2G" // Default 256m is not enough for gwt compiler. GWT is HUNGRY
     minHeapSize = "1G"
-    logLevel = 'INFO'
+    logLevel = 'ERROR'
 
     src = files(file("src/")) // Needs to be in front of "modules" below.
     modules 'net.mostlyoriginal.game.GdxDefinition'
@@ -17,13 +17,8 @@ gwt {
     compiler {
         strict = true
         disableCastChecking = true
-        //disableAggressiveOptimization = true;
-        //draftCompile = true;
-        //optimize = 9;
-
-        optimize = 1
+        optimize = 9
         style = Style.OBF
-        // drafCompile = true
     }
 }
 

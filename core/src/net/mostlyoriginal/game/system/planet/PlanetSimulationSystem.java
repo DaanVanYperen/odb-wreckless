@@ -70,25 +70,8 @@ public class PlanetSimulationSystem extends FluidIntervalIteratingSystem {
     @Override
     protected void process(E e) {
         final Planet planet = e.getPlanet();
-        planet.cooldown -= world.delta;
-        if ( planet.cooldown <= 0 ) {
-            planet.cooldown += 1f/60f;
             simulateCells(planet);
             activateChanges(planet);
-        }
-    }
-
-    private void clearMask(Planet planet) {
-        int h = SIMULATION_HEIGHT / GRADIENT_SCALE;
-        int w = SIMULATION_WIDTH / GRADIENT_SCALE;
-        for (int y = 0; y < h; y++) {
-            for (int x = 0; x < w; x++) {
-                planet.mask[y][x].reset();
-                planet.tempMask[y][x].reset();
-                planet.mask[y][x].temperature =
-                        (int) MathUtils.clamp((h / 4f) - (v.set(w / 2, h / 2).sub(w / 4 + x / 2, y).len()), -200, 200) / 5;
-            }
-        }
     }
 
     private void activateChanges(Planet planet) {
@@ -132,10 +115,14 @@ public class PlanetSimulationSystem extends FluidIntervalIteratingSystem {
                 if (DEBUG_NO_SECOND_PASS) cell.activateNextType();
             }
         }
+
+
     }
 
     private void clearSimulationCounts() {
+//        System.out.println("---");
         for (int i = 0; i < PlanetCell.CellType.values().length; i++) {
+//            System.out.println(i + " " + simulatedBlocks[i]);
             simulatedBlocks[i] = 0;
         }
     }

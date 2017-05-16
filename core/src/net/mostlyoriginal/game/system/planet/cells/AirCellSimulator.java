@@ -61,7 +61,7 @@ public class AirCellSimulator implements CellSimulator {
             if (c.swapWithBestFlowing(c.getNeighbourRight())) return;
         }
 
-        c.cell.sleep = 1;
+        c.cell.sleep = FauxRng.random(2);
     }
 
     @Override
