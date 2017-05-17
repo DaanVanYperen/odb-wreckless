@@ -127,6 +127,7 @@ public class CardSystem extends FluidIteratingSystem {
     }
 
     private void spawnCard(CardData card) {
+        if ( G.DEBUG_NO_CARDS ) return;
 
         String cardGfx = "card" + card.id;
         gameScreenAssetSystem.add(cardGfx, card.x, card.y, card.width, card.height, 1);

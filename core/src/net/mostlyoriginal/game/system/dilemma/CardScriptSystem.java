@@ -183,7 +183,7 @@ public class CardScriptSystem extends FluidIteratingSystem {
         }
     }
 
-    private void triggerExplosives() {
+    public void triggerExplosives() {
         boolean found = false;
         for (E e : allEntitiesMatching(Aspect.all(Explosive.class))) {
             e.explosivePrimed(true);
@@ -194,21 +194,21 @@ public class CardScriptSystem extends FluidIteratingSystem {
         }
     }
 
-    private void spawnIcbms() {
+    public void spawnIcbms() {
         for (int i = 0; i < MathUtils.random(2, 4); i++) {
             spawnStructure("icbm", G.LAYER_STRUCTURES_FOREGROUND)
                     .explosiveYield(MathUtils.random(20, 50));
         }
     }
 
-    private void spawnSkyscrapers() {
+    public void spawnSkyscrapers() {
         for (int i = 0; i < MathUtils.random(10, 20); i++) {
             spawnStructure("skyscraper" + MathUtils.random(7), G.LAYER_STRUCTURES_BACKGROUND);
         }
 
     }
 
-    private void spawnAccelerators() {
+    public void spawnAccelerators() {
         spawnStructure("spaceship", G.LAYER_STRUCTURES_FOREGROUND);
         spawnStructure("alien", G.LAYER_STRUCTURES_FOREGROUND);
     }
@@ -272,7 +272,7 @@ public class CardScriptSystem extends FluidIteratingSystem {
         }
     }
 
-    private void spawnDudes() {
+    public void spawnDudes() {
         for (int i = 0; i < 5; i++) {
             planetCreationSystem.spawnDude(MathUtils.random(0, 360));
         }
@@ -280,7 +280,7 @@ public class CardScriptSystem extends FluidIteratingSystem {
 
     Vector2 v = new Vector2();
 
-    private void randomizeDolphin() {
+    public void randomizeDolphin() {
         for (E e : allEntitiesWith(Wander.class)) {
             Vector2 gravityVector = v.set(e.planetboundGravity()).rotate(180f);
             e

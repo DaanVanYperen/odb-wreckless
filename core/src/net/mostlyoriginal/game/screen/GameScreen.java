@@ -80,6 +80,7 @@ public class GameScreen extends WorldScreen {
 
                         new StarEffectSystem(),
 
+                        new ToolSystem(),
                         new AchievementSystem(),
 
                         new PlanetBackgroundRenderSystem(),

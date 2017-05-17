@@ -12,6 +12,7 @@ import net.mostlyoriginal.game.component.PlanetCell;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.planet.PlanetRenderGravityDebugSystem;
 import net.mostlyoriginal.game.system.planet.PlanetRenderTemperatureDebugSystem;
+import net.mostlyoriginal.game.system.planet.PlanetSimulationSystem;
 
 import static net.mostlyoriginal.game.component.G.PLANET_X;
 import static net.mostlyoriginal.game.component.G.PLANET_Y;
@@ -25,9 +26,11 @@ public class DrawingSystem extends FluidIteratingSystem {
     private boolean rightMousePressed;
     private PlanetCell.CellType type = null;
 
+    private PlanetSimulationSystem planetSimulationSystem;
     private PlanetRenderGravityDebugSystem planetRenderGravityDebugSystem;
     private PlanetRenderTemperatureDebugSystem planetRenderTemperatureDebugSystem;
     private boolean middleMousePressed;
+    private int size=3;
 
     public DrawingSystem() {
         super(Aspect.all(Planet.class));
@@ -81,7 +84,7 @@ public class DrawingSystem extends FluidIteratingSystem {
     protected void process(E e) {
         final E cursor = E.E(tagManager.getEntity("cursor"));
         if (leftMousePressed && type != null) {
-            draw(e, (int) cursor.posX(), (int) cursor.posY(), 3, type);
+            draw(e, (int) cursor.posX(), (int) cursor.posY(), size, type);
         }
         if (rightMousePressed) {
             stopDrawing();
@@ -126,9 +129,20 @@ public class DrawingSystem extends FluidIteratingSystem {
                     PlanetCell cell = e.getPlanet().get(x, y);
                     if (cell != null) {
                         cell.type = type;
+                        if ( type == PlanetCell.CellType.STATIC ) {
+                            cell.color = planetSimulationSystem.planet.cellColor[PlanetCell.CellType.STATIC.ordinal()];
+                        }
                     }
                 }
             }
         }
+    }
+
+    public void setSize( int size ) {
+        this.size = size;
+    }
+
+    public int getSize() {
+        return size;
     }
 }

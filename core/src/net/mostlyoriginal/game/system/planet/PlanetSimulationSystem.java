@@ -26,6 +26,7 @@ public class PlanetSimulationSystem extends FluidIntervalIteratingSystem {
     private Vector2 v = new Vector2();
     private int lace = 0;
     private PlanetCreationSystem planetCreationSystem;
+    public Planet planet;
 
     public PlanetSimulationSystem() {
         super(Aspect.all(Planet.class), 1 / 30f);
@@ -70,6 +71,7 @@ public class PlanetSimulationSystem extends FluidIntervalIteratingSystem {
     @Override
     protected void process(E e) {
         final Planet planet = e.getPlanet();
+        this.planet = planet;
             simulateCells(planet);
             activateChanges(planet);
     }

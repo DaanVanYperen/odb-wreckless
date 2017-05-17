@@ -14,7 +14,7 @@ public class G {
     public static final boolean INTERLACING_SIMULATION = true;
 
     public static final boolean DEBUG_SKIP_INTRO = (!PRODUCTION && true);
-    public static final boolean DEBUG_ACHIEVEMENTS = (!PRODUCTION && true);
+    public static final boolean DEBUG_ACHIEVEMENTS = (!PRODUCTION && false);
     public static final boolean DEBUG_DRAWING = (!PRODUCTION && true);
     public static final boolean DEBUG_NO_MUSIC =(!PRODUCTION && true);
     public static final boolean DEBUG_NO_ENTITY_RENDERING =(!PRODUCTION && false);
@@ -22,6 +22,7 @@ public class G {
     public static boolean DEBUG_NO_FLOW = (!PRODUCTION && false);
     public static boolean DEBUG_AIR_PLANET = (!PRODUCTION && false);
     public static boolean DEBUG_NAIVE_GRAVITY = (!PRODUCTION && false);
+    public static boolean DEBUG_NO_CARDS = (!PRODUCTION && true);
 
     public static final float CARD_X = 5;
     public static final float CARD_Y = 5;

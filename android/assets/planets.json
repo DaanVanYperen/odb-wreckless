@@ -7,6 +7,11 @@
       "spaceBackgroundColor": "000000",
       "types": [
         {
+          "color": "7A4D2C",
+          "colorSecondary": "4C321D",
+          "type": "STATIC"
+        },
+        {
           "color": "ff6015",
           "type": "LAVA"
         },
