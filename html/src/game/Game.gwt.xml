@@ -3,4 +3,5 @@
 <module>
     <source path="" />
     <super-source path="emu"/>
+    <public path="gwt/resources"/>
 </module>

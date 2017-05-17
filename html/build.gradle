@@ -17,7 +17,7 @@ gwt {
     compiler {
         strict = true
         disableCastChecking = true
-        optimize = 9
+        optimize = 4
         style = Style.OBF
     }
 }
