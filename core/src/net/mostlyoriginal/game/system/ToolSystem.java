@@ -52,6 +52,8 @@ public class ToolSystem extends FluidIteratingSystem {
         createTool("button_rocket", pos += 32);
         createTool("button_explode", pos += 32);
         createTool("button_building", pos += 32);
+        createTool("button_organic", pos += 32);
+        createTool("button_clouds", pos += 32);
     }
 
     @Override
@@ -128,9 +130,11 @@ public class ToolSystem extends FluidIteratingSystem {
                 } else if ("button_explode".equals(e.toolId())) {
                     cardScriptSystem.triggerExplosives();
                 } else if ("button_building".equals(e.toolId())) {
-                } else if ("".equals(e.toolId())) {
                     cardScriptSystem.spawnSkyscrapers();
-                } else if ("".equals(e.toolId())) {
+                } else if ("button_organic".equals(e.toolId())) {
+                    type = PlanetCell.CellType.ORGANIC;
+                } else if ("button_clouds".equals(e.toolId())) {
+                    type = PlanetCell.CellType.CLOUD;
                 }
 
                 if (type != null) {

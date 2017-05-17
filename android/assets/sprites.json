@@ -360,6 +360,24 @@
       "width": 32,
       "height": 32,
       "countY": 3
+    },
+    {
+      "id": "button_organic",
+      "comment": "",
+      "x": 448,
+      "y": 480,
+      "width": 32,
+      "height": 32,
+      "countY": 3
+    },
+    {
+      "id": "button_clouds",
+      "comment": "",
+      "x": 480,
+      "y": 480,
+      "width": 32,
+      "height": 32,
+      "countY": 3
     }
   ]
 }

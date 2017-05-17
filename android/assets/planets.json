@@ -45,6 +45,10 @@
         {
           "color": "ffffff",
           "type": "STEAM"
+        },
+        {
+          "color": "38661F",
+          "type": "ORGANIC"
         }
       ]
     }

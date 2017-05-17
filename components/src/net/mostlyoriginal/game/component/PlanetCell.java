@@ -49,6 +49,10 @@ public class PlanetCell {
         return (down + 7) % 8;
     }
 
+    public int downR() {
+        return (down + 1) % 8;
+    }
+
     public int upR() {
         return (down + 5) % 8;
     }
@@ -79,7 +83,8 @@ public class PlanetCell {
         LAVA_CRUST(5f, true),
         CLOUD(-0.7f, false),
         FIRE(-0.7f, false),
-        NOTHING(-100f,false);
+        NOTHING(-100f,false),
+        ORGANIC(null, false);
 
         public final Float density;
         private boolean flows;

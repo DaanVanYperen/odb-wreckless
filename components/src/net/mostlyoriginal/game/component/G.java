@@ -19,7 +19,7 @@ public class G {
     public static final boolean DEBUG_NO_MUSIC =(!PRODUCTION && true);
     public static final boolean DEBUG_NO_ENTITY_RENDERING =(!PRODUCTION && false);
     public static final boolean DEBUG_NO_SECOND_PASS  =(!PRODUCTION && false);
-    public static final boolean DEBUG_NO_ACHIEVEMENTS  = (!PRODUCTION && false);
+    public static final boolean DEBUG_NO_ACHIEVEMENTS  = (!PRODUCTION && true);
     public static boolean DEBUG_NO_FLOW = (!PRODUCTION && false);
     public static boolean DEBUG_AIR_PLANET = (!PRODUCTION && false);
     public static boolean DEBUG_NAIVE_GRAVITY = (!PRODUCTION && false);

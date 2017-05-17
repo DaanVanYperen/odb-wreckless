@@ -89,15 +89,17 @@ public class AchievementSystem extends FluidIteratingSystem {
     }
 
     private void activateAchievement(String achievementId) {
-        E e = E.E(tagManager.getEntityId(achievementId));
-        if (!e.hasAchievement()) {
-            e
-                    .tint(1f, 1f, 1f, 1f)
-                    .clickable()
-                    .bounds(0, 0, 32, 32)
-                    .achievementId(achievementId);
-            gameScreenAssetSystem.playSfx("LD_troop_amazing");
-            cardSystem.spawnCard(achievementId.toUpperCase());
+        if (!G.DEBUG_NO_ACHIEVEMENTS) {
+            E e = E.E(tagManager.getEntityId(achievementId));
+            if (!e.hasAchievement()) {
+                e
+                        .tint(1f, 1f, 1f, 1f)
+                        .clickable()
+                        .bounds(0, 0, 32, 32)
+                        .achievementId(achievementId);
+                gameScreenAssetSystem.playSfx("LD_troop_amazing");
+                cardSystem.spawnCard(achievementId.toUpperCase());
+            }
         }
     }
 

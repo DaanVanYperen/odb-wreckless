@@ -46,6 +46,10 @@ public class CellDecorator {
         return planet.get(cell.x + PlanetCell.directions[cell.downL()][0], cell.y + PlanetCell.directions[cell.downL()][1]);
     }
 
+    public PlanetCell getNeighbourDownRight() {
+        return planet.get(cell.x + PlanetCell.directions[cell.downR()][0], cell.y + PlanetCell.directions[cell.downR()][1]);
+    }
+
     public PlanetCell getNeighbourDown() {
         return cell.down != -1 ? planet.get(cell.x + PlanetCell.directions[cell.down][0], cell.y + PlanetCell.directions[cell.down][1]) : null;
     }
@@ -74,10 +78,29 @@ public class CellDecorator {
         return null;
     }
 
+    public PlanetCell getRandomNeighbour(PlanetCell.CellType type, int attempts) {
+        for (int j = 0; j < attempts; j++) {
+            int i = FauxRng.random(7);
+            {
+                final PlanetCell result = planet.get(cell.x + PlanetCell.directions[i][0], cell.y + PlanetCell.directions[i][1]);
+                if (result != null && result.type == type) return result;
+            }
+        }
+        return null;
+    }
+
     public PlanetCell getNeighbour(PlanetCell.CellType type, PlanetCell.CellType type2) {
         for (int i = 0; i < 8; i++) {
             final PlanetCell result = planet.get(cell.x + PlanetCell.directions[i][0], cell.y + PlanetCell.directions[i][1]);
             if (result != null && (result.type == type || result.type == type2)) return result;
+        }
+        return null;
+    }
+
+    public PlanetCell getNeighbour(PlanetCell.CellType type, PlanetCell.CellType type2, PlanetCell.CellType type3) {
+        for (int i = 0; i < 8; i++) {
+            final PlanetCell result = planet.get(cell.x + PlanetCell.directions[i][0], cell.y + PlanetCell.directions[i][1]);
+            if (result != null && (result.type == type || result.type == type2|| result.type == type3)) return result;
         }
         return null;
     }
@@ -146,7 +169,7 @@ public class CellDecorator {
     }
 
     public void flow() {
-        if (!G.DEBUG_NO_FLOW && cell.nextType == null ) {
+        if (!G.DEBUG_NO_FLOW && cell.nextType == null) {
             if (FauxRng.randomBoolean()) {
                 swapWithBestFlowing(getNeighbourLeft());
             } else {
