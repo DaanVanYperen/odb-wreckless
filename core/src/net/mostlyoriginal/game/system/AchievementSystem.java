@@ -34,16 +34,18 @@ public class AchievementSystem extends FluidIteratingSystem {
     protected void initialize() {
         super.initialize();
 
-        createAchievement(0, "achievement1");
-        createAchievement(1, "achievement2");
-        createAchievement(2, "achievement3");
-        createAchievement(3, "achievement4");
+        if (!G.DEBUG_NO_ACHIEVEMENTS) {
+            createAchievement(0, "achievement1");
+            createAchievement(1, "achievement2");
+            createAchievement(2, "achievement3");
+            createAchievement(3, "achievement4");
 
-        if ( G.DEBUG_ACHIEVEMENTS ) {
-            activateAchievement("achievement1");
-            activateAchievement("achievement2");
-            activateAchievement("achievement3");
-            activateAchievement("achievement4");
+            if (G.DEBUG_ACHIEVEMENTS) {
+                activateAchievement("achievement1");
+                activateAchievement("achievement2");
+                activateAchievement("achievement3");
+                activateAchievement("achievement4");
+            }
         }
     }
 
