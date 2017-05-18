@@ -18,9 +18,9 @@ import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 public class ToolSystem extends FluidIteratingSystem {
     public static final int DEGREE_SPACING = 20;
     public static final int MALL_SIZE = 3;
-    public static final int SMALL_SIZE = 3;
-    public static final int MEDIUM_SIZE = 7;
-    public static final int LARGE_SIZE = 21;
+    public static final int SMALL_SIZE = 1;
+    public static final int MEDIUM_SIZE = 3;
+    public static final int LARGE_SIZE = 11;
     private TagManager tagManager;
     private GameScreenAssetSystem gameScreenAssetSystem;
     private PlanetSimulationSystem planetSimulationSystem;

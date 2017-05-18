@@ -30,7 +30,7 @@ public class DrawingSystem extends FluidIteratingSystem {
     private PlanetRenderGravityDebugSystem planetRenderGravityDebugSystem;
     private PlanetRenderTemperatureDebugSystem planetRenderTemperatureDebugSystem;
     private boolean middleMousePressed;
-    private int size=3;
+    private int size=1;
 
     public DrawingSystem() {
         super(Aspect.all(Planet.class));
