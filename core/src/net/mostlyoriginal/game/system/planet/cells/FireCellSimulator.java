@@ -37,7 +37,7 @@ public class FireCellSimulator implements CellSimulator {
 
         if (c.cell.nextType == null) {
             if (MathUtils.random(0, 100) < 1f) {
-                if (MathUtils.random(0, 100) < 75) {
+                if (MathUtils.random(0, 100) < 50) {
                     c.setNextType(PlanetCell.CellType.STEAM);
                 } else {
                     c.setNextType(PlanetCell.CellType.AIR);

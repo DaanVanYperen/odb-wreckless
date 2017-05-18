@@ -84,7 +84,7 @@ public class PlanetCell {
         CLOUD(-0.7f, false),
         FIRE(-0.7f, false),
         NOTHING(-100f,false),
-        ORGANIC(null, false);
+        ORGANIC(null, false), ORGANIC_SPORE(-0.7f, false);
 
         public final Float density;
         private boolean flows;

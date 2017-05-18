@@ -132,7 +132,7 @@ public class ToolSystem extends FluidIteratingSystem {
                 } else if ("button_building".equals(e.toolId())) {
                     cardScriptSystem.spawnSkyscrapers();
                 } else if ("button_organic".equals(e.toolId())) {
-                    type = PlanetCell.CellType.ORGANIC;
+                    type = PlanetCell.CellType.ORGANIC_SPORE;
                 } else if ("button_clouds".equals(e.toolId())) {
                     type = PlanetCell.CellType.CLOUD;
                 }

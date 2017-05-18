@@ -49,6 +49,10 @@
         {
           "color": "38661F",
           "type": "ORGANIC"
+        },
+        {
+          "color": "93D540",
+          "type": "ORGANIC_SPORE"
         }
       ]
     }

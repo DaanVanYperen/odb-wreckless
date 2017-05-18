@@ -60,6 +60,7 @@ public class PlanetSimulationSystem extends FluidIntervalIteratingSystem {
         addSimulator(PlanetCell.CellType.FIRE, new FireCellSimulator());
         addSimulator(PlanetCell.CellType.NOTHING, new NothingCellSimulator());
         addSimulator(PlanetCell.CellType.ORGANIC, new OrganicCellSimulator());
+        addSimulator(PlanetCell.CellType.ORGANIC_SPORE, new OrganicSporeCellSimulator());
 
         process(planetCreationSystem.planetEntity);
     }

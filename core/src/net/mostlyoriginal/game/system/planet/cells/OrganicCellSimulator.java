@@ -19,11 +19,12 @@ public class OrganicCellSimulator implements CellSimulator {
         if (target != null && target.nextType == null && target.type == PlanetCell.CellType.AIR) {
             CellDecorator proxies = c.proxies(target);
             if (proxies.getNeighbour(PlanetCell.CellType.STATIC) != null) {
+                // self on dirt? growww!
                 target.nextType = PlanetCell.CellType.ORGANIC;
                 target.nextColor = c.planet.cellColor[PlanetCell.CellType.ORGANIC.ordinal()];
             } else {
-                // parent on dirt?
-                if (c.getNeighbour(PlanetCell.CellType.STATIC) != null || FauxRng.random(100) < 5 ) {
+                // parent on dirt? or random chance of growth? then we growww!
+                if (c.getNeighbour(PlanetCell.CellType.STATIC) != null || FauxRng.random(2000) < 5 ) {
                     target.nextType = PlanetCell.CellType.ORGANIC;
                     target.nextColor = c.planet.cellColor[PlanetCell.CellType.ORGANIC.ordinal()];
                 }
@@ -35,8 +36,13 @@ public class OrganicCellSimulator implements CellSimulator {
         }
 
         // die if no air.
-        if (c.getNeighbour(PlanetCell.CellType.AIR) == null) {
+        if (FauxRng.random(100 ) < 25 && c.getNeighbour(PlanetCell.CellType.AIR) == null) {
             c.cell.nextType = PlanetCell.CellType.AIR;
+        } else {
+            if ( FauxRng.random(1000 ) < 2 && c.countNeighbour(PlanetCell.CellType.AIR) > 6 ) {
+                c.cell.nextType = PlanetCell.CellType.ORGANIC_SPORE;
+            }
+
         }
     }
 
