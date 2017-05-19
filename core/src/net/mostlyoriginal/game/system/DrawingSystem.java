@@ -5,11 +5,14 @@ import com.artemis.E;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.Planet;
 import net.mostlyoriginal.game.component.PlanetCell;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
+import net.mostlyoriginal.game.system.dilemma.CardScriptSystem;
+import net.mostlyoriginal.game.system.planet.PlanetCreationSystem;
 import net.mostlyoriginal.game.system.planet.PlanetRenderGravityDebugSystem;
 import net.mostlyoriginal.game.system.planet.PlanetRenderTemperatureDebugSystem;
 import net.mostlyoriginal.game.system.planet.PlanetSimulationSystem;
@@ -30,18 +33,31 @@ public class DrawingSystem extends FluidIteratingSystem {
     private PlanetRenderGravityDebugSystem planetRenderGravityDebugSystem;
     private PlanetRenderTemperatureDebugSystem planetRenderTemperatureDebugSystem;
     private boolean middleMousePressed;
-    private int size=1;
+    private int size = 1;
+    private EntityType entityType;
+    private CardScriptSystem cardScriptSystem;
+    private PlanetCreationSystem planetCreationSystem;
 
     public DrawingSystem() {
         super(Aspect.all(Planet.class));
     }
 
     private boolean leftMousePressed;
+    private boolean clickedOnce;
+    private int down = 0;
 
     @Override
     protected void begin() {
         super.begin();
         leftMousePressed = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
+        if (leftMousePressed) {
+            down++;
+            clickedOnce = down++ == 1;
+        } else {
+            clickedOnce = false;
+            down = 0;
+        }
+
         rightMousePressed = Gdx.input.isButtonPressed(Input.Buttons.RIGHT);
         middleMousePressed = Gdx.input.isButtonPressed(Input.Buttons.MIDDLE);
 
@@ -83,8 +99,11 @@ public class DrawingSystem extends FluidIteratingSystem {
     @Override
     protected void process(E e) {
         final E cursor = E.E(tagManager.getEntity("cursor"));
-        if (leftMousePressed && type != null) {
+        if (leftMousePressed && type != null && cursor.posY() > G.TOOL_HEIGHT) {
             draw(e, (int) cursor.posX(), (int) cursor.posY(), size, type);
+        }
+        if (clickedOnce && entityType != null&& cursor.posY() > G.TOOL_HEIGHT) {
+            draw((int) cursor.posX(), (int) cursor.posY(), entityType);
         }
         if (rightMousePressed) {
             stopDrawing();
@@ -95,7 +114,35 @@ public class DrawingSystem extends FluidIteratingSystem {
 
     }
 
+    private void draw(int x, int y, EntityType entityType) {
+        switch (entityType) {
+            case ALIEN:
+                planetCreationSystem.spawnDude(x, y).massInverse(true).alien();
+                break;
+            case ICBM:
+                cardScriptSystem.spawnStructure("icbm", G.LAYER_STRUCTURES_FOREGROUND)
+                        .explosiveYield(MathUtils.random(10, 30)).pos(x, y);
+                break;
+            case SKYSCRAPER:
+                cardScriptSystem.spawnStructure("skyscraper" + MathUtils.random(7), G.LAYER_STRUCTURES_BACKGROUND).pos(x, y);
+                break;
+            case DOLPHIN:
+                E e = planetCreationSystem.spawnDude(x, y);
+                Vector2 gravityVector = v.set(e.planetboundGravity()).rotate(180f);
+                e
+                        .dolphinized()
+                        .physicsVr(1000f)
+                        .physicsVx(gravityVector.x * 100f)
+                        .physicsVy(gravityVector.y * 100f);
+                break;
+            case DUDE:
+                planetCreationSystem.spawnDude(x, y);
+                break;
+        }
+    }
+
     private void stopDrawing() {
+        entityType = null;
         type = null;
         removeDrawingCursor();
     }
@@ -129,7 +176,7 @@ public class DrawingSystem extends FluidIteratingSystem {
                     PlanetCell cell = e.getPlanet().get(x, y);
                     if (cell != null) {
                         cell.type = type;
-                        if ( type == PlanetCell.CellType.STATIC ) {
+                        if (type == PlanetCell.CellType.STATIC) {
                             cell.color = planetSimulationSystem.planet.cellColor[PlanetCell.CellType.STATIC.ordinal()];
                         }
                     }
@@ -138,11 +185,22 @@ public class DrawingSystem extends FluidIteratingSystem {
         }
     }
 
-    public void setSize( int size ) {
+    public void setSize(int size) {
         this.size = size;
     }
 
     public int getSize() {
         return size;
+    }
+
+    public void startDrawing(EntityType entityType) {
+        stopDrawing();
+        if (entityType != null) {
+            E.E()
+                    .anim(entityType.name() + "_cursor")
+                    .tag("cursorShade")
+                    .renderLayer(G.LAYER_CURSOR);
+        }
+        this.entityType = entityType;
     }
 }

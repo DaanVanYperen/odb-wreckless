@@ -14,6 +14,11 @@ public class OrganicSporeCellSimulator implements CellSimulator {
     @Override
     public void process(CellDecorator c, float delta) {
 
+        if (c.cell.nextType == null) {
+            if (c.getNeighbour(PlanetCell.CellType.FIRE, PlanetCell.CellType.LAVA, PlanetCell.CellType.LAVA_CRUST) != null) {
+                c.cell.nextType = PlanetCell.CellType.FIRE;
+            }
+        }
 
         if (c.cell.nextType == null) {
             // die if no air.
@@ -31,10 +36,6 @@ public class OrganicSporeCellSimulator implements CellSimulator {
             PlanetCell target = c.getRandomNeighbour(PlanetCell.CellType.AIR, 3);
             if (target != null && target.nextType == null && target.type == PlanetCell.CellType.AIR) {
                 c.swapWith(target);
-            }
-
-            if (c.getNeighbour(PlanetCell.CellType.FIRE, PlanetCell.CellType.LAVA, PlanetCell.CellType.LAVA_CRUST) != null) {
-                c.cell.nextType = PlanetCell.CellType.FIRE;
             }
         }
     }

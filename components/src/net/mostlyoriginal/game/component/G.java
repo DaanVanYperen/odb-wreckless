@@ -59,4 +59,5 @@ public class G {
     public static final int PLANET_CENTER_Y = PLANET_Y + (SIMULATION_HEIGHT / 2);
 
     public static final int GRADIENT_SCALE = 5;
+    public static float TOOL_HEIGHT = 50;
 }

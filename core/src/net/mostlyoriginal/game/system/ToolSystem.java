@@ -112,9 +112,11 @@ public class ToolSystem extends FluidIteratingSystem {
                 else if ("button_water".equals(e.toolId())) type = PlanetCell.CellType.WATER;
                 else if ("button_doze".equals(e.toolId())) type = PlanetCell.CellType.AIR;
                 else if ("button_dolphin".equals(e.toolId())) {
-                    cardScriptSystem.randomizeDolphin();
+                    drawingSystem.startDrawing(EntityType.DOLPHIN);
+                    //cardScriptSystem.randomizeDolphin();
                 } else if ("button_person".equals(e.toolId())) {
-                    cardScriptSystem.spawnDudes();;
+                    drawingSystem.startDrawing(EntityType.DUDE);
+                    //cardScriptSystem.spawnDudes();;
                 } else if ("button_stone".equals(e.toolId())) {
                     type = PlanetCell.CellType.STATIC;
                 } else if ("button_small".equals(e.toolId())) {
@@ -124,13 +126,16 @@ public class ToolSystem extends FluidIteratingSystem {
                 } else if ("button_large".equals(e.toolId())) {
                     drawingSystem.setSize(LARGE_SIZE);
                 } else if ("button_alien".equals(e.toolId())) {
-                    cardScriptSystem.spawnAccelerators();
+                    drawingSystem.startDrawing(EntityType.ALIEN);
+                    //cardScriptSystem.spawnAccelerators();
                 } else if ("button_rocket".equals(e.toolId())) {
-                    cardScriptSystem.spawnIcbms();
+                    drawingSystem.startDrawing(EntityType.ICBM);
+                    //cardScriptSystem.spawnIcbms();
                 } else if ("button_explode".equals(e.toolId())) {
                     cardScriptSystem.triggerExplosives();
                 } else if ("button_building".equals(e.toolId())) {
-                    cardScriptSystem.spawnSkyscrapers();
+                    drawingSystem.startDrawing(EntityType.SKYSCRAPER);
+                    //cardScriptSystem.spawnSkyscrapers();
                 } else if ("button_organic".equals(e.toolId())) {
                     type = PlanetCell.CellType.ORGANIC_SPORE;
                 } else if ("button_clouds".equals(e.toolId())) {

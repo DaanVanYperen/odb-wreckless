@@ -227,7 +227,7 @@ public class CardScriptSystem extends FluidIteratingSystem {
         }
     }
 
-    private E spawnStructure(String id, int layer) {
+    public E spawnStructure(String id, int layer) {
         Vector2 location = planetCreationSystem.getSpawnLocation();
         E e = E.E()
                 .pos(location.x, location.y)
