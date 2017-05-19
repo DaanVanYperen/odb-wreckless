@@ -20,7 +20,9 @@ public class SteamCellSimulator implements CellSimulator {
         if (c.cell.nextType == null) {
             if (FauxRng.random(0,100) < 1f) {
                 if (FauxRng.random(0,100) < (c.mask().temperature > 100 ? 90 : 75 ) ) {
-                    c.setNextType(PlanetCell.CellType.AIR);
+                    if ( c.cell.depth() < 25 ) {
+                        c.setNextType(PlanetCell.CellType.CLOUD);
+                    }
                 } else {
                     c.setNextType(PlanetCell.CellType.WATER);
                 }

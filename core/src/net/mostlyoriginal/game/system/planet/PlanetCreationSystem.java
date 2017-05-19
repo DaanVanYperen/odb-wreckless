@@ -173,9 +173,6 @@ public class PlanetCreationSystem extends PassiveSystem {
         if (DEBUG_NO_ENTITY_RENDERING) {
             dude.invisible();
         }
-        if (MathUtils.random(1, 100) < 5) {
-            dude.angry();
-        }
         return dude;
     }
 

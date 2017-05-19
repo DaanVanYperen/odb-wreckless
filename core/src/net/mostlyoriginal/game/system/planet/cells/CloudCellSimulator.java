@@ -18,31 +18,28 @@ public class CloudCellSimulator implements CellSimulator {
 
         if (c.cell.nextType == null) {
             if (FauxRng.random(1000) < 1) {
-                PlanetCell down = c.getNeighbourDown();
-                if (down != null && down.type == PlanetCell.CellType.AIR) {
-                    if (down.nextType == null) {
-                        down.nextType = PlanetCell.CellType.WATER;
-                    }
-                }
+                c.cell.nextType = PlanetCell.CellType.WATER;
             }
         }
 
-        int cloudsNearby =
-                countCloudsAs1(c.getNeighbourRight()) +
-                        countCloudsAs1(c.getNeighbourAboveR()) +
-                        countCloudsAs1(c.getNeighbourAbove()) +
-                        countCloudsAs1(c.getNeighbourDown());
+        if (c.cell.nextType == null) {
+            int cloudsNearby =
+                    countCloudsAs1(c.getNeighbourRight()) +
+                            countCloudsAs1(c.getNeighbourAboveR()) +
+                            countCloudsAs1(c.getNeighbourAbove()) +
+                            countCloudsAs1(c.getNeighbourDown());
 
-        if (c.cell.nextType == null && FauxRng.random(100) < 5 + (cloudsNearby * 10f)) {
-            if (c.cell.depth() > 25) {
-                if (swapWithAirIgnoreSpace(c, c.getNeighbourAbove())) return;
-            }
-            PlanetCell neighbourLeft = c.getNeighbourLeft();
-            if (swapWithAirIgnoreSpace(c,
-                    (c.cell.depth() < 15)
-                            || (FauxRng.random(100) < 2)
-                            || (neighbourLeft != null && neighbourLeft.type == PlanetCell.CellType.CLOUD) ? c.getNeighbourDown() : neighbourLeft)) {
-                return;
+            if (c.cell.nextType == null && FauxRng.random(100) < 5 + (cloudsNearby * 10f)) {
+                if (c.cell.depth() > 25) {
+                    if (swapWithAirIgnoreSpace(c, c.getNeighbourAbove())) return;
+                }
+                PlanetCell neighbourLeft = c.getNeighbourLeft();
+                if (swapWithAirIgnoreSpace(c,
+                        (c.cell.depth() < 15)
+                                || (FauxRng.random(100) < 2)
+                                || (neighbourLeft != null && neighbourLeft.type == PlanetCell.CellType.CLOUD) ? c.getNeighbourDown() : neighbourLeft)) {
+                    return;
+                }
             }
         }
     }

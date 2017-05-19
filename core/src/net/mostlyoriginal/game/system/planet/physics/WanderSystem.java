@@ -50,6 +50,7 @@ public class WanderSystem extends FluidIteratingSystem {
         PlanetCell cell = e.planetboundCell();
         boolean inSpace = cell == null || cell.depth() <= 0;
 
+
         if ( e.hasAlien() ) {
             e.anim(inSpace ? "alien_space" : "alien").removeAngry();
         } else if (e.hasDolphinized()) {
@@ -58,6 +59,9 @@ public class WanderSystem extends FluidIteratingSystem {
             e.anim("angrydude");
         } else {
             e.anim(inSpace ? "dude_space" : "dude");
+            if ( cell != null && cell.type == PlanetCell.CellType.ORGANIC_SPORE ) {
+                e.angry();
+            }
         }
 
         if (!canSurvive(e)) {

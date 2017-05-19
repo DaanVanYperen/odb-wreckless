@@ -84,12 +84,12 @@ public class GameScreen extends WorldScreen {
                         new AchievementSystem(),
 
                         new PlanetBackgroundRenderSystem(),
-                        new PlanetRenderTemperatureDebugSystem(),
 
                         renderBatchingSystem = new RenderBatchingSystem(),
                         new MyAnimRenderSystem(renderBatchingSystem),
                         new PlanetRenderSystem(renderBatchingSystem),
-                        new PlanetRenderGravityDebugSystem()
+                        new PlanetRenderGravityDebugSystem(),
+                        new PlanetRenderTemperatureDebugSystem()
                 ).build());
     }
 
