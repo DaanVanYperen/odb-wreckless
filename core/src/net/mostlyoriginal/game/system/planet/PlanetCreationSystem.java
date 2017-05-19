@@ -282,7 +282,16 @@ public class PlanetCreationSystem extends PassiveSystem {
 
     private void populate(net.mostlyoriginal.game.component.PlanetData planetData, Planet planet) {
         formSurface(planet, new FauxPixMap(planetData.texture), planetData);
+        buildDirtColorMask(planet, new FauxPixMap(planetData.dirtTexture));
         formMask(planet);
+    }
+
+    private void buildDirtColorMask(Planet planet, FauxPixMap fauxPixMap) {
+        for (int y = 0; y < G.SIMULATION_HEIGHT; y++) {
+            for (int x = 0; x < G.SIMULATION_WIDTH; x++) {
+                planet.dirtColor[y][x] = fauxPixMap.getPixel(x, y);
+            }
+        }
     }
 
     private void formSurface(Planet planet, FauxPixMap pixmap, PlanetData planetData) {

@@ -16,6 +16,7 @@ public class Planet extends Component {
     }
 
     public PlanetCell[][] grid = new PlanetCell[SIMULATION_HEIGHT][SIMULATION_WIDTH];
+    public int[][] dirtColor = new int[SIMULATION_HEIGHT][SIMULATION_WIDTH];
     public StatusMask[][] mask = new StatusMask[SIMULATION_HEIGHT/ GRADIENT_SCALE][SIMULATION_WIDTH / GRADIENT_SCALE];
     public StatusMask[][] tempMask = new StatusMask[SIMULATION_HEIGHT/ GRADIENT_SCALE][SIMULATION_WIDTH / GRADIENT_SCALE];
     public PlanetData data;

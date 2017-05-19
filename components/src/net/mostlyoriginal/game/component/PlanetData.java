@@ -10,6 +10,7 @@ public class PlanetData {
     public String id;
     public String comment; // not used.
     public String texture;
+    public String dirtTexture;
     public CellType[] types;
     public String spaceBackgroundColor;
 

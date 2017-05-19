@@ -177,7 +177,7 @@ public class DrawingSystem extends FluidIteratingSystem {
                     if (cell != null) {
                         cell.type = type;
                         if (type == PlanetCell.CellType.STATIC) {
-                            cell.color = planetSimulationSystem.planet.cellColor[PlanetCell.CellType.STATIC.ordinal()];
+                            cell.color = planetSimulationSystem.planet.dirtColor[y][x];
                         }
                     }
                 }

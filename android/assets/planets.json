@@ -4,6 +4,7 @@
       "id": "TEMPLATE",
       "comment": "Example planet.",
       "texture": "planet.png",
+      "dirtTexture": "planet_inside.png",
       "spaceBackgroundColor": "000000",
       "types": [
         {
