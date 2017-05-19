@@ -34,13 +34,37 @@
       "height": 1
     },
     {
+      "id": "alien_space",
+      "comment": "",
+      "x": 0,
+      "y": 138,
+      "width": 8,
+      "height": 8
+    },
+    {
+      "id": "dude_space",
+      "comment": "",
+      "x": 8,
+      "y": 138,
+      "width": 8,
+      "height": 8
+    },
+    {
+      "id": "dolphin_space",
+      "comment": "",
+      "x": 0,
+      "y": 146,
+      "width": 16,
+      "height": 8
+    },
+    {
       "id": "dolphin",
       "comment": "Dude as dolphin",
       "x": 16,
       "y": 122,
       "width": 16,
       "height": 8
-    }
+    },
     {
       "id": "spaceship",
       "comment": "The alien's spaceship.",

@@ -47,14 +47,17 @@ public class WanderSystem extends FluidIteratingSystem {
             e.pos(tmpPos);
         }
 
+        PlanetCell cell = e.planetboundCell();
+        boolean inSpace = cell == null || cell.depth() <= 0;
+
         if ( e.hasAlien() ) {
-            e.anim("alien").removeAngry();
+            e.anim(inSpace ? "alien_space" : "alien").removeAngry();
         } else if (e.hasDolphinized()) {
-            e.anim("dolphin").removeAngry();
+            e.anim(inSpace ? "dolphin_space" : "dolphin").removeAngry();
         } else if (e.hasAngry()) {
             e.anim("angrydude");
         } else {
-            e.anim("dude");
+            e.anim(inSpace ? "dude_space" : "dude");
         }
 
         if (!canSurvive(e)) {
