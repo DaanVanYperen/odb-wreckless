@@ -37,6 +37,8 @@ public class DrawingSystem extends FluidIteratingSystem {
     private EntityType entityType;
     private CardScriptSystem cardScriptSystem;
     private PlanetCreationSystem planetCreationSystem;
+    private int lastY;
+    private int lastX;
 
     public DrawingSystem() {
         super(Aspect.all(Planet.class));
@@ -95,12 +97,58 @@ public class DrawingSystem extends FluidIteratingSystem {
             cursorShade.pos(cursor.posX() - 9, cursor.posY() - 9);
         }
     }
+    public void drawLine(E e, int ox, int oy, int x2, int y2, int size, PlanetCell.CellType type) {
+        int x = ox;
+        int y = oy;
+        int w = x2 - x;
+        int h = y2 - y;
+        int dx1 = 0, dy1 = 0, dx2 = 0, dy2 = 0;
+        if (w < 0) dx1 = -1;
+        else if (w > 0) dx1 = 1;
+        if (h < 0) dy1 = -1;
+        else if (h > 0) dy1 = 1;
+        if (w < 0) dx2 = -1;
+        else if (w > 0) dx2 = 1;
+        int longest = Math.abs(w);
+        int shortest = Math.abs(h);
+        if (!(longest > shortest)) {
+            longest = Math.abs(h);
+            shortest = Math.abs(w);
+            if (h < 0) dy2 = -1;
+            else if (h > 0) dy2 = 1;
+            dx2 = 0;
+        }
+        int numerator = longest >> 1;
+        int lastX = x, lastY = y;
+        for (int i = 0; i <= longest; i++) {
+            draw(e, x, y,size,type);
+            lastX = x;
+            lastY = y;
+            numerator += shortest;
+            if (!(numerator < longest)) {
+                numerator -= longest;
+                x += dx1;
+                y += dy1;
+            } else {
+                x += dx2;
+                y += dy2;
+            }
+        }
+    }
 
     @Override
     protected void process(E e) {
         final E cursor = E.E(tagManager.getEntity("cursor"));
         if (leftMousePressed && type != null && cursor.posY() > G.TOOL_HEIGHT) {
-            draw(e, (int) cursor.posX(), (int) cursor.posY(), size, type);
+            if ( lastX != -1 ) {
+                drawLine(e, (int) cursor.posX(), (int) cursor.posY(), lastX, lastY, size, type);
+            } else {
+                draw(e, (int) cursor.posX(), (int) cursor.posY(), size, type);
+            }
+            lastX=(int)cursor.posX();
+            lastY=(int)cursor.posY();
+        } else {
+            lastX = lastY = -1;
         }
         if (clickedOnce && entityType != null&& cursor.posY() > G.TOOL_HEIGHT) {
             draw((int) cursor.posX(), (int) cursor.posY(), entityType);
