@@ -256,7 +256,7 @@ public class CardScriptSystem extends FluidIteratingSystem {
         }
     }
 
-    private void restartGame() {
+    public void restartGame() {
         planetCreationSystem.restart();
         reset();
         achievementSystem.gameEnded = false;

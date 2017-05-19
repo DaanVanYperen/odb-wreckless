@@ -30,6 +30,8 @@ public class ToolSystem extends FluidIteratingSystem {
     private DrawingSystem drawingSystem;
     private CardScriptSystem cardScriptSystem;
     private String active;
+    private boolean pressed = false;
+    private float cooldown;
 
     public ToolSystem() {
         super(Aspect.all(Tool.class));
@@ -38,27 +40,36 @@ public class ToolSystem extends FluidIteratingSystem {
     @Override
     protected void initialize() {
         super.initialize();
-        int pos = 0;
-        createTool("button_doze", pos += 32);
-        createTool("button_water", pos += 32);
-        createTool("button_magma", pos += 32);
-        createTool("button_dolphin", pos += 32);
-        createTool("button_person", pos += 32);
-        createTool("button_stone", pos += 32);
-        createTool("button_small", pos += 32);
-        createTool("button_medium", pos += 32);
-        createTool("button_large", pos += 32);
-        createTool("button_alien", pos += 32);
-        createTool("button_rocket", pos += 32);
-        createTool("button_explode", pos += 32);
-        createTool("button_building", pos += 32);
-        createTool("button_organic", pos += 32);
-        createTool("button_clouds", pos += 32);
+        int y1 = 14;
+        int pos = 48 - y1;
+        createTool("button_doze", pos += 32, y1);
+        createTool("button_water", pos += 32, y1);
+        createTool("button_magma", pos += 32, y1);
+        createTool("button_dolphin", pos += 32, y1);
+        createTool("button_person", pos += 32, y1);
+        createTool("button_stone", pos += 32, y1);
+        createTool("button_alien", pos += 32, y1);
+        createTool("button_rocket", pos += 32, y1);
+        createTool("button_explode", pos += 32, y1);
+        createTool("button_building", pos += 32, y1);
+        createTool("button_organic", pos += 32, y1);
+        createTool("button_clouds", pos += 32, y1);
+
+        pos = ((G.SCREEN_WIDTH / 2)) / G.CAMERA_ZOOM - 96 / 2 - 40;
+        int y = 48 + 4;
+        createTool("button_small", pos += 32, y);
+        createTool("button_medium", pos += 32, y);
+        createTool("button_large", pos += 32, y);
+        createTool("button_reset", pos += 110, y);
+
     }
 
     @Override
     protected void begin() {
         super.begin();
+        if (cooldown > 0) {
+            cooldown -= world.delta;
+        }
     }
 
     private void activateAchievement(String achievementId) {
@@ -74,12 +85,12 @@ public class ToolSystem extends FluidIteratingSystem {
         }
     }
 
-    private void createTool(String id, int x) {
+    private void createTool(String id, int x, int y) {
         if (!tagManager.isRegistered(id)) {
             E.E()
                     .toolId(id)
-                    .pos(10 + x, 10)
-                    .bounds(0, 0, 32, 32)
+                    .pos(10 + x, y)
+                    .bounds(0, 0, "button_reset".equals(id) ? 64 : 32, 32)
                     .anim(id)
                     .animSpeed(0)
                     .clickable()
@@ -140,7 +151,14 @@ public class ToolSystem extends FluidIteratingSystem {
                     type = PlanetCell.CellType.ORGANIC_SPORE;
                 } else if ("button_clouds".equals(e.toolId())) {
                     type = PlanetCell.CellType.CLOUD;
+                } else if ("button_reset".equals(e.toolId())) {
+                    if (cooldown <= 0) {
+                        cooldown = 1;
+                        cardScriptSystem.restartGame();
+                        e.clickableState(Clickable.ClickState.NONE);
+                    }
                 }
+                ;
 
                 if (type != null) {
                     drawingSystem.startDrawing(type);
