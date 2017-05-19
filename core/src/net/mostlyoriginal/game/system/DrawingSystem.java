@@ -121,7 +121,7 @@ public class DrawingSystem extends FluidIteratingSystem {
                 break;
             case ICBM:
                 cardScriptSystem.spawnStructure("icbm", G.LAYER_STRUCTURES_FOREGROUND)
-                        .explosiveYield(MathUtils.random(10, 30)).pos(x, y);
+                        .explosiveYield(MathUtils.random(5,10)).pos(x, y);
                 break;
             case SKYSCRAPER:
                 cardScriptSystem.spawnStructure("skyscraper" + MathUtils.random(7), G.LAYER_STRUCTURES_BACKGROUND).pos(x, y);
