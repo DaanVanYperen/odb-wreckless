@@ -30,17 +30,20 @@ public class OrientToGravitySystem extends FluidIteratingSystem {
         if (e.planetboundCell() != null) {
             PlanetCell.CellType type = e.planetboundCell().type;
             if (type.density == null || type.density >= 1f || e.orientToGravityIgnoreFloor()) {
-
-                float rotation = 90 + v.set(G.PLANET_CENTER_X, G.PLANET_CENTER_Y).sub(e.posX(), e.posY()).angle();
-
-                if (e.hasMass() && e.massInverse()) {
-                    rotation += 180;
-                }
-
-
-                e.angleRotation(rotation).physicsVr(0);
+                fixRotation(e);
             }
             //e.angleRotation(e.angleRotation()+world.delta*100f);
         }
+    }
+
+    private void fixRotation(E e) {
+        float rotation = 90 + v.set(G.PLANET_CENTER_X, G.PLANET_CENTER_Y).sub(e.posX(), e.posY()).angle();
+
+        if (e.hasMass() && e.massInverse()) {
+            rotation += 180;
+        }
+
+
+        e.angleRotation(rotation).physicsVr(0);
     }
 }

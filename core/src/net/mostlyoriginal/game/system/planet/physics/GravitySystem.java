@@ -29,7 +29,7 @@ public class GravitySystem extends FluidIteratingSystem {
     protected void process(E e) {
         Vector2 gravityVector = v.set(e.planetboundGravity());
 
-        if ( e.massInverse() ){
+        if (e.massInverse()) {
             gravityVector.rotate(180);
         }
 
@@ -50,8 +50,16 @@ public class GravitySystem extends FluidIteratingSystem {
             }
         }
 
-        physics.vx += gravityVector.x * 4f;
-        physics.vy += gravityVector.y * 4f;
+        boolean inSpace = cell == null || cell.depth() <= 0;
+
+        physics.vx += gravityVector.x * (inSpace ? 0.5f : 4f);
+        physics.vy += gravityVector.y * (inSpace ? 0.5f : 4f);
+
+
+        if (inSpace) {
+            e.angleRotation(gravityVector.angle()-90);
+        }
+
         physics.friction = 0.05f;
 
     }

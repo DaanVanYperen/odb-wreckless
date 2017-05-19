@@ -136,7 +136,7 @@ public class DrawingSystem extends FluidIteratingSystem {
                         .physicsVy(gravityVector.y * 100f);
                 break;
             case DUDE:
-                planetCreationSystem.spawnDude(x, y);
+                planetCreationSystem.spawnDude(x, y).orientToGravityIgnoreFloor(false);
                 break;
         }
     }
