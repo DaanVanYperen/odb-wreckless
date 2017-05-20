@@ -64,7 +64,8 @@ public class PlanetCreationSystem extends PassiveSystem {
         final Json json = new Json();
         planetLibrary = json.fromJson(PlanetLibrary.class, Gdx.files.internal("planets.json"));
 
-        for (net.mostlyoriginal.game.component.PlanetData planet : planetLibrary.planets) {
+        net.mostlyoriginal.game.component.PlanetData planet = planetLibrary.planets[1];
+        {
 
             planetEntity = E.E();
             Planet planetE = planetEntity

@@ -93,7 +93,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
             regions[i] = new TextureRegion(new Texture("index" + (i + 1) + ".png"), G.LOGO_WIDTH, G.LOGO_HEIGHT);
         }
 
-        Animation animation = new Animation<TextureRegion>(0.05f, regions);
+        Animation animation = new Animation<>(0.05f, regions);
         animation.setPlayMode(Animation.PlayMode.NORMAL);
         sprites.put("logo", animation);
     }

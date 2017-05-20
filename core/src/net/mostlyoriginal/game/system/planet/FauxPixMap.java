@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Pixmap;
  * @author Daan van Yperen
  */
 public class FauxPixMap {
-    public static final float MAX_DEVIATION = 0.2f;
+    public static final float MAX_DEVIATION = 0.10f;
     private final Pixmap pixmap;
 
 //    private ByteBuffer byteBuffer;

@@ -27,6 +27,7 @@ public class PlanetRenderSystem extends FluidDeferredEntityProcessingSystem {
     private FrameBuffer frameBuffer;
     private int[] dirtyMask;
     private OrthographicCamera vboCamera;
+    private TextureRegion planetTexture;
 
     public PlanetRenderSystem(EntityProcessPrincipal principal) {
         super(Aspect.all(Planet.class), principal);
@@ -44,9 +45,9 @@ public class PlanetRenderSystem extends FluidDeferredEntityProcessingSystem {
         dirtyMask = new int[SIMULATION_WIDTH * SIMULATION_HEIGHT];
 
         frameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, SIMULATION_WIDTH, SIMULATION_HEIGHT, false);
-        frameBuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Nearest,Texture.TextureFilter.Nearest);
+        frameBuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         frameBuffer.begin();
-        Gdx.gl.glClearColor(0f,0f,0f,1f);
+        Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         frameBuffer.end();
 
@@ -79,9 +80,9 @@ public class PlanetRenderSystem extends FluidDeferredEntityProcessingSystem {
         for (int y = 0; y < SIMULATION_HEIGHT; y++) {
             for (int x = 0; x < SIMULATION_WIDTH; x++) {
                 final PlanetCell cell = planet.grid[y][x];
-               if (dirtyMask[x + y * SIMULATION_WIDTH] != cell.color) {
+                if (dirtyMask[x + y * SIMULATION_WIDTH] != cell.color) {
                     dirtyMask[x + y * SIMULATION_WIDTH] = cell.color;
-                        Color.rgba8888ToColor(color, cell.color);
+                    Color.rgba8888ToColor(color, cell.color);
                     batch.setColor(color);
                     batch.draw(planetPixel, x, y, 1, 1);
                 }
@@ -94,8 +95,16 @@ public class PlanetRenderSystem extends FluidDeferredEntityProcessingSystem {
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         batch.begin();
         batch.setColor(1f, 1f, 1f, 1f);
+        //batch.draw(warmupTexture(planet.data.backgroundTexture), PLANET_X, PLANET_Y, G.SIMULATION_WIDTH, G.SIMULATION_HEIGHT);
         batch.draw(frameBuffer.getColorBufferTexture(), PLANET_X, PLANET_Y, G.SIMULATION_WIDTH, G.SIMULATION_HEIGHT);
         batch.end();
+    }
+
+    private TextureRegion warmupTexture(String texture) {
+        if (planetTexture == null) {
+            planetTexture = new TextureRegion(new Texture(texture),0,0, G.SIMULATION_WIDTH, G.SIMULATION_HEIGHT);
+        }
+        return planetTexture;
     }
 
     private void renderClouds(Planet planet) {

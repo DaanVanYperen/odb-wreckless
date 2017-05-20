@@ -13,10 +13,10 @@ public class G {
 
     public static final boolean INTERLACING_SIMULATION = true;
 
-    public static final boolean DEBUG_SKIP_INTRO = (!PRODUCTION && true);
+    public static final boolean DEBUG_SKIP_INTRO = (!PRODUCTION && false);
     public static final boolean DEBUG_ACHIEVEMENTS = (!PRODUCTION && false);
     public static final boolean DEBUG_DRAWING = (!PRODUCTION && true);
-    public static final boolean DEBUG_NO_MUSIC =(!PRODUCTION && true);
+    public static final boolean DEBUG_NO_MUSIC =(!PRODUCTION && false);
     public static final boolean DEBUG_NO_ENTITY_RENDERING =(!PRODUCTION && false);
     public static final boolean DEBUG_NO_SECOND_PASS  =(!PRODUCTION && false);
     public static final boolean DEBUG_NO_ACHIEVEMENTS  = (!PRODUCTION && true);

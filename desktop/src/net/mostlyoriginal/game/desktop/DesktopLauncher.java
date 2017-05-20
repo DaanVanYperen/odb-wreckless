@@ -10,7 +10,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = G.SCREEN_WIDTH;
 		config.height = G.SCREEN_HEIGHT;
-		config.title = "Little Fortune Planet - LD38";
+		config.title = "Little Fortune Planet Sandbox - LD38 Post Compo";
 		new LwjglApplication(new GdxArtemisGame(), config);
 	}
 }
