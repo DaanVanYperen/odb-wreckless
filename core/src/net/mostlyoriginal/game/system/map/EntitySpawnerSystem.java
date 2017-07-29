@@ -16,6 +16,7 @@ import static com.artemis.E.E;
 public class EntitySpawnerSystem extends BaseSystem {
 
     private SocketSystem socketSystem;
+    private PowerSystem powerSystem;
 
     @Override
     protected void processSystem() {
@@ -57,7 +58,12 @@ public class EntitySpawnerSystem extends BaseSystem {
 
         if (b) {
             socketSystem.socket(assembleBattery(x, y), socket);
+            powerSystem.powerMapCoordsAround((int)(x/G.CELL_SIZE + 0.5f),(int)(y/G.CELL_SIZE + 0.5f),true);
+        } else {
+            powerSystem.powerMapCoordsAround((int)(x/G.CELL_SIZE + 0.5f),(int)(y/G.CELL_SIZE + 0.5f),false);
         }
+
+
     }
 
     private void assemblePlayer(float x, float y) {
@@ -66,17 +72,18 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .physics()
                 .render(G.LAYER_PLAYER)
                 .gravity()
-                .bounds(0, 0, G.CELL_SIZE * 0.5f, G.CELL_SIZE * 0.5f)
+                .bounds(0, 0, 16, 17)
                 .wallSensor()
                 .cameraFocus()
+                .tag("player")
                 .playerControlled();
     }
 
     private E assembleBattery(float x, float y) {
         return E().anim("battery")
                 .pos(x, y)
-                .physics()
-                .pickup()
+                .physics().pickup()
+
                 .render(G.LAYER_PLAYER - 1)
                 .gravity()
                 .bounds(0, 0, G.CELL_SIZE, G.CELL_SIZE)
@@ -88,9 +95,10 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .pos(x, y)
                 .physics()
                 .render(G.LAYER_PLAYER_ROBOT)
+                .follow()
                 .gravity()
                 .platform()
-                .bounds(0, 0, G.CELL_SIZE, 48)
+                .bounds(0, 0, 39, 43)
                 .tag("robot")
                 .wallSensor();
     }

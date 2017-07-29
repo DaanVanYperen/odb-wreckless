@@ -3,17 +3,18 @@ package net.mostlyoriginal.api.system.physics;
 import com.artemis.Aspect;
 import com.artemis.E;
 import com.artemis.annotations.Wire;
-import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Anim;
-import net.mostlyoriginal.api.component.physics.Gravity;
-import net.mostlyoriginal.game.component.Carries;
+import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.Socket;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
+import net.mostlyoriginal.game.system.map.PowerSystem;
 
 import static com.artemis.E.E;
 
 @Wire
 public class SocketSystem extends FluidIteratingSystem {
+
+    private PowerSystem powerSystem;
 
     public SocketSystem() {
         super(Aspect.all(Socket.class, Anim.class));
@@ -35,11 +36,18 @@ public class SocketSystem extends FluidIteratingSystem {
     public void socket(E e, E socket) {
         unsocket(e);
         socket.socketEntityId(e.socketedInsideEntityId(socket.id()).invisible().id());
+        power(socket, true);
+    }
+
+    private void power(E socket, boolean enable) {
+        powerSystem.powerMapCoordsAround((int)(socket.posX()/ G.CELL_SIZE + 0.5f),(int)(socket.posY()/G.CELL_SIZE + 0.5f), enable);
     }
 
     public void unsocket(E e) {
         if (e.hasSocketedInside()) {
-            E(e.getSocketedInside().entityId).socketEntityId(0);
+            E socket = E(e.getSocketedInside().entityId);
+            power(socket, false);
+            socket.socketEntityId(0);
             e.removeSocketedInside().removeInvisible();
         }
     }

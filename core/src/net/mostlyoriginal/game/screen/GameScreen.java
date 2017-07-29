@@ -14,7 +14,9 @@ import net.mostlyoriginal.api.system.physics.*;
 import net.mostlyoriginal.api.system.render.ClearScreenSystem;
 import net.mostlyoriginal.game.GdxArtemisGame;
 import net.mostlyoriginal.game.component.G;
+import net.mostlyoriginal.game.system.FollowSystem;
 import net.mostlyoriginal.game.system.PlayerControlSystem;
+import net.mostlyoriginal.game.system.TerminalSystem;
 import net.mostlyoriginal.game.system.map.*;
 import net.mostlyoriginal.game.system.render.CameraFollowSystem;
 import net.mostlyoriginal.game.system.render.MyAnimRenderSystem;
@@ -46,6 +48,7 @@ public class GameScreen extends WorldScreen {
 
                         new EntitySpawnerSystem(),
                         new MapSystem(),
+                        new PowerSystem(),
 
                         new TransitionSystem(GdxArtemisGame.getInstance()),
 
@@ -57,6 +60,8 @@ public class GameScreen extends WorldScreen {
                         new WallSensorSystem(),
                         new CollisionSystem(),
 
+
+                        new FollowSystem(),
                         new PlayerControlSystem(),
                         new GravitySystem(),
                         new MapCollisionSystem(),
@@ -74,7 +79,8 @@ public class GameScreen extends WorldScreen {
                         renderBatchingSystem = new RenderBatchingSystem(),
                         new MyAnimRenderSystem(renderBatchingSystem),
 
-                        new MapRenderInFrontSystem()
+                        new MapRenderInFrontSystem(),
+                        new TerminalSystem()
                 ).build());
     }
 

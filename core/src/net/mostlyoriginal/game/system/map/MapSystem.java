@@ -43,11 +43,7 @@ public class MapSystem extends BaseSystem {
                     Animation<TextureRegion> anim = new Animation<>(10, tile.getTextureRegion());
                     String id = (String) tile.getProperties().get("entity");
                     if (tile.getProperties().containsKey("cable-type")) {
-                        id = tile.getProperties().get("entity")
-                                + " "
-                                + tile.getProperties().get("cable-type")
-                                + "_"
-                                + (((Boolean) tile.getProperties().get("cable-state")) ? "on" : "off");
+                        id = cableIdentifier(tile);
                     } else if (tile.getProperties().containsKey("powered")) {
                         id = tile.getProperties().get("entity") + "_" + (((Boolean) tile.getProperties().get("powered")) ? "on" : "off");
                     }
@@ -55,6 +51,14 @@ public class MapSystem extends BaseSystem {
                 }
             }
         }
+    }
+
+    public static String cableIdentifier(TiledMapTile tile) {
+        return tile.getProperties().get("entity")
+                + "_"
+                + tile.getProperties().get("cable-type")
+                + "_"
+                + (((Boolean) tile.getProperties().get("cable-state")) ? "on" : "off");
     }
 
     public MapMask getMask(String property) {

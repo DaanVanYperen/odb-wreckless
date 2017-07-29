@@ -13,6 +13,7 @@ import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 public class CameraFollowSystem extends FluidIteratingSystem {
 
     CameraSystem cameraSystem;
+    private MyAnimRenderSystem myAnimRenderSystem;
 
     public CameraFollowSystem() {
         super(Aspect.all(Pos.class, CameraFocus.class));
@@ -20,8 +21,8 @@ public class CameraFollowSystem extends FluidIteratingSystem {
 
     @Override
     protected void process(E e) {
-        cameraSystem.camera.position.x = e.posX();
-        cameraSystem.camera.position.y = e.posY();
+        cameraSystem.camera.position.x = myAnimRenderSystem.roundToPixels(e.posX());
+        cameraSystem.camera.position.y = myAnimRenderSystem.roundToPixels(e.posY());
         cameraSystem.camera.update();
     }
 }

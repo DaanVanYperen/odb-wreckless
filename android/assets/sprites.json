@@ -31,6 +31,14 @@
       "y": 245,
       "width": 39,
       "height": 43
+    },
+    {
+      "id": "marker",
+      "comment": ".",
+      "x": 16,
+      "y": 80,
+      "width": 5,
+      "height": 5
     }
   ]
 }

@@ -83,7 +83,7 @@ public class MyAnimRenderSystem extends DeferredEntityProcessingSystem {
     }
 
     /** Pixel perfect aligning. */
-    private float roundToPixels(final float val) {
+    public float roundToPixels(final float val) {
         // since we use camera zoom rounding to integers doesn't work properly.
         return ((int)(val * cameraSystem.zoom)) / (float)cameraSystem.zoom;
     }

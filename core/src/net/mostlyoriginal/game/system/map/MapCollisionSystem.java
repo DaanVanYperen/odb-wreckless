@@ -17,7 +17,7 @@ import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
  */
 public class MapCollisionSystem extends FluidIteratingSystem {
 
-    private static boolean DEBUG = false;
+    private static boolean DEBUG = true;
 
     private MapSystem mapSystem;
     private CameraSystem cameraSystem;
@@ -68,16 +68,11 @@ public class MapCollisionSystem extends FluidIteratingSystem {
 
     }
 
-    private boolean collides(final float x, final float y) {
+    public boolean collides(final float x, final float y) {
         if (DEBUG) {
-//            world.createEntity()
-//                    .edit()
-//                    .add(new Pos(x - 1, y - 1))
-//                    .add(new Anim("debug-marker"))
-//                    .add(new Terminal(1))
-//            ;
+            E.E().pos(x - 2, y - 2).anim("marker").render(5000).terminal();
         }
 
-        return solidMask.atScreen(x, y, true);
+        return solidMask != null && solidMask.atScreen(x, y, true);
     }
 }
