@@ -28,6 +28,7 @@ public class EntitySpawnerSystem extends BaseSystem {
         switch (entity) {
             case "player":
                 assemblePlayer(x, y);
+                assembleRobot(x, y);
                 break;
             default:
                 //throw new RuntimeException("No idea how to spawn entity of type " + entity);
@@ -44,5 +45,16 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .wallSensor()
                 .cameraFocus()
                 .playerControlled();
+    }
+
+    private void assembleRobot(float x, float y) {
+        E().anim("robot-idle")
+                .pos(x,y)
+                .physics()
+                .render(G.LAYER_PLAYER_ROBOT)
+                .gravity()
+                .bounds(0,0, G.CELL_SIZE,G.CELL_SIZE)
+                .tag("robot")
+                .wallSensor();
     }
 }

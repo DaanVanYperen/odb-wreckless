@@ -14,8 +14,9 @@ public class G {
     public static final int SIMULATION_HEIGHT = 220 + 50;
 
     public static final int LAYER_PLAYER = 1000;
+    public static final int LAYER_PLAYER_ROBOT = 900;
 
-    public static int CAMERA_ZOOM = 1;
+    public static int CAMERA_ZOOM = 2;
     public static final int SCREEN_WIDTH = SIMULATION_WIDTH * 2 * CAMERA_ZOOM;
     private static int CARD_HEIGHT = 90;
     private static int MARGIN_BETWEEN_CARD_AND_SIM = 10;

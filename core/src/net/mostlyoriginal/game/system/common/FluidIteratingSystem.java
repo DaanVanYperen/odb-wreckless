@@ -3,6 +3,7 @@ package net.mostlyoriginal.game.system.common;
 import com.artemis.Aspect;
 import com.artemis.Component;
 import com.artemis.E;
+import com.artemis.managers.TagManager;
 import com.artemis.systems.IteratingSystem;
 import net.mostlyoriginal.game.api.EBag;
 
@@ -33,5 +34,10 @@ public abstract class FluidIteratingSystem extends IteratingSystem {
 
     protected EBag allEntitiesWith(Class<? extends Component> scope) {
         return new EBag(world.getAspectSubscriptionManager().get(Aspect.all(scope)).getEntities());
+    }
+
+    protected E entityWithTag(String tag) {
+        return E(world.getSystem(TagManager.class).getEntity(tag));
+
     }
 }
