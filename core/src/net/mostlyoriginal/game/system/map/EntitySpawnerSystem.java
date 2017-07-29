@@ -30,6 +30,9 @@ public class EntitySpawnerSystem extends BaseSystem {
                 assemblePlayer(x, y);
                 assembleRobot(x, y);
                 break;
+            case "battery":
+                assembleBattery(x, y);
+                break;
             default:
                 //throw new RuntimeException("No idea how to spawn entity of type " + entity);
         }
@@ -45,6 +48,17 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .wallSensor()
                 .cameraFocus()
                 .playerControlled();
+    }
+
+    private void assembleBattery(float x, float y) {
+        E().anim("battery")
+                .pos(x,y)
+                .physics()
+                .pickup()
+                .render(G.LAYER_PLAYER-1)
+                .gravity()
+                .bounds(0,0, G.CELL_SIZE,G.CELL_SIZE)
+                .wallSensor();
     }
 
     private void assembleRobot(float x, float y) {

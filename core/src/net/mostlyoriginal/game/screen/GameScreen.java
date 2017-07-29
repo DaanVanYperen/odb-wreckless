@@ -10,6 +10,7 @@ import net.mostlyoriginal.api.screen.core.WorldScreen;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.system.graphics.RenderBatchingSystem;
 import net.mostlyoriginal.api.system.mouse.MouseCursorSystem;
+import net.mostlyoriginal.api.system.physics.CarriedSystem;
 import net.mostlyoriginal.api.system.physics.CollisionSystem;
 import net.mostlyoriginal.api.system.physics.GravitySystem;
 import net.mostlyoriginal.api.system.physics.PhysicsSystem;
@@ -64,6 +65,7 @@ public class GameScreen extends WorldScreen {
                         new MapCollisionSystem(),
                         new PlatformCollisionSystem(),
                         new PhysicsSystem(),
+                        new CarriedSystem(),
 
                         new CameraFollowSystem(),
 

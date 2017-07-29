@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.physics.Physics;
+import net.mostlyoriginal.game.component.Pickup;
 import net.mostlyoriginal.game.component.PlayerControlled;
 import net.mostlyoriginal.game.component.map.WallSensor;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
@@ -39,15 +40,21 @@ public class PlayerControlSystem extends FluidIteratingSystem {
             dx = MOVEMENT_FACTOR;
             e.animFlippedX(false);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.W) && (e.wallSensorOnFloor() || e.wallSensorOnPlatform())) // jump
-        {
+        if (Gdx.input.isKeyPressed(Input.Keys.W) && (e.wallSensorOnFloor() || e.wallSensorOnPlatform())) {
             dy = JUMP_FACTOR;
         }
 
-        if ( Gdx.input.isKeyJustPressed(Input.Keys.E) || Gdx.input.isKeyJustPressed(Input.Keys.X)) {
-            E robot = entityWithTag("robot");
-            robot.animFlippedX(e.animFlippedX());
-            robot.pos(e.posX(), e.posY());
+        if (Gdx.input.isKeyJustPressed(Input.Keys.E) || Gdx.input.isKeyJustPressed(Input.Keys.X)) {
+            if (e.hasCarries()) {
+                dropAllCarried(e);
+            } else {
+                E pickup = firstTouchingEntityMatching(e, Aspect.all(Pickup.class));
+                if (pickup != null) {
+                    carryItem(e, pickup);
+                } else {
+                    callRobot(e);
+                }
+            }
         }
 
         if (dx != 0) {
@@ -57,5 +64,24 @@ public class PlayerControlSystem extends FluidIteratingSystem {
         if (dy != 0) {
             e.physicsVy((dy * world.delta));
         }
+    }
+
+    private void dropAllCarried(E e) {
+        if (e.hasCarries()) {
+            E.E(e.getCarries().entityId).gravity();
+            e.removeCarries();
+        }
+    }
+
+    private void carryItem(E e, E pickup) {
+        e.carriesEntityId(pickup.id());
+        e.carriesAnchorY((int)e.boundsMaxy());
+        pickup.removeGravity();
+    }
+
+    private void callRobot(E e) {
+        E robot = entityWithTag("robot");
+        robot.animFlippedX(e.animFlippedX());
+        robot.pos(e.posX(), e.posY());
     }
 }

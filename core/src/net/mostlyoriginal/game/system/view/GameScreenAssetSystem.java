@@ -36,6 +36,8 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
 
         Texture tiles = new Texture("tileset.png");
 
+        add("battery", 320, 192, 32,32, 1, 1, tileset);
+
         add("player-idle", 258, 0, SMALL_TILE_SIZE, SMALL_TILE_SIZE, 2, 1, tileset);
         add("player-jetpack", 258 + SMALL_TILE_SIZE * 2, 0, SMALL_TILE_SIZE, SMALL_TILE_SIZE, 1, 1, tileset);
         add("player-walk", 258 + SMALL_TILE_SIZE * 3, 0, SMALL_TILE_SIZE, SMALL_TILE_SIZE, 4, 1, tileset, 0.2f);
