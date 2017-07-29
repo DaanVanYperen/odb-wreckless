@@ -35,6 +35,7 @@ public class MapCollisionSystem extends FluidIteratingSystem {
             initialized = true;
             solidMask = mapSystem.getMask("solid");
         }
+        solidMask.refresh();
     }
 
     @Override

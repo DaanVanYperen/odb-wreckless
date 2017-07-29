@@ -44,12 +44,8 @@ public class PowerSystem extends PassiveSystem {
     }
 
     public void powerMapCoords(int x, int y, boolean enable) {
-
-
         if (cableMask.atGrid(x, y, false)) {
             TiledMapTileLayer cableLayer = (TiledMapTileLayer) mapSystem.map.getLayers().get("cables");
-            int width = cableLayer.getWidth();
-            int height = cableLayer.getHeight();
             final TiledMapTileLayer.Cell cell = cableLayer.getCell(x, y);
             MapProperties properties = cell.getTile().getProperties();
             if ((Boolean) properties.get("cable-state") != enable) {

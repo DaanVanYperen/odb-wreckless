@@ -4,6 +4,7 @@ import com.artemis.Aspect;
 import com.artemis.E;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.physics.Physics;
 import net.mostlyoriginal.api.system.physics.SocketSystem;
@@ -19,8 +20,7 @@ import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 public class PlayerControlSystem extends FluidIteratingSystem {
     private float MOVEMENT_FACTOR = 500;
     private float JUMP_FACTOR = 15000;
-    private SocketSystem socketSystem
-            ;
+    private SocketSystem socketSystem;
 
     public PlayerControlSystem() {
         super(Aspect.all(PlayerControlled.class, Physics.class, WallSensor.class, Anim.class));
@@ -44,6 +44,12 @@ public class PlayerControlSystem extends FluidIteratingSystem {
             dx = MOVEMENT_FACTOR;
             e.animFlippedX(false);
         }
+
+        float veloX = Math.abs(e.physicsVx());
+        if (Math.abs(dx) < 0.05f && veloX >= 0.1f && (e.wallSensorOnFloor() || e.wallSensorOnPlatform())) {
+            e.physicsVx(e.physicsVx() - (e.physicsVx() * world.delta * 8f));
+        }
+
         if (Gdx.input.isKeyPressed(Input.Keys.W) && (e.wallSensorOnFloor() || e.wallSensorOnPlatform())) {
             dy = JUMP_FACTOR;
         }
@@ -51,7 +57,7 @@ public class PlayerControlSystem extends FluidIteratingSystem {
         if (Gdx.input.isKeyJustPressed(Input.Keys.E) || Gdx.input.isKeyJustPressed(Input.Keys.X)) {
             if (e.hasCarries()) {
                 E socket = firstTouchingEntityMatching(e, Aspect.all(Socket.class));
-                if ( socket != null ) {
+                if (socket != null) {
                     socketCarried(e, socket);
                 } else {
                     dropCarried(e);
@@ -61,7 +67,7 @@ public class PlayerControlSystem extends FluidIteratingSystem {
                 if (pickup != null) {
                     carryItem(e, pickup);
                 } else {
-                    callRobot(e);
+//                    callRobot(e);
                 }
             }
         }
@@ -90,11 +96,11 @@ public class PlayerControlSystem extends FluidIteratingSystem {
     }
 
     private void carryItem(E e, E pickup) {
-        if ( pickup.hasSocketedInside()) {
+        if (pickup.hasSocketedInside()) {
             socketSystem.unsocket(pickup);
         }
         e.carriesEntityId(pickup.id());
-        e.carriesAnchorY((int)e.boundsMaxy());
+        e.carriesAnchorY((int) e.boundsMaxy());
         pickup.removeGravity();
     }
 
