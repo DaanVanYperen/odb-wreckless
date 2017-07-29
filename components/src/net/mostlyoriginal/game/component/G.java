@@ -8,7 +8,7 @@ public class G {
 
     public static final boolean DEBUG_SKIP_INTRO = (!PRODUCTION && false);
     public static final boolean DEBUG_NO_MUSIC = (!PRODUCTION && false);
-    public static final int CELL_SIZE = 32;
+    public static final int CELL_SIZE = 16;
 
     public static final int SIMULATION_WIDTH = 220 + 50;
     public static final int SIMULATION_HEIGHT = 220 + 50;

@@ -1,12 +1,36 @@
 {
   "sprites": [
     {
-      "id": "dude",
-      "comment": "Player dude.",
+      "id": "player-idle",
+      "comment": "Player character idling.",
       "x": 0,
-      "y": 90,
-      "width": 8,
-      "height": 8
+      "y": 399,
+      "width": 16,
+      "height": 17
+    },
+    {
+      "id": "player-walk",
+      "comment": "Player character walking right.",
+      "x": 0,
+      "y": 399,
+      "width": 16,
+      "height": 17
+    },
+    {
+      "id": "robot-idle",
+      "comment": "Robot character idling.",
+      "x": 0,
+      "y": 245,
+      "width": 39,
+      "height": 43
+    },
+    {
+      "id": "robot-walk",
+      "comment": "Robot walking right.",
+      "x": 0,
+      "y": 245,
+      "width": 39,
+      "height": 43
     }
   ]
 }

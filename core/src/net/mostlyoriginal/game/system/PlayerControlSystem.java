@@ -6,8 +6,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.physics.Physics;
+import net.mostlyoriginal.api.system.physics.SocketSystem;
 import net.mostlyoriginal.game.component.Pickup;
 import net.mostlyoriginal.game.component.PlayerControlled;
+import net.mostlyoriginal.game.component.Socket;
 import net.mostlyoriginal.game.component.map.WallSensor;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 
@@ -17,6 +19,8 @@ import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 public class PlayerControlSystem extends FluidIteratingSystem {
     private float MOVEMENT_FACTOR = 500;
     private float JUMP_FACTOR = 15000;
+    private SocketSystem socketSystem
+            ;
 
     public PlayerControlSystem() {
         super(Aspect.all(PlayerControlled.class, Physics.class, WallSensor.class, Anim.class));
@@ -46,7 +50,12 @@ public class PlayerControlSystem extends FluidIteratingSystem {
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.E) || Gdx.input.isKeyJustPressed(Input.Keys.X)) {
             if (e.hasCarries()) {
-                dropAllCarried(e);
+                E socket = firstTouchingEntityMatching(e, Aspect.all(Socket.class));
+                if ( socket != null ) {
+                    socketCarried(e, socket);
+                } else {
+                    dropCarried(e);
+                }
             } else {
                 E pickup = firstTouchingEntityMatching(e, Aspect.all(Pickup.class));
                 if (pickup != null) {
@@ -66,7 +75,14 @@ public class PlayerControlSystem extends FluidIteratingSystem {
         }
     }
 
-    private void dropAllCarried(E e) {
+    private void socketCarried(E e, E socket) {
+        if (e.hasCarries()) {
+            socketSystem.socket(E.E(e.getCarries().entityId), socket);
+            e.removeCarries();
+        }
+    }
+
+    private void dropCarried(E e) {
         if (e.hasCarries()) {
             E.E(e.getCarries().entityId).gravity();
             e.removeCarries();
@@ -74,6 +90,9 @@ public class PlayerControlSystem extends FluidIteratingSystem {
     }
 
     private void carryItem(E e, E pickup) {
+        if ( pickup.hasSocketedInside()) {
+            socketSystem.unsocket(pickup);
+        }
         e.carriesEntityId(pickup.id());
         e.carriesAnchorY((int)e.boundsMaxy());
         pickup.removeGravity();

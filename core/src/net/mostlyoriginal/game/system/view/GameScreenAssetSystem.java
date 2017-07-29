@@ -36,19 +36,22 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
 
         Texture tiles = new Texture("tileset.png");
 
-        add("battery", 320, 192, 32,32, 1, 1, tileset);
+//        add("battery", 320, 192, 32,32, 1, 1, tileset);
 
-        add("player-idle", 258, 0, SMALL_TILE_SIZE, SMALL_TILE_SIZE, 2, 1, tileset);
-        add("player-jetpack", 258 + SMALL_TILE_SIZE * 2, 0, SMALL_TILE_SIZE, SMALL_TILE_SIZE, 1, 1, tileset);
-        add("player-walk", 258 + SMALL_TILE_SIZE * 3, 0, SMALL_TILE_SIZE, SMALL_TILE_SIZE, 4, 1, tileset, 0.2f);
-        add("player-respawning", 258 + SMALL_TILE_SIZE * 7, 0, SMALL_TILE_SIZE, SMALL_TILE_SIZE, 1, 1, tileset);
+//        add("power-on", 320-64, 192, 32,32, 1, 1, tileset);
+//        add("power-off", 320-32, 192, 32,32, 1, 1, tileset);
+//
+//        add("player-idle", 258, 0, SMALL_TILE_SIZE, SMALL_TILE_SIZE, 2, 1, tileset);
+//        add("player-jetpack", 258 + SMALL_TILE_SIZE * 2, 0, SMALL_TILE_SIZE, SMALL_TILE_SIZE, 1, 1, tileset);
+//        add("player-walk", 258 + SMALL_TILE_SIZE * 3, 0, SMALL_TILE_SIZE, SMALL_TILE_SIZE, 4, 1, tileset, 0.2f);
+//        add("player-respawning", 258 + SMALL_TILE_SIZE * 7, 0, SMALL_TILE_SIZE, SMALL_TILE_SIZE, 1, 1, tileset);
+//
+//        add("robot-idle", 458, 0, TILE_SIZE, GIANT_TILE_SIZE, 2, 1, tileset);
+//        add("robot-jetpack", 458+TILE_SIZE * 2, 0, TILE_SIZE, GIANT_TILE_SIZE, 1, 1, tileset);
+//        add("robot-walk", 458+TILE_SIZE * 3, 0, TILE_SIZE, GIANT_TILE_SIZE, 4, 1, tileset, 0.2f);
+//        add("robot-respawning", 458+TILE_SIZE * 7, 0, TILE_SIZE, GIANT_TILE_SIZE, 1, 1, tileset);
 
-        add("robot-idle", 458, 0, TILE_SIZE, GIANT_TILE_SIZE, 2, 1, tileset);
-        add("robot-jetpack", 458+TILE_SIZE * 2, 0, TILE_SIZE, GIANT_TILE_SIZE, 1, 1, tileset);
-        add("robot-walk", 458+TILE_SIZE * 3, 0, TILE_SIZE, GIANT_TILE_SIZE, 4, 1, tileset, 0.2f);
-        add("robot-respawning", 458+TILE_SIZE * 7, 0, TILE_SIZE, GIANT_TILE_SIZE, 1, 1, tileset);
-
-        add("debug-marker", 44, 51, 3, 3, 1, 1,tileset);
+//        add("debug-marker", 44, 51, 3, 3, 1, 1,tileset);
 
         //playMusicTitle();
     }

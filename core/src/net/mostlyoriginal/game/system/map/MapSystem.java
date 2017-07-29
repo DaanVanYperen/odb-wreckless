@@ -1,15 +1,16 @@
 package net.mostlyoriginal.game.system.map;
 
 import com.artemis.BaseSystem;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapProperties;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.utils.Array;
 import net.mostlyoriginal.api.system.core.PassiveSystem;
 import net.mostlyoriginal.api.utils.MapMask;
 import net.mostlyoriginal.game.component.G;
+import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 /**
  * @author Daan van Yperen
@@ -23,6 +24,7 @@ public class MapSystem extends BaseSystem {
     private boolean isSetup;
 
     private EntitySpawnerSystem entitySpawnerSystem;
+    private GameScreenAssetSystem assetSystem;
 
     @Override
     protected void initialize() {
@@ -34,6 +36,25 @@ public class MapSystem extends BaseSystem {
         }
         width = layers.get(0).getWidth();
         height = layers.get(0).getHeight();
+
+        for (TiledMapTileSet tileSet : map.getTileSets()) {
+            for (TiledMapTile tile : tileSet) {
+                if (tile.getProperties().containsKey("entity")) {
+                    Animation<TextureRegion> anim = new Animation<>(10, tile.getTextureRegion());
+                    String id = (String) tile.getProperties().get("entity");
+                    if (tile.getProperties().containsKey("cable-type")) {
+                        id = tile.getProperties().get("entity")
+                                + " "
+                                + tile.getProperties().get("cable-type")
+                                + "_"
+                                + (((Boolean) tile.getProperties().get("cable-state")) ? "on" : "off");
+                    } else if (tile.getProperties().containsKey("powered")) {
+                        id = tile.getProperties().get("entity") + "_" + (((Boolean) tile.getProperties().get("powered")) ? "on" : "off");
+                    }
+                    assetSystem.sprites.put(id, anim);
+                }
+            }
+        }
     }
 
     public MapMask getMask(String property) {
@@ -51,8 +72,9 @@ public class MapSystem extends BaseSystem {
                     if (cell != null) {
                         final MapProperties properties = cell.getTile().getProperties();
                         if (properties.containsKey("entity")) {
-                            entitySpawnerSystem.spawnEntity(tx * G.CELL_SIZE, ty * G.CELL_SIZE, properties);
-                            layer.setCell(tx, ty, null);
+                            if (entitySpawnerSystem.spawnEntity(tx * G.CELL_SIZE, ty * G.CELL_SIZE, properties)) {
+                                layer.setCell(tx, ty, null);
+                            }
                         }
                     }
                 }

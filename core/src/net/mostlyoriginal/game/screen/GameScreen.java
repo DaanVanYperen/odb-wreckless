@@ -10,10 +10,7 @@ import net.mostlyoriginal.api.screen.core.WorldScreen;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.system.graphics.RenderBatchingSystem;
 import net.mostlyoriginal.api.system.mouse.MouseCursorSystem;
-import net.mostlyoriginal.api.system.physics.CarriedSystem;
-import net.mostlyoriginal.api.system.physics.CollisionSystem;
-import net.mostlyoriginal.api.system.physics.GravitySystem;
-import net.mostlyoriginal.api.system.physics.PhysicsSystem;
+import net.mostlyoriginal.api.system.physics.*;
 import net.mostlyoriginal.api.system.render.ClearScreenSystem;
 import net.mostlyoriginal.game.GdxArtemisGame;
 import net.mostlyoriginal.game.component.G;
@@ -65,7 +62,9 @@ public class GameScreen extends WorldScreen {
                         new MapCollisionSystem(),
                         new PlatformCollisionSystem(),
                         new PhysicsSystem(),
+
                         new CarriedSystem(),
+                        new SocketSystem(),
 
                         new CameraFollowSystem(),
 
