@@ -46,6 +46,8 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         add("robot-walk", 458+TILE_SIZE * 3, 0, TILE_SIZE, GIANT_TILE_SIZE, 4, 1, tileset, 0.2f);
         add("robot-respawning", 458+TILE_SIZE * 7, 0, TILE_SIZE, GIANT_TILE_SIZE, 1, 1, tileset);
 
+        add("debug-marker", 44, 51, 3, 3, 1, 1,tileset);
+
         //playMusicTitle();
     }
 

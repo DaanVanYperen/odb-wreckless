@@ -39,11 +39,10 @@ public class PlayerControlSystem extends FluidIteratingSystem {
             dx = MOVEMENT_FACTOR;
             e.animFlippedX(false);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.W) && e.wallSensorOnFloor()) // jump
+        if (Gdx.input.isKeyPressed(Input.Keys.W) && (e.wallSensorOnFloor() || e.wallSensorOnPlatform())) // jump
         {
             dy = JUMP_FACTOR;
         }
-        ;
 
         if ( Gdx.input.isKeyJustPressed(Input.Keys.E) || Gdx.input.isKeyJustPressed(Input.Keys.X)) {
             E robot = entityWithTag("robot");

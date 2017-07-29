@@ -62,6 +62,7 @@ public class GameScreen extends WorldScreen {
                         new PlayerControlSystem(),
                         new GravitySystem(),
                         new MapCollisionSystem(),
+                        new PlatformCollisionSystem(),
                         new PhysicsSystem(),
 
                         new CameraFollowSystem(),

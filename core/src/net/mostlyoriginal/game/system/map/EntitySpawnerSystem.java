@@ -41,7 +41,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .physics()
                 .render(G.LAYER_PLAYER)
                 .gravity()
-                .bounds(0,0, G.CELL_SIZE,G.CELL_SIZE)
+                .bounds(0,0, G.CELL_SIZE*0.5f,G.CELL_SIZE*0.5f)
                 .wallSensor()
                 .cameraFocus()
                 .playerControlled();
@@ -53,7 +53,8 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .physics()
                 .render(G.LAYER_PLAYER_ROBOT)
                 .gravity()
-                .bounds(0,0, G.CELL_SIZE,G.CELL_SIZE)
+                .platform()
+                .bounds(0,0, G.CELL_SIZE,48)
                 .tag("robot")
                 .wallSensor();
     }
