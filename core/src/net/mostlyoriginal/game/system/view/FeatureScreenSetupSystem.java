@@ -11,7 +11,7 @@ import net.mostlyoriginal.api.system.core.PassiveSystem;
 import net.mostlyoriginal.game.component.detection.OdbFeatureComponent;
 import net.mostlyoriginal.game.screen.GameScreen;
 import net.mostlyoriginal.game.system.detection.OdbFeatureDetectionSystem;
-import net.mostlyoriginal.game.system.logic.TransitionSystem;
+import net.mostlyoriginal.game.system.render.TransitionSystem;
 import net.mostlyoriginal.game.util.Anims;
 
 import static com.artemis.E.E;

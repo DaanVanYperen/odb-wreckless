@@ -12,7 +12,7 @@ import net.mostlyoriginal.api.system.render.AnimRenderSystem;
 import net.mostlyoriginal.api.system.render.ClearScreenSystem;
 import net.mostlyoriginal.game.GdxArtemisGame;
 import net.mostlyoriginal.game.system.detection.OdbFeatureDetectionSystem;
-import net.mostlyoriginal.game.system.logic.TransitionSystem;
+import net.mostlyoriginal.game.system.render.TransitionSystem;
 import net.mostlyoriginal.game.system.view.FeatureScreenAssetSystem;
 import net.mostlyoriginal.game.system.view.FeatureScreenSetupSystem;
 import net.mostlyoriginal.plugin.OperationsPlugin;

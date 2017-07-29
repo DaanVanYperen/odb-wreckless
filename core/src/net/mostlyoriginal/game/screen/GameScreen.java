@@ -4,24 +4,24 @@ import com.artemis.SuperMapper;
 import com.artemis.World;
 import com.artemis.WorldConfigurationBuilder;
 import com.artemis.link.EntityLinkManager;
-import com.artemis.managers.GroupManager;
 import com.artemis.managers.TagManager;
+import com.badlogic.gdx.graphics.Color;
 import net.mostlyoriginal.api.screen.core.WorldScreen;
+import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.system.graphics.RenderBatchingSystem;
 import net.mostlyoriginal.api.system.mouse.MouseCursorSystem;
 import net.mostlyoriginal.api.system.physics.CollisionSystem;
+import net.mostlyoriginal.api.system.physics.GravitySystem;
 import net.mostlyoriginal.api.system.physics.PhysicsSystem;
-import net.mostlyoriginal.api.system.render.AnimRenderSystem;
+import net.mostlyoriginal.api.system.render.ClearScreenSystem;
 import net.mostlyoriginal.game.GdxArtemisGame;
 import net.mostlyoriginal.game.component.G;
-import net.mostlyoriginal.game.system.*;
-import net.mostlyoriginal.game.system.dilemma.CardScriptSystem;
-import net.mostlyoriginal.game.system.dilemma.CardSortSystem;
-import net.mostlyoriginal.game.system.dilemma.CardSystem;
-import net.mostlyoriginal.game.system.logic.TransitionSystem;
-import net.mostlyoriginal.game.system.planet.*;
-import net.mostlyoriginal.game.system.planet.physics.*;
-import net.mostlyoriginal.game.system.stencil.PlanetStencilSystem;
+import net.mostlyoriginal.game.system.PlayerControlSystem;
+import net.mostlyoriginal.game.system.map.*;
+import net.mostlyoriginal.game.system.render.CameraFollowSystem;
+import net.mostlyoriginal.game.system.render.MyAnimRenderSystem;
+import net.mostlyoriginal.game.system.render.MyCameraSystem;
+import net.mostlyoriginal.game.system.render.TransitionSystem;
 import net.mostlyoriginal.game.system.ui.MouseClickSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 import net.mostlyoriginal.game.system.view.GameScreenSetupSystem;
@@ -46,50 +46,33 @@ public class GameScreen extends WorldScreen {
                         new SuperMapper(),
                         new TagManager(),
 
-                        new GroupManager(),
-                        new CardSystem(),
-                        new CardSortSystem(),
-                        new CardScriptSystem(),
-                        new CollisionSystem(),
+                        new EntitySpawnerSystem(),
+                        new MapSystem(),
+
                         new TransitionSystem(GdxArtemisGame.getInstance()),
 
-                        new MyCameraSystem(G.CAMERA_ZOOM),
                         new GameScreenAssetSystem(),
                         new GameScreenSetupSystem(),
 
-                        new MouseCursorSystem(),
-                        new MouseClickSystem(),
-                        new PlanetCreationSystem(),
+                        new CameraSystem(G.CAMERA_ZOOM),
 
-                        new DrawingSystem(),
+                        new WallSensorSystem(),
+                        new CollisionSystem(),
 
-                        new PlanetStencilSystem(),
-                        new PlanetMaskSystem(),
-                        new PlanetSimulationSystem(),
-
-
-                        new PlanetCoordSystem(),
-                        new OrientToGravitySystem(),
-                        new WanderSystem(),
+                        new PlayerControlSystem(),
                         new GravitySystem(),
+                        new MapCollisionSystem(),
                         new PhysicsSystem(),
 
-                        new DeathSystem(),
-                        new GhostSystem(),
-                        new ExplosiveSystem(),
+                        new CameraFollowSystem(),
 
-                        new StarEffectSystem(),
-
-                        new ToolSystem(),
-                        new AchievementSystem(),
-
-                        new PlanetBackgroundRenderSystem(),
+                        new ClearScreenSystem(new Color(0,0,0.1f,1f)),
+                        new MapRenderSystem(),
 
                         renderBatchingSystem = new RenderBatchingSystem(),
                         new MyAnimRenderSystem(renderBatchingSystem),
-                        new PlanetRenderSystem(renderBatchingSystem),
-                        new PlanetRenderGravityDebugSystem(),
-                        new PlanetRenderTemperatureDebugSystem()
+
+                        new MapRenderInFrontSystem()
                 ).build());
     }
 
