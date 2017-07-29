@@ -2,7 +2,7 @@ odb-little-fortune-planet
 =====================
 
 #### Summary
-Jam game made in 72 hours, toilet panic game made with [LibGDX](https://github.com/libgdx/libgdx) and [Artemis-ODB](https://github.com/junkdog/artemis-odb). Tested for desktop and html5 via gwt.
+Jam game WIP made with [LibGDX](https://github.com/libgdx/libgdx) and [Artemis-ODB](https://github.com/junkdog/artemis-odb). Tested for desktop and html5 via gwt.
 
 This particular game uses odb 2.1 fluid entities!
 
@@ -15,8 +15,3 @@ The project was created on top of [libgdx-artemis-quickstart](https://github.com
 
 #### License summary
 Code, graphics and sound are under a separate license. Feel free to do whatever with the code, the graphics and sound however may be copyrighted.
-
-[Play online](http://www.mostlyoriginal.net/play-littlefortuneplanet/)
-
-
-
