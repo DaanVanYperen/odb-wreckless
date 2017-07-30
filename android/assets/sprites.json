@@ -23,7 +23,15 @@
     },
     {
       "id": "player-jump",
-      "comment": "Player character walking right.",
+      "comment": "Player character jumping right.",
+      "x": 0,
+      "y": 392,
+      "width": 24,
+      "height": 24
+    },
+    {
+      "id": "player-fall",
+      "comment": "Player character falling right.",
       "x": 0,
       "y": 392,
       "width": 24,
@@ -31,7 +39,7 @@
     },
     {
       "id": "player-run",
-      "comment": "Player character walking right.",
+      "comment": "Player character running right.",
       "x": 24,
       "y": 392,
       "countX": 8,
@@ -58,7 +66,7 @@
     },
     {
       "id": "robot-run",
-      "comment": "Robot walking right.",
+      "comment": "Robot running right.",
       "x": 0,
       "y": 245,
       "width": 39,
@@ -66,7 +74,7 @@
     },
     {
       "id": "robot-fly",
-      "comment": "Robot walking right.",
+      "comment": "Robot flying right.",
       "x": 0,
       "y": 245,
       "width": 39,
