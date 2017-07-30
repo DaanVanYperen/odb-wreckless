@@ -431,5 +431,27 @@
       "width": 24,
       "height": 24
     }
+    {
+      "id": "gremlin-1-idle",
+      "comment": "Gremlin 1 idling.",
+      "x": 128,
+      "y": 184,
+      "countX": 5,
+      "countY": 1,
+      "milliseconds": 100,
+      "width": 24,
+      "height": 24
+    },
+    {
+      "id": "gremlin-1-walk",
+      "comment": "Gremlin 1 walking right.",
+      "x": 248,
+      "y": 184,
+      "countX": 9,
+      "countY": 1,
+      "milliseconds": 60,
+      "width": 24,
+      "height": 24
+    },
   ]
 }
