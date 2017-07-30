@@ -436,6 +436,12 @@
    <property name="trigger" value="start-running"/>
   </properties>
  </tile>
+ <tile id="209">
+  <properties>
+   <property name="angle" value="0"/>
+   <property name="entity" value="spout"/>
+  </properties>
+ </tile>
  <tile id="226">
   <properties>
    <property name="canhover" type="bool" value="true"/>
@@ -467,6 +473,18 @@
   <properties>
    <property name="entity" value="trigger"/>
    <property name="trigger" value="robot-land"/>
+  </properties>
+ </tile>
+ <tile id="240">
+  <properties>
+   <property name="angle" value="0"/>
+   <property name="entity" value="spout"/>
+  </properties>
+ </tile>
+ <tile id="241">
+  <properties>
+   <property name="angle" value="0"/>
+   <property name="entity" value="spout"/>
   </properties>
  </tile>
  <tile id="263">
@@ -517,6 +535,12 @@
  <tile id="271">
   <properties>
    <property name="solid" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="273">
+  <properties>
+   <property name="angle" value="0"/>
+   <property name="entity" value="spout"/>
   </properties>
  </tile>
  <tile id="295">
