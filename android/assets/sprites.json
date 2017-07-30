@@ -89,6 +89,26 @@
     {
       "id": "robot-fly",
       "comment": "Robot flying right.",
+      "x": 432,
+      "y": 240,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "robot-open",
+      "comment": "Robot awaiting battery.",
+      "x": 0,
+      "y": 288,
+      "countX": 6,
+      "countY": 1,
+      "milliseconds": 100,
+	  "repeat": false,s
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "robot-empty",
+      "comment": "Robot depleted.",
       "x": 0,
       "y": 240,
       "width": 48,
@@ -101,6 +121,54 @@
       "y": 80,
       "width": 5,
       "height": 5
+    },
+    {
+      "id": "charge-0",
+      "comment": "Fully depleted robot hologram.",
+      "x": 0,
+      "y": 204,
+      "width": 25,
+      "height": 12
+    },
+    {
+      "id": "charge-1",
+      "comment": "Uncharged robot hologram.",
+      "x": 0,
+      "y": 192,
+      "width": 25,
+      "height": 12
+    },
+    {
+      "id": "charge-2",
+      "comment": "Nearly depleted robot hologram.",
+      "x": 0,
+      "y": 180,
+      "width": 25,
+      "height": 12
+    },
+    {
+      "id": "charge-3",
+      "comment": "Half charged robot hologram.",
+      "x": 0,
+      "y": 168,
+      "width": 25,
+      "height": 12
+    },
+    {
+      "id": "charge-4",
+      "comment": "Pretty charged robot hologram.",
+      "x": 0,
+      "y": 156,
+      "width": 25,
+      "height": 12
+    },
+    {
+      "id": "charge-5",
+      "comment": "Fully charged robot hologram.",
+      "x": 0,
+      "y": 144,
+      "width": 25,
+      "height": 12
     }
   ]
 }
