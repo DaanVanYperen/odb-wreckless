@@ -40,7 +40,7 @@ public class FollowSystem extends FluidIteratingSystem {
         float dx = 0;
         float dy = 0;
 
-        if (following.posX() < e.posX() + ALLOWED_DISTANCE) {
+        if (following.posX() < e.posX() - ALLOWED_DISTANCE) {
             dx = -MOVEMENT_FACTOR;
             e.animFlippedX(true);
         }
@@ -67,7 +67,7 @@ public class FollowSystem extends FluidIteratingSystem {
                 } else {
                     if (e.posX() > targetX) {
                         dx = -MOVEMENT_FACTOR; // when too far ahead run slower.
-                    } else if (e.posX() < targetX) {
+                    } else if (e.posX() < targetX ) {
                         dx = RUN_FAST_PACE_FACTOR; // when too far behind run faster.
                     }
             }

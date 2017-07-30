@@ -99,12 +99,18 @@ public class PlayerControlSystem extends FluidIteratingSystem {
                 e.animId("player-walk");
             }
         }
-
         if (dy != 0)
         {
             e.physicsVy((dy * world.delta));
         }
 
+        if ( Math.abs(e.physicsVy()) > 0.05f ) {
+            if (dy > 0) {
+                e.animId("player-jump");
+            } else {
+                e.animId("player-fall");
+            }
+        }
     }
 
     private void socketCarried(E e, E socket) {
