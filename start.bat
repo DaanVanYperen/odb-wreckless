@@ -1,0 +1,2 @@
+gradlew desktop:run
+pause
