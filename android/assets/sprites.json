@@ -64,6 +64,14 @@
       "width": 48,
       "height": 48
     },
+	{
+      "id": "robot-idle-uncharged",
+      "comment": "Robot character idling without charge.",
+      "x": 288,
+      "y": 288,
+      "width": 48,
+      "height": 48
+    },
     {
       "id": "robot-walk",
       "comment": "Robot walking right.",
@@ -100,6 +108,30 @@
       "x": 0,
       "y": 288,
       "countX": 6,
+      "countY": 1,
+      "milliseconds": 100,
+	  "repeat": false,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "robot-close-battery",
+      "comment": "Robot eats battery.",
+      "x": 0,
+      "y": 336,
+      "countX": 8,
+      "countY": 1,
+      "milliseconds": 100,
+	  "repeat": false,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "robot-close-no-battery",
+      "comment": "Robot closes without battery.",
+      "x": 0,
+      "y": 464,
+      "countX": 8,
       "countY": 1,
       "milliseconds": 100,
 	  "repeat": false,
@@ -169,6 +201,22 @@
       "y": 144,
       "width": 25,
       "height": 12
+    },
+    {
+      "id": "exit-damaged",
+      "comment": "Damaged exit door.",
+      "x": 304,
+      "y": 0,
+      "width": 48,
+      "height": 64
+    },
+    {
+      "id": "exit-open",
+      "comment": "Opened exit door.",
+      "x": 352,
+      "y": 0,
+      "width": 48,
+      "height": 64
     }
   ]
 }
