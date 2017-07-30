@@ -275,5 +275,13 @@
       "width": 8,
       "height": 8
     },
+    {
+      "id": "particle",
+      "comment": "Pixel particle.",
+      "x": 21,
+      "y": 80,
+      "width": 1,
+      "height": 1
+    }
   ]
 }
