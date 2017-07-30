@@ -8,11 +8,13 @@ import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.game.component.Dead;
 import net.mostlyoriginal.game.component.Deadly;
 import net.mostlyoriginal.game.component.Mortal;
+import net.mostlyoriginal.game.component.Robot;
 import net.mostlyoriginal.game.screen.GameScreen;
 import net.mostlyoriginal.game.system.FollowSystem;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.map.EntitySpawnerSystem;
 import net.mostlyoriginal.game.system.map.MapCollisionSystem;
+import net.mostlyoriginal.game.system.render.MyAnimRenderSystem;
 import net.mostlyoriginal.game.system.render.TransitionSystem;
 
 /**
@@ -25,15 +27,27 @@ public class DeathSystem extends FluidIteratingSystem {
     private MapCollisionSystem mapCollisionSystem;
     private EntitySpawnerSystem entitySpawnerSystem;
     private ParticleSystem particleSystem;
+    private MyAnimRenderSystem animSystem;
 
     public DeathSystem() {
-        super(Aspect.all(Mortal.class, Pos.class));
+        super(Aspect.all(Pos.class).one(Mortal.class, Robot.class));
     }
 
     @Override
     protected void process(E e) {
-        if (!e.hasDead()) {
-            if (mapCollisionSystem.isLava(e.posX(), e.posY()) || touchingDeadlyStuffs(e)) {
+
+        if (e.hasRobot()) {
+            if (e.chargeCharge() > 0) {
+                E enemy = touchingDeadlyStuffs(e, true);
+                if (enemy != null) {
+                    e.chargeDecrease(0.2f);
+                    particleSystem.bloodExplosion(enemy.posX() + enemy.boundsCx(), enemy.posY() + enemy.boundsCy());
+                    enemy.deleteFromWorld();
+                    animSystem.forceAnim(e, "robot-fight-stand");
+                }
+            }
+        } else if (!e.hasDead()) {
+            if (mapCollisionSystem.isLava(e.posX(), e.posY()) || touchingDeadlyStuffs(e, false) != null) {
                 e.dead();
             }
         } else {
@@ -47,16 +61,16 @@ public class DeathSystem extends FluidIteratingSystem {
                 e.removeDead().removeMortal();
             }
         }
-
     }
 
-    private boolean touchingDeadlyStuffs(E e) {
+    private E touchingDeadlyStuffs(E e, boolean onlyMortals) {
 
         for (E o : allEntitiesWith(Deadly.class)) {
-            if (overlaps(o, e)) return true;
+            if (o == e) continue;
+            if (overlaps(o, e) && o.teamTeam() != e.teamTeam() && (!onlyMortals || o.hasMortal())) return o;
         }
 
-        return false;
+        return null;
     }
 
     private void doExit() {

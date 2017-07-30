@@ -13,6 +13,11 @@ public class Spout extends Component {
     public float sprayDuration = 4;
     public float sprayInterval = 0.04f;
     public float sprayCooldown = 0;
+    public Type type = Type.ACID;
+    public enum Type {
+        ACID,
+        GREMLIN
+    }
     public Spout() {
     }
 }

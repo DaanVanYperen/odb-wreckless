@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.game.component.Spout;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
+import net.mostlyoriginal.game.system.map.EntitySpawnerSystem;
 
 /**
  * @author Daan van Yperen
@@ -14,6 +15,7 @@ import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 public class SpoutSystem extends FluidIteratingSystem {
 
     private ParticleSystem particleSystem;
+    private EntitySpawnerSystem entitySpawnerSystem;
 
     public SpoutSystem() {
         super(Aspect.all(Spout.class, Pos.class));
@@ -35,8 +37,24 @@ public class SpoutSystem extends FluidIteratingSystem {
                 float angle = e.spoutAngle() + MathUtils.random(-2f,2f);
                 v2.set(10,0).setAngle(angle).add(e.posX() + e.boundsCx(),e.posY() + e.boundsCy());
 
-                particleSystem.acid(v2.x, v2.y, angle, e.spoutAngle() == 90 ? 50 : 20);
+                switch (e.spoutType()) {
+                    case ACID:
+                        spawnAcid(angle, v2.x, v2.y, e.spoutAngle() == 90 ? 50 : 20);
+                        break;
+                    case GREMLIN:
+                        spawnGremlin(angle, v2.x, v2.y);
+                        break;
+                }
+
             }
         }
+    }
+
+    private void spawnGremlin(float angle, float x, float y) {
+        entitySpawnerSystem.spawnGremlin(x-12,y-12);
+    }
+
+    private void spawnAcid(float angle, float x, float y, int force) {
+        particleSystem.acid(x, y, angle, force);
     }
 }
