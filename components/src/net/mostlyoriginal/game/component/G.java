@@ -4,6 +4,7 @@ package net.mostlyoriginal.game.component;
  * @author Daan van Yperen
  */
 public class G {
+    public static final float ROBOT_HOVER_ABOVE_PLAYER_HEIGHT = 8;
     public static Settings settings;
 
     public static final boolean PRODUCTION = false;
@@ -17,7 +18,7 @@ public class G {
     public static final int SIMULATION_HEIGHT = 220 + 50;
 
     public static final int LAYER_PLAYER = 1000;
-    public static final int LAYER_PLAYER_ROBOT = 900;
+    public static final int LAYER_PLAYER_ROBOT = 999;
     public static final float PACER_FOLLOW_DISTANCE = 160;
 
     public static int CAMERA_ZOOM = 2;

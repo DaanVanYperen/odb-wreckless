@@ -46,6 +46,8 @@ public class EntitySpawnerSystem extends BaseSystem {
             case "socket":
                 assembleBatterySlot(x, y, (Boolean) properties.get("powered"));
                 break;
+            case "hover":
+                break;
             default:
                 return false;
             //throw new RuntimeException("No idea how to spawn entity of type " + entity);
@@ -112,6 +114,7 @@ public class EntitySpawnerSystem extends BaseSystem {
         E().anim("robot-idle")
                 .pos(x, y)
                 .physics()
+                .robot()
                 .render(G.LAYER_PLAYER_ROBOT)
                 .follow()
                 .gravity()

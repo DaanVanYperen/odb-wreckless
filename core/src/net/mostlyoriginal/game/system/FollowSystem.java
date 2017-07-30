@@ -20,7 +20,7 @@ public class FollowSystem extends FluidIteratingSystem {
     public static final int ALLOWED_DISTANCE = 10;
     private static final float RUN_SLOW_PACE_FACTOR = 50;
     private static final float RUN_FAST_PACE_FACTOR = 1000;
-    private float MOVEMENT_FACTOR = 100;
+    private float MOVEMENT_FACTOR = 200;
     private float JUMP_FACTOR = 800;
     private MapCollisionSystem mapCollision;
 
@@ -49,6 +49,9 @@ public class FollowSystem extends FluidIteratingSystem {
             e.animFlippedX(false);
         }
 
+        boolean canHoverHere =
+                mapCollision.canHover(e.posX() + e.getBounds().minx + (e.getBounds().maxx - e.getBounds().minx) * 0.5f, e.posY() + e.getBounds().miny + 8);
+
         if ( e.isFlying() ) {
             float targetY = following.posY() + G.ROBOT_FLY_ABOVE_PLAYER_HEIGHT;
                 dy = JUMP_FACTOR * 0.5f;
@@ -58,6 +61,20 @@ public class FollowSystem extends FluidIteratingSystem {
             if (e.posY() < targetY - 50) {
                 dy = JUMP_FACTOR;
             }
+        } else {
+            if (canHoverHere) {
+                float targetY = following.posY() - e.posY() + G.ROBOT_HOVER_ABOVE_PLAYER_HEIGHT;
+                if ( targetY > 1f ) {
+                    dy = 50;
+                } else {
+                    dy -= 50;
+                }
+                e.animId("robot-fly");
+                e.removeGravity();
+
+                if ( e.physicsVy() > 100 ) e.physicsVy(100);
+                if ( e.physicsVy() < -100 ) e.physicsVy(-100);
+            } else e.gravity();
         }
 
         if ( e.isRunning() ) {
@@ -75,7 +92,9 @@ public class FollowSystem extends FluidIteratingSystem {
         }
 
         Bounds bounds = e.getBounds();
-        if ( !mapCollision.collides(e.posX() + (dx < 0 ? bounds.minx-4 : bounds.maxx+4), e.posY() - 4) && !e.isFlying()) {
+        float stepDownX = e.posX() + (dx < 0 ? bounds.minx - 4 : bounds.maxx + 4);
+        float stepDownY = e.posY() - 4;
+        if ( !canHoverHere && !mapCollision.canHover(stepDownX, stepDownY) && !mapCollision.collides(e, stepDownX, stepDownY) && !e.isFlying()) {
             dx=0;
             e.physicsVx(0);
         }
