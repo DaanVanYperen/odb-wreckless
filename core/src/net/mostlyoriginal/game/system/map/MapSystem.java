@@ -25,6 +25,7 @@ public class MapSystem extends BaseSystem {
 
     private EntitySpawnerSystem entitySpawnerSystem;
     private GameScreenAssetSystem assetSystem;
+    private MapCollisionSystem mapCollisionSystem;
 
     @Override
     protected void initialize() {
@@ -36,6 +37,10 @@ public class MapSystem extends BaseSystem {
         }
         width = layers.get(0).getWidth();
         height = layers.get(0).getHeight();
+
+        // need to do this before we purge the indicators from the map.
+        mapCollisionSystem.canHoverMask = getMask("canhover");
+        mapCollisionSystem.solidForRobotMask = getMask("solidforrobot");
 
         for (TiledMapTileSet tileSet : map.getTileSets()) {
             for (TiledMapTile tile : tileSet) {
@@ -83,6 +88,9 @@ public class MapSystem extends BaseSystem {
                             if (entitySpawnerSystem.spawnEntity(tx * G.CELL_SIZE, ty * G.CELL_SIZE, properties)) {
                                 layer.setCell(tx, ty, null);
                             }
+                        }
+                        if (properties.containsKey("invisible")) {
+                            layer.setCell(tx, ty, null);
                         }
                     }
                 }

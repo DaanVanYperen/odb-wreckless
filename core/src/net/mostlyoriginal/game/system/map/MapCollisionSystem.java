@@ -23,8 +23,8 @@ public class MapCollisionSystem extends FluidIteratingSystem {
 
     private boolean initialized;
     private MapMask solidMask;
-    private MapMask canHoverMask;
-    private MapMask solidForRobotMask;
+    protected MapMask canHoverMask;
+    protected MapMask solidForRobotMask;
 
     private Color RED = Color.valueOf("FF0000FF");
 
@@ -39,9 +39,6 @@ public class MapCollisionSystem extends FluidIteratingSystem {
             solidMask = mapSystem.getMask("solid");
         }
         solidMask.refresh();
-
-        canHoverMask = mapSystem.getMask("canhover");
-        solidForRobotMask = mapSystem.getMask("solidforrobot");
     }
 
     @Override

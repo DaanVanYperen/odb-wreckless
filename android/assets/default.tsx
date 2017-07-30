@@ -400,6 +400,7 @@
  </tile>
  <tile id="195">
   <properties>
+   <property name="invisible" type="bool" value="true"/>
    <property name="solidforrobot" type="bool" value="true"/>
   </properties>
  </tile>
@@ -438,6 +439,7 @@
  <tile id="226">
   <properties>
    <property name="canhover" type="bool" value="true"/>
+   <property name="invisible" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="228">

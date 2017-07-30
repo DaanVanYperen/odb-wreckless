@@ -47,8 +47,6 @@ public class EntitySpawnerSystem extends BaseSystem {
             case "socket":
                 assembleBatterySlot(x, y, (Boolean) properties.get("powered"), (String) properties.get("accept"));
                 break;
-            case "hover":
-                break;
             default:
                 return false;
             //throw new RuntimeException("No idea how to spawn entity of type " + entity);
@@ -108,7 +106,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .type(batteryType)
                 .render(G.LAYER_PLAYER - 1)
                 .gravity()
-                .bounds(0, 0, G.CELL_SIZE, G.CELL_SIZE)
+                .bounds(-8, -8, 24, 24)
                 .wallSensor();
     }
 
