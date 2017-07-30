@@ -79,6 +79,7 @@ public class GameScreen extends WorldScreen {
                         new SocketSystem(),
 
                         new CameraFollowSystem(),
+                        new PriorityAnimSystem(),
 
                         new ClearScreenSystem(Color.valueOf("031D1E")),
                         new MapRenderSystem(),

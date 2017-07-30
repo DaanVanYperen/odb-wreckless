@@ -16,6 +16,7 @@ import net.mostlyoriginal.game.component.Socket;
 import net.mostlyoriginal.game.component.map.WallSensor;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.map.MapCollisionSystem;
+import net.mostlyoriginal.game.system.render.MyAnimRenderSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 /**
@@ -28,6 +29,7 @@ public class PlayerControlSystem extends FluidIteratingSystem {
     private float JUMP_FACTOR = 15000;
     private SocketSystem socketSystem;
     private FollowSystem followSystem;
+    private MyAnimRenderSystem animSystem;
     private GameScreenAssetSystem assetSystem;
 
     public PlayerControlSystem() {
@@ -86,6 +88,7 @@ public class PlayerControlSystem extends FluidIteratingSystem {
                     socketCarried(e, socket);
                 } else {
                     callRobot(e);
+                    animSystem.forceAnim(e, playerAnimPrefix + "whistles");
                     //dropCarried(e);
                 }
             } else {
@@ -94,6 +97,7 @@ public class PlayerControlSystem extends FluidIteratingSystem {
                     carryItem(e, pickup);
                 } else if (onFloor) {
                     callRobot(e);
+                    animSystem.forceAnim(e, playerAnimPrefix + "whistles");
                 }
             }
         }
@@ -116,10 +120,12 @@ public class PlayerControlSystem extends FluidIteratingSystem {
 
             e.physicsVx(e.physicsVx() + (dx * world.delta));
             e.animId(playerAnimPrefix + "run");
+            e.removePriorityAnim();
         } else {
             if (dx != 0) {
                 e.physicsVx(e.physicsVx() + (dx * world.delta));
                 e.animId(playerAnimPrefix + "walk");
+                e.removePriorityAnim();
             }
         }
         if (dy != 0) {
@@ -153,16 +159,6 @@ public class PlayerControlSystem extends FluidIteratingSystem {
             }
             e.animLoop(true);
         }
-
-        if (e.hasWhistling()) {
-            e.whistlingCooldown(e.whistlingCooldown() - world.delta);
-            if (e.whistlingCooldown() <= 0) {
-                e.removeWhistling();
-            }
-            if (e.animId().equals(playerAnimPrefix + "idle")) {
-                e.animId(playerAnimPrefix + "whistles");
-            }
-        } else e.removeWhistling();
     }
 
     private void socketCarried(E e, E socket) {
@@ -193,7 +189,6 @@ public class PlayerControlSystem extends FluidIteratingSystem {
 
     private void callRobot(E e) {
         followSystem.createMarker(e);
-        e.whistling().animAge(0);
         assetSystem.playSfx("voice1");
     }
 }

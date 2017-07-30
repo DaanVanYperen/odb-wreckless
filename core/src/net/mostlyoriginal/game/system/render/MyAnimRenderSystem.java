@@ -5,6 +5,7 @@ package net.mostlyoriginal.game.system.render;
  */
 
 import com.artemis.Aspect;
+import com.artemis.E;
 import com.artemis.annotations.Wire;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -86,6 +87,13 @@ public class MyAnimRenderSystem extends DeferredEntityProcessingSystem {
     public float roundToPixels(final float val) {
         // since we use camera zoom rounding to integers doesn't work properly.
         return ((int)(val * cameraSystem.zoom)) / (float)cameraSystem.zoom;
+    }
+
+    public void forceAnim(E e, String id) {
+        Animation<TextureRegion> anim = abstractAssetSystem.get(id);
+        e.priorityAnim(id, anim.getFrameDuration(), anim.getPlayMode() == Animation.PlayMode.LOOP);
+        e.priorityAnimCooldown(anim.getFrameDuration() * anim.getKeyFrames().length);
+        e.priorityAnimAge(0);
     }
 
     private void drawAnimation(final Anim animation, final Angle angle, final Origin origin, final Pos position, String id, float scale) {
