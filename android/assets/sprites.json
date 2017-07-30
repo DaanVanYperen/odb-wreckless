@@ -259,6 +259,18 @@
       "height": 48
     },
     {
+      "id": "robot-wake-up",
+      "comment": "Robot wakes up from slumber.",
+      "x": 0,
+      "y": 592,
+      "countX": 8,
+      "countY": 1,
+      "milliseconds": 130,
+	  "repeat": false,
+      "width": 48,
+      "height": 48
+    },
+    {
       "id": "marker",
       "comment": ".",
       "x": 16,
