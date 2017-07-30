@@ -20,6 +20,7 @@ public class SpriteData implements Serializable {
     public int countX = 1;
     public int countY = 1;
     public float milliseconds = 200;
+    public boolean repeat = true;
 
     public SpriteData() {
     }

@@ -105,11 +105,26 @@ public class PlayerControlSystem extends FluidIteratingSystem {
         }
 
         if ( Math.abs(e.physicsVy()) > 0.05f ) {
-            if (dy > 0) {
+            if (e.physicsVy() > 0) {
                 e.animId("player-jump");
+                if ( !e.isJumping() ) {
+                    e.animLoop(false);
+                    e.animAge(0);
+                }
+                e.jumping();
             } else {
                 e.animId("player-fall");
+                if ( !e.isFalling() ) {
+                    e.animLoop(false);
+                    e.animAge(0);
+                }
+                e.falling();
             }
+        } else {
+            if ( e.isFlying() || e.isJumping() ) {
+                e.removeFlying().removeJumping();
+            }
+            e.animLoop(true);
         }
     }
 
