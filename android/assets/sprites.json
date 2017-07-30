@@ -64,6 +64,14 @@
       "width": 48,
       "height": 48
     },
+	{
+      "id": "robot-idle-uncharged",
+      "comment": "Robot character idling without charge.",
+      "x": 288,
+      "y": 288,
+      "width": 48,
+      "height": 48
+    },
     {
       "id": "robot-walk",
       "comment": "Robot walking right.",
