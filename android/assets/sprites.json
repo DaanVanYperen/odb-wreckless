@@ -394,6 +394,42 @@
       "y": 80,
       "width": 1,
       "height": 1
+    },
+    {
+      "id": "player-whistles",
+      "comment": "Player whistles for the robot.",
+      "x": 0,
+      "y": 512,
+      "countX": 10,
+      "countY": 1,	 
+      "milliseconds": 70,	  
+	  "repeat": false,
+      "width": 24,
+      "height": 24
+    },
+    {
+      "id": "player-red-battery-whistles",
+      "comment": "Player with red battery whistles for the robot.",
+      "x": 0,
+      "y": 536,
+      "countX": 10,
+      "countY": 1,	 
+      "milliseconds": 70,	  
+	  "repeat": false,
+      "width": 24,
+      "height": 24
+    },
+    {
+      "id": "player-green-battery-whistles",
+      "comment": "Player with green battery whistles for the robot.",
+      "x": 0,
+      "y": 560,
+      "countX": 10,
+      "countY": 1,	 
+      "milliseconds": 70,	  
+	  "repeat": false,
+      "width": 24,
+      "height": 24
     }
   ]
 }
