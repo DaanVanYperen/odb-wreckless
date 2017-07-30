@@ -41,13 +41,14 @@ public class SocketSystem extends FluidIteratingSystem {
 
     public void socket(E battery, E socket) {
         unsocket(battery);
-        socket.socketEntityId(battery.socketedInsideEntityId(socket.id()).invisible().id());
-        power(socket, true);
         assetSystem.playSfx("MOWV");
 
         if (socket.isRobot()) {
             battery.deleteFromWorld();
             socket.chargeIncrease(G.BARS_FOR_BATTERY);
+        } else {
+            socket.socketEntityId(battery.socketedInsideEntityId(socket.id()).invisible().id());
+            power(socket, true);
         }
     }
 
