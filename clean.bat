@@ -1,2 +1,2 @@
-gradlew clean
+call gradlew clean
 pause
