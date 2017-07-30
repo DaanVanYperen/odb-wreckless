@@ -17,6 +17,7 @@
       "y": 392,
       "countX": 8,
       "countY": 1,
+      "milliseconds": 50,
       "width": 24,
       "height": 24
     },
@@ -27,6 +28,7 @@
       "y": 392,
       "countX": 8,
       "countY": 1,
+      "milliseconds": 40,
       "width": 24,
       "height": 24
     },
