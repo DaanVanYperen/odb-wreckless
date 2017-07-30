@@ -2,11 +2,9 @@ package net.mostlyoriginal.game.system.map;
 
 import com.artemis.Aspect;
 import com.artemis.E;
-import com.artemis.systems.EntityProcessingSystem;
-import jdk.nashorn.internal.ir.Terminal;
+import com.badlogic.gdx.graphics.Color;
 import net.mostlyoriginal.api.component.basic.Bounds;
 import net.mostlyoriginal.api.component.basic.Pos;
-import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.physics.Physics;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.utils.MapMask;
@@ -25,6 +23,10 @@ public class MapCollisionSystem extends FluidIteratingSystem {
 
     private boolean initialized;
     private MapMask solidMask;
+    protected MapMask canHoverMask;
+    protected MapMask solidForRobotMask;
+
+    private Color RED = Color.valueOf("FF0000FF");
 
     public MapCollisionSystem() {
         super(Aspect.all(Physics.class, Pos.class, Bounds.class).exclude(Flying.class));
@@ -55,14 +57,36 @@ public class MapCollisionSystem extends FluidIteratingSystem {
             float px = pos.xy.x + physics.vx * world.delta;
             float py = pos.xy.y + physics.vy * world.delta;
 
-            if ((physics.vx > 0 && collides(px + bounds.maxx, py + bounds.miny + (bounds.maxy - bounds.miny) * 0.5f)) ||
-                    (physics.vx < 0 && collides(px + bounds.minx, py + bounds.miny + (bounds.maxy - bounds.miny) * 0.5f))) {
+            if ((physics.vx > 0 && collides(e, px + bounds.maxx, py + bounds.miny + (bounds.maxy - bounds.miny) * 0.5f)) ||
+                    (physics.vx < 0 && collides(e, px + bounds.minx, py + bounds.miny + (bounds.maxy - bounds.miny) * 0.5f))) {
                 physics.vx = physics.bounce > 0 ? -physics.vx * physics.bounce : 0;
                 px = pos.xy.x;
             }
 
-            if ((physics.vy > 0 && collides(px + bounds.minx + (bounds.maxx - bounds.minx) * 0.5f, py + bounds.maxy)) ||
-                    (physics.vy < 0 && collides(px + bounds.minx + (bounds.maxx - bounds.minx) * 0.5f, py + bounds.miny))) {
+            if ((physics.vx > 0 && collides(e, px + bounds.maxx, py + bounds.miny + (bounds.maxy - bounds.miny) * 0.25f)) ||
+                    (physics.vx < 0 && collides(e, px + bounds.minx, py + bounds.miny + (bounds.maxy - bounds.miny) * 0.25f))) {
+                physics.vx = physics.bounce > 0 ? -physics.vx * physics.bounce : 0;
+                px = pos.xy.x;
+            }
+
+            if ((physics.vx > 0 && collides(e, px + bounds.maxx, py + bounds.miny + (bounds.maxy - bounds.miny) * 0.75f)) ||
+                    (physics.vx < 0 && collides(e, px + bounds.minx, py + bounds.miny + (bounds.maxy - bounds.miny) * 0.75f))) {
+                physics.vx = physics.bounce > 0 ? -physics.vx * physics.bounce : 0;
+                px = pos.xy.x;
+            }
+
+            if ((physics.vy > 0 && collides(e, px + bounds.minx + (bounds.maxx - bounds.minx) * 0.5f, py + bounds.maxy)) ||
+                    (physics.vy < 0 && collides(e, px + bounds.minx + (bounds.maxx - bounds.minx) * 0.5f, py + bounds.miny))) {
+                physics.vy = physics.bounce > 0 ? -physics.vy * physics.bounce : 0;
+            }
+
+            if ((physics.vy > 0 && collides(e, px + bounds.minx + (bounds.maxx - bounds.minx) * 0.25f, py + bounds.maxy)) ||
+                    (physics.vy < 0 && collides(e, px + bounds.minx + (bounds.maxx - bounds.minx) * 0.25f, py + bounds.miny))) {
+                physics.vy = physics.bounce > 0 ? -physics.vy * physics.bounce : 0;
+            }
+
+            if ((physics.vy > 0 && collides(e, px + bounds.minx + (bounds.maxx - bounds.minx) * 0.75f, py + bounds.maxy)) ||
+                    (physics.vy < 0 && collides(e, px + bounds.minx + (bounds.maxx - bounds.minx) * 0.75f, py + bounds.miny))) {
                 physics.vy = physics.bounce > 0 ? -physics.vy * physics.bounce : 0;
             }
 
@@ -76,5 +100,37 @@ public class MapCollisionSystem extends FluidIteratingSystem {
         }
 
         return solidMask != null && solidMask.atScreen(x, y, true);
+    }
+
+    public boolean collides(final E e, final float x, final float y) {
+        if (DEBUG) {
+            E.E().pos(x - 2, y - 2).anim("marker").render(5000).terminal();
+        }
+
+        if (solidMask != null && solidMask.atScreen(x, y, true)) {
+            return true;
+        }
+
+        return e.isRobot() && solidForRobotMask(x,y);
+
+    }
+
+    public boolean canHover(final float x, final float y) {
+
+        if (DEBUG) {
+            E.E().pos(x - 2, y - 2).anim("marker").render(5000).tintColor(RED).terminal();
+        }
+
+        return canHoverMask != null && canHoverMask.atScreen(x, y, false);
+    }
+
+
+    public boolean solidForRobotMask(final float x, final float y) {
+
+        if (DEBUG) {
+            E.E().pos(x - 2, y - 2).anim("marker").render(5000).tintColor(RED).terminal();
+        }
+
+        return solidForRobotMask != null && solidForRobotMask.atScreen(x, y, true);
     }
 }

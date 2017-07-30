@@ -7,6 +7,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.physics.Physics;
+import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 import net.mostlyoriginal.api.system.physics.SocketSystem;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.Pickup;
@@ -14,6 +15,7 @@ import net.mostlyoriginal.game.component.PlayerControlled;
 import net.mostlyoriginal.game.component.Socket;
 import net.mostlyoriginal.game.component.map.WallSensor;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
+import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 /**
  * @author Daan van Yperen
@@ -24,6 +26,8 @@ public class PlayerControlSystem extends FluidIteratingSystem {
     private float MOVEMENT_FACTOR = 500;
     private float JUMP_FACTOR = 15000;
     private SocketSystem socketSystem;
+    private FollowSystem followSystem;
+    private GameScreenAssetSystem assetSystem;
 
     public PlayerControlSystem() {
         super(Aspect.all(PlayerControlled.class, Physics.class, WallSensor.class, Anim.class));
@@ -49,11 +53,12 @@ public class PlayerControlSystem extends FluidIteratingSystem {
         }
 
         float veloX = Math.abs(e.physicsVx());
-        if (Math.abs(dx) < 0.05f && veloX >= 0.1f ) {
+        if (Math.abs(dx) < 0.05f && veloX >= 0.1f) {
             e.physicsVx(e.physicsVx() - (e.physicsVx() * world.delta * 8f));
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.W) && (e.wallSensorOnFloor() || e.wallSensorOnPlatform())) {
+        boolean onFloor = e.wallSensorOnFloor() || e.wallSensorOnPlatform();
+        if (Gdx.input.isKeyPressed(Input.Keys.W) && onFloor) {
             dy = JUMP_FACTOR;
         }
 
@@ -63,14 +68,15 @@ public class PlayerControlSystem extends FluidIteratingSystem {
                 if (socket != null) {
                     socketCarried(e, socket);
                 } else {
-                    dropCarried(e);
+                    callRobot(e);
+                    //dropCarried(e);
                 }
             } else {
                 E pickup = firstTouchingEntityMatching(e, Aspect.all(Pickup.class));
                 if (pickup != null) {
                     carryItem(e, pickup);
-                } else {
-//                    callRobot(e);
+                } else if (onFloor) {
+                    callRobot(e);
                 }
             }
         }
@@ -80,7 +86,7 @@ public class PlayerControlSystem extends FluidIteratingSystem {
             E pacer = entityWithTag("pacer");
             if (dx == 0) {
                 float targetX = pacer.posX() - G.PACER_FOLLOW_DISTANCE;
-                if ( Math.abs(targetX) < 10f ) {
+                if (Math.abs(targetX) < 10f) {
                     e.physicsVx(pacer.physicsVx()); // when close match pacer speed to avoid wobble.
                 } else {
                     if (e.posX() > targetX) {
@@ -99,29 +105,28 @@ public class PlayerControlSystem extends FluidIteratingSystem {
                 e.animId("player-walk");
             }
         }
-        if (dy != 0)
-        {
+        if (dy != 0) {
             e.physicsVy((dy * world.delta));
         }
 
-        if ( Math.abs(e.physicsVy()) > 0.05f ) {
+        if (Math.abs(e.physicsVy()) > 0.05f) {
             if (e.physicsVy() > 0) {
                 e.animId("player-jump");
-                if ( !e.isJumping() ) {
+                if (!e.isJumping()) {
                     e.animLoop(false);
                     e.animAge(0);
                 }
                 e.jumping();
             } else {
                 e.animId("player-fall");
-                if ( !e.isFalling() ) {
+                if (!e.isFalling()) {
                     e.animLoop(false);
                     e.animAge(0);
                 }
                 e.falling();
             }
         } else {
-            if ( e.isFlying() || e.isJumping() ) {
+            if (e.isFlying() || e.isJumping()) {
                 e.removeFlying().removeJumping();
             }
             e.animLoop(true);
@@ -130,7 +135,10 @@ public class PlayerControlSystem extends FluidIteratingSystem {
 
     private void socketCarried(E e, E socket) {
         if (e.hasCarries()) {
-            socketSystem.socket(E.E(e.getCarries().entityId), socket);
+            E battery = E.E(e.getCarries().entityId);
+            if (battery.typeType().equals(socket.typeType())) {
+                socketSystem.socket(battery, socket);
+            }
             e.removeCarries();
         }
     }
@@ -152,8 +160,7 @@ public class PlayerControlSystem extends FluidIteratingSystem {
     }
 
     private void callRobot(E e) {
-        E robot = entityWithTag("robot");
-        robot.animFlippedX(e.animFlippedX());
-        robot.pos(e.posX(), e.posY());
+        followSystem.createMarker(e);
+        assetSystem.playSfx("voice1");
     }
 }

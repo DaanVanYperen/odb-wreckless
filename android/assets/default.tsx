@@ -126,6 +126,18 @@
    <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
+ <tile id="71">
+  <properties>
+   <property name="accept" value="battery2"/>
+   <property name="entity" value="socket"/>
+   <property name="powered" type="bool" value="false"/>
+  </properties>
+ </tile>
+ <tile id="72">
+  <properties>
+   <property name="entity" value="battery2"/>
+  </properties>
+ </tile>
  <tile id="73">
   <properties>
    <property name="solid" type="bool" value="true"/>
@@ -154,6 +166,13 @@
    <property name="cable-state" type="bool" value="true"/>
    <property name="cable-type" type="int" value="22"/>
    <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="103">
+  <properties>
+   <property name="accept" value="battery2"/>
+   <property name="entity" value="socket"/>
+   <property name="powered" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="113">
@@ -379,8 +398,15 @@
    <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
+ <tile id="195">
+  <properties>
+   <property name="invisible" type="bool" value="true"/>
+   <property name="solidforrobot" type="bool" value="true"/>
+  </properties>
+ </tile>
  <tile id="196">
   <properties>
+   <property name="accept" value="battery"/>
    <property name="entity" value="socket"/>
    <property name="powered" type="bool" value="false"/>
   </properties>
@@ -410,8 +436,15 @@
    <property name="trigger" value="start-running"/>
   </properties>
  </tile>
+ <tile id="226">
+  <properties>
+   <property name="canhover" type="bool" value="true"/>
+   <property name="invisible" type="bool" value="true"/>
+  </properties>
+ </tile>
  <tile id="228">
   <properties>
+   <property name="accept" value="battery"/>
    <property name="entity" value="socket"/>
    <property name="powered" type="bool" value="true"/>
   </properties>

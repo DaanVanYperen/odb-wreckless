@@ -2,9 +2,7 @@ package net.mostlyoriginal.game.system.map;
 
 import com.artemis.BaseSystem;
 import com.artemis.E;
-import com.artemis.Entity;
 import com.badlogic.gdx.maps.MapProperties;
-import net.mostlyoriginal.api.component.physics.Inbetween;
 import net.mostlyoriginal.api.system.physics.SocketSystem;
 import net.mostlyoriginal.game.component.G;
 
@@ -41,10 +39,13 @@ public class EntitySpawnerSystem extends BaseSystem {
                 assembleRobot(x, y);
                 break;
             case "battery":
-                assembleBattery(x, y);
+                assembleBattery(x, y, "battery");
+                break;
+            case "battery2":
+                assembleBattery(x, y, "battery2");
                 break;
             case "socket":
-                assembleBatterySlot(x, y, (Boolean) properties.get("powered"));
+                assembleBatterySlot(x, y, (Boolean) properties.get("powered"), (String) properties.get("accept"));
                 break;
             default:
                 return false;
@@ -57,17 +58,18 @@ public class EntitySpawnerSystem extends BaseSystem {
         E().pos(x,y - 5000).bounds(0,0,16,10000).trigger(trigger);
     }
 
-    private void assembleBatterySlot(float x, float y, boolean b) {
+    private void assembleBatterySlot(float x, float y, boolean b, String batteryType) {
         E socket = E();
         socket.anim()
                 .pos(x, y)
-                .socketAnimSocketed("socket_on")
-                .socketAnimEmpty("socket_off")
+                .socketAnimSocketed("socket_on_" + batteryType)
+                .socketAnimEmpty("socket_off_" + batteryType)
+                .type(batteryType)
                 .render(G.LAYER_PLAYER - 1)
                 .bounds(0, 0, G.CELL_SIZE, G.CELL_SIZE);
 
         if (b) {
-            socketSystem.socket(assembleBattery(x, y), socket);
+            socketSystem.socket(assembleBattery(x, y, batteryType), socket);
             powerSystem.powerMapCoordsAround((int) (x / G.CELL_SIZE + 0.5f), (int) (y / G.CELL_SIZE + 0.5f), true);
         } else {
             powerSystem.powerMapCoordsAround((int) (x / G.CELL_SIZE + 0.5f), (int) (y / G.CELL_SIZE + 0.5f), false);
@@ -97,14 +99,14 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .bounds(0, 0, 16, 16);
     }
 
-    private E assembleBattery(float x, float y) {
-        return E().anim("battery")
+    private E assembleBattery(float x, float y, String batteryType) {
+        return E().anim(batteryType)
                 .pos(x, y)
                 .physics().pickup()
-
+                .type(batteryType)
                 .render(G.LAYER_PLAYER - 1)
                 .gravity()
-                .bounds(0, 0, G.CELL_SIZE, G.CELL_SIZE)
+                .bounds(-8, -8, 24, 24)
                 .wallSensor();
     }
 
@@ -112,6 +114,7 @@ public class EntitySpawnerSystem extends BaseSystem {
         E().anim("robot-idle")
                 .pos(x, y)
                 .physics()
+                .robot()
                 .render(G.LAYER_PLAYER_ROBOT)
                 .follow()
                 .gravity()
