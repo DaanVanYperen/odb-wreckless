@@ -4,6 +4,8 @@ package net.mostlyoriginal.game.component;
  * @author Daan van Yperen
  */
 public class G {
+    public static Settings settings;
+
     public static final boolean PRODUCTION = false;
 
     public static final boolean DEBUG_SKIP_INTRO = (!PRODUCTION && false);
