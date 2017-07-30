@@ -15,6 +15,7 @@ import net.mostlyoriginal.game.component.PlayerControlled;
 import net.mostlyoriginal.game.component.Socket;
 import net.mostlyoriginal.game.component.map.WallSensor;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
+import net.mostlyoriginal.game.system.map.MapCollisionSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 /**
@@ -60,6 +61,10 @@ public class PlayerControlSystem extends FluidIteratingSystem {
         boolean onFloor = e.wallSensorOnFloor() || e.wallSensorOnPlatform();
         if (Gdx.input.isKeyPressed(Input.Keys.W) && onFloor) {
             dy = JUMP_FACTOR;
+        }
+
+        if (!G.PRODUCTION) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.F6)) MapCollisionSystem.DEBUG=!MapCollisionSystem.DEBUG;
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.E) || Gdx.input.isKeyJustPressed(Input.Keys.X)) {
