@@ -69,13 +69,17 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .bounds(0, 0, G.CELL_SIZE, G.CELL_SIZE);
 
         if (b) {
-            socketSystem.socket(assembleBattery(x, y, batteryType), socket);
-            powerSystem.powerMapCoordsAround((int) (x / G.CELL_SIZE + 0.5f), (int) (y / G.CELL_SIZE + 0.5f), true);
+            spawnBatteryInSocket(batteryType, socket);
         } else {
             powerSystem.powerMapCoordsAround((int) (x / G.CELL_SIZE + 0.5f), (int) (y / G.CELL_SIZE + 0.5f), false);
         }
 
 
+    }
+
+    public void spawnBatteryInSocket(String batteryType, E socket) {
+        socketSystem.socket(assembleBattery(socket.posX(), socket.posY(), batteryType), socket);
+        powerSystem.powerMapCoordsAround((int) (socket.posX() / G.CELL_SIZE + 0.5f), (int) (socket.posY() / G.CELL_SIZE + 0.5f), true);
     }
 
     private void assemblePlayer(float x, float y) {
@@ -128,7 +132,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .wallSensor();
 
         E().anim("robot-idle")
-                .tag("robot-charge").pos(x, y).bounds(0,0,25, 12);
+                .tag("robot-charge").pos(x, y).bounds(0, 0, 25, 12);
 
     }
 }

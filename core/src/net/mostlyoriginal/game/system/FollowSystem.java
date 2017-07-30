@@ -23,6 +23,7 @@ public class FollowSystem extends FluidIteratingSystem {
     private float MOVEMENT_FACTOR = 200;
     private float JUMP_FACTOR = 800;
     private MapCollisionSystem mapCollision;
+    private SocketSystem socketSystem;
 
     public FollowSystem() {
         super(Aspect.all(Follow.class, Physics.class, WallSensor.class, Anim.class));
@@ -61,6 +62,9 @@ public class FollowSystem extends FluidIteratingSystem {
             }
         }
 
+        boolean canHoverHere =
+                mapCollision.canHover(e.posX() + e.getBounds().minx + (e.getBounds().maxx - e.getBounds().minx) * 0.5f, e.posY() + e.getBounds().miny + 8);
+
         if (following != null && e.chargeCharge() > 0L) {
 
             if (following.posX() < e.posX() - ALLOWED_DISTANCE) {
@@ -71,9 +75,6 @@ public class FollowSystem extends FluidIteratingSystem {
                 dx = MOVEMENT_FACTOR;
                 e.animFlippedX(false);
             }
-
-            boolean canHoverHere =
-                    mapCollision.canHover(e.posX() + e.getBounds().minx + (e.getBounds().maxx - e.getBounds().minx) * 0.5f, e.posY() + e.getBounds().miny + 8);
 
             if (e.isFlying()) {
                 float targetY = following.posY() + G.ROBOT_FLY_ABOVE_PLAYER_HEIGHT;
@@ -133,7 +134,7 @@ public class FollowSystem extends FluidIteratingSystem {
 
         if (dx != 0) {
             e.physicsVx(e.physicsVx() + (dx * world.delta));
-            e.animId(e.isRunning() ? "robot-run" : "robot-walk");
+            e.animId(e.isRunning() ? "robot-run" : (canHoverHere ? "robot-fly" : "robot-walk"));
         }
         if (dy != 0) {
             e.physicsVy(e.physicsVy() + (dy * world.delta));
@@ -147,7 +148,11 @@ public class FollowSystem extends FluidIteratingSystem {
     }
 
     private void expendCharge(E e, float cost) {
+        boolean hasCharge = e.chargeCharge() > 0;
         e.chargeDecrease(cost * world.delta);
+        if ( hasCharge && e.chargeCharge() <= 0 ) {
+            socketSystem.respawnRobotBatteries();
+        }
     }
 
     private void updateChargeIndicator(E e) {
@@ -158,7 +163,7 @@ public class FollowSystem extends FluidIteratingSystem {
         if (e.chargeCharge() >= 4) chargeIndicator.animId("charge-4");
         else if (e.chargeCharge() >= 3) chargeIndicator.animId("charge-3");
         else if (e.chargeCharge() >= 2) chargeIndicator.animId("charge-2");
-        else if (e.chargeCharge() >= 1) chargeIndicator.animId("charge-1");
-        else if (e.chargeCharge() >= 0) chargeIndicator.animId("charge-0");
+        else if (e.chargeCharge() > 0) chargeIndicator.animId("charge-1");
+        else chargeIndicator.animId("charge-0");
     }
 }
