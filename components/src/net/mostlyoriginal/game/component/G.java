@@ -5,6 +5,7 @@ package net.mostlyoriginal.game.component;
  */
 public class G {
     public static final float ROBOT_HOVER_ABOVE_PLAYER_HEIGHT = 8;
+    public static final float BARS_NEEDED_FOR_BREAKING_DOOR = 3;
     public static Settings settings;
 
     public static final boolean PRODUCTION = false;

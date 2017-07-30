@@ -25,10 +25,29 @@ public class ExitSystem extends FluidIteratingSystem {
         E player = entityWithTag("player");
         E robot = entityWithTag("robot");
 
-        if (overlaps(player, e) && overlaps(robot, e)) {
-            e.removeExit();
-            G.level++;
-            transitionSystem.transition(GameScreen.class, 0.1f);
+        if ( overlaps(robot, e) ) {
+            if ( robot.chargeCharge() < G.BARS_NEEDED_FOR_BREAKING_DOOR ) {
+                robot.needsBatteries();
+            } else {
+                e.chargeCooldown(e.chargeCooldown -= world.delta);
+                if ( e.chargeCooldown() < 2 && !e.chargeBroken()) {
+                    e.chargeBroken(true);
+                    E.E().pos(e).animId()
+                }
+                if ( e.chargeCooldown() < 1 && !e.chargeOpen()) {
+                    e.chargeOpen(true);
+                }
+            }
+        } else robot.removeNeedsBatteries();
+
+        if ( e.chargeOpen() && overlaps(player, e) && overlaps(robot, e)) {
+            doExit(e);
         }
+    }
+
+    private void doExit(E e) {
+        e.removeExit();
+        G.level++;
+        transitionSystem.transition(GameScreen.class, 0.1f);
     }
 }
