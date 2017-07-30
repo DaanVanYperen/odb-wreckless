@@ -7,6 +7,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.physics.Physics;
+import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 import net.mostlyoriginal.api.system.physics.SocketSystem;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.Pickup;
@@ -14,6 +15,7 @@ import net.mostlyoriginal.game.component.PlayerControlled;
 import net.mostlyoriginal.game.component.Socket;
 import net.mostlyoriginal.game.component.map.WallSensor;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
+import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 /**
  * @author Daan van Yperen
@@ -24,6 +26,8 @@ public class PlayerControlSystem extends FluidIteratingSystem {
     private float MOVEMENT_FACTOR = 500;
     private float JUMP_FACTOR = 15000;
     private SocketSystem socketSystem;
+    private FollowSystem followSystem;
+    private GameScreenAssetSystem assetSystem;
 
     public PlayerControlSystem() {
         super(Aspect.all(PlayerControlled.class, Physics.class, WallSensor.class, Anim.class));
@@ -53,7 +57,8 @@ public class PlayerControlSystem extends FluidIteratingSystem {
             e.physicsVx(e.physicsVx() - (e.physicsVx() * world.delta * 8f));
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.W) && (e.wallSensorOnFloor() || e.wallSensorOnPlatform())) {
+        boolean onFloor = e.wallSensorOnFloor() || e.wallSensorOnPlatform();
+        if (Gdx.input.isKeyPressed(Input.Keys.W) && onFloor) {
             dy = JUMP_FACTOR;
         }
 
@@ -63,14 +68,15 @@ public class PlayerControlSystem extends FluidIteratingSystem {
                 if (socket != null) {
                     socketCarried(e, socket);
                 } else {
-                    dropCarried(e);
+                    callRobot(e);
+                    //dropCarried(e);
                 }
             } else {
                 E pickup = firstTouchingEntityMatching(e, Aspect.all(Pickup.class));
                 if (pickup != null) {
                     carryItem(e, pickup);
-                } else {
-//                    callRobot(e);
+                } else if (onFloor) {
+                    callRobot(e);
                 }
             }
         }
@@ -154,8 +160,7 @@ public class PlayerControlSystem extends FluidIteratingSystem {
     }
 
     private void callRobot(E e) {
-        E robot = entityWithTag("robot");
-        robot.animFlippedX(e.animFlippedX());
-        robot.pos(e.posX(), e.posY());
+        followSystem.createMarker(e);
+        assetSystem.playSfx("voice1");
     }
 }

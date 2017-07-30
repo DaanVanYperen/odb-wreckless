@@ -3,6 +3,7 @@ package net.mostlyoriginal.game.system.common;
 import com.artemis.Aspect;
 import com.artemis.Component;
 import com.artemis.E;
+import com.artemis.Entity;
 import com.artemis.managers.TagManager;
 import com.artemis.systems.IteratingSystem;
 import net.mostlyoriginal.api.component.basic.Bounds;
@@ -71,7 +72,8 @@ public abstract class FluidIteratingSystem extends IteratingSystem {
     }
 
     protected E entityWithTag(String tag) {
-        return E(world.getSystem(TagManager.class).getEntity(tag));
+        final Entity entity = world.getSystem(TagManager.class).getEntity(tag);
+        return entity != null ? E(entity) : null;
 
     }
 }
