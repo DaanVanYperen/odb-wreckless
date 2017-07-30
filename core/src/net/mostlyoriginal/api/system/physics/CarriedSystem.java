@@ -29,6 +29,6 @@ public class CarriedSystem extends FluidIteratingSystem {
     @Override
     protected void process(E e) {
         E pickup = E(e.getCarries().entityId);
-        pickup.pos(e.posX() + e.carriesAnchorX(), e.posY() + e.carriesAnchorY());
+        pickup.pos(e.posX() + e.carriesAnchorX() + pickup.boundsMinx() + pickup.boundsMaxx() * 0.5f, e.posY() + e.carriesAnchorY());
     }
 }

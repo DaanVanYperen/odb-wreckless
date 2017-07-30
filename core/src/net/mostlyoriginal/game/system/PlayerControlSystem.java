@@ -15,6 +15,7 @@ import net.mostlyoriginal.game.component.PlayerControlled;
 import net.mostlyoriginal.game.component.Socket;
 import net.mostlyoriginal.game.component.map.WallSensor;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
+import net.mostlyoriginal.game.system.map.MapCollisionSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 /**
@@ -60,6 +61,10 @@ public class PlayerControlSystem extends FluidIteratingSystem {
         boolean onFloor = e.wallSensorOnFloor() || e.wallSensorOnPlatform();
         if (Gdx.input.isKeyPressed(Input.Keys.W) && onFloor) {
             dy = JUMP_FACTOR;
+        }
+
+        if (!G.PRODUCTION) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.F6)) MapCollisionSystem.DEBUG=!MapCollisionSystem.DEBUG;
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.E) || Gdx.input.isKeyJustPressed(Input.Keys.X)) {
@@ -109,6 +114,11 @@ public class PlayerControlSystem extends FluidIteratingSystem {
             e.physicsVy((dy * world.delta));
         }
 
+
+        if ( e.hasCarries() && e.carriesEntityId() != 0 ) {
+            e.carriesAnchorX(e.animFlippedX() ? 4 : -4);
+        }
+
         if (Math.abs(e.physicsVy()) > 0.05f) {
             if (e.physicsVy() > 0) {
                 e.animId("player-jump");
@@ -138,8 +148,8 @@ public class PlayerControlSystem extends FluidIteratingSystem {
             E battery = E.E(e.getCarries().entityId);
             if (battery.typeType().equals(socket.typeType())) {
                 socketSystem.socket(battery, socket);
+                e.removeCarries();
             }
-            e.removeCarries();
         }
     }
 
@@ -155,7 +165,7 @@ public class PlayerControlSystem extends FluidIteratingSystem {
             socketSystem.unsocket(pickup);
         }
         e.carriesEntityId(pickup.id());
-        e.carriesAnchorY((int) e.boundsMaxy());
+        e.carriesAnchorY((int) e.boundsMaxy() - 4);
         pickup.removeGravity();
     }
 

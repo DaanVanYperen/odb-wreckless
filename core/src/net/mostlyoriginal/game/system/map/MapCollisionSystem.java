@@ -16,7 +16,7 @@ import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
  */
 public class MapCollisionSystem extends FluidIteratingSystem {
 
-    private static boolean DEBUG = true;
+    public static boolean DEBUG = false;
 
     private MapSystem mapSystem;
     private CameraSystem cameraSystem;

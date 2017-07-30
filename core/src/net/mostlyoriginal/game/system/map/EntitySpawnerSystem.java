@@ -55,7 +55,7 @@ public class EntitySpawnerSystem extends BaseSystem {
     }
 
     private void assembleTrigger(float x, float y, String trigger) {
-        E().pos(x,y - 5000).bounds(0,0,16,10000).trigger(trigger);
+        E().pos(x, y - 5000).bounds(0, 0, 16, 10000).trigger(trigger);
     }
 
     private void assembleBatterySlot(float x, float y, boolean b, String batteryType) {
@@ -69,13 +69,17 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .bounds(0, 0, G.CELL_SIZE, G.CELL_SIZE);
 
         if (b) {
-            socketSystem.socket(assembleBattery(x, y, batteryType), socket);
-            powerSystem.powerMapCoordsAround((int) (x / G.CELL_SIZE + 0.5f), (int) (y / G.CELL_SIZE + 0.5f), true);
+            spawnBatteryInSocket(batteryType, socket);
         } else {
             powerSystem.powerMapCoordsAround((int) (x / G.CELL_SIZE + 0.5f), (int) (y / G.CELL_SIZE + 0.5f), false);
         }
 
 
+    }
+
+    public void spawnBatteryInSocket(String batteryType, E socket) {
+        socketSystem.socket(assembleBattery(socket.posX(), socket.posY(), batteryType), socket);
+        powerSystem.powerMapCoordsAround((int) (socket.posX() / G.CELL_SIZE + 0.5f), (int) (socket.posY() / G.CELL_SIZE + 0.5f), true);
     }
 
     private void assemblePlayer(float x, float y) {
@@ -114,6 +118,10 @@ public class EntitySpawnerSystem extends BaseSystem {
         E().anim("robot-idle")
                 .pos(x, y)
                 .physics()
+                .charge()
+                .socketAnimSocketed(null)
+                .socketAnimEmpty(null)
+                .type("battery2")
                 .robot()
                 .render(G.LAYER_PLAYER_ROBOT)
                 .follow()
@@ -122,5 +130,9 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .bounds(0, 0, 39, 43)
                 .tag("robot")
                 .wallSensor();
+
+        E().anim("robot-idle")
+                .tag("robot-charge").pos(x, y).bounds(0, 0, 25, 12);
+
     }
 }
