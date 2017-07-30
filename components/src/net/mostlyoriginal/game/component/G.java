@@ -18,7 +18,8 @@ public class G {
     public static final int SIMULATION_HEIGHT = 220 + 50;
 
     public static final int LAYER_PLAYER = 1000;
-    public static final int LAYER_PLAYER_ROBOT = 999;
+    public static final int LAYER_PLAYER_ROBOT = 998;
+    public static final int LAYER_PLAYER_ROBOT_BATTERY = 999;
     public static final float PACER_FOLLOW_DISTANCE = 160;
 
     public static int CAMERA_ZOOM = 2;
@@ -30,4 +31,9 @@ public class G {
     public static final int SCREEN_HEIGHT = (SIMULATION_HEIGHT + CARD_HEIGHT + MARGIN_BETWEEN_CARD_AND_SIM + MARGIN_BETWEEN_SIM_AND_ROOF) * CAMERA_ZOOM;
     public static int level = 1;
     public static float ROBOT_FLY_ABOVE_PLAYER_HEIGHT = 100;
+
+    public static final float BAR_PER_SECOND_LOST_FOR_FLYING = 0.05f;
+    public static final float BAR_PER_SECOND_LOST_FOR_HOVERING = 0.25f;
+    public static final float BAR_PER_SECOND_LOST_FOR_WALKING = 0.01f;
+    public static final float BARS_FOR_BATTERY = 3.5f;
 }

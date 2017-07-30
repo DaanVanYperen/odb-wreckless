@@ -55,7 +55,7 @@ public class EntitySpawnerSystem extends BaseSystem {
     }
 
     private void assembleTrigger(float x, float y, String trigger) {
-        E().pos(x,y - 5000).bounds(0,0,16,10000).trigger(trigger);
+        E().pos(x, y - 5000).bounds(0, 0, 16, 10000).trigger(trigger);
     }
 
     private void assembleBatterySlot(float x, float y, boolean b, String batteryType) {
@@ -114,6 +114,10 @@ public class EntitySpawnerSystem extends BaseSystem {
         E().anim("robot-idle")
                 .pos(x, y)
                 .physics()
+                .charge()
+                .socketAnimSocketed(null)
+                .socketAnimEmpty(null)
+                .type("battery2")
                 .robot()
                 .render(G.LAYER_PLAYER_ROBOT)
                 .follow()
@@ -122,5 +126,9 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .bounds(0, 0, 39, 43)
                 .tag("robot")
                 .wallSensor();
+
+        E().anim("robot-idle")
+                .tag("robot-charge").pos(x, y).bounds(0,0,25, 12);
+
     }
 }

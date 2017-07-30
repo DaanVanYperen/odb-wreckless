@@ -47,12 +47,21 @@ public class FollowSystem extends FluidIteratingSystem {
         e.angleRotation(0);
         e.physicsVr(0);
 
-        E following = !e.isRunning() ? entityWithTag("marker") : entityWithTag("player");
+        E player = entityWithTag("player");
+        E following = !e.isRunning() ? entityWithTag("marker") : player;
 
         float dx = 0;
         float dy = 0;
 
-        if (following != null) {
+        if (e.chargeCharge() <= 0L) {
+            e.animId("robot-empty");
+        } else {
+            if (overlaps(player, e) && player.hasCarries() && player.carriesEntityId() != 0 && E.E(player.carriesEntityId()).typeType().equals("battery2")) {
+                e.animId("robot-open"); // open up if player carries an object.
+            }
+        }
+
+        if (following != null && e.chargeCharge() > 0L) {
 
             if (following.posX() < e.posX() - ALLOWED_DISTANCE) {
                 dx = -MOVEMENT_FACTOR;
@@ -75,6 +84,7 @@ public class FollowSystem extends FluidIteratingSystem {
                 if (e.posY() < targetY - 50) {
                     dy = JUMP_FACTOR;
                 }
+                expendCharge(e, G.BAR_PER_SECOND_LOST_FOR_FLYING);
             } else {
                 if (canHoverHere) {
                     float targetY = following.posY() - e.posY() + G.ROBOT_HOVER_ABOVE_PLAYER_HEIGHT;
@@ -88,7 +98,11 @@ public class FollowSystem extends FluidIteratingSystem {
 
                     if (e.physicsVy() > 100) e.physicsVy(100);
                     if (e.physicsVy() < -100) e.physicsVy(-100);
-                } else e.gravity();
+                    expendCharge(e, G.BAR_PER_SECOND_LOST_FOR_HOVERING);
+                } else {
+                    e.gravity();
+                    expendCharge(e, G.BAR_PER_SECOND_LOST_FOR_WALKING);
+                }
             }
 
             if (e.isRunning()) {
@@ -113,6 +127,8 @@ public class FollowSystem extends FluidIteratingSystem {
                 e.physicsVx(0);
             }
 
+        } else {
+            e.gravity();
         }
 
         if (dx != 0) {
@@ -126,5 +142,23 @@ public class FollowSystem extends FluidIteratingSystem {
         if (e.isFlying()) {
             e.animId("robot-fly");
         }
+
+        updateChargeIndicator(e);
+    }
+
+    private void expendCharge(E e, float cost) {
+        e.chargeDecrease(cost * world.delta);
+    }
+
+    private void updateChargeIndicator(E e) {
+        E chargeIndicator = entityWithTag("robot-charge");
+        chargeIndicator.render(G.LAYER_PLAYER_ROBOT_BATTERY);
+        chargeIndicator.posX( e.posX() + (chargeIndicator.boundsMaxx() * 0.5f));
+        chargeIndicator.posY( e.posY() + e.boundsMaxy() + 5);
+        if (e.chargeCharge() >= 4) chargeIndicator.animId("charge-4");
+        else if (e.chargeCharge() >= 3) chargeIndicator.animId("charge-3");
+        else if (e.chargeCharge() >= 2) chargeIndicator.animId("charge-2");
+        else if (e.chargeCharge() >= 1) chargeIndicator.animId("charge-1");
+        else if (e.chargeCharge() >= 0) chargeIndicator.animId("charge-0");
     }
 }

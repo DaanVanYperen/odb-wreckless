@@ -138,8 +138,8 @@ public class PlayerControlSystem extends FluidIteratingSystem {
             E battery = E.E(e.getCarries().entityId);
             if (battery.typeType().equals(socket.typeType())) {
                 socketSystem.socket(battery, socket);
+                e.removeCarries();
             }
-            e.removeCarries();
         }
     }
 
