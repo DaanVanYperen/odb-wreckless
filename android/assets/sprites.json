@@ -193,6 +193,22 @@
       "y": 144,
       "width": 25,
       "height": 12
+    },
+    {
+      "id": "exit-damaged",
+      "comment": "Damaged exit door.",
+      "x": 304,
+      "y": 0,
+      "width": 48,
+      "height": 64
+    },
+    {
+      "id": "exit-open",
+      "comment": "Opened exit door.",
+      "x": 352,
+      "y": 0,
+      "width": 48,
+      "height": 64
     }
   ]
 }
