@@ -28,7 +28,7 @@
       "y": 392,
       "countX": 5,
       "countY": 1,	 
-      "milliseconds": 50,	  
+      "milliseconds": 70,	  
 	  "repeat": false,
       "width": 24,
       "height": 24
@@ -40,7 +40,7 @@
       "y": 392,
       "countX": 4,
       "countY": 1,	 
-      "milliseconds": 50,	  
+      "milliseconds": 70,	  
 	  "repeat": false,
       "width": 24,
       "height": 24
@@ -60,33 +60,33 @@
       "id": "robot-idle",
       "comment": "Robot character idling.",
       "x": 0,
-      "y": 245,
-      "width": 39,
-      "height": 43
+      "y": 240,
+      "width": 48,
+      "height": 48
     },
     {
       "id": "robot-walk",
       "comment": "Robot walking right.",
       "x": 0,
-      "y": 245,
-      "width": 39,
-      "height": 43
+      "y": 240,
+      "width": 48,
+      "height": 48
     },
     {
       "id": "robot-run",
       "comment": "Robot running right.",
       "x": 0,
-      "y": 245,
-      "width": 39,
-      "height": 43
+      "y": 240,
+      "width": 48,
+      "height": 48
     },
     {
       "id": "robot-fly",
       "comment": "Robot flying right.",
       "x": 0,
-      "y": 245,
-      "width": 39,
-      "height": 43
+      "y": 240,
+      "width": 48,
+      "height": 48
     },
     {
       "id": "marker",
