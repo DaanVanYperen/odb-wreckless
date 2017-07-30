@@ -41,7 +41,7 @@ public class PlayerControlSystem extends FluidIteratingSystem {
         String playerAnimPrefix = "player-";
 
         // use carry animation group.
-        if ( e.hasCarries() && e.carriesEntityId() != 0) {
+        if (e.hasCarries() && e.carriesEntityId() != 0) {
             E carried = E.E(e.carriesEntityId());
             carried.invisible();
             playerAnimPrefix = carried.typeType().equals("battery2") ? "player-red-battery-" : "player-green-battery-";
@@ -76,7 +76,7 @@ public class PlayerControlSystem extends FluidIteratingSystem {
         }
 
         if (!G.PRODUCTION) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.F6)) MapCollisionSystem.DEBUG=!MapCollisionSystem.DEBUG;
+            if (Gdx.input.isKeyJustPressed(Input.Keys.F6)) MapCollisionSystem.DEBUG = !MapCollisionSystem.DEBUG;
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.E) || Gdx.input.isKeyJustPressed(Input.Keys.X)) {
@@ -127,7 +127,7 @@ public class PlayerControlSystem extends FluidIteratingSystem {
         }
 
 
-        if ( e.hasCarries() && e.carriesEntityId() != 0 ) {
+        if (e.hasCarries() && e.carriesEntityId() != 0) {
             e.carriesAnchorX(e.animFlippedX() ? 4 : -4);
         }
 
@@ -153,6 +153,16 @@ public class PlayerControlSystem extends FluidIteratingSystem {
             }
             e.animLoop(true);
         }
+
+        if (e.hasWhistling()) {
+            e.whistlingCooldown(e.whistlingCooldown() - world.delta);
+            if (e.whistlingCooldown() <= 0) {
+                e.removeWhistling();
+            }
+            if (e.animId().equals(playerAnimPrefix + "idle")) {
+                e.animId(playerAnimPrefix + "whistles");
+            }
+        } else e.removeWhistling();
     }
 
     private void socketCarried(E e, E socket) {
@@ -183,6 +193,7 @@ public class PlayerControlSystem extends FluidIteratingSystem {
 
     private void callRobot(E e) {
         followSystem.createMarker(e);
+        e.whistling().animAge(0);
         assetSystem.playSfx("voice1");
     }
 }
