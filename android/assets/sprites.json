@@ -13,8 +13,10 @@
     {
       "id": "player-walk",
       "comment": "Player character walking right.",
-      "x": 0,
+      "x": 24,
       "y": 392,
+      "countX": 8,
+      "countY": 1,
       "width": 24,
       "height": 24
     },
