@@ -31,6 +31,13 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         loadSprites();
         loadSounds(
                 new String[]{
+                        "Blip!",
+                        "deathsound",
+                        "deepsound",
+                        "MOWV",
+                        "squeak",
+                        "voice1",
+                        "VWOM"
                 }
         );
 

@@ -28,7 +28,7 @@ public class MapSystem extends BaseSystem {
 
     @Override
     protected void initialize() {
-        map = new TmxMapLoader().load("map1.tmx");
+        map = new TmxMapLoader().load("map" + G.level + ".tmx");
 
         layers = new Array<TiledMapTileLayer>();
         for (MapLayer rawLayer : map.getLayers()) {

@@ -8,6 +8,7 @@ import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.Socket;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.map.PowerSystem;
+import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 import static com.artemis.E.E;
 
@@ -15,6 +16,7 @@ import static com.artemis.E.E;
 public class SocketSystem extends FluidIteratingSystem {
 
     private PowerSystem powerSystem;
+    private GameScreenAssetSystem assetSystem;
 
     public SocketSystem() {
         super(Aspect.all(Socket.class, Anim.class));
@@ -37,6 +39,7 @@ public class SocketSystem extends FluidIteratingSystem {
         unsocket(e);
         socket.socketEntityId(e.socketedInsideEntityId(socket.id()).invisible().id());
         power(socket, true);
+        assetSystem.playSfx("MOWV");
     }
 
     private void power(E socket, boolean enable) {
@@ -49,6 +52,7 @@ public class SocketSystem extends FluidIteratingSystem {
             power(socket, false);
             socket.socketEntityId(0);
             e.removeSocketedInside().removeInvisible();
+            assetSystem.playSfx("VWOM");
         }
     }
 }

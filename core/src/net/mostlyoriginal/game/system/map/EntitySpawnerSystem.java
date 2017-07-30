@@ -31,6 +31,9 @@ public class EntitySpawnerSystem extends BaseSystem {
             case "player":
                 assemblePlayer(x, y);
                 break;
+            case "exit":
+                assembleExit(x,y);
+                break;
             case "robot":
                 assembleRobot(x, y);
                 break;
@@ -77,6 +80,14 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .cameraFocus()
                 .tag("player")
                 .playerControlled();
+    }
+
+    private void assembleExit(float x, float y) {
+        E().anim("exit")
+                .pos(x, y)
+                .render(G.LAYER_PLAYER-100)
+                .exit()
+                .bounds(0, 0, 16, 16);
     }
 
     private E assembleBattery(float x, float y) {

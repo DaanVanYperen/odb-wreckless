@@ -47,12 +47,16 @@ public class PowerSystem extends PassiveSystem {
         if (cableMask.atGrid(x, y, false)) {
             TiledMapTileLayer cableLayer = (TiledMapTileLayer) mapSystem.map.getLayers().get("cables");
             final TiledMapTileLayer.Cell cell = cableLayer.getCell(x, y);
-            MapProperties properties = cell.getTile().getProperties();
-            if ((Boolean) properties.get("cable-state") != enable) {
-                cell.setTile(enable ?
-                        tilesOn.get((Integer) properties.get("cable-type")) :
-                        tilesOff.get((Integer) properties.get("cable-type")));
-                powerMapCoordsAround(x, y, enable);
+            if (cell != null) {
+                MapProperties properties = cell.getTile().getProperties();
+                if (properties.containsKey("cable-state")) {
+                    if ((Boolean) properties.get("cable-state") != enable) {
+                        cell.setTile(enable ?
+                                tilesOn.get((Integer) properties.get("cable-type")) :
+                                tilesOff.get((Integer) properties.get("cable-type")));
+                        powerMapCoordsAround(x, y, enable);
+                    }
+                }
             }
         }
     }

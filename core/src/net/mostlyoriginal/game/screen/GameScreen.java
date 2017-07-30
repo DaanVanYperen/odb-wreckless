@@ -17,6 +17,7 @@ import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.system.FollowSystem;
 import net.mostlyoriginal.game.system.PlayerControlSystem;
 import net.mostlyoriginal.game.system.TerminalSystem;
+import net.mostlyoriginal.game.system.detection.ExitSystem;
 import net.mostlyoriginal.game.system.map.*;
 import net.mostlyoriginal.game.system.render.CameraFollowSystem;
 import net.mostlyoriginal.game.system.render.MyAnimRenderSystem;
@@ -50,8 +51,6 @@ public class GameScreen extends WorldScreen {
                         new MapSystem(),
                         new PowerSystem(),
 
-                        new TransitionSystem(GdxArtemisGame.getInstance()),
-
                         new GameScreenAssetSystem(),
                         new GameScreenSetupSystem(),
 
@@ -73,14 +72,16 @@ public class GameScreen extends WorldScreen {
 
                         new CameraFollowSystem(),
 
-                        new ClearScreenSystem(new Color(0,0,0.1f,1f)),
+                        new ClearScreenSystem(new Color(0, 0, 0.1f, 1f)),
                         new MapRenderSystem(),
 
                         renderBatchingSystem = new RenderBatchingSystem(),
                         new MyAnimRenderSystem(renderBatchingSystem),
 
                         new MapRenderInFrontSystem(),
-                        new TerminalSystem()
+                        new TerminalSystem(),
+                        new ExitSystem(),
+                        new TransitionSystem(GdxArtemisGame.getInstance())
                 ).build());
     }
 
