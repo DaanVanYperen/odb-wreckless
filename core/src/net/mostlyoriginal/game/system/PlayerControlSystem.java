@@ -106,12 +106,12 @@ public class PlayerControlSystem extends FluidIteratingSystem {
 
         if ( Math.abs(e.physicsVy()) > 0.05f ) {
             if (e.physicsVy() > 0) {
-                e.jumping();
                 e.animId("player-jump");
                 if ( !e.isJumping() ) {
                     e.animLoop(false);
                     e.animAge(0);
                 }
+                e.jumping();
             } else {
                 e.animId("player-fall");
                 if ( !e.isFalling() ) {
@@ -120,7 +120,12 @@ public class PlayerControlSystem extends FluidIteratingSystem {
                 }
                 e.falling();
             }
-        } else e.animLoop(true);
+        } else {
+            if ( e.isFlying() || e.isJumping() ) {
+                e.removeFlying().removeJumping();
+            }
+            e.animLoop(true);
+        }
     }
 
     private void socketCarried(E e, E socket) {

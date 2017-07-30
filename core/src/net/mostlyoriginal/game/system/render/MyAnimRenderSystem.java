@@ -96,7 +96,6 @@ public class MyAnimRenderSystem extends DeferredEntityProcessingSystem {
         final Animation<TextureRegion> gdxanim = (Animation<TextureRegion>) abstractAssetSystem.get(id);
         if ( gdxanim == null) return;
 
-
         final TextureRegion frame = gdxanim.getKeyFrame(animation.age, animation.loop);
 
         float ox = frame.getRegionWidth() * scale * origin.xy.x;
