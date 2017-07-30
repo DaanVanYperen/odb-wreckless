@@ -207,6 +207,28 @@
       "height": 48
     },
     {
+      "id": "robot-fight-stand",
+      "comment": "Robot fighting while standing still.",
+      "x": 0,
+      "y": 640,
+      "countX": 4,
+      "countY": 1,
+      "milliseconds": 80,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "robot-fight-walk",
+      "comment": "Robot fighting while walking right.",
+      "x": 0,
+      "y": 688,
+      "countX": 8,
+      "countY": 1,
+      "milliseconds": 80,
+      "width": 48,
+      "height": 48
+    },
+    {
       "id": "robot-fly",
       "comment": "Robot flying right.",
       "x": 432,
