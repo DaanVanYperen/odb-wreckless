@@ -47,6 +47,9 @@ public class EntitySpawnerSystem extends BaseSystem {
             case "battery2":
                 assembleBattery(x, y, "battery2");
                 break;
+            case "spout":
+                assembleSpout(x,y, (Integer)properties.get("angle"));
+                return false;
             case "socket":
                 assembleBatterySlot(x, y, (Boolean) properties.get("powered"), (String) properties.get("accept"));
                 break;
@@ -55,6 +58,10 @@ public class EntitySpawnerSystem extends BaseSystem {
             //throw new RuntimeException("No idea how to spawn entity of type " + entity);
         }
         return true;
+    }
+
+    private void assembleSpout(float x, float y, Integer angle) {
+        E().pos(x,y).bounds(0,0,16,16).spoutAngle(angle);
     }
 
     private void assembleTrigger(float x, float y, String trigger) {
@@ -124,7 +131,6 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .pos(x, y)
                 .physics()
                 .charge()
-                .mortal()
                 .socketAnimSocketed(null)
                 .socketAnimEmpty(null)
                 .type("battery2")

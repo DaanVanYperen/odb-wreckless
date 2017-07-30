@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.operation.JamOperationFactory;
-import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.api.system.core.PassiveSystem;
 import net.mostlyoriginal.game.component.G;
 
@@ -21,6 +20,7 @@ public class ParticleSystem extends PassiveSystem {
     private Color BLOOD_COLOR = Color.valueOf("4B1924");
     private Color COLOR_WHITE = Color.valueOf("FFFFFF");
     private Color COLOR_DUST = Color.valueOf("D4CFB899");
+    private Color COLOR_ACID = Color.valueOf("5F411CDD");
 
     private Builder bakery = new Builder();
 
@@ -28,12 +28,27 @@ public class ParticleSystem extends PassiveSystem {
         bakery
                 .color(COLOR_DUST)
                 .at(x, y)
-                .angle(angle,angle)
+                .angle(angle, angle)
                 .speed(10, 15)
                 .fadeAfter(0.1f)
                 .rotateRandomly()
                 .size(1, 3)
-                .create(1,3);
+                .create(1, 3);
+    }
+
+    public void acid(float x, float y, float angle, int force) {
+        bakery
+                .color(COLOR_ACID)
+                .at(x, y)
+                .angle(angle, angle)
+                .speed(force, force + 5)
+                .deadly()
+                .fadeAfter(4f)
+                .slowlySplatDown()
+                .rotateRandomly()
+                .size(1, 2)
+                .solid()
+                .create(1, 5);
     }
 
     public void bloodExplosion(float x, float y) {
@@ -41,7 +56,7 @@ public class ParticleSystem extends PassiveSystem {
                 .color(BLOOD_COLOR)
                 .at(x, y)
                 .angle(0, 360)
-                .speed(20, 30)
+                .speed(50, 80)
                 .slowlySplatDown()
                 .size(1, 3)
                 .solid()
@@ -55,7 +70,7 @@ public class ParticleSystem extends PassiveSystem {
         v2.set(speed, 0).setAngle(angle);
 
         return E.E()
-                .pos(x, y)
+                .pos(x - scale * 0.5f, y - scale * 0.5f)
                 .anim("particle")
                 .scale(scale)
                 .renderLayer(G.LAYER_PARTICLES)
@@ -86,6 +101,7 @@ public class ParticleSystem extends PassiveSystem {
         private Tint tmpFrom = new Tint();
         private Tint tmpTo = new Tint();
         private float rotateR = 0;
+        private boolean withDeadly;
 
         public Builder() {
             reset();
@@ -108,7 +124,7 @@ public class ParticleSystem extends PassiveSystem {
                         random(minAngle, maxAngle),
                         random(minSpeed, maxSpeed),
                         random(minScale, maxScale))
-                        .tint(color.r,color.g,color.b,color.a);
+                        .tint(color.r, color.g, color.b, color.a);
 
                 if (withGravity) {
                     e.gravity();
@@ -116,6 +132,9 @@ public class ParticleSystem extends PassiveSystem {
                 }
                 if (withSolid) {
                     e.mapWallSensor();
+                } else e.ethereal();
+                if (withDeadly) {
+                    e.deadly();
                 }
                 if (rotateR != 0) {
                     e.physicsVr(rotateR).angle();
@@ -148,12 +167,13 @@ public class ParticleSystem extends PassiveSystem {
             maxAngle = 0;
             minSpeed = 0;
             maxSpeed = 0;
+            withDeadly = false;
             minScale = 1;
             maxScale = 1;
             gravityY = 1;
             fadeDelay = -1;
             withSolid = false;
-            rotateR=0;
+            rotateR = 0;
         }
 
         public Builder angle(float minAngle, float maxAngle) {
@@ -212,7 +232,12 @@ public class ParticleSystem extends PassiveSystem {
         }
 
         public Builder rotateRandomly() {
-            rotateR = MathUtils.random(-100f,100f);
+            rotateR = MathUtils.random(-100f, 100f);
+            return this;
+        }
+
+        public Builder deadly() {
+            withDeadly = true;
             return this;
         }
     }
