@@ -114,6 +114,11 @@ public class PlayerControlSystem extends FluidIteratingSystem {
             e.physicsVy((dy * world.delta));
         }
 
+
+        if ( e.hasCarries() && e.carriesEntityId() != 0 ) {
+            e.carriesAnchorX(e.animFlippedX() ? 4 : -4);
+        }
+
         if (Math.abs(e.physicsVy()) > 0.05f) {
             if (e.physicsVy() > 0) {
                 e.animId("player-jump");
@@ -160,7 +165,7 @@ public class PlayerControlSystem extends FluidIteratingSystem {
             socketSystem.unsocket(pickup);
         }
         e.carriesEntityId(pickup.id());
-        e.carriesAnchorY((int) e.boundsMaxy());
+        e.carriesAnchorY((int) e.boundsMaxy() - 4);
         pickup.removeGravity();
     }
 

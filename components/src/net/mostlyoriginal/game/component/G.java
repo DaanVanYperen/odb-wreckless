@@ -37,4 +37,5 @@ public class G {
     public static final float BAR_PER_SECOND_LOST_FOR_HOVERING = 0.25f;
     public static final float BAR_PER_SECOND_LOST_FOR_WALKING = 0.01f;
     public static final float BARS_FOR_BATTERY = 3.5f;
+    public static int LAYER_DOOR = 990;
 }

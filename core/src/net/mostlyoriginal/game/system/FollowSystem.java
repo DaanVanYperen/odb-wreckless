@@ -148,7 +148,7 @@ public class FollowSystem extends FluidIteratingSystem {
         updateChargeIndicator(e);
     }
 
-    private void expendCharge(E e, float cost) {
+    public void expendCharge(E e, float cost) {
         boolean hasCharge = e.chargeCharge() > 0;
         e.chargeDecrease(cost * world.delta);
         if ( hasCharge && e.chargeCharge() <= 0 ) {

@@ -6,6 +6,7 @@ import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.game.component.Exit;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.screen.GameScreen;
+import net.mostlyoriginal.game.system.FollowSystem;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.render.TransitionSystem;
 
@@ -15,6 +16,7 @@ import net.mostlyoriginal.game.system.render.TransitionSystem;
 public class ExitSystem extends FluidIteratingSystem {
 
     public TransitionSystem transitionSystem;
+    private FollowSystem followSystem;
 
     public ExitSystem() {
         super(Aspect.all(Exit.class, Pos.class));
@@ -29,18 +31,21 @@ public class ExitSystem extends FluidIteratingSystem {
             if ( robot.chargeCharge() < G.BARS_NEEDED_FOR_BREAKING_DOOR ) {
                 robot.needsBatteries();
             } else {
-                e.chargeCooldown(e.chargeCooldown -= world.delta);
-                if ( e.chargeCooldown() < 2 && !e.chargeBroken()) {
-                    e.chargeBroken(true);
-                    E.E().pos(e).animId()
+                e.exitCooldown(e.exitCooldown() - world.delta);
+                if ( e.exitCooldown() < 2 && !e.exitBroken()) {
+                    e.exitBroken(true);
+                    followSystem.expendCharge(e,G.BARS_NEEDED_FOR_BREAKING_DOOR/2f);
+                    E.E().posX(e.posX()-16).posY(e.posY()).animId("exit-damaged").render(G.LAYER_DOOR);
                 }
-                if ( e.chargeCooldown() < 1 && !e.chargeOpen()) {
-                    e.chargeOpen(true);
+                if ( e.exitCooldown() < 1 && !e.exitOpen()) {
+                    e.exitOpen(true);
+                    followSystem.expendCharge(e,G.BARS_NEEDED_FOR_BREAKING_DOOR/2f);
+                    E.E().posX(e.posX()-16).posY(e.posY()).animId("exit-open").render(G.LAYER_DOOR+1);
                 }
             }
         } else robot.removeNeedsBatteries();
 
-        if ( e.chargeOpen() && overlaps(player, e) && overlaps(robot, e)) {
+        if ( e.exitCooldown() <= 0 && overlaps(player, e) && overlaps(robot, e)) {
             doExit(e);
         }
     }
