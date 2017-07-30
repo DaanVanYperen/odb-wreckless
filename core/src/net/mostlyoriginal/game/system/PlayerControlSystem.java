@@ -20,7 +20,7 @@ import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
  */
 public class PlayerControlSystem extends FluidIteratingSystem {
     private static final float RUN_SLOW_PACE_FACTOR = 500;
-    private static final float RUN_FAST_PACE_FACTOR = 2000;
+    private static final float RUN_FAST_PACE_FACTOR = 1000;
     private float MOVEMENT_FACTOR = 500;
     private float JUMP_FACTOR = 15000;
     private SocketSystem socketSystem;
@@ -44,12 +44,12 @@ public class PlayerControlSystem extends FluidIteratingSystem {
             e.animFlippedX(true);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            dx = MOVEMENT_FACTOR;
+            dx = e.isRunning() ? RUN_FAST_PACE_FACTOR : MOVEMENT_FACTOR;
             e.animFlippedX(false);
         }
 
         float veloX = Math.abs(e.physicsVx());
-        if (Math.abs(dx) < 0.05f && veloX >= 0.1f && (e.wallSensorOnFloor() || e.wallSensorOnPlatform())) {
+        if (Math.abs(dx) < 0.05f && veloX >= 0.1f ) {
             e.physicsVx(e.physicsVx() - (e.physicsVx() * world.delta * 8f));
         }
 
@@ -85,14 +85,14 @@ public class PlayerControlSystem extends FluidIteratingSystem {
                 } else {
                     if (e.posX() > targetX) {
                         dx = RUN_SLOW_PACE_FACTOR; // when too far ahead run slower.
-                    }
-                    if (e.posX() < targetX) {
+                    } else if (e.posX() < targetX) {
                         dx = RUN_FAST_PACE_FACTOR; // when too far behind run faster.
                     }
                 }
-            };
+            }
+
             e.physicsVx(e.physicsVx() + (dx * world.delta));
-            e.animId("player-walk");
+            e.animId("player-run");
         } else {
             if (dx != 0) {
                 e.physicsVx(e.physicsVx() + (dx * world.delta));

@@ -28,4 +28,5 @@ public class G {
     private static final int MARGIN_BETWEEN_SIM_AND_ROOF = 20;
     public static final int SCREEN_HEIGHT = (SIMULATION_HEIGHT + CARD_HEIGHT + MARGIN_BETWEEN_CARD_AND_SIM + MARGIN_BETWEEN_SIM_AND_ROOF) * CAMERA_ZOOM;
     public static int level = 1;
+    public static float ROBOT_FLY_ABOVE_PLAYER_HEIGHT = 100;
 }

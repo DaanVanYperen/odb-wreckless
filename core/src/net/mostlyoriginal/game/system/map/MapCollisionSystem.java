@@ -10,6 +10,7 @@ import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.physics.Physics;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.utils.MapMask;
+import net.mostlyoriginal.game.component.Flying;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 
 /**
@@ -26,7 +27,7 @@ public class MapCollisionSystem extends FluidIteratingSystem {
     private MapMask solidMask;
 
     public MapCollisionSystem() {
-        super(Aspect.all(Physics.class, Pos.class, Bounds.class));
+        super(Aspect.all(Physics.class, Pos.class, Bounds.class).exclude(Flying.class));
     }
 
     @Override

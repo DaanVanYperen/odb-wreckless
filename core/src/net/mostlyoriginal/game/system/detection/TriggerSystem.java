@@ -24,28 +24,36 @@ public class TriggerSystem extends FluidIteratingSystem {
         E player = entityWithTag("player");
         E robot = entityWithTag("robot");
 
-        if (overlaps(player, e) || overlaps(robot, e)) {
+        boolean robotOverlaps = overlaps(robot, e);
+        if (overlaps(player, e) || robotOverlaps) {
             switch (e.triggerTrigger()) {
                 case "start-running":
                     player.running();
                     player.removeCameraFocus();
                     E.E().pos(player.getPos()).cameraFocus().physicsFriction(0).physicsVx(100).tag("pacer");
                     robot.running();
+                    e.removeTrigger();
                     break;
                 case "stop-running":
                     player.removeRunning();
                     player.cameraFocus();
                     robot.removeRunning();
                     entityWithTag("pacer").deleteFromWorld();
+                    e.removeTrigger();
                     break;
                 case "robot-land":
-                    robot.flying();
+                    if ( robotOverlaps ) {
+                        robot.removeFlying();
+                        e.removeTrigger();
+                    }
                     break;
                 case "robot-hover":
-                    robot.removeFlying();
+                    if ( robotOverlaps ) {
+                        robot.flying();
+                        e.removeTrigger();
+                    }
                     break;
             }
-            e.removeTrigger();
         }
     }
 }
