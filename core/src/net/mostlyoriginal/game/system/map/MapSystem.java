@@ -7,7 +7,6 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.utils.Array;
-import net.mostlyoriginal.api.system.core.PassiveSystem;
 import net.mostlyoriginal.api.utils.MapMask;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
@@ -40,6 +39,7 @@ public class MapSystem extends BaseSystem {
 
         // need to do this before we purge the indicators from the map.
         mapCollisionSystem.canHoverMask = getMask("canhover");
+        mapCollisionSystem.deadlyMask = getMask("deadly");
         mapCollisionSystem.solidForRobotMask = getMask("solidforrobot");
 
         for (TiledMapTileSet tileSet : map.getTileSets()) {
