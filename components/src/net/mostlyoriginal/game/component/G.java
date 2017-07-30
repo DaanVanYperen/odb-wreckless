@@ -8,6 +8,7 @@ public class G {
 
     public static final boolean DEBUG_SKIP_INTRO = (!PRODUCTION && false);
     public static final boolean DEBUG_NO_MUSIC = (!PRODUCTION && false);
+    public static final int DEBUG_STARTING_LEVEL = !PRODUCTION ? 1 : 1;
     public static final int CELL_SIZE = 16;
 
     public static final int SIMULATION_WIDTH = 220 + 50;
@@ -15,6 +16,7 @@ public class G {
 
     public static final int LAYER_PLAYER = 1000;
     public static final int LAYER_PLAYER_ROBOT = 900;
+    public static final float PACER_FOLLOW_DISTANCE = 160;
 
     public static int CAMERA_ZOOM = 2;
     public static final int SCREEN_WIDTH = SIMULATION_WIDTH * 2 * CAMERA_ZOOM;

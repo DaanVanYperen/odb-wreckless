@@ -32,7 +32,10 @@ public class EntitySpawnerSystem extends BaseSystem {
                 assemblePlayer(x, y);
                 break;
             case "exit":
-                assembleExit(x,y);
+                assembleExit(x, y);
+                break;
+            case "trigger":
+                assembleTrigger(x, y, (String) properties.get("trigger"));
                 break;
             case "robot":
                 assembleRobot(x, y);
@@ -45,9 +48,13 @@ public class EntitySpawnerSystem extends BaseSystem {
                 break;
             default:
                 return false;
-                //throw new RuntimeException("No idea how to spawn entity of type " + entity);
+            //throw new RuntimeException("No idea how to spawn entity of type " + entity);
         }
         return true;
+    }
+
+    private void assembleTrigger(float x, float y, String trigger) {
+        E().pos(x,y - 5000).bounds(0,0,16,10000).trigger(trigger);
     }
 
     private void assembleBatterySlot(float x, float y, boolean b) {
@@ -61,9 +68,9 @@ public class EntitySpawnerSystem extends BaseSystem {
 
         if (b) {
             socketSystem.socket(assembleBattery(x, y), socket);
-            powerSystem.powerMapCoordsAround((int)(x/G.CELL_SIZE + 0.5f),(int)(y/G.CELL_SIZE + 0.5f),true);
+            powerSystem.powerMapCoordsAround((int) (x / G.CELL_SIZE + 0.5f), (int) (y / G.CELL_SIZE + 0.5f), true);
         } else {
-            powerSystem.powerMapCoordsAround((int)(x/G.CELL_SIZE + 0.5f),(int)(y/G.CELL_SIZE + 0.5f),false);
+            powerSystem.powerMapCoordsAround((int) (x / G.CELL_SIZE + 0.5f), (int) (y / G.CELL_SIZE + 0.5f), false);
         }
 
 
@@ -85,7 +92,7 @@ public class EntitySpawnerSystem extends BaseSystem {
     private void assembleExit(float x, float y) {
         E().anim("exit")
                 .pos(x, y)
-                .render(G.LAYER_PLAYER-100)
+                .render(G.LAYER_PLAYER - 100)
                 .exit()
                 .bounds(0, 0, 16, 16);
     }

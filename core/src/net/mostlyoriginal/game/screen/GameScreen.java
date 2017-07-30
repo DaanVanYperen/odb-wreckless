@@ -18,6 +18,7 @@ import net.mostlyoriginal.game.system.FollowSystem;
 import net.mostlyoriginal.game.system.PlayerControlSystem;
 import net.mostlyoriginal.game.system.TerminalSystem;
 import net.mostlyoriginal.game.system.detection.ExitSystem;
+import net.mostlyoriginal.game.system.detection.TriggerSystem;
 import net.mostlyoriginal.game.system.map.*;
 import net.mostlyoriginal.game.system.render.CameraFollowSystem;
 import net.mostlyoriginal.game.system.render.MyAnimRenderSystem;
@@ -58,6 +59,7 @@ public class GameScreen extends WorldScreen {
 
                         new WallSensorSystem(),
                         new CollisionSystem(),
+                        new TriggerSystem(),
 
 
                         new FollowSystem(),

@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.physics.Physics;
 import net.mostlyoriginal.api.system.physics.SocketSystem;
+import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.Pickup;
 import net.mostlyoriginal.game.component.PlayerControlled;
 import net.mostlyoriginal.game.component.Socket;
@@ -18,6 +19,8 @@ import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
  * @author Daan van Yperen
  */
 public class PlayerControlSystem extends FluidIteratingSystem {
+    private static final float RUN_SLOW_PACE_FACTOR = 500;
+    private static final float RUN_FAST_PACE_FACTOR = 2000;
     private float MOVEMENT_FACTOR = 500;
     private float JUMP_FACTOR = 15000;
     private SocketSystem socketSystem;
@@ -72,13 +75,36 @@ public class PlayerControlSystem extends FluidIteratingSystem {
             }
         }
 
-        if (dx != 0) {
+        if (e.isRunning()) {
+            e.animFlippedX(false);
+            E pacer = entityWithTag("pacer");
+            if (dx == 0) {
+                float targetX = pacer.posX() - G.PACER_FOLLOW_DISTANCE;
+                if ( Math.abs(targetX) < 10f ) {
+                    e.physicsVx(pacer.physicsVx()); // when close match pacer speed to avoid wobble.
+                } else {
+                    if (e.posX() > targetX) {
+                        dx = RUN_SLOW_PACE_FACTOR; // when too far ahead run slower.
+                    }
+                    if (e.posX() < targetX) {
+                        dx = RUN_FAST_PACE_FACTOR; // when too far behind run faster.
+                    }
+                }
+            };
             e.physicsVx(e.physicsVx() + (dx * world.delta));
             e.animId("player-walk");
+        } else {
+            if (dx != 0) {
+                e.physicsVx(e.physicsVx() + (dx * world.delta));
+                e.animId("player-walk");
+            }
         }
-        if (dy != 0) {
+
+        if (dy != 0)
+        {
             e.physicsVy((dy * world.delta));
         }
+
     }
 
     private void socketCarried(E e, E socket) {

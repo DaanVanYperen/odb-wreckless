@@ -41,12 +41,17 @@ public class FollowSystem extends FluidIteratingSystem {
         float dx = 0;
         float dy = 0;
 
-        if (following.posX() < e.posX() - ALLOWED_DISTANCE) {
+        if (following.posX() < e.posX() + ALLOWED_DISTANCE) {
             dx = -MOVEMENT_FACTOR;
             e.animFlippedX(true);
         }
         if (following.posX() > e.posX() + ALLOWED_DISTANCE) {
             dx = MOVEMENT_FACTOR;
+            e.animFlippedX(false);
+        }
+
+        if ( e.isRunning() ) {
+            dx += MOVEMENT_FACTOR / 2f;
             e.animFlippedX(false);
         }
 

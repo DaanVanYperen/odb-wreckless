@@ -1,2 +1,2 @@
-gradlew desktop:run
+call gradlew desktop:run
 pause

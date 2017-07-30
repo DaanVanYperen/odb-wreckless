@@ -17,7 +17,7 @@ public class GdxArtemisGame extends Game {
 
 	public void restart()
 	{
-		G.level=1;
+		G.level=G.DEBUG_STARTING_LEVEL != 0 ? G.DEBUG_STARTING_LEVEL : 1;
 		setScreen(new GameScreen());
 	}
 
