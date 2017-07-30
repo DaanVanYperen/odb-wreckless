@@ -15,10 +15,12 @@ import net.mostlyoriginal.api.system.render.ClearScreenSystem;
 import net.mostlyoriginal.game.GdxArtemisGame;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.system.FollowSystem;
+import net.mostlyoriginal.game.system.FootstepSystem;
 import net.mostlyoriginal.game.system.PlayerControlSystem;
 import net.mostlyoriginal.game.system.TerminalSystem;
 import net.mostlyoriginal.game.system.detection.DeathSystem;
 import net.mostlyoriginal.game.system.detection.ExitSystem;
+import net.mostlyoriginal.game.system.detection.ParticleSystem;
 import net.mostlyoriginal.game.system.detection.TriggerSystem;
 import net.mostlyoriginal.game.system.map.*;
 import net.mostlyoriginal.game.system.render.CameraFollowSystem;
@@ -51,6 +53,7 @@ public class GameScreen extends WorldScreen {
 
                         new EntitySpawnerSystem(),
                         new MapSystem(),
+                        new ParticleSystem(),
                         new PowerSystem(),
 
                         new GameScreenAssetSystem(),
@@ -69,6 +72,8 @@ public class GameScreen extends WorldScreen {
                         new MapCollisionSystem(),
                         new PlatformCollisionSystem(),
                         new PhysicsSystem(),
+
+                        new FootstepSystem(),
 
                         new CarriedSystem(),
                         new SocketSystem(),

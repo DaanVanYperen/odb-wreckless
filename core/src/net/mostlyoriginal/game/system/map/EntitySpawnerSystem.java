@@ -3,6 +3,7 @@ package net.mostlyoriginal.game.system.map;
 import com.artemis.BaseSystem;
 import com.artemis.E;
 import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.api.system.physics.SocketSystem;
 import net.mostlyoriginal.game.component.G;
 
@@ -92,6 +93,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .bounds(8, 0, 16, 12)
                 .wallSensor()
                 .cameraFocus()
+                .footsteps()
                 .tag("player")
                 .playerControlled();
     }
@@ -127,6 +129,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .robot()
                 .render(G.LAYER_PLAYER_ROBOT)
                 .follow()
+                .footstepsStepSize(20)
                 .gravity()
                 .platform()
                 .bounds(0, 0, 39, 43)
