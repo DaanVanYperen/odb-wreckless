@@ -67,16 +67,22 @@
     {
       "id": "robot-walk",
       "comment": "Robot walking right.",
-      "x": 0,
+      "x": 48,
       "y": 240,
+      "countX": 8,
+      "countY": 1,
+      "milliseconds": 100,
       "width": 48,
       "height": 48
     },
     {
       "id": "robot-run",
       "comment": "Robot running right.",
-      "x": 0,
+      "x": 48,
       "y": 240,
+      "countX": 8,
+      "countY": 1,
+      "milliseconds": 70,
       "width": 48,
       "height": 48
     },
