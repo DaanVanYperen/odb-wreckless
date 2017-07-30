@@ -74,12 +74,12 @@ public class MyAnimRenderSystem extends DeferredEntityProcessingSystem {
         final float scale = mScale.getSafe(e, Scale.DEFAULT).scale;
         final Origin origin = mOrigin.getSafe(e, DEFAULT_ORIGIN);
 
-        anim.age += world.delta * anim.speed;
-
         batch.setColor(mTint.getSafe(e, Tint.WHITE).color);
 
         if ( anim.id != null ) drawAnimation(anim, angle, origin, pos, anim.id,scale);
         if ( anim.id2 != null ) drawAnimation(anim, angle,origin,  pos, anim.id2,scale);
+
+        anim.age += world.delta * anim.speed;
     }
 
     /** Pixel perfect aligning. */
@@ -95,6 +95,7 @@ public class MyAnimRenderSystem extends DeferredEntityProcessingSystem {
 
         final Animation<TextureRegion> gdxanim = (Animation<TextureRegion>) abstractAssetSystem.get(id);
         if ( gdxanim == null) return;
+
 
         final TextureRegion frame = gdxanim.getKeyFrame(animation.age, animation.loop);
 

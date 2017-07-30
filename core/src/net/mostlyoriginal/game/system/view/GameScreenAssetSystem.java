@@ -102,7 +102,10 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         final Json json = new Json();
         spriteLibrary = json.fromJson(SpriteLibrary.class, Gdx.files.internal("sprites.json"));
         for (SpriteData sprite : spriteLibrary.sprites) {
-            add(sprite.id, sprite.x, sprite.y, sprite.width, sprite.height, sprite.countX, sprite.countY, this.tileset, sprite.milliseconds * 0.001f);
+            Animation animation = add(sprite.id, sprite.x, sprite.y, sprite.width, sprite.height, sprite.countX, sprite.countY, this.tileset, sprite.milliseconds * 0.001f);
+            if ( !sprite.repeat ) {
+                animation.setPlayMode(Animation.PlayMode.NORMAL);
+            }
         }
     }
 
