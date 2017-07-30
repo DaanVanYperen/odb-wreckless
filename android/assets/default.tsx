@@ -440,6 +440,7 @@
   <properties>
    <property name="angle" value="0"/>
    <property name="entity" value="spout"/>
+   <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="226">
@@ -485,6 +486,7 @@
   <properties>
    <property name="angle" value="0"/>
    <property name="entity" value="spout"/>
+   <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="263">
@@ -541,6 +543,7 @@
   <properties>
    <property name="angle" value="0"/>
    <property name="entity" value="spout"/>
+   <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="295">
@@ -566,6 +569,12 @@
  <tile id="513">
   <properties>
    <property name="entity" value="robot"/>
+  </properties>
+ </tile>
+ <tile id="627">
+  <properties>
+   <property name="entity" value="robot"/>
+   <property name="slumbering" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="800">

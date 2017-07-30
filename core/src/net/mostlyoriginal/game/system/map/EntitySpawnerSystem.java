@@ -37,7 +37,9 @@ public class EntitySpawnerSystem extends BaseSystem {
                 assembleTrigger(x, y, (String) properties.get("trigger"));
                 break;
             case "robot":
-                assembleRobot(x, y);
+                E robot = assembleRobot(x, y);
+                if ( properties.containsKey("slumbering"))
+                    robot.slumbering();
                 break;
             case "battery":
                 assembleBattery(x, y, "battery");
@@ -117,8 +119,8 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .wallSensor();
     }
 
-    private void assembleRobot(float x, float y) {
-        E().anim("robot-idle")
+    private E assembleRobot(float x, float y) {
+        E robot = E().anim("robot-idle")
                 .pos(x, y)
                 .physics()
                 .charge()
@@ -139,5 +141,6 @@ public class EntitySpawnerSystem extends BaseSystem {
         E().anim("robot-idle")
                 .tag("robot-charge").pos(x, y).bounds(0, 0, 25, 12);
 
+        return robot;
     }
 }

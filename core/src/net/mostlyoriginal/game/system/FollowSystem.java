@@ -55,7 +55,7 @@ public class FollowSystem extends FluidIteratingSystem {
         float dy = 0;
 
         if (e.chargeCharge() <= 0L) {
-            e.animId("robot-empty");
+            e.animId(e.hasSlumbering() ? "robot-idle-uncharged" : "robot-empty");
         } else {
             boolean batteryInFrontOfRobot = overlaps(player, e) && player.hasCarries() && player.carriesEntityId() != 0 && E.E(player.carriesEntityId()).typeType().equals("battery2");
             if (batteryInFrontOfRobot || e.isNeedsBatteries()) {
@@ -151,7 +151,7 @@ public class FollowSystem extends FluidIteratingSystem {
     public void expendCharge(E e, float cost) {
         boolean hasCharge = e.chargeCharge() > 0;
         e.chargeDecrease(cost * world.delta);
-        if ( hasCharge && e.chargeCharge() <= 0 ) {
+        if (hasCharge && e.chargeCharge() <= 0) {
             socketSystem.respawnRobotBatteries();
         }
     }
@@ -159,8 +159,8 @@ public class FollowSystem extends FluidIteratingSystem {
     private void updateChargeIndicator(E e) {
         E chargeIndicator = entityWithTag("robot-charge");
         chargeIndicator.render(G.LAYER_PLAYER_ROBOT_BATTERY);
-        chargeIndicator.posX( e.posX() + (chargeIndicator.boundsMaxx() * 0.5f));
-        chargeIndicator.posY( e.posY() + e.boundsMaxy() + 5);
+        chargeIndicator.posX(e.posX() + (chargeIndicator.boundsMaxx() * 0.5f));
+        chargeIndicator.posY(e.posY() + e.boundsMaxy() + 5);
         if (e.chargeCharge() >= 4) chargeIndicator.animId("charge-4");
         else if (e.chargeCharge() >= 3) chargeIndicator.animId("charge-3");
         else if (e.chargeCharge() >= 2) chargeIndicator.animId("charge-2");
