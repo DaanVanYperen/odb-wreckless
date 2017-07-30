@@ -49,7 +49,7 @@ public class PlayerControlSystem extends FluidIteratingSystem {
         }
 
         float veloX = Math.abs(e.physicsVx());
-        if (Math.abs(dx) < 0.05f && veloX >= 0.1f ) {
+        if (Math.abs(dx) < 0.05f && veloX >= 0.1f) {
             e.physicsVx(e.physicsVx() - (e.physicsVx() * world.delta * 8f));
         }
 
@@ -80,7 +80,7 @@ public class PlayerControlSystem extends FluidIteratingSystem {
             E pacer = entityWithTag("pacer");
             if (dx == 0) {
                 float targetX = pacer.posX() - G.PACER_FOLLOW_DISTANCE;
-                if ( Math.abs(targetX) < 10f ) {
+                if (Math.abs(targetX) < 10f) {
                     e.physicsVx(pacer.physicsVx()); // when close match pacer speed to avoid wobble.
                 } else {
                     if (e.posX() > targetX) {
@@ -99,29 +99,28 @@ public class PlayerControlSystem extends FluidIteratingSystem {
                 e.animId("player-walk");
             }
         }
-        if (dy != 0)
-        {
+        if (dy != 0) {
             e.physicsVy((dy * world.delta));
         }
 
-        if ( Math.abs(e.physicsVy()) > 0.05f ) {
+        if (Math.abs(e.physicsVy()) > 0.05f) {
             if (e.physicsVy() > 0) {
                 e.animId("player-jump");
-                if ( !e.isJumping() ) {
+                if (!e.isJumping()) {
                     e.animLoop(false);
                     e.animAge(0);
                 }
                 e.jumping();
             } else {
                 e.animId("player-fall");
-                if ( !e.isFalling() ) {
+                if (!e.isFalling()) {
                     e.animLoop(false);
                     e.animAge(0);
                 }
                 e.falling();
             }
         } else {
-            if ( e.isFlying() || e.isJumping() ) {
+            if (e.isFlying() || e.isJumping()) {
                 e.removeFlying().removeJumping();
             }
             e.animLoop(true);
@@ -130,7 +129,10 @@ public class PlayerControlSystem extends FluidIteratingSystem {
 
     private void socketCarried(E e, E socket) {
         if (e.hasCarries()) {
-            socketSystem.socket(E.E(e.getCarries().entityId), socket);
+            E battery = E.E(e.getCarries().entityId);
+            if (battery.typeType().equals(socket.typeType())) {
+                socketSystem.socket(battery, socket);
+            }
             e.removeCarries();
         }
     }

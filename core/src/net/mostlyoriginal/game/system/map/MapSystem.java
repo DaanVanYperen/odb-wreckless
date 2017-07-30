@@ -39,13 +39,17 @@ public class MapSystem extends BaseSystem {
 
         for (TiledMapTileSet tileSet : map.getTileSets()) {
             for (TiledMapTile tile : tileSet) {
-                if (tile.getProperties().containsKey("entity")) {
+                final MapProperties props = tile.getProperties();
+                if (props.containsKey("entity")) {
                     Animation<TextureRegion> anim = new Animation<>(10, tile.getTextureRegion());
-                    String id = (String) tile.getProperties().get("entity");
-                    if (tile.getProperties().containsKey("cable-type")) {
+                    String id = (String) props.get("entity");
+                    if (props.containsKey("cable-type")) {
                         id = cableIdentifier(tile);
-                    } else if (tile.getProperties().containsKey("powered")) {
-                        id = tile.getProperties().get("entity") + "_" + (((Boolean) tile.getProperties().get("powered")) ? "on" : "off");
+                    } else if (props.containsKey("powered")) {
+                        id = props.get("entity") + "_" + (((Boolean) props.get("powered")) ? "on" : "off");
+                        if (props.containsKey("accept")) {
+                            id = id + "_" + props.get("accept");
+                        }
                     }
                     assetSystem.sprites.put(id, anim);
                 }
