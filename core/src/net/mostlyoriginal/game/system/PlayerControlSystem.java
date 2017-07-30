@@ -37,9 +37,21 @@ public class PlayerControlSystem extends FluidIteratingSystem {
     @Override
     protected void process(E e) {
 
-        e.animId("player-idle");
+
+        String playerAnimPrefix = "player-";
+
+        // use carry animation group.
+        if ( e.hasCarries() && e.carriesEntityId() != 0) {
+            E carried = E.E(e.carriesEntityId());
+            carried.invisible();
+            playerAnimPrefix = carried.typeType().equals("battery2") ? "player-red-battery-" : "player-green-battery-";
+        }
+
+
+        e.animId(playerAnimPrefix + "idle");
         e.angleRotation(0);
         e.physicsVr(0);
+
 
         float dx = 0;
         float dy = 0;
@@ -103,11 +115,11 @@ public class PlayerControlSystem extends FluidIteratingSystem {
             }
 
             e.physicsVx(e.physicsVx() + (dx * world.delta));
-            e.animId("player-run");
+            e.animId(playerAnimPrefix + "run");
         } else {
             if (dx != 0) {
                 e.physicsVx(e.physicsVx() + (dx * world.delta));
-                e.animId("player-walk");
+                e.animId(playerAnimPrefix + "walk");
             }
         }
         if (dy != 0) {
@@ -121,14 +133,14 @@ public class PlayerControlSystem extends FluidIteratingSystem {
 
         if (Math.abs(e.physicsVy()) > 0.05f) {
             if (e.physicsVy() > 0) {
-                e.animId("player-jump");
+                e.animId(playerAnimPrefix + "jump");
                 if (!e.isJumping()) {
                     e.animLoop(false);
                     e.animAge(0);
                 }
                 e.jumping();
             } else {
-                e.animId("player-fall");
+                e.animId(playerAnimPrefix + "fall");
                 if (!e.isFalling()) {
                     e.animLoop(false);
                     e.animAge(0);
@@ -144,7 +156,7 @@ public class PlayerControlSystem extends FluidIteratingSystem {
     }
 
     private void socketCarried(E e, E socket) {
-        if (e.hasCarries()) {
+        if (e.hasCarries() && socket.socketEntityId() == 0) {
             E battery = E.E(e.getCarries().entityId);
             if (battery.typeType().equals(socket.typeType())) {
                 socketSystem.socket(battery, socket);
