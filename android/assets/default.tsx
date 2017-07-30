@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="default" tilewidth="16" tileheight="16" tilecount="1024" columns="32">
- <image source="tileset.png" width="512" height="512"/>
+<tileset name="default" tilewidth="16" tileheight="16" tilecount="2048" columns="32">
+ <image source="tileset.png" width="512" height="1024"/>
  <tile id="0">
   <properties>
    <property name="solid" type="bool" value="true"/>
@@ -281,17 +281,17 @@
  </tile>
  <tile id="144">
   <properties>
-   <property name="entity" value="lava"/>
+   <property name="deadly" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="145">
   <properties>
-   <property name="entity" value="lava"/>
+   <property name="deadly" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="146">
   <properties>
-   <property name="entity" value="lava"/>
+   <property name="deadly" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="160">
@@ -385,7 +385,7 @@
  </tile>
  <tile id="177">
   <properties>
-   <property name="entity" value="lava"/>
+   <property name="deadly" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="192">

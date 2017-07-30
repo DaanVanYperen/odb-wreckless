@@ -56,11 +56,11 @@ public class PlayerControlSystem extends FluidIteratingSystem {
         float dx = 0;
         float dy = 0;
 
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.A) && !e.hasDead()) {
             dx = -MOVEMENT_FACTOR;
             e.animFlippedX(true);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.D) && !e.hasDead()) {
             dx = e.isRunning() ? RUN_FAST_PACE_FACTOR : MOVEMENT_FACTOR;
             e.animFlippedX(false);
         }
@@ -71,7 +71,7 @@ public class PlayerControlSystem extends FluidIteratingSystem {
         }
 
         boolean onFloor = e.wallSensorOnFloor() || e.wallSensorOnPlatform();
-        if (Gdx.input.isKeyPressed(Input.Keys.W) && onFloor) {
+        if (Gdx.input.isKeyPressed(Input.Keys.W) && onFloor && !e.hasDead()) {
             dy = JUMP_FACTOR;
         }
 

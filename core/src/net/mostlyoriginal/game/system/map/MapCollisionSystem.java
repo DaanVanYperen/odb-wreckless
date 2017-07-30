@@ -24,6 +24,7 @@ public class MapCollisionSystem extends FluidIteratingSystem {
     private boolean initialized;
     private MapMask solidMask;
     protected MapMask canHoverMask;
+    protected MapMask deadlyMask;
     protected MapMask solidForRobotMask;
 
     private Color RED = Color.valueOf("FF0000FF");
@@ -113,6 +114,10 @@ public class MapCollisionSystem extends FluidIteratingSystem {
 
         return e.isRobot() && solidForRobotMask(x,y);
 
+    }
+
+    public boolean isLava(final float x, final float y) {
+        return deadlyMask != null && deadlyMask.atScreen(x,y, false);
     }
 
     public boolean canHover(final float x, final float y) {

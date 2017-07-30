@@ -17,6 +17,7 @@ import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.system.FollowSystem;
 import net.mostlyoriginal.game.system.PlayerControlSystem;
 import net.mostlyoriginal.game.system.TerminalSystem;
+import net.mostlyoriginal.game.system.detection.DeathSystem;
 import net.mostlyoriginal.game.system.detection.ExitSystem;
 import net.mostlyoriginal.game.system.detection.TriggerSystem;
 import net.mostlyoriginal.game.system.map.*;
@@ -83,6 +84,7 @@ public class GameScreen extends WorldScreen {
                         new MapRenderInFrontSystem(),
                         new TerminalSystem(),
                         new ExitSystem(),
+                        new DeathSystem(),
                         new TransitionSystem(GdxArtemisGame.getInstance())
                 ).build());
     }
