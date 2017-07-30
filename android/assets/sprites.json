@@ -217,6 +217,63 @@
       "y": 0,
       "width": 48,
       "height": 64
-    }
+    },
+    {
+      "id": "bird-1-idle",
+      "comment": "Blue bird idle.",
+      "x": 96,
+      "y": 160,
+      "width": 8,
+      "height": 8
+    },
+    {
+      "id": "bird-1-flying",
+      "comment": "Blue bird flying.",
+      "x": 104,
+      "y": 160,
+      "countX": 2,
+      "countY": 1,
+      "milliseconds": 70,
+      "width": 8,
+      "height": 8
+    },
+    {
+      "id": "bird-2-idle",
+      "comment": "Green bird idle.",
+      "x": 96,
+      "y": 168,
+      "width": 8,
+      "height": 8
+    },
+    {
+      "id": "bird-2-flying",
+      "comment": "Blue bird flying.",
+      "x": 104,
+      "y": 168,
+      "countX": 2,
+      "countY": 1,
+      "milliseconds": 70,
+      "width": 8,
+      "height": 8
+    },
+    {
+      "id": "bird-3-idle",
+      "comment": "Orange bird idle.",
+      "x": 96,
+      "y": 176,
+      "width": 8,
+      "height": 8
+    },
+    {
+      "id": "bird-3-flying",
+      "comment": "Orange bird flying.",
+      "x": 104,
+      "y": 176,
+      "countX": 2,
+      "countY": 1,
+      "milliseconds": 70,
+      "width": 8,
+      "height": 8
+    },
   ]
 }
