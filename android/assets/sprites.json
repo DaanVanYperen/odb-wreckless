@@ -36,8 +36,12 @@
     {
       "id": "player-fall",
       "comment": "Player character falling right.",
-      "x": 0,
+      "x": 336,
       "y": 392,
+      "countX": 4,
+      "countY": 1,	 
+      "milliseconds": 50,	  
+	  "repeat": false,
       "width": 24,
       "height": 24
     },
