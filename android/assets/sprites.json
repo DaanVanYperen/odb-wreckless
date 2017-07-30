@@ -56,6 +56,118 @@
       "width": 24,
       "height": 24
     },
+	{
+      "id": "player-red-battery-idle",
+      "comment": "Player character idling.",
+      "x": 0,
+      "y": 416,
+      "countX": 1,
+      "countY": 1,
+      "width": 24,
+      "height": 24
+    },
+    {
+      "id": "player-red-battery-walk",
+      "comment": "Player character walking right.",
+      "x": 24,
+      "y": 416,
+      "countX": 8,
+      "countY": 1,
+      "milliseconds": 50,
+      "width": 24,
+      "height": 24
+    },
+    {
+      "id": "player-red-battery-jump",
+      "comment": "Player character jumping right.",
+      "x": 216,
+      "y": 416,
+      "countX": 5,
+      "countY": 1,	 
+      "milliseconds": 70,	  
+	  "repeat": false,
+      "width": 24,
+      "height": 24
+    },
+    {
+      "id": "player-red-battery-fall",
+      "comment": "Player character falling right.",
+      "x": 336,
+      "y": 416,
+      "countX": 4,
+      "countY": 1,	 
+      "milliseconds": 70,	  
+	  "repeat": false,
+      "width": 24,
+      "height": 24
+    },
+    {
+      "id": "player-red-battery-run",
+      "comment": "Player character running right.",
+      "x": 24,
+      "y": 416,
+      "countX": 8,
+      "countY": 1,
+      "milliseconds": 40,
+      "width": 24,
+      "height": 24
+    },
+	{
+      "id": "player-green-battery-idle",
+      "comment": "Player character idling.",
+      "x": 0,
+      "y": 440,
+      "countX": 1,
+      "countY": 1,
+      "width": 24,
+      "height": 24
+    },
+    {
+      "id": "player-green-battery-walk",
+      "comment": "Player character walking right.",
+      "x": 24,
+      "y": 440,
+      "countX": 8,
+      "countY": 1,
+      "milliseconds": 50,
+      "width": 24,
+      "height": 24
+    },
+    {
+      "id": "player-green-battery-jump",
+      "comment": "Player character jumping right.",
+      "x": 216,
+      "y": 440,
+      "countX": 5,
+      "countY": 1,	 
+      "milliseconds": 70,	  
+	  "repeat": false,
+      "width": 24,
+      "height": 24
+    },
+    {
+      "id": "player-green-battery-fall",
+      "comment": "Player character falling right.",
+      "x": 336,
+      "y": 440,
+      "countX": 4,
+      "countY": 1,	 
+      "milliseconds": 70,	  
+	  "repeat": false,
+      "width": 24,
+      "height": 24
+    },
+    {
+      "id": "player-green-battery-run",
+      "comment": "Player character running right.",
+      "x": 24,
+      "y": 440,
+      "countX": 8,
+      "countY": 1,
+      "milliseconds": 40,
+      "width": 24,
+      "height": 24
+    },
     {
       "id": "robot-idle",
       "comment": "Robot character idling.",
