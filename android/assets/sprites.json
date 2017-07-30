@@ -4,17 +4,27 @@
       "id": "player-idle",
       "comment": "Player character idling.",
       "x": 0,
-      "y": 399,
-      "width": 16,
-      "height": 17
+      "y": 392,
+      "countX": 1,
+      "countY": 1,
+      "width": 24,
+      "height": 24
     },
     {
       "id": "player-walk",
       "comment": "Player character walking right.",
       "x": 0,
-      "y": 399,
-      "width": 16,
-      "height": 17
+      "y": 392,
+      "width": 24,
+      "height": 24
+    },
+    {
+      "id": "player-run",
+      "comment": "Player character walking right.",
+      "x": 0,
+      "y": 392,
+      "width": 24,
+      "height": 24
     },
     {
       "id": "robot-idle",
@@ -26,6 +36,22 @@
     },
     {
       "id": "robot-walk",
+      "comment": "Robot walking right.",
+      "x": 0,
+      "y": 245,
+      "width": 39,
+      "height": 43
+    },
+    {
+      "id": "robot-run",
+      "comment": "Robot walking right.",
+      "x": 0,
+      "y": 245,
+      "width": 39,
+      "height": 43
+    },
+    {
+      "id": "robot-fly",
       "comment": "Robot walking right.",
       "x": 0,
       "y": 245,
