@@ -438,8 +438,9 @@
  </tile>
  <tile id="209">
   <properties>
-   <property name="angle" value="0"/>
+   <property name="angle" type="int" value="0"/>
    <property name="entity" value="spout"/>
+   <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="226">
@@ -475,16 +476,23 @@
    <property name="trigger" value="robot-land"/>
   </properties>
  </tile>
+ <tile id="234">
+  <properties>
+   <property name="entity" value="spawner"/>
+   <property name="spawns" value="gremlin"/>
+  </properties>
+ </tile>
  <tile id="240">
   <properties>
-   <property name="angle" value="0"/>
+   <property name="angle" type="int" value="-90"/>
    <property name="entity" value="spout"/>
   </properties>
  </tile>
  <tile id="241">
   <properties>
-   <property name="angle" value="0"/>
+   <property name="angle" type="int" value="-180"/>
    <property name="entity" value="spout"/>
+   <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="263">
@@ -539,8 +547,9 @@
  </tile>
  <tile id="273">
   <properties>
-   <property name="angle" value="0"/>
+   <property name="angle" type="int" value="90"/>
    <property name="entity" value="spout"/>
+   <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="295">
@@ -566,6 +575,12 @@
  <tile id="513">
   <properties>
    <property name="entity" value="robot"/>
+  </properties>
+ </tile>
+ <tile id="627">
+  <properties>
+   <property name="entity" value="robot"/>
+   <property name="slumbering" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="800">

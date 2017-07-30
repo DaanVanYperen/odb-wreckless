@@ -8,6 +8,7 @@ import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.physics.Physics;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.utils.MapMask;
+import net.mostlyoriginal.game.component.Ethereal;
 import net.mostlyoriginal.game.component.Flying;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 
@@ -30,7 +31,7 @@ public class MapCollisionSystem extends FluidIteratingSystem {
     private Color RED = Color.valueOf("FF0000FF");
 
     public MapCollisionSystem() {
-        super(Aspect.all(Physics.class, Pos.class, Bounds.class).exclude(Flying.class));
+        super(Aspect.all(Physics.class, Pos.class, Bounds.class).exclude(Flying.class, Ethereal.class));
     }
 
     @Override

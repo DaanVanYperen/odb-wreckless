@@ -11,6 +11,7 @@ import net.mostlyoriginal.game.component.Type;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.map.EntitySpawnerSystem;
 import net.mostlyoriginal.game.system.map.PowerSystem;
+import net.mostlyoriginal.game.system.render.MyAnimRenderSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 import static com.artemis.E.E;
@@ -21,6 +22,7 @@ public class SocketSystem extends FluidIteratingSystem {
     private PowerSystem powerSystem;
     private GameScreenAssetSystem assetSystem;
     private EntitySpawnerSystem entitySpawnerSystem;
+    private MyAnimRenderSystem animSystem;
 
     public SocketSystem() {
         super(Aspect.all(Socket.class, Anim.class));
@@ -46,6 +48,12 @@ public class SocketSystem extends FluidIteratingSystem {
         if (socket.isRobot()) {
             battery.deleteFromWorld();
             socket.chargeIncrease(G.BARS_FOR_BATTERY);
+            if (socket.hasSlumbering())  {
+                animSystem.forceAnim(socket,"robot-wake-up");
+                socket.removeSlumbering();
+            } else {
+                animSystem.forceAnim(socket, "robot-close-battery");
+            }
         } else {
             socket.socketEntityId(battery.socketedInsideEntityId(socket.id()).invisible().id());
             power(socket, true);

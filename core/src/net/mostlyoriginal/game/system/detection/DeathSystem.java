@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.game.component.Dead;
+import net.mostlyoriginal.game.component.Deadly;
 import net.mostlyoriginal.game.component.Mortal;
 import net.mostlyoriginal.game.screen.GameScreen;
 import net.mostlyoriginal.game.system.FollowSystem;
@@ -32,14 +33,14 @@ public class DeathSystem extends FluidIteratingSystem {
     @Override
     protected void process(E e) {
         if (!e.hasDead()) {
-            if (mapCollisionSystem.isLava(e.posX(), e.posY())) {
+            if (mapCollisionSystem.isLava(e.posX(), e.posY()) || touchingDeadlyStuffs(e)) {
                 e.dead();
             }
         } else {
             e.deadCooldown(e.deadCooldown() - world.delta);
-            if (!e.hasInvisible() && e.deadCooldown() <= 2.95) {
+            if (!e.hasInvisible()) {
                 e.invisible();
-                particleSystem.bloodExplosion(e.posX(),e.posY());
+                particleSystem.bloodExplosion(e.posX() + e.boundsCx(), e.posY() + e.boundsCy());
             }
             if (e.deadCooldown() <= 0) {
                 doExit();
@@ -47,6 +48,15 @@ public class DeathSystem extends FluidIteratingSystem {
             }
         }
 
+    }
+
+    private boolean touchingDeadlyStuffs(E e) {
+
+        for (E o : allEntitiesWith(Deadly.class)) {
+            if (overlaps(o, e)) return true;
+        }
+
+        return false;
     }
 
     private void doExit() {

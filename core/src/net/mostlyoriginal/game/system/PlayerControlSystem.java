@@ -16,6 +16,7 @@ import net.mostlyoriginal.game.component.Socket;
 import net.mostlyoriginal.game.component.map.WallSensor;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.map.MapCollisionSystem;
+import net.mostlyoriginal.game.system.render.MyAnimRenderSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 /**
@@ -28,6 +29,7 @@ public class PlayerControlSystem extends FluidIteratingSystem {
     private float JUMP_FACTOR = 15000;
     private SocketSystem socketSystem;
     private FollowSystem followSystem;
+    private MyAnimRenderSystem animSystem;
     private GameScreenAssetSystem assetSystem;
 
     public PlayerControlSystem() {
@@ -41,7 +43,7 @@ public class PlayerControlSystem extends FluidIteratingSystem {
         String playerAnimPrefix = "player-";
 
         // use carry animation group.
-        if ( e.hasCarries() && e.carriesEntityId() != 0) {
+        if (e.hasCarries() && e.carriesEntityId() != 0) {
             E carried = E.E(e.carriesEntityId());
             carried.invisible();
             playerAnimPrefix = carried.typeType().equals("battery2") ? "player-red-battery-" : "player-green-battery-";
@@ -76,7 +78,7 @@ public class PlayerControlSystem extends FluidIteratingSystem {
         }
 
         if (!G.PRODUCTION) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.F6)) MapCollisionSystem.DEBUG=!MapCollisionSystem.DEBUG;
+            if (Gdx.input.isKeyJustPressed(Input.Keys.F6)) MapCollisionSystem.DEBUG = !MapCollisionSystem.DEBUG;
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.E) || Gdx.input.isKeyJustPressed(Input.Keys.X)) {
@@ -86,6 +88,7 @@ public class PlayerControlSystem extends FluidIteratingSystem {
                     socketCarried(e, socket);
                 } else {
                     callRobot(e);
+                    animSystem.forceAnim(e, playerAnimPrefix + "whistles");
                     //dropCarried(e);
                 }
             } else {
@@ -94,6 +97,7 @@ public class PlayerControlSystem extends FluidIteratingSystem {
                     carryItem(e, pickup);
                 } else if (onFloor) {
                     callRobot(e);
+                    animSystem.forceAnim(e, playerAnimPrefix + "whistles");
                 }
             }
         }
@@ -116,10 +120,12 @@ public class PlayerControlSystem extends FluidIteratingSystem {
 
             e.physicsVx(e.physicsVx() + (dx * world.delta));
             e.animId(playerAnimPrefix + "run");
+            e.removePriorityAnim();
         } else {
             if (dx != 0) {
                 e.physicsVx(e.physicsVx() + (dx * world.delta));
                 e.animId(playerAnimPrefix + "walk");
+                e.removePriorityAnim();
             }
         }
         if (dy != 0) {
@@ -127,7 +133,7 @@ public class PlayerControlSystem extends FluidIteratingSystem {
         }
 
 
-        if ( e.hasCarries() && e.carriesEntityId() != 0 ) {
+        if (e.hasCarries() && e.carriesEntityId() != 0) {
             e.carriesAnchorX(e.animFlippedX() ? 4 : -4);
         }
 
