@@ -74,7 +74,7 @@ public class GameScreen extends WorldScreen {
 
                         new CameraFollowSystem(),
 
-                        new ClearScreenSystem(new Color(0, 0, 0.1f, 1f)),
+                        new ClearScreenSystem(Color.valueOf("031D1E")),
                         new MapRenderSystem(),
 
                         renderBatchingSystem = new RenderBatchingSystem(),

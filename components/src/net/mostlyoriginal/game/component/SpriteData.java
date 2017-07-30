@@ -1,6 +1,8 @@
 
 package net.mostlyoriginal.game.component;
 
+import com.badlogic.gdx.graphics.Texture;
+
 import java.io.Serializable;
 
 /**
@@ -17,6 +19,7 @@ public class SpriteData implements Serializable {
     public int height;
     public int countX = 1;
     public int countY = 1;
+    public float milliseconds = 200;
 
     public SpriteData() {
     }
