@@ -15,6 +15,7 @@ import net.mostlyoriginal.api.system.render.ClearScreenSystem;
 import net.mostlyoriginal.game.GdxArtemisGame;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.system.FollowSystem;
+import net.mostlyoriginal.game.system.FootstepSystem;
 import net.mostlyoriginal.game.system.PlayerControlSystem;
 import net.mostlyoriginal.game.system.TerminalSystem;
 import net.mostlyoriginal.game.system.detection.DeathSystem;
@@ -71,6 +72,8 @@ public class GameScreen extends WorldScreen {
                         new MapCollisionSystem(),
                         new PlatformCollisionSystem(),
                         new PhysicsSystem(),
+
+                        new FootstepSystem(),
 
                         new CarriedSystem(),
                         new SocketSystem(),

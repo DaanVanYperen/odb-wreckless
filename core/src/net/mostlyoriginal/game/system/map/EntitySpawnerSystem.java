@@ -93,6 +93,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .bounds(8, 0, 16, 12)
                 .wallSensor()
                 .cameraFocus()
+                .footsteps()
                 .tag("player")
                 .playerControlled();
     }
@@ -128,6 +129,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .robot()
                 .render(G.LAYER_PLAYER_ROBOT)
                 .follow()
+                .footstepsStepSize(20)
                 .gravity()
                 .platform()
                 .bounds(0, 0, 39, 43)
