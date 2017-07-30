@@ -20,7 +20,7 @@ public class ParticleSystem extends PassiveSystem {
 
     private Color BLOOD_COLOR = Color.valueOf("4B1924");
     private Color COLOR_WHITE = Color.valueOf("FFFFFF");
-    private Color COLOR_DUST = Color.valueOf("FFFFFFAA");
+    private Color COLOR_DUST = Color.valueOf("D4CFB899");
 
     private Builder bakery = new Builder();
 
