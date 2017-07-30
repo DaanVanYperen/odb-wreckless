@@ -478,8 +478,9 @@
  </tile>
  <tile id="234">
   <properties>
+   <property name="angle" type="int" value="-90"/>
    <property name="entity" value="spawner"/>
-   <property name="spawns" value="gremlin"/>
+   <property name="spawns" value="GREMLIN"/>
   </properties>
  </tile>
  <tile id="240">
@@ -547,7 +548,7 @@
  </tile>
  <tile id="273">
   <properties>
-   <property name="angle" type="int" value="90"/>
+   <property name="angle" type="int" value="-180"/>
    <property name="entity" value="spout"/>
    <property name="solid" type="bool" value="true"/>
   </properties>

@@ -7,6 +7,8 @@ public class G {
     public static final float ROBOT_HOVER_ABOVE_PLAYER_HEIGHT = 8;
     public static final float BARS_NEEDED_FOR_BREAKING_DOOR = 3;
     public static final int LAYER_PARTICLES = 800;
+    public static final int LAYER_GREMLIN = 998;
+    public static final int TEAM_PLAYERS = 2;
     public static Settings settings;
 
     public static final boolean PRODUCTION = false;
@@ -20,8 +22,8 @@ public class G {
     public static final int SIMULATION_HEIGHT = 220 + 50;
 
     public static final int LAYER_PLAYER = 1000;
-    public static final int LAYER_PLAYER_ROBOT = 998;
-    public static final int LAYER_PLAYER_ROBOT_BATTERY = 999;
+    public static final int LAYER_PLAYER_ROBOT = 996;
+    public static final int LAYER_PLAYER_ROBOT_BATTERY = 997;
     public static final float PACER_FOLLOW_DISTANCE = 160;
 
     public static int CAMERA_ZOOM = 2;

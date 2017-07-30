@@ -3,9 +3,9 @@ package net.mostlyoriginal.game.system.map;
 import com.artemis.BaseSystem;
 import com.artemis.E;
 import com.badlogic.gdx.maps.MapProperties;
-import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.api.system.physics.SocketSystem;
 import net.mostlyoriginal.game.component.G;
+import net.mostlyoriginal.game.component.Spout;
 
 import static com.artemis.E.E;
 
@@ -38,7 +38,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 break;
             case "robot":
                 E robot = assembleRobot(x, y);
-                if ( properties.containsKey("slumbering"))
+                if (properties.containsKey("slumbering"))
                     robot.slumbering();
                 break;
             case "battery":
@@ -48,7 +48,11 @@ public class EntitySpawnerSystem extends BaseSystem {
                 assembleBattery(x, y, "battery2");
                 break;
             case "spout":
-                assembleSpout(x,y, (Integer)properties.get("angle"));
+                assembleSpout(x, y, (Integer) properties.get("angle"), "ACID");
+                return false;
+            case "spawner":
+                assembleSpout(x, y, (Integer) properties.get("angle"), (String) properties.get("spawns"))
+                    .spoutSprayInterval(0.5f).spoutSprayDuration(1);
                 return false;
             case "socket":
                 assembleBatterySlot(x, y, (Boolean) properties.get("powered"), (String) properties.get("accept"));
@@ -60,8 +64,8 @@ public class EntitySpawnerSystem extends BaseSystem {
         return true;
     }
 
-    private void assembleSpout(float x, float y, Integer angle) {
-        E().pos(x,y).bounds(0,0,16,16).spoutAngle(angle);
+    private E assembleSpout(float x, float y, Integer angle, String spawns) {
+return        E().pos(x, y).bounds(0, 0, 16, 16).spoutAngle(angle).spoutType(Spout.Type.valueOf(spawns));
     }
 
     private void assembleTrigger(float x, float y, String trigger) {
@@ -102,6 +106,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .bounds(8, 0, 16, 12)
                 .wallSensor()
                 .cameraFocus()
+                .teamTeam(G.TEAM_PLAYERS)
                 .footsteps()
                 .tag("player")
                 .playerControlled();
@@ -135,6 +140,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .socketAnimEmpty(null)
                 .type("battery2")
                 .robot()
+                .teamTeam(G.TEAM_PLAYERS)
                 .render(G.LAYER_PLAYER_ROBOT)
                 .follow()
                 .footstepsStepSize(20)
@@ -148,5 +154,19 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .tag("robot-charge").pos(x, y).bounds(0, 0, 25, 12);
 
         return robot;
+    }
+
+    public void spawnGremlin(float x, float y) {
+        E robot = E().anim("gremlin-1-idle")
+                .pos(x, y)
+                .physics()
+                .mortal()
+                .jumpAttack()
+                .deadly()
+                .render(G.LAYER_GREMLIN)
+                .footstepsStepSize(4)
+                .gravity()
+                .bounds(0, 0, 24, 24)
+                .wallSensor();
     }
 }
