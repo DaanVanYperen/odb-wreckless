@@ -109,7 +109,7 @@ public class MyAnimRenderSystem extends DeferredEntityProcessingSystem {
 
         float ox = frame.getRegionWidth() * scale * origin.xy.x;
         float oy = frame.getRegionHeight() * scale * origin.xy.y;
-        if ( animation.flippedX && angle.rotation != 0)
+        if ( animation.flippedX && angle.rotation == 0)
         {
             // mirror
             batch.draw(frame.getTexture(),
