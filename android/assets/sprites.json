@@ -492,9 +492,9 @@
       "comment": "press e indicator hint.",
       "x": 432,
       "y": 0 ,
-      "countX": 5,
+      "countX": 4,
       "countY": 1,
-      "milliseconds": 60,
+      "milliseconds": 100,
       "width": 16,
       "height": 16
     },
