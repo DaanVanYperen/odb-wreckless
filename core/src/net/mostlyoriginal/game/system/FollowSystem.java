@@ -78,6 +78,9 @@ public class FollowSystem extends FluidIteratingSystem {
             boolean batteryInFrontOfRobot = overlaps(player, e) && player.hasCarries() && player.carriesEntityId() != 0 && E.E(player.carriesEntityId()).typeType().equals("battery2");
             if (batteryInFrontOfRobot || e.isNeedsBatteries()) {
                 e.animId("robot-open"); // open up if player carries an object.
+                if ( e.isNeedsBatteries() ) {
+                    e.chargeCharge(0.5f);
+                }
             }
         }
 

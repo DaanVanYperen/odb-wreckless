@@ -36,8 +36,8 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
                         "VWOM",
                         "deathsound", // done
                         "battery_eaten", // robot gets battery
-                        "deepsound",
-                        "door_break",
+                        "deepsound", //
+                        "door_break", //
                         "door_openclose", // electrical doors.
                         "footsteps_girl",
                         "footsteps_robot",
