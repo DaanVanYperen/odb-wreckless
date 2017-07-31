@@ -39,7 +39,7 @@ public class MyCameraSystem extends CameraSystem {
         } else  {
             if ( !introDone ) {
                 introDone=true;
-                gameScreenAssetSystem.playMusicInGame();
+//                gameScreenAssetSystem.playMusicInGame();
             }
         }
         super.processSystem();

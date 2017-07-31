@@ -76,21 +76,13 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         }
     }
 
-    private int musicIndex = 0;
-    private String[] musicFiles = new String[]
-            {
-                    "sfx/music1.mp3",
-            };
-
-    public void playMusicInGame() {
+    public void playMusicInGame(String song) {
         if (DEBUG_NO_MUSIC) return;
         if (music != null) music.stop();
-        music = Gdx.audio.newMusic(Gdx.files.internal(musicFiles[musicIndex]));
+        music = Gdx.audio.newMusic(Gdx.files.internal("Music/" + song));
         music.setLooping(true);
         music.play();
         music.setPan(0, 0.1f);
-
-        musicIndex = (++musicIndex % 3);
     }
 
     @Override
