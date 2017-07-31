@@ -17,10 +17,7 @@ import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.system.*;
 import net.mostlyoriginal.game.system.detection.*;
 import net.mostlyoriginal.game.system.map.*;
-import net.mostlyoriginal.game.system.render.CameraFollowSystem;
-import net.mostlyoriginal.game.system.render.MyAnimRenderSystem;
-import net.mostlyoriginal.game.system.render.MyCameraSystem;
-import net.mostlyoriginal.game.system.render.TransitionSystem;
+import net.mostlyoriginal.game.system.render.*;
 import net.mostlyoriginal.game.system.ui.MouseClickSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 import net.mostlyoriginal.game.system.view.GameScreenSetupSystem;
@@ -74,6 +71,7 @@ public class GameScreen extends WorldScreen {
                         new SocketSystem(),
 
                         new CameraFollowSystem(),
+                        new CameraClampToMapSystem(),
                         new PriorityAnimSystem(),
 
                         new JumpAttackSystem(),

@@ -17,8 +17,8 @@ import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 public class MapSystem extends BaseSystem {
 
     public TiledMap map;
-    private int width;
-    private int height;
+    public int width;
+    public int height;
     private Array<TiledMapTileLayer> layers;
     private boolean isSetup;
 
