@@ -64,6 +64,7 @@ public class DeathSystem extends FluidIteratingSystem {
             e.deadCooldown(e.deadCooldown() - world.delta);
             if (!e.hasInvisible()) {
                 if (e.teamTeam() == 2) {
+                    assetSystem.stopMusic();
                     assetSystem.playSfx("deathsound");
                     assetSystem.playSfx("death_jingle");
                     if (!e.isRobot()) {

@@ -676,6 +676,11 @@
    <property name="entity" value="birds"/>
   </properties>
  </tile>
+ <tile id="392">
+  <properties>
+   <property name="entity" value="gremlin"/>
+  </properties>
+ </tile>
  <tile id="513">
   <properties>
    <property name="entity" value="robot"/>
