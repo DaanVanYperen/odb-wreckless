@@ -53,7 +53,8 @@ public class SpoutSystem extends FluidIteratingSystem {
     }
 
     private boolean playerWithInRange(float x, float y) {
-        return entityWithTag("player").posXy().dst2(x, y, 0) < 224 * 224;
+        float range = entityWithTag("player").posXy().dst2(x, y, 0);
+        return range < 224 * 224 && range > 48 * 48;
     }
 
     private void spawnGremlin(float angle, float x, float y) {

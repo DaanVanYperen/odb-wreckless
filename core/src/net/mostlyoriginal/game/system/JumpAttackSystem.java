@@ -28,8 +28,8 @@ public class JumpAttackSystem extends FluidIteratingSystem {
             v2.set(target.posX(), target.posY()).sub(e.posX(), e.posY()).nor().scl(300);
 
             if (e.wallSensorOnFloor() || e.wallSensorOnPlatform()) {
-                e.physicsVx(MathUtils.clamp(v2.x, -500, 500));
-                e.physicsVy(MathUtils.clamp(v2.y, 50, 500));
+                e.physicsVx(MathUtils.clamp(v2.x, -200, 200));
+                e.physicsVy(MathUtils.clamp(v2.y, 80, 500));
             }
 
             e.animFlippedX(target.posX() + e.boundsCx() < e.posX() + e.boundsCx());
