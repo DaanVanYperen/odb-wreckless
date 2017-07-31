@@ -31,7 +31,10 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         loadSprites();
         loadSounds(
                 new String[]{
+                        "asc_blub",
                         "Blip!",
+                        "bloop",
+                        "BOOMP",
                         "deathsound",
                         "deepsound",
                         "MOWV",
@@ -82,7 +85,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         music = Gdx.audio.newMusic(Gdx.files.internal("Music/" + song));
         music.setLooping(true);
         music.play();
-        music.setPan(0, 0.1f);
+        music.setPan(0, 0.12f);
     }
 
     @Override
