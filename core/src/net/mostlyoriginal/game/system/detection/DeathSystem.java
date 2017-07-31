@@ -2,14 +2,13 @@ package net.mostlyoriginal.game.system.detection;
 
 import com.artemis.Aspect;
 import com.artemis.E;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.manager.AbstractAssetSystem;
-import net.mostlyoriginal.game.component.Dead;
-import net.mostlyoriginal.game.component.Deadly;
-import net.mostlyoriginal.game.component.Mortal;
-import net.mostlyoriginal.game.component.Robot;
+import net.mostlyoriginal.api.system.camera.CameraSystem;
+import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.screen.GameScreen;
 import net.mostlyoriginal.game.system.FollowSystem;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
@@ -32,6 +31,7 @@ public class DeathSystem extends FluidIteratingSystem {
     private MyAnimRenderSystem animSystem;
     private GameScreenAssetSystem assetSystem;
     private DialogSystem dialogSystem;
+    private CameraSystem cameraSystem;
 
     public DeathSystem() {
         super(Aspect.all(Pos.class).one(Mortal.class, Robot.class));
@@ -54,14 +54,20 @@ public class DeathSystem extends FluidIteratingSystem {
             if (mapCollisionSystem.isLava(e.posX(), e.posY()) || touchingDeadlyStuffs(e, false) != null) {
                 e.dead();
             }
+
+            float halfScreenWidth = (Gdx.graphics.getWidth() / G.CAMERA_ZOOM) * 0.5f + 16;
+
+            if (e.hasRunning() && e.posX() + e.boundsMaxx() < cameraSystem.camera.position.x - halfScreenWidth ) {
+                e.dead();
+            }
         } else {
             e.deadCooldown(e.deadCooldown() - world.delta);
             if (!e.hasInvisible()) {
-                if ( e.teamTeam() == 2 ) {
+                if (e.teamTeam() == 2) {
                     assetSystem.playSfx("deathsound");
                     assetSystem.playSfx("death_jingle");
-                    if ( !e.isRobot()) {
-                        dialogSystem.robotSay(DialogSystem.Dialog.SAD, 0.5f,5f);
+                    if (!e.isRobot()) {
+                        dialogSystem.robotSay(DialogSystem.Dialog.SAD, 0.5f, 5f);
                     }
                 } else {
                     assetSystem.playSfx("gremlin_death");
@@ -73,6 +79,7 @@ public class DeathSystem extends FluidIteratingSystem {
                 doExit();
                 e.removeDead().removeMortal();
             }
+
         }
     }
 

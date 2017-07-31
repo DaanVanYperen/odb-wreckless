@@ -84,7 +84,7 @@ public class PlayerControlSystem extends FluidIteratingSystem {
             e.animFlippedX(true);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.D) && !e.hasDead()) {
-            dx = e.isRunning() ? RUN_FAST_PACE_FACTOR : MOVEMENT_FACTOR;
+            dx = MOVEMENT_FACTOR;
             e.animFlippedX(false);
         }
 
@@ -125,23 +125,11 @@ public class PlayerControlSystem extends FluidIteratingSystem {
 
         if (e.isRunning()) {
             e.animFlippedX(false);
-            E pacer = entityWithTag("pacer");
-            if (dx == 0) {
-                float targetX = pacer.posX() - G.PACER_FOLLOW_DISTANCE;
-                if (Math.abs(targetX) < 10f) {
-                    e.physicsVx(pacer.physicsVx()); // when close match pacer speed to avoid wobble.
-                } else {
-                    if (e.posX() > targetX) {
-                        dx = RUN_SLOW_PACE_FACTOR; // when too far ahead run slower.
-                    } else if (e.posX() < targetX) {
-                        dx = RUN_FAST_PACE_FACTOR; // when too far behind run faster.
-                    }
-                }
+            if (dx != 0) {
+                e.physicsVx(e.physicsVx() + (dx * world.delta));
+                e.animId(playerAnimPrefix + "run");
+                e.removePriorityAnim();
             }
-
-            e.physicsVx(e.physicsVx() + (dx * world.delta));
-            e.animId(playerAnimPrefix + "run");
-            e.removePriorityAnim();
         } else {
             if (dx != 0) {
                 e.physicsVx(e.physicsVx() + (dx * world.delta));

@@ -67,7 +67,7 @@ public class FollowSystem extends FluidIteratingSystem {
         }
 
         e.animId("robot-idle");
-        e.angleRotation(0);
+        //e.angleRotation(0);
         e.physicsVr(0);
 
         E player = entityWithTag("player");
