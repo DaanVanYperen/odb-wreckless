@@ -2,10 +2,12 @@ package net.mostlyoriginal.game.system.render;
 
 import com.artemis.Aspect;
 import com.artemis.E;
+import com.badlogic.gdx.Gdx;
 import javafx.animation.Interpolator;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.InterpolationStrategy;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
+import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.render.CameraFocus;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import com.badlogic.gdx.math.Interpolation;
@@ -42,6 +44,12 @@ public class CameraFollowSystem extends FluidIteratingSystem {
             cameraSystem.camera.position.y = myAnimRenderSystem.roundToPixels(Interpolation.pow2Out.apply(sourceY,targetY, cooldown));        }
         cameraSystem.camera.position.x = myAnimRenderSystem.roundToPixels(e.posX());
         cameraSystem.camera.update();
+
+        float maxDistance = (Gdx.graphics.getHeight() / G.CAMERA_ZOOM) * 0.5F * 0.6f;
+        if (  e.posY() < cameraSystem.camera.position.y - maxDistance) {
+            cameraSystem.camera.position.y = e.posY() + maxDistance;
+            cameraSystem.camera.update();
+        }
     }
 }
 
