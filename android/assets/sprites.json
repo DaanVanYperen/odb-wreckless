@@ -632,5 +632,15 @@
       "width": 16,
       "height": 16
     },
+    {
+      "id": "logo",
+      "comment": "ARTAX logo",
+      "x": 0,
+      "y": 880,
+      "countX": 1,
+      "countY": 1,
+      "width": 140,
+      "height": 31
+    },
   ]
 }
