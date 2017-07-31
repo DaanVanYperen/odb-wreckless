@@ -289,16 +289,31 @@
   <properties>
    <property name="deadly" type="bool" value="true"/>
   </properties>
+  <animation>
+   <frame tileid="144" duration="100"/>
+   <frame tileid="145" duration="100"/>
+   <frame tileid="146" duration="100"/>
+  </animation>
  </tile>
  <tile id="145">
   <properties>
    <property name="deadly" type="bool" value="true"/>
   </properties>
+  <animation>
+   <frame tileid="144" duration="100"/>
+   <frame tileid="145" duration="100"/>
+   <frame tileid="146" duration="100"/>
+  </animation>
  </tile>
  <tile id="146">
   <properties>
    <property name="deadly" type="bool" value="true"/>
   </properties>
+  <animation>
+   <frame tileid="144" duration="100"/>
+   <frame tileid="145" duration="100"/>
+   <frame tileid="146" duration="100"/>
+  </animation>
  </tile>
  <tile id="160">
   <properties>
