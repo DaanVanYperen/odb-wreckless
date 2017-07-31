@@ -2,20 +2,11 @@ package net.mostlyoriginal.game.system;
 
 import com.artemis.Aspect;
 import com.artemis.E;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.basic.Pos;
-import net.mostlyoriginal.api.component.graphics.Anim;
-import net.mostlyoriginal.api.component.physics.Physics;
-import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 import net.mostlyoriginal.api.system.camera.CameraShakeSystem;
-import net.mostlyoriginal.api.system.physics.SocketSystem;
 import net.mostlyoriginal.game.component.*;
-import net.mostlyoriginal.game.component.map.WallSensor;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.detection.ParticleSystem;
-import net.mostlyoriginal.game.system.map.MapCollisionSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 /**
@@ -46,6 +37,7 @@ public class FootstepSystem extends FluidIteratingSystem {
 
                     if ( e.isRobot()) {
                         cameraShakeSystem.shake(1);
+                        particleSystem.sprinkleSand(15);
                     }
                 }
             }

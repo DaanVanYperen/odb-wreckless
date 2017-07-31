@@ -73,6 +73,7 @@
  </tile>
  <tile id="36">
   <properties>
+   <property name="entity" value="sandsprinkler"/>
    <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
@@ -83,6 +84,7 @@
  </tile>
  <tile id="38">
   <properties>
+   <property name="entity" value="sandsprinkler"/>
    <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
@@ -108,21 +110,25 @@
  </tile>
  <tile id="64">
   <properties>
+   <property name="entity" value="sandsprinkler"/>
    <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="65">
   <properties>
+   <property name="entity" value="sandsprinkler"/>
    <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="66">
   <properties>
+   <property name="entity" value="sandsprinkler"/>
    <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="69">
   <properties>
+   <property name="entity" value="sandsprinkler"/>
    <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
@@ -583,7 +589,7 @@
  </tile>
  <tile id="273">
   <properties>
-   <property name="angle" type="int" value="-180"/>
+   <property name="angle" type="int" value="90"/>
    <property name="entity" value="spout"/>
    <property name="solid" type="bool" value="true"/>
   </properties>
