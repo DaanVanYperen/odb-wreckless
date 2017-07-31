@@ -9,6 +9,7 @@ import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.physics.Physics;
 import net.mostlyoriginal.api.manager.AbstractAssetSystem;
+import net.mostlyoriginal.api.system.camera.CameraShakeSystem;
 import net.mostlyoriginal.api.system.physics.SocketSystem;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.component.map.WallSensor;
@@ -23,6 +24,7 @@ import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 public class FootstepSystem extends FluidIteratingSystem {
 
     private GameScreenAssetSystem assetSystem;
+    private CameraShakeSystem cameraShakeSystem;
 
     public FootstepSystem() {
         super(Aspect.all(Footsteps.class, Pos.class));
@@ -41,6 +43,10 @@ public class FootstepSystem extends FluidIteratingSystem {
                 if (e.footstepsSfxCount() >= 3 && e.footstepsSfx() != null) {
                     e.footstepsSfxCount(0);
                     assetSystem.playSfx(e.footstepsSfx());
+
+                    if ( e.isRobot()) {
+                        cameraShakeSystem.shake(1);
+                    }
                 }
             }
         }

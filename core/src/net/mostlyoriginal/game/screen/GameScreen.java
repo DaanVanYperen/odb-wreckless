@@ -7,6 +7,7 @@ import com.artemis.link.EntityLinkManager;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.graphics.Color;
 import net.mostlyoriginal.api.screen.core.WorldScreen;
+import net.mostlyoriginal.api.system.camera.CameraShakeSystem;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.system.graphics.RenderBatchingSystem;
 import net.mostlyoriginal.api.system.mouse.MouseCursorSystem;
@@ -79,6 +80,7 @@ public class GameScreen extends WorldScreen {
 
                         // Camera.
                         new CameraFollowSystem(),
+                        new CameraShakeSystem(),
                         new CameraClampToMapSystem(),
                         new PriorityAnimSystem(),
 
