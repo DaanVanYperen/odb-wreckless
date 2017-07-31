@@ -57,7 +57,7 @@ public class SpoutSystem extends FluidIteratingSystem {
         return range < 224 * 224 && range > 48 * 48;
     }
 
-    private void spawnGremlin(float angle, float x, float y) {
+    public void spawnGremlin(float angle, float x, float y) {
         entitySpawnerSystem.spawnGremlin(x - 12, y - 12);
     }
 

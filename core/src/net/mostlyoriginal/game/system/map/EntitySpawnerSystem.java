@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.system.physics.SocketSystem;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.Spout;
+import net.mostlyoriginal.game.system.detection.SpoutSystem;
 
 import static com.artemis.E.E;
 
@@ -17,6 +18,7 @@ public class EntitySpawnerSystem extends BaseSystem {
 
     private SocketSystem socketSystem;
     private PowerSystem powerSystem;
+    private SpoutSystem spoutSystem;
 
     @Override
     protected void processSystem() {
@@ -49,6 +51,9 @@ public class EntitySpawnerSystem extends BaseSystem {
             case "battery2":
                 assembleBattery(x, y, "battery2");
                 break;
+            case "gremlin":
+                spoutSystem.spawnGremlin(0,x,y);
+                return true;
             case "birds":
                 for (int i = 0, s = MathUtils.random(1, 3); i <= s; i++) {
                     assembleBird(x + MathUtils.random(G.CELL_SIZE), y + MathUtils.random(G.CELL_SIZE));
