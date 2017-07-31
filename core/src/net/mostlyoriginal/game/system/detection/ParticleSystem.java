@@ -2,11 +2,14 @@ package net.mostlyoriginal.game.system.detection;
 
 import com.artemis.Aspect;
 import com.artemis.E;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.sun.javafx.tk.Toolkit;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.operation.JamOperationFactory;
+import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.SandSprinkler;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
@@ -28,6 +31,7 @@ public class ParticleSystem extends FluidIteratingSystem {
 
     private Builder bakery = new Builder();
     private GameScreenAssetSystem assetSystem;
+    private CameraSystem cameraSystem;
 
     public ParticleSystem() {
         super(Aspect.all(SandSprinkler.class));
@@ -38,15 +42,15 @@ public class ParticleSystem extends FluidIteratingSystem {
 
     public void sprinkleSand(int percentageChance) {
         for (E e : allEntitiesWith(SandSprinkler.class)) {
-            if ( MathUtils.random(0,100f) <= percentageChance) {
+            if (MathUtils.random(0, 100f) <= percentageChance) {
                 triggerSprinkler(e);
             }
         }
     }
 
     private void triggerSprinkler(E e) {
-        for (int i = 0; i < MathUtils.random(1,2); i++) {
-            sand(e.posX() + MathUtils.random(0,e.boundsMaxx()),e.posY(), -90 + MathUtils.random(-2,2), MathUtils.random(10,40));
+        for (int i = 0; i < MathUtils.random(1, 2); i++) {
+            sand(e.posX() + MathUtils.random(0, e.boundsMaxx()), e.posY(), -90 + MathUtils.random(-2, 2), MathUtils.random(10, 40));
         }
     }
 
@@ -69,11 +73,11 @@ public class ParticleSystem extends FluidIteratingSystem {
                 .at(x, y)
                 .angle(angle, angle)
                 .speed(force, force + 5)
-                .fadeAfter(1f + MathUtils.random(0f,2f))
+                .fadeAfter(1f + MathUtils.random(0f, 2f))
                 .rotateRandomly()
                 .size(1f, 2f)
                 .solid()
-                .create(1,1);
+                .create(1, 1);
     }
 
 
@@ -93,7 +97,7 @@ public class ParticleSystem extends FluidIteratingSystem {
     }
 
     public void bloodExplosion(float x, float y) {
-        assetSystem.playSfx("splat" + MathUtils.random(1,4) );
+        assetSystem.playSfx("splat" + MathUtils.random(1, 4));
         bakery
                 .color(BLOOD_COLOR)
                 .at(x, y)
@@ -130,10 +134,45 @@ public class ParticleSystem extends FluidIteratingSystem {
     @Override
     protected void begin() {
         cooldown -= world.delta;
-        if (cooldown <= 0 ) {
+        if (cooldown <= 0) {
             sprinkleSand(1);
             cooldown = 1f;
         }
+    }
+
+    float cooldown2 = 0;
+
+    public void gremlinWave() {
+        float borderX = cameraSystem.camera.position.x - (Gdx.graphics.getWidth() / G.CAMERA_ZOOM) * 0.5f - 24;
+        float borderY1 = cameraSystem.camera.position.y - (Gdx.graphics.getHeight() / G.CAMERA_ZOOM) * 0.5f;
+        float borderY2 = cameraSystem.camera.position.y + (Gdx.graphics.getHeight() / G.CAMERA_ZOOM) * 0.5f;
+
+        cooldown2 -= world.delta;
+        if (cooldown2 <= 0) {
+            cooldown2 = 0.32f;
+            for (int i = 0, s = 10; i < s; i++) {
+                float y = MathUtils.random(borderY1, borderY2);
+                E.E()
+                        .pos(borderX, y)
+                        .anim("gremlin-1-idle")
+                        .renderLayer(G.LAYER_PARTICLES)
+                        .physicsVr(MathUtils.random(-90f, 90f))
+                        .origin(0.5f, 0.5f)
+                        .angle()
+                        .scale(MathUtils.random(1f,2f))
+                        .bounds(0, 0, 24, 24)
+                        .physicsVx(MathUtils.random(100f, 300f))
+                        .physicsVy(MathUtils.random(40f, 200f))
+                        .gravityY(-5f)
+                        .physicsFriction(0)
+                        .script(sequence(
+                                delay(0.5f),
+                                JamOperationFactory.tintBetween(Tint.WHITE, Tint.TRANSPARENT, 0.5f),
+                                deleteFromWorld()
+                        ));
+            }
+        }
+
     }
 
     private class Builder {

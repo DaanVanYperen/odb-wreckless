@@ -40,6 +40,10 @@ public class DeathSystem extends FluidIteratingSystem {
     @Override
     protected void process(E e) {
 
+        if (e.hasRunning()) {
+            particleSystem.gremlinWave();
+        }
+
         if (e.hasRobot()) {
             if (e.chargeCharge() > 0) {
                 E enemy = touchingDeadlyStuffs(e, true);
