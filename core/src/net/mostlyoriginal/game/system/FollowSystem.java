@@ -51,8 +51,17 @@ public class FollowSystem extends FluidIteratingSystem {
     @Override
     protected void process(E e) {
 
-        if ( !robotFacingPlayerAtStart) {
-            robotFacingPlayerAtStart=true;
+        cooldownRespawnBatteries -= world.delta;
+        if (cooldownRespawnBatteries <= 0) {
+            boolean hasCharge = e.chargeCharge() > 0;
+            if (hasCharge && e.chargeCharge() <= 0.9f) {
+                cooldownRespawnBatteries = 20f;
+                socketSystem.respawnRobotBatteries();
+            }
+        }
+
+        if (!robotFacingPlayerAtStart) {
+            robotFacingPlayerAtStart = true;
             E player = entityWithTag("player");
             e.animFlippedX(player.posX() + player.boundsCy() < e.posX() + e.boundsCx());
         }
@@ -64,7 +73,7 @@ public class FollowSystem extends FluidIteratingSystem {
         E player = entityWithTag("player");
         E following = !e.isRunning() ? entityWithTag("marker") : player;
 
-        if ( e.chargeCharge() > 0L ) {
+        if (e.chargeCharge() > 0L) {
             e.animFlippedX(player.posX() + player.boundsCy() < e.posX() + e.boundsCx());
         }
 
@@ -78,7 +87,7 @@ public class FollowSystem extends FluidIteratingSystem {
             boolean batteryInFrontOfRobot = overlaps(player, e) && player.hasCarries() && player.carriesEntityId() != 0 && E.E(player.carriesEntityId()).typeType().equals("battery2");
             if (batteryInFrontOfRobot || e.isNeedsBatteries()) {
                 e.animId("robot-open"); // open up if player carries an object.
-                if ( e.isNeedsBatteries() ) {
+                if (e.isNeedsBatteries()) {
                     e.chargeCharge(0.5f);
                 }
             }
@@ -169,12 +178,10 @@ public class FollowSystem extends FluidIteratingSystem {
         updateChargeIndicator(e);
     }
 
+    public float cooldownRespawnBatteries = 0f;
+
     public void expendCharge(E e, float cost) {
-        boolean hasCharge = e.chargeCharge() > 0;
         e.chargeDecrease(cost * world.delta);
-        if (hasCharge && e.chargeCharge() <= 0) {
-            socketSystem.respawnRobotBatteries();
-        }
     }
 
     private void updateChargeIndicator(E e) {
