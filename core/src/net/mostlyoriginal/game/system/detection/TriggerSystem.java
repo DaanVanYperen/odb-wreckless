@@ -9,15 +9,20 @@ import net.mostlyoriginal.game.component.Trigger;
 import net.mostlyoriginal.game.screen.GameScreen;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.render.TransitionSystem;
+import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 /**
  * @author Daan van Yperen
  */
 public class TriggerSystem extends FluidIteratingSystem {
 
+    private GameScreenAssetSystem assetSystem;
+
     public TriggerSystem() {
         super(Aspect.all(Trigger.class, Pos.class));
     }
+
+    String playingSong;
 
     @Override
     protected void process(E e) {
@@ -53,7 +58,17 @@ public class TriggerSystem extends FluidIteratingSystem {
                         e.removeTrigger();
                     }
                     break;
+                case "music":
+                    playMusic(e);
             }
+        }
+    }
+
+    private void playMusic(E e) {
+        String song = e.triggerParameter();
+        if ( !song.equals(playingSong)) {
+            playingSong = song;
+            assetSystem.playMusicInGame(song);
         }
     }
 }

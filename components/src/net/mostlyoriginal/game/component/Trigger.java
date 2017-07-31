@@ -7,6 +7,7 @@ import com.artemis.Component;
  */
 public class Trigger extends Component {
     public String trigger;
+    public String parameter;
 
     public Trigger() {
     }

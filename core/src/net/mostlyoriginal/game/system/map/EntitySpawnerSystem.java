@@ -34,7 +34,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 assembleExit(x, y);
                 break;
             case "trigger":
-                assembleTrigger(x, y, (String) properties.get("trigger"));
+                assembleTrigger(x, y, (String) properties.get("trigger"), (String) properties.get("parameter"));
                 break;
             case "robot":
                 E robot = assembleRobot(x, y);
@@ -68,8 +68,13 @@ public class EntitySpawnerSystem extends BaseSystem {
 return        E().pos(x, y).bounds(0, 0, 16, 16).spoutAngle(angle).spoutType(Spout.Type.valueOf(spawns));
     }
 
-    private void assembleTrigger(float x, float y, String trigger) {
-        E().pos(x, y - 5000).bounds(0, 0, 16, 10000).trigger(trigger);
+    private void assembleTrigger(float x, float y, String trigger, String parameter) {
+        if ( parameter != null ) {
+
+            boolean tallTrigger = !trigger.equals("music");
+
+            E().pos(x, y - (tallTrigger ? 5000 : 0)).bounds(0, 0, 16,  (tallTrigger ? 10000 : 16)).trigger(trigger).triggerParameter(parameter);
+        }
     }
 
     private void assembleBatterySlot(float x, float y, boolean b, String batteryType) {

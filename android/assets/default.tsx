@@ -496,6 +496,41 @@
    <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
+ <tile id="258">
+  <properties>
+   <property name="entity" value="trigger"/>
+   <property name="parameter" value="artax.mp3"/>
+   <property name="trigger" value="music"/>
+  </properties>
+ </tile>
+ <tile id="259">
+  <properties>
+   <property name="entity" value="trigger"/>
+   <property name="parameter" value="artax2.mp3"/>
+   <property name="trigger" value="music"/>
+  </properties>
+ </tile>
+ <tile id="260">
+  <properties>
+   <property name="entity" value="trigger"/>
+   <property name="parameter" value="fatekeeper.mp3"/>
+   <property name="trigger" value="music"/>
+  </properties>
+ </tile>
+ <tile id="261">
+  <properties>
+   <property name="entity" value="trigger"/>
+   <property name="parameter" value="gremlins.mp3"/>
+   <property name="trigger" value="music"/>
+  </properties>
+ </tile>
+ <tile id="262">
+  <properties>
+   <property name="entity" value="trigger"/>
+   <property name="parameter" value="sadhappy.mp3"/>
+   <property name="trigger" value="music"/>
+  </properties>
+ </tile>
  <tile id="263">
   <properties>
    <property name="cable-state" type="bool" value="true"/>
@@ -553,6 +588,13 @@
    <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
+ <tile id="290">
+  <properties>
+   <property name="entity" value="trigger"/>
+   <property name="parameter" value="wind.mp3"/>
+   <property name="trigger" value="music"/>
+  </properties>
+ </tile>
  <tile id="295">
   <properties>
    <property name="cable-state" type="bool" value="true"/>
@@ -571,6 +613,26 @@
   <properties>
    <property name="entity" value="trigger"/>
    <property name="trigger" value="robot-hover"/>
+  </properties>
+ </tile>
+ <tile id="322">
+  <properties>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="323">
+  <properties>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="324">
+  <properties>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="325">
+  <properties>
+   <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="513">
