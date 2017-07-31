@@ -74,7 +74,7 @@ public class PlayerControlSystem extends FluidIteratingSystem {
 
         boolean onFloor = e.wallSensorOnFloor() || e.wallSensorOnPlatform();
         if (Gdx.input.isKeyPressed(Input.Keys.W) && onFloor && !e.hasDead()) {
-            dy = JUMP_FACTOR;
+            e.physicsVy(JUMP_FACTOR * 0.016f);
         }
 
         if (!G.PRODUCTION) {
@@ -127,9 +127,6 @@ public class PlayerControlSystem extends FluidIteratingSystem {
                 e.animId(playerAnimPrefix + "walk");
                 e.removePriorityAnim();
             }
-        }
-        if (dy != 0) {
-            e.physicsVy((dy * world.delta));
         }
 
 

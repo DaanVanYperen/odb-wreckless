@@ -24,9 +24,15 @@ public class FollowSystem extends FluidIteratingSystem {
     private float JUMP_FACTOR = 800;
     private MapCollisionSystem mapCollision;
     private SocketSystem socketSystem;
+    private boolean robotFacingPlayerAtStart = false;
 
     public FollowSystem() {
         super(Aspect.all(Follow.class, Physics.class, WallSensor.class, Anim.class));
+    }
+
+    @Override
+    protected void initialize() {
+        super.initialize();
     }
 
     protected void createMarker(E e) {
@@ -39,10 +45,17 @@ public class FollowSystem extends FluidIteratingSystem {
         marker
                 .pos(e.getPos())
                 .bounds(e.getBounds()).tag("marker");
+
     }
 
     @Override
     protected void process(E e) {
+
+        if ( !robotFacingPlayerAtStart) {
+            robotFacingPlayerAtStart=true;
+            E player = entityWithTag("player");
+            e.animFlippedX(player.posX() + player.boundsCy() < e.posX() + e.boundsCx());
+        }
 
         e.animId("robot-idle");
         e.angleRotation(0);
@@ -50,6 +63,11 @@ public class FollowSystem extends FluidIteratingSystem {
 
         E player = entityWithTag("player");
         E following = !e.isRunning() ? entityWithTag("marker") : player;
+
+        if ( e.chargeCharge() > 0L ) {
+            e.animFlippedX(player.posX() + player.boundsCy() < e.posX() + e.boundsCx());
+        }
+
 
         float dx = 0;
         float dy = 0;
