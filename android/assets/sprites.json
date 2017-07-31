@@ -505,7 +505,7 @@
       "y": 16,
       "countX": 2,
       "countY": 1,
-      "milliseconds": 60,
+      "milliseconds": 180,
       "width": 16,
       "height": 16
     },
@@ -516,7 +516,7 @@
       "y": 16,
       "countX": 2,
       "countY": 1,
-      "milliseconds": 60,
+      "milliseconds": 180,
       "width": 16,
       "height": 16
     },
@@ -527,7 +527,7 @@
       "y": 32,
       "countX": 2,
       "countY": 1,
-      "milliseconds": 60,
+      "milliseconds": 180,
       "width": 16,
       "height": 16
     },
@@ -538,7 +538,7 @@
       "y": 32,
       "countX": 2,
       "countY": 1,
-      "milliseconds": 60,
+      "milliseconds": 180,
       "width": 16,
       "height": 16
     },
@@ -549,9 +549,20 @@
       "y": 48,
       "countX": 2,
       "countY": 1,
-      "milliseconds": 60,
+      "milliseconds": 180,
       "width": 16,
       "height": 16
-    }
+    },
+    {
+      "id": "cloud-come",
+      "comment": "Talk cloud indicating come here!",
+      "x": 464,
+      "y": 48,
+      "countX": 2,
+      "countY": 1,
+      "milliseconds": 180,
+      "width": 16,
+      "height": 16
+    },
   ]
 }

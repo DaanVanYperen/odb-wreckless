@@ -9,6 +9,7 @@ import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.Socket;
 import net.mostlyoriginal.game.component.Type;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
+import net.mostlyoriginal.game.system.detection.DialogSystem;
 import net.mostlyoriginal.game.system.map.EntitySpawnerSystem;
 import net.mostlyoriginal.game.system.map.PowerSystem;
 import net.mostlyoriginal.game.system.render.MyAnimRenderSystem;
@@ -23,6 +24,7 @@ public class SocketSystem extends FluidIteratingSystem {
     private GameScreenAssetSystem assetSystem;
     private EntitySpawnerSystem entitySpawnerSystem;
     private MyAnimRenderSystem animSystem;
+    private DialogSystem dialogSystem;
 
     public SocketSystem() {
         super(Aspect.all(Socket.class, Anim.class));
@@ -51,6 +53,7 @@ public class SocketSystem extends FluidIteratingSystem {
             if (socket.hasSlumbering()) {
                 animSystem.forceAnim(socket, "robot-wake-up");
                 socket.removeSlumbering();
+                dialogSystem.playerSay(DialogSystem.Dialog.HAPPY,0.5f,2f).robotSay(DialogSystem.Dialog.HAPPY, 1f,2f);
             } else {
                 animSystem.forceAnim(socket, "robot-close-battery");
             }

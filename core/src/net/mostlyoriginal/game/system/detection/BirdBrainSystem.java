@@ -69,7 +69,7 @@ public class BirdBrainSystem extends FluidIteratingSystem {
             }
         } else if (e.wallSensorOnFloor() || e.wallSensorOnPlatform()) {
             E player = entityWithTag("player");
-            if (player.posXy().dst2(e.posXy()) < 64 * 64) {
+            if ((player.physicsVx() != 0 || player.physicsVy() != 0) && player.posXy().dst2(e.posXy()) < 64 * 64) {
                 e.spooked();
                 e.spookedCooldown(3 + MathUtils.random(2f));
                 e.script(sequence(tintBetween(Tint.WHITE, Tint.TRANSPARENT, 0.8f)));

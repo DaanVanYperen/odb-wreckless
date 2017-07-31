@@ -189,7 +189,7 @@ public class FollowSystem extends FluidIteratingSystem {
         chargeIndicator.render(G.LAYER_PLAYER_ROBOT_BATTERY);
         chargeIndicator.posX(e.posX() + (chargeIndicator.boundsMaxx() * 0.5f));
         chargeIndicator.posY(e.posY() + e.boundsMaxy() + 5);
-        if ( e.isSlumbering()) {
+        if ( e.isSlumbering() || entityWithTag("robotDialog") != null) {
             chargeIndicator.invisible();
         } else chargeIndicator.removeInvisible();
 
