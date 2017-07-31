@@ -5,9 +5,11 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.api.component.graphics.Tint;
+import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 import net.mostlyoriginal.api.operation.JamOperationFactory;
 import net.mostlyoriginal.api.system.core.PassiveSystem;
 import net.mostlyoriginal.game.component.G;
+import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 import static net.mostlyoriginal.api.operation.OperationFactory.*;
@@ -23,6 +25,7 @@ public class ParticleSystem extends PassiveSystem {
     private Color COLOR_ACID = Color.valueOf("5F411CDD");
 
     private Builder bakery = new Builder();
+    private GameScreenAssetSystem assetSystem;
 
     public void dust(float x, float y, float angle) {
         bakery
@@ -52,6 +55,7 @@ public class ParticleSystem extends PassiveSystem {
     }
 
     public void bloodExplosion(float x, float y) {
+        assetSystem.playSfx("splat" + MathUtils.random(1,4) );
         bakery
                 .color(BLOOD_COLOR)
                 .at(x, y)

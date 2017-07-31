@@ -5,6 +5,7 @@ import com.artemis.E;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.basic.Pos;
+import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 import net.mostlyoriginal.game.component.Dead;
 import net.mostlyoriginal.game.component.Deadly;
 import net.mostlyoriginal.game.component.Mortal;
@@ -16,6 +17,7 @@ import net.mostlyoriginal.game.system.map.EntitySpawnerSystem;
 import net.mostlyoriginal.game.system.map.MapCollisionSystem;
 import net.mostlyoriginal.game.system.render.MyAnimRenderSystem;
 import net.mostlyoriginal.game.system.render.TransitionSystem;
+import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 /**
  * @author Daan van Yperen
@@ -28,6 +30,7 @@ public class DeathSystem extends FluidIteratingSystem {
     private EntitySpawnerSystem entitySpawnerSystem;
     private ParticleSystem particleSystem;
     private MyAnimRenderSystem animSystem;
+    private GameScreenAssetSystem assetSystem;
 
     public DeathSystem() {
         super(Aspect.all(Pos.class).one(Mortal.class, Robot.class));
@@ -53,6 +56,11 @@ public class DeathSystem extends FluidIteratingSystem {
         } else {
             e.deadCooldown(e.deadCooldown() - world.delta);
             if (!e.hasInvisible()) {
+                if ( e.teamTeam() == 2 ) {
+                    assetSystem.playSfx("deathsound");
+                } else {
+                    assetSystem.playSfx("gremlin_death");
+                }
                 e.invisible();
                 particleSystem.bloodExplosion(e.posX() + e.boundsCx(), e.posY() + e.boundsCy());
             }

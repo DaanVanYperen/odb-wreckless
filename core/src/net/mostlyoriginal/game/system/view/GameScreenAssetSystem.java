@@ -31,16 +31,26 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         loadSprites();
         loadSounds(
                 new String[]{
-                        "asc_blub",
-                        "Blip!",
-                        "bloop",
-                        "BOOMP",
-                        "deathsound",
-                        "deepsound",
-                        "MOWV",
-                        "squeak",
+                        "MOWV", //
                         "voice1",
-                        "VWOM"
+                        "VWOM",
+                        "deathsound", // done
+                        "battery_eaten", // robot gets battery
+                        "deepsound",
+                        "door_break",
+                        "door_openclose", // electrical doors.
+                        "footsteps_girl",
+                        "footsteps_robot",
+                        "landing_girl",
+                        "boss_sound_1",
+                        "poop_pipe",
+                        "robot_attack",
+                        "robot_fly",
+                        "gremlin_death",
+                        "splat1",
+                        "splat2",
+                        "splat3",
+                        "splat4",
                 }
         );
 

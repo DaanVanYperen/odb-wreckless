@@ -113,6 +113,7 @@ return        E().pos(x, y).bounds(0, 0, 16, 16).spoutAngle(angle).spoutType(Spo
                 .cameraFocus()
                 .teamTeam(G.TEAM_PLAYERS)
                 .footsteps()
+                .footstepsSfx("footsteps_girl")
                 .tag("player")
                 .playerControlled();
     }
@@ -143,12 +144,14 @@ return        E().pos(x, y).bounds(0, 0, 16, 16).spoutAngle(angle).spoutType(Spo
                 .charge()
                 .socketAnimSocketed(null)
                 .socketAnimEmpty(null)
+                .socketSfxSocketed("battery_eaten")
                 .type("battery2")
                 .robot()
                 .teamTeam(G.TEAM_PLAYERS)
                 .render(G.LAYER_PLAYER_ROBOT)
                 .follow()
                 .footstepsStepSize(20)
+                .footstepsSfx("footsteps_robot")
                 .gravity()
                 .platform()
                 .bounds(0, 0, 39, 43)
