@@ -39,8 +39,9 @@ public class EntitySpawnerSystem extends BaseSystem {
                 break;
             case "robot":
                 E robot = assembleRobot(x, y);
-                if (properties.containsKey("slumbering"))
+                if (properties.containsKey("slumbering")) {
                     robot.slumbering();
+                }
                 break;
             case "battery":
                 assembleBattery(x, y, "battery");

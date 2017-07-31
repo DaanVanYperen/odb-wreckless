@@ -58,6 +58,7 @@ public class DeathSystem extends FluidIteratingSystem {
             if (!e.hasInvisible()) {
                 if ( e.teamTeam() == 2 ) {
                     assetSystem.playSfx("deathsound");
+                    assetSystem.playSfx("death_jingle");
                 } else {
                     assetSystem.playSfx("gremlin_death");
                 }
