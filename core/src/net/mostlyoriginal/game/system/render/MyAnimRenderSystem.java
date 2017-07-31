@@ -10,6 +10,7 @@ import com.artemis.annotations.Wire;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.basic.Angle;
 import net.mostlyoriginal.api.component.basic.Origin;
 import net.mostlyoriginal.api.component.basic.Pos;
@@ -108,7 +109,7 @@ public class MyAnimRenderSystem extends DeferredEntityProcessingSystem {
 
         float ox = frame.getRegionWidth() * scale * origin.xy.x;
         float oy = frame.getRegionHeight() * scale * origin.xy.y;
-        if ( animation.flippedX)
+        if ( animation.flippedX && angle.rotation != 0)
         {
             // mirror
             batch.draw(frame.getTexture(),

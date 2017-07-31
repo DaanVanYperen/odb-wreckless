@@ -2,7 +2,10 @@ package net.mostlyoriginal.game.system.detection;
 
 import com.artemis.Aspect;
 import com.artemis.E;
+import net.mostlyoriginal.api.component.basic.Angle;
 import net.mostlyoriginal.api.component.basic.Pos;
+import net.mostlyoriginal.api.operation.JamOperationFactory;
+import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.game.component.Exit;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.Trigger;
@@ -48,13 +51,15 @@ public class TriggerSystem extends FluidIteratingSystem {
                     break;
                 case "robot-land":
                     if ( robotOverlaps ) {
-                        robot.removeFlying();
+                        robot.removeFlying().platform();
+                        robot.script(OperationFactory.tween(new Angle(-30), new Angle(0), 1.5f));
                         e.removeTrigger();
                     }
                     break;
                 case "robot-hover":
                     if ( robotOverlaps ) {
-                        robot.flying();
+                        robot.flying().removePlatform();
+                        robot.script(OperationFactory.tween(new Angle(0), new Angle(-30), 1f));
                         e.removeTrigger();
                     }
                     break;
