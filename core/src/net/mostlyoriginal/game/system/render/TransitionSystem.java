@@ -9,6 +9,7 @@ import com.artemis.utils.reflect.ClassReflection;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import net.mostlyoriginal.game.component.logic.Transition;
+import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 import static com.artemis.E.*;
 import static net.mostlyoriginal.api.operation.OperationFactory.*;
@@ -23,6 +24,7 @@ import static net.mostlyoriginal.api.utils.Duration.*;
 public class TransitionSystem extends EntityProcessingSystem {
 
     private Game game;
+    private GameScreenAssetSystem assetSystem;
 
     public TransitionSystem(Game game) {
         super(Aspect.all(Transition.class));
@@ -45,6 +47,7 @@ public class TransitionSystem extends EntityProcessingSystem {
     @Override
     protected void process(Entity e) {
         try {
+            assetSystem.stopMusic();
             game.setScreen(ClassReflection.newInstance(E(e).transitionScreen()));
         } catch (Exception ex) {
             throw new RuntimeException(ex);

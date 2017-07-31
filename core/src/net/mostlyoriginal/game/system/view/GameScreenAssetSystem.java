@@ -98,6 +98,10 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         music.setPan(0, 0.12f);
     }
 
+    public void stopMusic() {
+        if ( music != null ) music.stop();
+    }
+
     @Override
     protected void initialize() {
         super.initialize();

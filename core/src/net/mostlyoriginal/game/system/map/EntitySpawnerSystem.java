@@ -175,7 +175,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .teamTeam(G.TEAM_PLAYERS)
                 .render(G.LAYER_PLAYER_ROBOT)
                 .follow()
-                .footstepsStepSize(20)
+                .footstepsStepSize(8)
                 .footstepsSfx("footsteps_robot")
                 .gravity()
                 .platform()
