@@ -15,6 +15,7 @@ import net.mostlyoriginal.game.component.PlayerControlled;
 import net.mostlyoriginal.game.component.Socket;
 import net.mostlyoriginal.game.component.map.WallSensor;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
+import net.mostlyoriginal.game.system.detection.DialogSystem;
 import net.mostlyoriginal.game.system.map.MapCollisionSystem;
 import net.mostlyoriginal.game.system.render.MyAnimRenderSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
@@ -31,6 +32,7 @@ public class PlayerControlSystem extends FluidIteratingSystem {
     private FollowSystem followSystem;
     private MyAnimRenderSystem animSystem;
     private GameScreenAssetSystem assetSystem;
+    private DialogSystem dialogSystem;
 
     public PlayerControlSystem() {
         super(Aspect.all(PlayerControlled.class, Physics.class, WallSensor.class, Anim.class));
@@ -47,8 +49,27 @@ public class PlayerControlSystem extends FluidIteratingSystem {
             E carried = E.E(e.carriesEntityId());
             carried.invisible();
             playerAnimPrefix = carried.typeType().equals("battery2") ? "player-red-battery-" : "player-green-battery-";
+
         }
 
+        {
+            E socket = firstTouchingEntityMatching(e, Aspect.all(Socket.class));
+            E carried = e.hasCarries() ? E.E(e.carriesEntityId()) : null;
+
+            // battery to put.
+            if (socket != null
+                    && carried != null
+                    && socket.typeType() != null
+                    && carried.typeType().equals(socket.typeType())
+                    && socket.socketEntityId() == 0) {
+                dialogSystem.playerSay(DialogSystem.Dialog.E, 0f, 1f);
+            }
+
+            // battery to get.
+            if (socket != null && carried == null && socket.socketEntityId() != 0) {
+                dialogSystem.playerSay(DialogSystem.Dialog.E, 0f, 1f);
+            }
+        }
 
         e.animId(playerAnimPrefix + "idle");
         e.angleRotation(0);

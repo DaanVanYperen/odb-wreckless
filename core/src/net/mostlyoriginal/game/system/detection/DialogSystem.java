@@ -32,16 +32,21 @@ public class DialogSystem extends FluidIteratingSystem {
     private void say(E e, String tag, String animId,  float delay, float duration) {
 
         E dialog = entityWithTag(tag);
+        if (dialog != null && dialog.animId().equals(animId)) return; // don't repeat.
         if (dialog != null) dialog.deleteFromWorld();
 
-        E.E().pos(e.posX(),e.posY())
+        dialog = E.E().pos(e.posX() + e.boundsCx() - 8, e.posY() + e.boundsMaxy() + 6)
                 .dialogEntityId(e.id())
                 .tag(tag)
-                .bounds(0,0,16,16)
+                .bounds(0, 0, 16, 16)
                 .render(G.LAYER_DIALOGS)
-                .invisible()
-                .script(sequence(delay(delay), remove(Invisible.class), delay(duration), deleteFromWorld()))
                 .anim(animId);
+
+        if ( delay > 0 ) {
+            dialog.invisible().script(sequence(delay(delay), remove(Invisible.class), delay(duration), deleteFromWorld()));
+        } else {
+            dialog.script(sequence(delay(duration), deleteFromWorld()));
+        }
     }
 
     @Override
@@ -49,10 +54,10 @@ public class DialogSystem extends FluidIteratingSystem {
         E follow = E.E(e.dialogEntityId());
 
         e.posX(follow.posX() + follow.boundsCx() - 8);
-        e.posY(follow.posY() + follow.boundsMaxy() + 4);
+        e.posY(follow.posY() + follow.boundsMaxy() + 6);
     }
 
     public enum Dialog {
-        HEART, HAPPY
+        HEART, HAPPY, BATTERY, E, SAD
     }
 }
