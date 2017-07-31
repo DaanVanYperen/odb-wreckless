@@ -48,8 +48,8 @@ public class SocketSystem extends FluidIteratingSystem {
         if (socket.isRobot()) {
             battery.deleteFromWorld();
             socket.chargeIncrease(G.BARS_FOR_BATTERY);
-            if (socket.hasSlumbering())  {
-                animSystem.forceAnim(socket,"robot-wake-up");
+            if (socket.hasSlumbering()) {
+                animSystem.forceAnim(socket, "robot-wake-up");
                 socket.removeSlumbering();
             } else {
                 animSystem.forceAnim(socket, "robot-close-battery");
@@ -62,7 +62,7 @@ public class SocketSystem extends FluidIteratingSystem {
 
     public void respawnRobotBatteries() {
         for (E socket : allEntitiesWith(Socket.class)) {
-            if (socket.typeType().equals("battery2") && socket.socketEntityId() == 0) {
+            if (socket.typeType().equals("battery2") && socket.socketEntityId() == 0 && !socket.isRobot()) {
                 entitySpawnerSystem.spawnBatteryInSocket("battery2", socket);
             }
         }

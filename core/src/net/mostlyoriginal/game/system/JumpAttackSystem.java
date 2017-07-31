@@ -31,6 +31,8 @@ public class JumpAttackSystem extends FluidIteratingSystem {
                 e.physicsVx(MathUtils.clamp(v2.x, -500, 500));
                 e.physicsVy(MathUtils.clamp(v2.y, 50, 500));
             }
+
+            e.animFlippedX(target.posX() + e.boundsCx() < e.posX() + e.boundsCx());
         }
     }
 }
