@@ -76,9 +76,11 @@ public class DeathSystem extends FluidIteratingSystem {
                 e.invisible();
                 particleSystem.bloodExplosion(e.posX() + e.boundsCx(), e.posY() + e.boundsCy());
             }
-            if (e.deadCooldown() <= 0) {
-                doExit();
-                e.removeDead().removeMortal();
+            if (e.deadCooldown() <= 0 ) {
+                if ( (e.isRobot() || e.isPlayerControlled()) ) {
+                    doExit();
+                    e.removeDead().removeMortal();
+                } else e.deleteFromWorld();
             }
 
         }
