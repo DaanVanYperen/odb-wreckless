@@ -5,11 +5,8 @@ import com.artemis.E;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import javafx.scene.input.InputMethodTextRun;
 import net.mostlyoriginal.api.component.graphics.Tint;
-import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 import net.mostlyoriginal.api.operation.JamOperationFactory;
-import net.mostlyoriginal.api.system.core.PassiveSystem;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.SandSprinkler;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
@@ -37,9 +34,11 @@ public class ParticleSystem extends FluidIteratingSystem {
     }
 
 
-    public void sprinkleSand() {
+    public float cooldown = 0;
+
+    public void sprinkleSand(int percentageChance) {
         for (E e : allEntitiesWith(SandSprinkler.class)) {
-            if ( MathUtils.random(0,100) < 15) {
+            if ( MathUtils.random(0,100f) <= percentageChance) {
                 triggerSprinkler(e);
             }
         }
@@ -47,7 +46,7 @@ public class ParticleSystem extends FluidIteratingSystem {
 
     private void triggerSprinkler(E e) {
         for (int i = 0; i < MathUtils.random(1,2); i++) {
-            sand(e.posX() + MathUtils.random(0,e.boundsMaxx()),e.posY(), -90 + MathUtils.random(-2,2), 40);
+            sand(e.posX() + MathUtils.random(0,e.boundsMaxx()),e.posY(), -90 + MathUtils.random(-2,2), MathUtils.random(10,40));
         }
     }
 
@@ -126,7 +125,15 @@ public class ParticleSystem extends FluidIteratingSystem {
 
     @Override
     protected void process(E e) {
+    }
 
+    @Override
+    protected void begin() {
+        cooldown -= world.delta;
+        if (cooldown <= 0 ) {
+            sprinkleSand(1);
+            cooldown = 1f;
+        }
     }
 
     private class Builder {
