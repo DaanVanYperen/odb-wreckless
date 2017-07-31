@@ -189,6 +189,10 @@ public class FollowSystem extends FluidIteratingSystem {
         chargeIndicator.render(G.LAYER_PLAYER_ROBOT_BATTERY);
         chargeIndicator.posX(e.posX() + (chargeIndicator.boundsMaxx() * 0.5f));
         chargeIndicator.posY(e.posY() + e.boundsMaxy() + 5);
+        if ( e.isSlumbering()) {
+            chargeIndicator.invisible();
+        } else chargeIndicator.removeInvisible();
+
         if (e.chargeCharge() >= 4) chargeIndicator.animId("charge-4");
         else if (e.chargeCharge() >= 3) chargeIndicator.animId("charge-3");
         else if (e.chargeCharge() >= 2) chargeIndicator.animId("charge-2");

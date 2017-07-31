@@ -45,6 +45,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
                         "boss_sound_1",
                         "poop_pipe",
                         "robot_attack",
+                        "death_jingle",
                         "robot_fly",
                         "gremlin_death",
                         "splat1",
