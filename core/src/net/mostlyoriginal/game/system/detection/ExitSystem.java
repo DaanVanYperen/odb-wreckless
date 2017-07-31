@@ -4,6 +4,7 @@ import com.artemis.Aspect;
 import com.artemis.E;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.manager.AbstractAssetSystem;
+import net.mostlyoriginal.api.system.camera.CameraShakeSystem;
 import net.mostlyoriginal.game.component.Exit;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.screen.GameScreen;
@@ -22,6 +23,8 @@ public class ExitSystem extends FluidIteratingSystem {
     private FollowSystem followSystem;
     private MyAnimRenderSystem animSystem;
     private GameScreenAssetSystem assetSystem;
+    private DialogSystem dialogSystem;
+    private CameraShakeSystem cameraShakeSystem;
 
     public ExitSystem() {
         super(Aspect.all(Exit.class, Pos.class));
@@ -34,7 +37,10 @@ public class ExitSystem extends FluidIteratingSystem {
 
         if (overlaps(robot, e) && !e.exitOpen()) {
             if (robot.chargeCharge() < G.BARS_NEEDED_FOR_BREAKING_DOOR && e.exitCooldown() >= 2.9f) {
-                robot.needsBatteries();
+                if ( !robot.hasNeedsBatteries() ) {
+                    robot.needsBatteries();
+                    dialogSystem.robotSay(DialogSystem.Dialog.BATTERY, 0.5f,5f);
+                }
             } else {
                 robot.removeNeedsBatteries();
                 e.exitCooldown(e.exitCooldown() - world.delta);
@@ -46,13 +52,16 @@ public class ExitSystem extends FluidIteratingSystem {
                     assetSystem.playSfx("door_break");
                     followSystem.expendCharge(e, G.BARS_NEEDED_FOR_BREAKING_DOOR / 2f);
                     E.E().posX(e.posX() - 16).posY(e.posY()).animId("exit-damaged").render(G.LAYER_DOOR);
+                    cameraShakeSystem.shake(10);
                 }
                 if (e.exitCooldown() < 1 && !e.exitOpen()) {
                     assetSystem.playSfx("door_break");
                     e.exitOpen(true);
                     followSystem.expendCharge(e, G.BARS_NEEDED_FOR_BREAKING_DOOR / 2f);
                     E.E().posX(e.posX() - 16).posY(e.posY()).animId("exit-open").render(G.LAYER_DOOR + 1);
+                    cameraShakeSystem.shake(10);
                 }
+                cameraShakeSystem.shake(4);
             }
         } else robot.removeNeedsBatteries();
 

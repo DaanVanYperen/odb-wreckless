@@ -53,6 +53,6 @@ public class DialogSystem extends FluidIteratingSystem {
     }
 
     public enum Dialog {
-        HEART, HAPPY
+        HEART, HAPPY, BATTERY, SAD
     }
 }
