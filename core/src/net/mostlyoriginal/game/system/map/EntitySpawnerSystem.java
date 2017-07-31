@@ -64,11 +64,18 @@ public class EntitySpawnerSystem extends BaseSystem {
             case "socket":
                 assembleBatterySlot(x, y, (Boolean) properties.get("powered"), (String) properties.get("accept"));
                 break;
+            case "sandsprinkler":
+                assembleSandSprinkler(x,y-1);
+                return false;
             default:
                 return false;
             //throw new RuntimeException("No idea how to spawn entity of type " + entity);
         }
         return true;
+    }
+
+    private void assembleSandSprinkler(float x, float y) {
+        E.E().pos(x,y).bounds(0,0,16,1).sandSprinkler();
     }
 
     private int birdIndex = 0;

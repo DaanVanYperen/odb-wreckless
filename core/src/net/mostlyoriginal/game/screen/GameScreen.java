@@ -96,8 +96,8 @@ public class GameScreen extends WorldScreen {
                         new TerminalSystem(),
                         new ExitSystem(),
                         new DeathSystem(),
-                        new TransitionSystem(GdxArtemisGame.getInstance()),
-                        new DialogSystem()
+                        new DialogSystem(),
+                        new TransitionSystem(GdxArtemisGame.getInstance())
                 ).build());
     }
 
