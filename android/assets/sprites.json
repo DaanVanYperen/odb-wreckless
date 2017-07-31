@@ -305,6 +305,18 @@
       "height": 48
     },
     {
+      "id": "robot-wave,
+      "comment": "Robot waves.",
+      "x": 0,
+      "y": 784,
+      "countX": 6,
+      "countY": 2,
+      "milliseconds": 100,
+	  "repeat": false,
+      "width": 48,
+      "height": 48
+    },
+    {
       "id": "marker",
       "comment": ".",
       "x": 16,
