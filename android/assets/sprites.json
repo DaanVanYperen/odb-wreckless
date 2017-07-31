@@ -293,6 +293,18 @@
       "height": 48
     },
     {
+      "id": "robot-shut-down",
+      "comment": "Robot shuts down.",
+      "x": 0,
+      "y": 736,
+      "countX": 10,
+      "countY": 1,
+      "milliseconds": 100,
+	  "repeat": false,
+      "width": 48,
+      "height": 48
+    },
+    {
       "id": "marker",
       "comment": ".",
       "x": 16,
@@ -488,7 +500,7 @@
       "height": 24
     },
     {
-      "id": "indicator-e",
+      "id": "cloud-e",
       "comment": "press e indicator hint.",
       "x": 432,
       "y": 0 ,
