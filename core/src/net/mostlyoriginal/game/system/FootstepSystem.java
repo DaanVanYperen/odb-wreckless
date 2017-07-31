@@ -46,6 +46,7 @@ public class FootstepSystem extends FluidIteratingSystem {
 
                     if ( e.isRobot()) {
                         cameraShakeSystem.shake(1);
+                        particleSystem.sprinkleSand();
                     }
                 }
             }

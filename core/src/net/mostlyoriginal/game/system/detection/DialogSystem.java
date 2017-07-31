@@ -51,6 +51,8 @@ public class DialogSystem extends FluidIteratingSystem {
 
     @Override
     protected void process(E e) {
+        if ( entityWithTag("player") == null || entityWithTag("robot") == null )
+            return;
         E follow = E.E(e.dialogEntityId());
 
         e.posX(follow.posX() + follow.boundsCx() - 8);
