@@ -487,5 +487,71 @@
       "width": 24,
       "height": 24
     },
+    {
+      "id": "indicator-e",
+      "comment": "press e indicator hint.",
+      "x": 432,
+      "y": 0 ,
+      "countX": 5,
+      "countY": 1,
+      "milliseconds": 60,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "cloud-happy",
+      "comment": "Talk cloud indicating happyness!",
+      "x": 432,
+      "y": 16,
+      "countX": 2,
+      "countY": 1,
+      "milliseconds": 60,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "cloud-sad",
+      "comment": "Talk cloud indicating sadness!",
+      "x": 464,
+      "y": 16,
+      "countX": 2,
+      "countY": 1,
+      "milliseconds": 60,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "cloud-heart",
+      "comment": "Talk cloud indicating love!",
+      "x": 432,
+      "y": 32,
+      "countX": 2,
+      "countY": 1,
+      "milliseconds": 60,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "cloud-battery",
+      "comment": "Talk cloud indicating need battery!",
+      "x": 464,
+      "y": 32,
+      "countX": 2,
+      "countY": 1,
+      "milliseconds": 60,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "cloud-danger",
+      "comment": "Talk cloud indicating danger!",
+      "x": 432,
+      "y": 48,
+      "countX": 2,
+      "countY": 1,
+      "milliseconds": 60,
+      "width": 16,
+      "height": 16
+    }
   ]
 }
