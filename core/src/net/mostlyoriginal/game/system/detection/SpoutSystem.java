@@ -34,15 +34,17 @@ public class SpoutSystem extends FluidIteratingSystem {
             e.spoutSprayCooldown(e.spoutSprayCooldown() - world.delta);
             if (e.spoutSprayCooldown() <= 0) {
                 e.spoutSprayCooldown(e.spoutSprayInterval());
-                float angle = e.spoutAngle() + MathUtils.random(-2f,2f);
-                v2.set(10,0).setAngle(angle).add(e.posX() + e.boundsCx(),e.posY() + e.boundsCy());
+                float angle = e.spoutAngle() + MathUtils.random(-2f, 2f);
+                v2.set(10, 0).setAngle(angle).add(e.posX() + e.boundsCx(), e.posY() + e.boundsCy());
 
                 switch (e.spoutType()) {
                     case ACID:
                         spawnAcid(angle, v2.x, v2.y, e.spoutAngle() == 90 ? 50 : 20);
                         break;
                     case GREMLIN:
-                        spawnGremlin(angle, v2.x, v2.y);
+                        if (playerWithInRange(v2.x, v2.y)) {
+                            spawnGremlin(angle, v2.x, v2.y);
+                        }
                         break;
                 }
 
@@ -50,8 +52,12 @@ public class SpoutSystem extends FluidIteratingSystem {
         }
     }
 
+    private boolean playerWithInRange(float x, float y) {
+        return entityWithTag("player").posXy().dst2(x, y, 0) < 224 * 224;
+    }
+
     private void spawnGremlin(float angle, float x, float y) {
-        entitySpawnerSystem.spawnGremlin(x-12,y-12);
+        entitySpawnerSystem.spawnGremlin(x - 12, y - 12);
     }
 
     private void spawnAcid(float angle, float x, float y, int force) {
