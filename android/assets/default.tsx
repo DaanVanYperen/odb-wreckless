@@ -583,7 +583,7 @@
  </tile>
  <tile id="273">
   <properties>
-   <property name="angle" type="int" value="-180"/>
+   <property name="angle" type="int" value="90"/>
    <property name="entity" value="spout"/>
    <property name="solid" type="bool" value="true"/>
   </properties>
