@@ -588,5 +588,49 @@
       "width": 16,
       "height": 16
     },
+    {
+      "id": "cloud-flower",
+      "comment": "Talk cloud indicating player name!",
+      "x": 432,
+      "y": 96,
+      "countX": 2,
+      "countY": 1,
+      "milliseconds": 180,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "cloud-76",
+      "comment": "Talk cloud indicating robot name!",
+      "x": 464,
+      "y": 96,
+      "countX": 2,
+      "countY": 1,
+      "milliseconds": 180,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "cloud-question",
+      "comment": "Talk cloud indicating questions!",
+      "x": 432,
+      "y": 112,
+      "countX": 2,
+      "countY": 1,
+      "milliseconds": 180,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "cloud-exclamation",
+      "comment": "Talk cloud indicating EXCLAIMINGS!",
+      "x": 464,
+      "y": 112,
+      "countX": 2,
+      "countY": 1,
+      "milliseconds": 180,
+      "width": 16,
+      "height": 16
+    },
   ]
 }
