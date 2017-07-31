@@ -34,7 +34,6 @@ public class ExitSystem extends FluidIteratingSystem {
     protected void process(E e) {
         E player = entityWithTag("player");
         E robot = entityWithTag("robot");
-
         if (overlaps(robot, e) && !e.exitOpen()) {
             if (robot.chargeCharge() < G.BARS_NEEDED_FOR_BREAKING_DOOR && e.exitCooldown() >= 2.9f) {
                 if ( !robot.hasNeedsBatteries() ) {
@@ -67,6 +66,10 @@ public class ExitSystem extends FluidIteratingSystem {
 
         if (e.exitOpen() && overlaps(player, e) && overlaps(robot, e)) {
             doExit(e);
+        }
+
+        if (!e.exitOpen() && overlaps(player, e) && !overlaps(robot, e) && !robot.hasSlumbering()) {
+            dialogSystem.playerSay(DialogSystem.Dialog.E, 0f, 1f);
         }
     }
 

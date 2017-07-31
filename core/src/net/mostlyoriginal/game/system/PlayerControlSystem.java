@@ -124,7 +124,6 @@ public class PlayerControlSystem extends FluidIteratingSystem {
         }
 
         if (e.isRunning()) {
-            e.animFlippedX(false);
             if (dx != 0) {
                 e.physicsVx(e.physicsVx() + (dx * world.delta));
                 e.animId(playerAnimPrefix + "run");
