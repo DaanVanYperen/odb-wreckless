@@ -109,7 +109,7 @@ public class MapCollisionSystem extends FluidIteratingSystem {
             E.E().pos(x - 2, y - 2).anim("marker").render(5000).terminal();
         }
 
-        if (solidMask != null && solidMask.atScreen(x, y, true)) {
+        if (solidMask != null && solidMask.atScreen(x, y, false)) {
             return true;
         }
 
@@ -118,7 +118,7 @@ public class MapCollisionSystem extends FluidIteratingSystem {
     }
 
     public boolean isLava(final float x, final float y) {
-        return deadlyMask != null && deadlyMask.atScreen(x,y, false);
+        return deadlyMask != null && deadlyMask.atScreen(x,y, true);
     }
 
     public boolean canHover(final float x, final float y) {
@@ -137,6 +137,6 @@ public class MapCollisionSystem extends FluidIteratingSystem {
             E.E().pos(x - 2, y - 2).anim("marker").render(5000).tintColor(RED).terminal();
         }
 
-        return solidForRobotMask != null && solidForRobotMask.atScreen(x, y, true);
+        return solidForRobotMask != null && solidForRobotMask.atScreen(x, y, false);
     }
 }
