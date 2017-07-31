@@ -52,24 +52,32 @@ public class GameScreen extends WorldScreen {
 
                         new CameraSystem(G.CAMERA_ZOOM),
 
+                        // sensors.
                         new WallSensorSystem(),
                         new CollisionSystem(),
+
+                        // spawn
                         new TriggerSystem(),
                         new SpoutSystem(),
 
 
+                        // Control and logic.
                         new FollowSystem(),
                         new PlayerControlSystem(),
+                        new BirdBrainSystem(),
+
+                        // Physics.
                         new GravitySystem(),
                         new MapCollisionSystem(),
                         new PlatformCollisionSystem(),
                         new PhysicsSystem(),
 
+                        // Effects.
                         new FootstepSystem(),
-
                         new CarriedSystem(),
                         new SocketSystem(),
 
+                        // Camera.
                         new CameraFollowSystem(),
                         new CameraClampToMapSystem(),
                         new PriorityAnimSystem(),

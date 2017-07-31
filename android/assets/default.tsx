@@ -635,6 +635,26 @@
    <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
+ <tile id="326">
+  <properties>
+   <property name="entity" value="birds"/>
+  </properties>
+ </tile>
+ <tile id="327">
+  <properties>
+   <property name="entity" value="birds"/>
+  </properties>
+ </tile>
+ <tile id="358">
+  <properties>
+   <property name="entity" value="birds"/>
+  </properties>
+ </tile>
+ <tile id="359">
+  <properties>
+   <property name="entity" value="birds"/>
+  </properties>
+ </tile>
  <tile id="513">
   <properties>
    <property name="entity" value="robot"/>

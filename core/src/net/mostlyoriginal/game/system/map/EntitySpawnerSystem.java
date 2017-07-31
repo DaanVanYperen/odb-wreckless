@@ -3,6 +3,7 @@ package net.mostlyoriginal.game.system.map;
 import com.artemis.BaseSystem;
 import com.artemis.E;
 import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.system.physics.SocketSystem;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.Spout;
@@ -47,12 +48,17 @@ public class EntitySpawnerSystem extends BaseSystem {
             case "battery2":
                 assembleBattery(x, y, "battery2");
                 break;
+            case "birds":
+                for (int i = 0, s = MathUtils.random(1, 3); i <= s; i++) {
+                    assembleBird(x + MathUtils.random(G.CELL_SIZE), y + MathUtils.random(G.CELL_SIZE));
+                }
+                return true;
             case "spout":
                 assembleSpout(x, y, (Integer) properties.get("angle"), "ACID");
                 return false;
             case "spawner":
                 assembleSpout(x, y, (Integer) properties.get("angle"), (String) properties.get("spawns"))
-                    .spoutSprayInterval(0.5f).spoutSprayDuration(1);
+                        .spoutSprayInterval(0.5f).spoutSprayDuration(1);
                 return false;
             case "socket":
                 assembleBatterySlot(x, y, (Boolean) properties.get("powered"), (String) properties.get("accept"));
@@ -64,16 +70,35 @@ public class EntitySpawnerSystem extends BaseSystem {
         return true;
     }
 
+    private int birdIndex = 0;
+
+    private void assembleBird(float x, float y) {
+        String birdType = "bird-" + MathUtils.random(1, 3);
+        E().pos(x, y)
+                .bounds(0, 0, 2, 2)
+                .anim()
+                .renderLayer(G.LAYER_BIRDS + birdIndex++)
+                .animFlippedX(MathUtils.randomBoolean())
+                .birdBrain()
+                .birdBrainAnimIdle(birdType + "-idle")
+                .birdBrainAnimFlying(birdType +"-flying")
+                .gravityY(-0.2f)
+                .physics()
+                .teamTeam(2)
+                .wallSensor();
+
+    }
+
     private E assembleSpout(float x, float y, Integer angle, String spawns) {
-return        E().pos(x, y).bounds(0, 0, 16, 16).spoutAngle(angle).spoutType(Spout.Type.valueOf(spawns));
+        return E().pos(x, y).bounds(0, 0, 16, 16).spoutAngle(angle).spoutType(Spout.Type.valueOf(spawns));
     }
 
     private void assembleTrigger(float x, float y, String trigger, String parameter) {
-        if ( parameter != null ) {
+        if (parameter != null) {
 
             boolean tallTrigger = !trigger.equals("music");
 
-            E().pos(x, y - (tallTrigger ? 5000 : 0)).bounds(0, 0, 16,  (tallTrigger ? 10000 : 16)).trigger(trigger).triggerParameter(parameter);
+            E().pos(x, y - (tallTrigger ? 5000 : 0)).bounds(0, 0, 16, (tallTrigger ? 10000 : 16)).trigger(trigger).triggerParameter(parameter);
         }
     }
 
