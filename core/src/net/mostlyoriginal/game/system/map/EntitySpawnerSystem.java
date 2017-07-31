@@ -82,7 +82,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .animFlippedX(MathUtils.randomBoolean())
                 .birdBrain()
                 .birdBrainAnimIdle(birdType + "-idle")
-                .birdBrainAnimFlying(birdType +"-flying")
+                .birdBrainAnimFlying(birdType + "-flying")
                 .gravityY(-0.2f)
                 .physics()
                 .teamTeam(2)
@@ -95,12 +95,8 @@ public class EntitySpawnerSystem extends BaseSystem {
     }
 
     private void assembleTrigger(float x, float y, String trigger, String parameter) {
-        if (parameter != null) {
-
-            boolean tallTrigger = !trigger.equals("music");
-
-            E().pos(x, y - (tallTrigger ? 5000 : 0)).bounds(0, 0, 16, (tallTrigger ? 10000 : 16)).trigger(trigger).triggerParameter(parameter);
-        }
+        boolean tallTrigger = !trigger.equals("music");
+        E().pos(x, y - (tallTrigger ? 5000 : 0)).bounds(0, 0, 16, (tallTrigger ? 10000 : 16)).trigger(trigger).triggerParameter(parameter);
     }
 
     private void assembleBatterySlot(float x, float y, boolean b, String batteryType) {
