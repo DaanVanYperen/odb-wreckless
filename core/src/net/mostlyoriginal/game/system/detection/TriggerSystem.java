@@ -38,7 +38,7 @@ public class TriggerSystem extends FluidIteratingSystem {
                 case "start-running":
                     player.running();
                     player.removeCameraFocus();
-                    E.E().pos(player.getPos()).cameraFocus().physicsFriction(0).physicsVx(100).tag("pacer");
+                    E.E().pos(player.getPos()).cameraFocus().physicsFriction(0).physicsVx(50).tag("pacer");
                     robot.running();
                     e.removeTrigger();
                     break;
