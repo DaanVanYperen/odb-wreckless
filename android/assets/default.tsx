@@ -56,6 +56,11 @@
    <property name="entity" value="cable"/>
   </properties>
  </tile>
+ <tile id="15">
+  <properties>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
+ </tile>
  <tile id="32">
   <properties>
    <property name="solid" type="bool" value="true"/>
@@ -106,6 +111,11 @@
    <property name="cable-state" type="bool" value="true"/>
    <property name="cable-type" type="int" value="21"/>
    <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="47">
+  <properties>
+   <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="64">
@@ -172,6 +182,11 @@
    <property name="cable-state" type="bool" value="true"/>
    <property name="cable-type" type="int" value="22"/>
    <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="79">
+  <properties>
+   <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="103">
@@ -424,6 +439,21 @@
    <property name="deadly" type="bool" value="true"/>
   </properties>
  </tile>
+ <tile id="179">
+  <properties>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="181">
+  <properties>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="183">
+  <properties>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
+ </tile>
  <tile id="192">
   <properties>
    <property name="solid" type="bool" value="true"/>
@@ -479,6 +509,21 @@
    <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
+ <tile id="212">
+  <properties>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="214">
+  <properties>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="216">
+  <properties>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
+ </tile>
  <tile id="221">
   <properties>
    <property name="entity" value="trigger"/>
@@ -489,6 +534,16 @@
   <properties>
    <property name="entity" value="trigger"/>
    <property name="trigger" value="farewell"/>
+  </properties>
+ </tile>
+ <tile id="224">
+  <properties>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="225">
+  <properties>
+   <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="226">
@@ -541,6 +596,31 @@
   <properties>
    <property name="angle" type="int" value="-180"/>
    <property name="entity" value="spout"/>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="243">
+  <properties>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="245">
+  <properties>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="247">
+  <properties>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="256">
+  <properties>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="257">
+  <properties>
    <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
@@ -633,6 +713,21 @@
   <properties>
    <property name="angle" type="int" value="90"/>
    <property name="entity" value="spout"/>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="276">
+  <properties>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="278">
+  <properties>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="280">
+  <properties>
    <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
