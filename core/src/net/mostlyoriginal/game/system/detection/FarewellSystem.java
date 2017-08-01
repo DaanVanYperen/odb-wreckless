@@ -7,6 +7,7 @@ import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.api.operation.flow.SequenceOperation;
+import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.game.component.Farewell;
 import net.mostlyoriginal.game.component.Trigger;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
@@ -31,12 +32,15 @@ public class FarewellSystem extends FluidIteratingSystem {
     private boolean step6 = false;
     private boolean step7 = false;
     private boolean step8 = false;
+    private boolean step9 = false;
     private float STEP = 3f;
     private boolean step0 = false;
     private MyAnimRenderSystem animSystem;
-    private boolean step1point5=false;
+    private boolean step1point5 = false;
+    private CameraSystem cameraSystem;
 
     public FarewellSystem() {
+
         super(Aspect.all(Farewell.class));
     }
 
@@ -103,6 +107,17 @@ public class FarewellSystem extends FluidIteratingSystem {
             step7 = true;
             robot.chargeCharge(0f).slumbering();
         }
+
+        if (!step8 && age > STEP * 10.5) {
+            step8 = true;
+            E.E()
+                    .pos(robot.posX() - 160, robot.posY() + robot.boundsCx() - 6)
+                    .anim("logo")
+                    .bounds(0, 0, 1, 1)
+                    .tint(Tint.TRANSPARENT)
+                    .render(100000)
+                    .script(tween(Tint.TRANSPARENT, Tint.WHITE, 3f));
+        }
     }
 
     public void start() {
@@ -111,6 +126,8 @@ public class FarewellSystem extends FluidIteratingSystem {
             final E player = entityWithTag("player");
             final E robot = entityWithTag("robot");
             player.removeMortal().removePlayerControlled().anim("player-idle");
+            E marker = entityWithTag("marker");
+            marker.deleteFromWorld();
             robot.anim("robot-idle");
             dialogSystem.playerSay(DialogSystem.Dialog.HAPPY, 0, 2f);
             E.E().farewell();

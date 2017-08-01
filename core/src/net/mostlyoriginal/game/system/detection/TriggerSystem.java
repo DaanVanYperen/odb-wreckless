@@ -47,7 +47,10 @@ public class TriggerSystem extends FluidIteratingSystem {
                     player.removeRunning();
                     player.cameraFocus();
                     robot.removeRunning();
-                    entityWithTag("pacer").deleteFromWorld();
+                    E pacer = entityWithTag("pacer");
+                    if ( pacer != null ) {
+                        pacer.deleteFromWorld();
+                    }
                     e.removeTrigger();
                     break;
                 case "robot-land":
