@@ -82,7 +82,7 @@ public class FollowSystem extends FluidIteratingSystem {
         float dy = 0;
 
         if (e.chargeCharge() <= 0L) {
-            e.animId(e.hasSlumbering() ? "robot-idle-uncharged" : "robot-empty");
+            e.animId(e.hasSlumbering() ? "robot-idle-uncharged" : "robot-shut-down");
         } else {
             boolean batteryInFrontOfRobot = overlaps(player, e) && player.hasCarries() && player.carriesEntityId() != 0 && E.E(player.carriesEntityId()).typeType().equals("battery2");
             if (batteryInFrontOfRobot || e.isNeedsBatteries()) {

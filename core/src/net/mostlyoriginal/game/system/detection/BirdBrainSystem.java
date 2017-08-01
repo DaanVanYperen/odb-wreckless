@@ -82,7 +82,7 @@ public class BirdBrainSystem extends FluidIteratingSystem {
     private void aimAtRobot(E e) {
         E robot = entityWithTag("robot");
         float targetY = robot.posY() + robot.boundsCy();
-        if (targetY < e.posY()) { // only when bird ABOVE robot.
+        if (targetY < e.posY() && robot.posXy().dst2(e.posXy()) < 500 * 500) { // only when bird ABOVE robot.
             v2.set(robot.posX() + robot.boundsCx() * e.birdBrainFavoriteSpot(), targetY).sub(e.posX(), e.posY()).scl(0.5f);
             e.physicsVy(v2.y);
             e.physicsVx(v2.x);
