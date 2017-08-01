@@ -10,6 +10,7 @@ import com.sun.javafx.tk.Toolkit;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.operation.JamOperationFactory;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
+import net.mostlyoriginal.game.component.Deadly;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.SandSprinkler;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
@@ -236,6 +237,7 @@ public class ParticleSystem extends FluidIteratingSystem {
                 if (fadeDelay > 0) {
                     e.script(sequence(
                             delay(fadeDelay),
+                            remove(Deadly.class),
                             JamOperationFactory.tintBetween(tmpFrom, tmpTo, 0.5f),
                             deleteFromWorld()
                     ));
