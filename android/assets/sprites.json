@@ -293,14 +293,24 @@
       "height": 48
     },
     {
-      "id": "robot-shut-down",
-      "comment": "Robot shuts down.",
+      "id": "robot-shutting-down",
+      "comment": "Robot is shutting down.",
       "x": 0,
       "y": 736,
       "countX": 10,
       "countY": 1,
       "milliseconds": 100,
 	  "repeat": false,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "id": "robot-shut-down",
+      "comment": "Robot has shut down.",
+      "x": 432,
+      "y": 736,
+      "countX": 1,
+      "countY": 1,
       "width": 48,
       "height": 48
     },
