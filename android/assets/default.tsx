@@ -479,6 +479,18 @@
    <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
+ <tile id="221">
+  <properties>
+   <property name="entity" value="trigger"/>
+   <property name="trigger" value="farewell"/>
+  </properties>
+ </tile>
+ <tile id="222">
+  <properties>
+   <property name="entity" value="trigger"/>
+   <property name="trigger" value="farewell"/>
+  </properties>
+ </tile>
  <tile id="226">
   <properties>
    <property name="canhover" type="bool" value="true"/>

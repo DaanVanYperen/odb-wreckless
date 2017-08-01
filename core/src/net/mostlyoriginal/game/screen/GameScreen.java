@@ -59,6 +59,7 @@ public class GameScreen extends WorldScreen {
 
                         // spawn
                         new TriggerSystem(),
+                        new FarewellSystem(),
                         new SpoutSystem(),
 
 

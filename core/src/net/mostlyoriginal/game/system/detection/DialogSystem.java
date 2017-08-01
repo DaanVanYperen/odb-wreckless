@@ -72,6 +72,6 @@ public class DialogSystem extends FluidIteratingSystem {
     }
 
     public enum Dialog {
-        HEART, HAPPY, BATTERY, E, SAD
+        HEART, HAPPY, BATTERY, E, QUESTION, S76, FLOWER, COME, SAD
     }
 }

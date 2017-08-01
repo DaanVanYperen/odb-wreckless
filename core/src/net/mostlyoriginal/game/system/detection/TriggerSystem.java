@@ -20,6 +20,7 @@ import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 public class TriggerSystem extends FluidIteratingSystem {
 
     private GameScreenAssetSystem assetSystem;
+    private FarewellSystem farewellSystem;
 
     public TriggerSystem() {
         super(Aspect.all(Trigger.class, Pos.class));
@@ -50,10 +51,16 @@ public class TriggerSystem extends FluidIteratingSystem {
                     e.removeTrigger();
                     break;
                 case "robot-land":
-                    if ( robotOverlaps ) {
+                    if (robotOverlaps) {
                         robot.removeFlying().platform();
                         robot.script(OperationFactory.tween(new Angle(-30), new Angle(0), 1.5f));
                         e.removeTrigger();
+                    }
+                    break;
+                case "farewell":
+                    if (overlaps(player, e))
+                    {
+                        farewellSystem.start();
                     }
                     break;
                 case "robot-hover":
