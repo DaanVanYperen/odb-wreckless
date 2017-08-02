@@ -3,6 +3,7 @@ package net.mostlyoriginal.game.system.render;
 import com.artemis.Aspect;
 import com.artemis.E;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import javafx.animation.Interpolator;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.InterpolationStrategy;
@@ -19,6 +20,7 @@ public class CameraFollowSystem extends FluidIteratingSystem {
 
     CameraSystem cameraSystem;
     private MyAnimRenderSystem myAnimRenderSystem;
+    private boolean lockCamera;
 
     public CameraFollowSystem() {
         super(Aspect.all(Pos.class, CameraFocus.class));
@@ -30,6 +32,9 @@ public class CameraFollowSystem extends FluidIteratingSystem {
 
     @Override
     protected void process(E e) {
+        if ( Gdx.input.isKeyJustPressed(Input.Keys.F9) ) lockCamera = !lockCamera;
+
+        if ( lockCamera) return;
         if (e.wallSensorOnFloor() || e.wallSensorOnPlatform()) {
             float newTargetY = myAnimRenderSystem.roundToPixels(e.posY());
             if (targetY != newTargetY) {
