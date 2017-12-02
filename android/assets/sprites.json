@@ -94,5 +94,15 @@
       "width": 56,
       "height": 46
     },
+    {
+      "id": "enemy-5",
+      "comment": "Giant enemy ship.",
+      "x": 180,
+      "y": 958,
+      "countX": 1,
+      "countY": 1,
+      "width": 59,
+      "height": 62
+    },
   ]
 }
