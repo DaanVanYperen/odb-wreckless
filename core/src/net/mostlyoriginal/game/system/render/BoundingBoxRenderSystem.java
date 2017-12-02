@@ -7,6 +7,8 @@ package net.mostlyoriginal.game.system.render;
 import com.artemis.Aspect;
 import com.artemis.E;
 import com.artemis.annotations.Wire;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -46,6 +48,8 @@ public class BoundingBoxRenderSystem extends DeferredEntityProcessingSystem {
     private Origin DEFAULT_ORIGIN= new Origin(0.5f, 0.5f);
     private Color DEFAULT_BOUNDINGBOX= new Color(0f,1f,0f,0.5f);
 
+    boolean isEnabled = false;
+
     public BoundingBoxRenderSystem(EntityProcessPrincipal principal) {
         super(Aspect.all(Pos.class, Anim.class, Render.class).exclude(Invisible.class), principal);
     }
@@ -60,6 +64,10 @@ public class BoundingBoxRenderSystem extends DeferredEntityProcessingSystem {
     protected void begin() {
         batch.setProjectionMatrix(cameraSystem.camera.combined);
         batch.begin();
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.F1)) {
+            isEnabled = !isEnabled;
+        }
     }
 
     @Override
@@ -68,6 +76,7 @@ public class BoundingBoxRenderSystem extends DeferredEntityProcessingSystem {
     }
 
     protected void process(final int e) {
+        if ( !isEnabled) return;
 
         final Anim anim   = mAnim.get(e);
         final Pos pos     = mPos.get(e);
