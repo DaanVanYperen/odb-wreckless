@@ -28,13 +28,15 @@ public class G {
     public static final int LAYER_PLAYER_ROBOT_BATTERY = 997;
     public static final float PACER_FOLLOW_DISTANCE = 160;
 
+    // 1280 x 720
+
     public static int CAMERA_ZOOM = 2;
-    public static final int SCREEN_WIDTH = SIMULATION_WIDTH * 2 * CAMERA_ZOOM;
+    public static final int SCREEN_WIDTH = 720 / 2;
+    public static final int SCREEN_HEIGHT = 1280 / 2;
     private static int CARD_HEIGHT = 90;
     private static int MARGIN_BETWEEN_CARD_AND_SIM = 10;
 
     private static final int MARGIN_BETWEEN_SIM_AND_ROOF = 20;
-    public static final int SCREEN_HEIGHT = (SIMULATION_HEIGHT + CARD_HEIGHT + MARGIN_BETWEEN_CARD_AND_SIM + MARGIN_BETWEEN_SIM_AND_ROOF) * CAMERA_ZOOM;
     public static int level = 1;
     public static float ROBOT_FLY_ABOVE_PLAYER_HEIGHT = 8;
 

@@ -10,7 +10,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = G.SCREEN_WIDTH;
 		config.height = G.SCREEN_HEIGHT;
-		config.title = "LD39";
+		config.title = "LD40";
 		new LwjglApplication(new GdxArtemisGame(), config);
 	}
 }
