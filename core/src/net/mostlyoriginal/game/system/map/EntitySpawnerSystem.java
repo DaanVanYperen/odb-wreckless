@@ -141,7 +141,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .physics()
                 .render(G.LAYER_PLAYER)
                 .mortal()
-                .gravity()
+                //.gravity()
                 .bounds(8, 0, 16, 12)
                 .wallSensor()
                 .cameraFocus()

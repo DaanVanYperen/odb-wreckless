@@ -35,7 +35,7 @@ public class CameraFollowSystem extends FluidIteratingSystem {
         if ( Gdx.input.isKeyJustPressed(Input.Keys.F9) ) lockCamera = !lockCamera;
 
         if ( lockCamera) return;
-        if (e.wallSensorOnFloor() || e.wallSensorOnPlatform()) {
+        if (e.wallSensorOnFloor() || e.wallSensorOnPlatform() || true) {
             float newTargetY = myAnimRenderSystem.roundToPixels(e.posY());
             if (targetY != newTargetY) {
                 sourceY = (int) cameraSystem.camera.position.y;

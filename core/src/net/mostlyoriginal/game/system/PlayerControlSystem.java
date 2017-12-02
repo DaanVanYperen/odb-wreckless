@@ -74,10 +74,11 @@ public class PlayerControlSystem extends FluidIteratingSystem {
         e.animId(playerAnimPrefix + "idle");
         e.angleRotation(0);
         e.physicsVr(0);
+        e.physicsVy(100f);
 
 
         float dx = 0;
-        float dy = 0;
+        float dy = 1000f;
 
         if (Gdx.input.isKeyPressed(Input.Keys.A) && !e.hasDead()) {
             dx = -MOVEMENT_FACTOR;
@@ -91,11 +92,6 @@ public class PlayerControlSystem extends FluidIteratingSystem {
         float veloX = Math.abs(e.physicsVx());
         if (Math.abs(dx) < 0.05f && veloX >= 0.1f) {
             e.physicsVx(e.physicsVx() - (e.physicsVx() * world.delta * 8f));
-        }
-
-        boolean onFloor = e.wallSensorOnFloor() || e.wallSensorOnPlatform();
-        if (Gdx.input.isKeyPressed(Input.Keys.W) && onFloor && !e.hasDead()) {
-            e.physicsVy(JUMP_FACTOR * 0.016f);
         }
 
         if (!G.PRODUCTION) {
@@ -116,9 +112,6 @@ public class PlayerControlSystem extends FluidIteratingSystem {
                 E pickup = firstTouchingEntityMatching(e, Aspect.all(Pickup.class));
                 if (pickup != null) {
                     carryItem(e, pickup);
-                } else if (onFloor) {
-                    callRobot(e);
-                    animSystem.forceAnim(e, playerAnimPrefix + "whistles");
                 }
             }
         }
@@ -140,29 +133,6 @@ public class PlayerControlSystem extends FluidIteratingSystem {
 
         if (e.hasCarries() && e.carriesEntityId() != 0) {
             e.carriesAnchorX(e.animFlippedX() ? 4 : -4);
-        }
-
-        if (Math.abs(e.physicsVy()) > 0.05f) {
-            if (e.physicsVy() > 0) {
-                e.animId(playerAnimPrefix + "jump");
-                if (!e.isJumping()) {
-                    e.animLoop(false);
-                    e.animAge(0);
-                }
-                e.jumping();
-            } else {
-                e.animId(playerAnimPrefix + "fall");
-                if (!e.isFalling()) {
-                    e.animLoop(false);
-                    e.animAge(0);
-                }
-                e.falling();
-            }
-        } else {
-            if (e.isFlying() || e.isJumping()) {
-                e.removeFlying().removeJumping();
-            }
-            e.animLoop(true);
         }
     }
 
