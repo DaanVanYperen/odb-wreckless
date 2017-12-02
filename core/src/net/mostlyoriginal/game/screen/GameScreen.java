@@ -51,8 +51,6 @@ public class GameScreen extends WorldScreen {
                         new GameScreenAssetSystem(),
                         new GameScreenSetupSystem(),
 
-                        new CameraSystem(G.CAMERA_ZOOM),
-
                         // sensors.
                         new WallSensorSystem(),
                         new CollisionSystem(),
@@ -83,6 +81,7 @@ public class GameScreen extends WorldScreen {
                         new CameraFollowSystem(),
                         new CameraShakeSystem(),
                         new CameraClampToMapSystem(),
+                        new CameraSystem(G.CAMERA_ZOOM),
                         new PriorityAnimSystem(),
 
                         new JumpAttackSystem(),
@@ -92,6 +91,7 @@ public class GameScreen extends WorldScreen {
 
                         renderBatchingSystem = new RenderBatchingSystem(),
                         new MyAnimRenderSystem(renderBatchingSystem),
+                        new BoundingBoxRenderSystem(renderBatchingSystem),
 
                         new MapRenderInFrontSystem(),
                         new TerminalSystem(),

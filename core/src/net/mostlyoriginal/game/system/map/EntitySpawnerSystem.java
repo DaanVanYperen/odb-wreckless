@@ -141,14 +141,15 @@ public class EntitySpawnerSystem extends BaseSystem {
     Vector2 v2 = new Vector2();
 
     private void assemblePlayer(float x, float y) {
-        int gracepadding=-4;
+        int gracepaddingX=16;
+        int gracepaddingY=4;
         int entity = E().anim("player-idle")
                 .pos(x, y)
                 .physics()
                 .render(G.LAYER_PLAYER)
                 .mortal()
                 //.gravity()
-                .bounds(gracepadding, gracepadding, PLAYER_WIDTH-gracepadding, PLAYER_HEIGHT-gracepadding)
+                .bounds(gracepaddingX, gracepaddingY, PLAYER_WIDTH-gracepaddingX, PLAYER_HEIGHT-gracepaddingY)
                 .wallSensor()
                 .cameraFocus()
                 .teamTeam(G.TEAM_PLAYERS)
@@ -225,7 +226,8 @@ public class EntitySpawnerSystem extends BaseSystem {
     }
 
     private void assembleEnemy(float x, float y, int type) {
-        int gracepadding=-4;
+        int gracepaddingX=8;
+        int gracepaddingY=0;
         E()
                 .pos(x, y)
                 .physics()
@@ -235,7 +237,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .deadly()
                 .teamTeam(TEAM_ENEMIES)
                 .render(G.LAYER_GREMLIN)
-                .bounds(0+gracepadding, 0+gracepadding, 45-gracepadding, 26-gracepadding)
+                .bounds(gracepaddingX, gracepaddingY, 45-gracepaddingX, 24-gracepaddingY)
                 .anim("fart");
     }
 
