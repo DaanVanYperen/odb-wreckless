@@ -33,7 +33,7 @@ public class G {
 
     // 1280 x 720
 
-    public static int CAMERA_ZOOM = 2;
+    public static int CAMERA_ZOOM = 1;
     public static final int SCREEN_WIDTH = 720 / 2;
     public static final int SCREEN_HEIGHT = 1280 / 2;
     private static int CARD_HEIGHT = 90;
