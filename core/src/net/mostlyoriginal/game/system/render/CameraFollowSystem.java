@@ -36,7 +36,7 @@ public class CameraFollowSystem extends FluidIteratingSystem {
 
         if ( lockCamera) return;
         if (e.wallSensorOnFloor() || e.wallSensorOnPlatform() || true) {
-            float newTargetY = (int) myAnimRenderSystem.roundToPixels(e.posY() + e.boundsCy()) + G.SCREEN_HEIGHT / G.CAMERA_ZOOM / 2f;
+            float newTargetY = (int) myAnimRenderSystem.roundToPixels(e.posY() + e.boundsCy()) + (G.SCREEN_HEIGHT / G.CAMERA_ZOOM);
             if (targetY != newTargetY) {
                 sourceY = (int) cameraSystem.camera.position.y;
                 targetY = (int) (newTargetY);
@@ -50,7 +50,7 @@ public class CameraFollowSystem extends FluidIteratingSystem {
         cameraSystem.camera.position.x = myAnimRenderSystem.roundToPixels(e.posX()) + e.boundsCx();
         cameraSystem.camera.update();
 
-        float maxDistance = (Gdx.graphics.getHeight() / G.CAMERA_ZOOM) * 0.5F * 0.6f;
+        float maxDistance = (Gdx.graphics.getHeight() / G.CAMERA_ZOOM) * 0.5F * 0.7f;
         if (  e.posY() < cameraSystem.camera.position.y - maxDistance) {
             cameraSystem.camera.position.y = myAnimRenderSystem.roundToPixels(e.posY() + maxDistance);
             cameraSystem.camera.update();

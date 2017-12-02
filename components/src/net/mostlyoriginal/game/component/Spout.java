@@ -16,7 +16,8 @@ public class Spout extends Component {
     public Type type = Type.BULLET;
     public enum Type {
         BULLET,
-        GREMLIN
+        GREMLIN,
+        ACID
     }
     public Spout() {
     }

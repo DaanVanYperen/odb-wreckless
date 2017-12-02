@@ -27,7 +27,7 @@ import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 public class ShipControlSystem extends FluidIteratingSystem {
     private static final float RUN_SLOW_PACE_FACTOR = 500;
     private static final float RUN_FAST_PACE_FACTOR = 1000;
-    private float MOVEMENT_FACTOR = 500;
+    private float MOVEMENT_FACTOR = 1000;
     private float JUMP_FACTOR = 15000;
     private SocketSystem socketSystem;
     private FollowSystem followSystem;
