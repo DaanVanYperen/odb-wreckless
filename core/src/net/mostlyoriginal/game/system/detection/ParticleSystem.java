@@ -96,7 +96,7 @@ public class ParticleSystem extends FluidIteratingSystem {
 //                .slowlySplatDown()
                 .rotateRandomly()
                 .size(1, 1)
-                //.solid()
+                .solid()
                 .create(1, 1);
     }
 

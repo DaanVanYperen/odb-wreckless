@@ -6,20 +6,20 @@
     {
       "id": "360_miniguns",
       "guns": [
-        { "anim" : "bullet-1", "angle" : 0, "rpm" : 160 },
-        { "anim" : "bullet-1", "angle" : 45, "rpm" : 480 },
-        { "anim" : "bullet-1", "angle" : 90, "rpm" : 160 },
-        { "anim" : "bullet-1", "angle" : 135, "rpm" : 160 },
-        { "anim" : "bullet-1", "angle" : 180, "rpm" : 160 },
-        { "anim" : "bullet-1", "angle" : 225, "rpm" : 160 },
-        { "anim" : "bullet-1", "angle" : 270, "rpm" : 160 },
-        { "anim" : "bullet-1", "angle" : 315, "rpm" : 480 },
+        { "anim" : "bullet-1", "angle" : 0, "rpm" : 160, "speed": 300, "bounces": 999 },
+        { "anim" : "bullet-1", "angle" : 45, "rpm" : 480, "speed": 300, "bounces": 999 },
+        { "anim" : "bullet-1", "angle" : 90, "rpm" : 160, "speed": 300, "bounces": 999 },
+        { "anim" : "bullet-1", "angle" : 135, "rpm" : 160, "speed": 300, "bounces": 999 },
+        { "anim" : "bullet-1", "angle" : 180, "rpm" : 160, "speed": 300, "bounces": 999 },
+        { "anim" : "bullet-1", "angle" : 225, "rpm" : 160, "speed": 300, "bounces": 999 },
+        { "anim" : "bullet-1", "angle" : 270, "rpm" : 160, "speed": 300, "bounces": 999 },
+        { "anim" : "bullet-1", "angle" : 315, "rpm" : 480, "speed": 300, "bounces": 999 }
       ]
     },
     {
       "id": "minigun",
       "guns": [
-        { "anim" : "bullet-1", "angle" : 0, "rpm" : 30 }
+        { "anim" : "bullet-1", "angle" : 0, "rpm" : 30, "speed": 50, "bounces": 0 }
       ]
     }
   ]
