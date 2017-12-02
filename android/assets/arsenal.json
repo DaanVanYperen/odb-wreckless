@@ -1,0 +1,26 @@
+{
+  "arsenal": [
+    {
+      "id": "unarmed",
+    },
+    {
+      "id": "360_miniguns",
+      "guns": [
+        { "anim" : "bullet-1", "angle" : 0 },
+        { "anim" : "bullet-1", "angle" : 45 },
+        { "anim" : "bullet-1", "angle" : 90 },
+        { "anim" : "bullet-1", "angle" : 135 },
+        { "anim" : "bullet-1", "angle" : 180 },
+        { "anim" : "bullet-1", "angle" : 225 },
+        { "anim" : "bullet-1", "angle" : 270 },
+        { "anim" : "bullet-1", "angle" : 315 },
+      ]
+    },
+    {
+      "id": "minigun",
+      "guns": [
+        { "anim" : "bullet-1", "angle" : 0 }
+      ]
+    }
+  ]
+}

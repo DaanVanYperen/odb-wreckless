@@ -6,10 +6,9 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.api.system.physics.SocketSystem;
-import net.mostlyoriginal.game.component.G;
-import net.mostlyoriginal.game.component.ShipData;
-import net.mostlyoriginal.game.component.Spout;
+import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.system.detection.SpoutSystem;
+import net.mostlyoriginal.game.system.view.ArsenalDataSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 import net.mostlyoriginal.game.system.view.ShipDataSystem;
 
@@ -26,6 +25,7 @@ public class EntitySpawnerSystem extends BaseSystem {
     private SpoutSystem spoutSystem;
     private GameScreenAssetSystem gameScreenAssetSystem;
     private ShipDataSystem shipDataSystem;
+    private ArsenalDataSystem arsenalDataSystem;
 
     @Override
     protected void processSystem() {
@@ -150,7 +150,7 @@ public class EntitySpawnerSystem extends BaseSystem {
     private void assemblePlayer(float x, float y, ShipData shipData) {
         int gracepaddingX = 16;
         int gracepaddingY = 4;
-        int playerShip = E().anim("player-idle")
+        E playerShip = E().anim("player-idle")
                 .pos(x, y)
                 .physics()
                 .render(G.LAYER_PLAYER)
@@ -163,31 +163,41 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .footstepsSfx("footsteps_girl")
                 .tag("player")
                 .shipControlled()
-                .shieldHp(shipData.hp)
-                .id();
+                .shieldHp(shipData.hp);
 
-        gameScreenAssetSystem.boundToAnim(playerShip, gracepaddingX, gracepaddingY);
+        gameScreenAssetSystem.boundToAnim(playerShip.id(), gracepaddingX, gracepaddingY);
 
-        addGun(x, y, playerShip);
+        addArsenal(shipData, playerShip, "player-guns", G.TEAM_PLAYERS, 0);
     }
 
-    private void addGun(float x, float y, int shipId) {
-        float directions = 16f;
-        float angle = 0;
-        for (int i = 0; i < directions; i++) {
-            angle += 360 / directions * i;
-            v2.set(20, 0).rotate(angle);
-            E().anim("marker")
-                    .render(G.LAYER_PLAYER + 1)
-                    .pos()
-                    .bounds(0, 0, 5, 5)
-                    .group("player-guns")
-                    .attachedXo((int) v2.x + PLAYER_WIDTH / 2 - 3)
-                    .attachedYo((int) v2.y + PLAYER_HEIGHT / 2 - 3)
-                    .attachedParent(shipId)
-                    .teamTeam(G.TEAM_PLAYERS)
-                    .spoutType(Spout.Type.BULLET)
-                    .angleRotate(angle);
+    private void addArsenal(ShipData shipData, E ship, String group, int team, int shipFacingAngle) {
+        ArsenalData data = arsenalDataSystem.get(shipData.arsenal);
+        if ( data.guns != null ) {
+            for (GunData gun : data.guns) {
+                addGun(ship, gun, group, team, shipFacingAngle);
+            }
+        }
+    }
+
+    private void addGun(E e, GunData gunData, String group, int team, int shipFacingAngle) {
+        float angle = gunData.angle + shipFacingAngle + 90;
+        v2.set(20, 0).rotate(angle);
+        E gun = E().anim("marker")
+                .render(G.LAYER_PLAYER + 1)
+                .pos()
+                .bounds(0, 0, 5, 5)
+                .group(group)
+                .attachedXo((int) v2.x + (int)e.boundsCx() - 3)
+                .attachedYo((int) v2.y + (int)e.boundsCy() - 3)
+                .attachedParent(e.id())
+                .teamTeam(team)
+                .spoutAngle(0)
+                .spoutType(Spout.Type.BULLET)
+                .gunData(gunData)
+                .angleRotate(angle);
+
+        if ( team == TEAM_ENEMIES ) {
+            gun.shooting(true); // ai always shoots.
         }
     }
 
@@ -238,10 +248,10 @@ public class EntitySpawnerSystem extends BaseSystem {
         return robot;
     }
 
-    private void assembleEnemy(float x, float y, ShipData data) {
+    private void assembleEnemy(float x, float y, ShipData shipData) {
         int gracepaddingX = 8;
         int gracepaddingY = 0;
-        int enemyId = E()
+        E enemyShip = E()
                 .pos(x, y)
                 .physics()
                 .physicsVy(-10f)
@@ -250,13 +260,13 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .deadly()
                 .teamTeam(TEAM_ENEMIES)
                 .render(G.LAYER_GREMLIN)
-                .shieldHp(data.hp)
-                .anim(data.anim).id();
+                .shieldHp(shipData.hp)
+                .anim(shipData.anim);
 
-        gameScreenAssetSystem.boundToAnim(enemyId, gracepaddingX, gracepaddingY);
-        E e = E.E(enemyId);
-        e.pos(x - e.boundsCx(), y - e.boundsCy());
+        gameScreenAssetSystem.boundToAnim(enemyShip.id(), gracepaddingX, gracepaddingY);
+        enemyShip.pos(x - enemyShip.boundsCx(), y - enemyShip.boundsCy());
 
+        addArsenal(shipData, enemyShip, "enemy-guns", G.TEAM_ENEMIES, -180);
     }
 
 

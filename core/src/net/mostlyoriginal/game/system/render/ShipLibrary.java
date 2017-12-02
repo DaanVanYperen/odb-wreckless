@@ -1,5 +1,7 @@
 package net.mostlyoriginal.game.system.render;
 
+import net.mostlyoriginal.game.component.ArsenalData;
+import net.mostlyoriginal.game.component.GunData;
 import net.mostlyoriginal.game.component.ShipData;
 
 import java.io.Serializable;
@@ -9,6 +11,7 @@ import java.io.Serializable;
  */
 public class ShipLibrary implements Serializable {
     public ShipData[] ships;
+    public ArsenalData[] arsenalData;
 
     public ShipLibrary() {
     }
