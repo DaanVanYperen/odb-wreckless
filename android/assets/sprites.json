@@ -15,9 +15,9 @@
       "comment": "Player rolling left.",
       "x": 45,
       "y": 918,
-      "countX": 2,
+      "countX": 3,
       "countY": 1,
-      "milliseconds": 70,	  
+      "milliseconds": 150,	  
 	  "repeat": false,
       "width": 45,
       "height": 40
@@ -25,11 +25,11 @@
     {
       "id": "player-right",
       "comment": "Player rolling right.",
-      "x": 135,
+      "x": 180,
       "y": 918,
-      "countX": 2,
+      "countX": 3,
       "countY": 1,
-      "milliseconds": 70,	  
+      "milliseconds": 150,	  
 	  "repeat": false,
       "width": 45,
       "height": 40
