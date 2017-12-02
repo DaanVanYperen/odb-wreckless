@@ -5,7 +5,7 @@ import com.artemis.Component;
 /**
  * @author Daan van Yperen
  */
-public class PlayerControlled extends Component {
-    public PlayerControlled() {
+public class ShipControlled extends Component {
+    public ShipControlled() {
     }
 }

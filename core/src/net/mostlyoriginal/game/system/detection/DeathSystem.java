@@ -40,9 +40,6 @@ public class DeathSystem extends FluidIteratingSystem {
     @Override
     protected void process(E e) {
 
-        if (e.hasRunning()) {
-            particleSystem.gremlinWave();
-        }
 
         if (e.hasRobot()) {
             if (e.chargeCharge() > 0) {
@@ -81,7 +78,7 @@ public class DeathSystem extends FluidIteratingSystem {
                 particleSystem.bloodExplosion(e.posX() + e.boundsCx(), e.posY() + e.boundsCy());
             }
             if (e.deadCooldown() <= 0 ) {
-                if ( (e.isRobot() || e.isPlayerControlled()) ) {
+                if ( (e.isRobot() || e.isShipControlled()) ) {
                     doExit();
                     e.removeDead().removeMortal();
                 } else e.deleteFromWorld();

@@ -4,12 +4,15 @@ import com.artemis.BaseSystem;
 import com.artemis.E;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.api.system.physics.SocketSystem;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.Spout;
 import net.mostlyoriginal.game.system.detection.SpoutSystem;
 
 import static com.artemis.E.E;
+import static net.mostlyoriginal.game.component.G.PLAYER_HEIGHT;
+import static net.mostlyoriginal.game.component.G.PLAYER_WIDTH;
 
 /**
  * @author Daan van Yperen
@@ -41,9 +44,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 break;
             case "robot":
                 E robot = assembleRobot(x, y);
-                if (properties.containsKey("slumbering")) {
-                    robot.slumbering();
-                } else robot.chargeCharge(3);
+                robot.chargeCharge(3).flying(true);
                 break;
             case "battery":
                 assembleBattery(x, y, "battery");
@@ -135,21 +136,41 @@ public class EntitySpawnerSystem extends BaseSystem {
         powerSystem.powerMapCoordsAround((int) (socket.posX() / G.CELL_SIZE + 0.5f), (int) (socket.posY() / G.CELL_SIZE + 0.5f), true);
     }
 
+    Vector2 v2 = new Vector2();
+
     private void assemblePlayer(float x, float y) {
-        E().anim("player-idle")
+        int entity = E().anim("player-idle")
                 .pos(x, y)
                 .physics()
                 .render(G.LAYER_PLAYER)
                 .mortal()
                 //.gravity()
-                .bounds(8, 0, 16, 12)
+                .bounds(8, 0, PLAYER_WIDTH, PLAYER_HEIGHT)
                 .wallSensor()
                 .cameraFocus()
                 .teamTeam(G.TEAM_PLAYERS)
                 .footsteps()
                 .footstepsSfx("footsteps_girl")
                 .tag("player")
-                .playerControlled();
+                .shipControlled()
+                .id();
+
+        float directions = 16f;
+        float angle = 0;
+        for (int i = 0; i < directions; i++) {
+            angle += 360 / directions * i;
+            v2.set(20,0).rotate(angle);
+            E().anim("marker")
+                    .render(G.LAYER_PLAYER+1)
+                    .pos(x,y)
+                    .bounds(0,0,5,5)
+                    .group("player-guns")
+                    .attachedXo((int)v2.x + PLAYER_WIDTH/2 - 3)
+                    .attachedYo((int)v2.y + PLAYER_HEIGHT/2 - 3)
+                    .attachedParent(entity)
+                    .spoutType(Spout.Type.BULLET)
+                    .angleRotate(angle);
+        }
     }
 
     private void assembleExit(float x, float y) {
@@ -180,6 +201,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .socketAnimEmpty(null)
                 .socketSfxSocketed("battery_eaten")
                 .type("battery2")
+                .running()
                 .robot()
                 .teamTeam(G.TEAM_PLAYERS)
                 .render(G.LAYER_PLAYER_ROBOT)

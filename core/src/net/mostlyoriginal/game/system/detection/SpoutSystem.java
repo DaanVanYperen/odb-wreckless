@@ -2,7 +2,6 @@ package net.mostlyoriginal.game.system.detection;
 
 import com.artemis.Aspect;
 import com.artemis.E;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.game.component.Spout;
@@ -26,20 +25,22 @@ public class SpoutSystem extends FluidIteratingSystem {
     @Override
     protected void process(E e) {
         e.spoutAge(e.spoutAge() + world.delta);
+        if ( !e.hasShooting() ) return;
         if (e.spoutAge() >= e.spoutCooldown() + e.spoutSprayDuration()) {
             e.spoutSprayCooldown(0);
             e.spoutAge(0);
         }
-        if (e.spoutAge() >= e.spoutCooldown()) {
+        if (e.spoutAge() < e.spoutSprayDuration()) {
             e.spoutSprayCooldown(e.spoutSprayCooldown() - world.delta);
             if (e.spoutSprayCooldown() <= 0) {
                 e.spoutSprayCooldown(e.spoutSprayInterval());
-                float angle = e.spoutAngle() + MathUtils.random(-2f, 2f);
-                v2.set(10, 0).setAngle(angle).add(e.posX() + e.boundsCx(), e.posY() + e.boundsCy());
+                float angle = e.spoutAngle() + e.angleRotation(); //+ MathUtils.random(-2f, 2f);
+                v2.set(10, 0).setAngle(angle)
+                        .add(e.posX() + e.boundsCx(), e.posY() + e.boundsCy());
 
                 switch (e.spoutType()) {
-                    case ACID:
-                        spawnAcid(angle, v2.x, v2.y, e.spoutAngle() == 90 ? 50 : 20);
+                    case BULLET:
+                        spawnBullet(angle, v2.x, v2.y, 100, e.physicsVx(), e.physicsVy());
                         break;
                     case GREMLIN:
                         if (playerWithInRange(v2.x, v2.y)) {
@@ -61,7 +62,7 @@ public class SpoutSystem extends FluidIteratingSystem {
         entitySpawnerSystem.spawnGremlin(x - 12, y - 12);
     }
 
-    private void spawnAcid(float angle, float x, float y, int force) {
-        particleSystem.acid(x, y, angle, force);
+    private void spawnBullet(float angle, float x, float y, int force, float emitterVx, float emitterVy) {
+        particleSystem.bullet(x, y, angle, force, emitterVx, emitterVy);
     }
 }

@@ -125,7 +125,7 @@ public class FarewellSystem extends FluidIteratingSystem {
             step0 = true;
             final E player = entityWithTag("player");
             final E robot = entityWithTag("robot");
-            player.removeMortal().removePlayerControlled().anim("player-idle");
+            player.removeMortal().removeShipControlled().anim("player-idle");
             E marker = entityWithTag("marker");
             marker.deleteFromWorld();
             robot.anim("robot-idle");

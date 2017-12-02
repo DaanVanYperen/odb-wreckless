@@ -36,7 +36,7 @@ public class CameraFollowSystem extends FluidIteratingSystem {
 
         if ( lockCamera) return;
         if (e.wallSensorOnFloor() || e.wallSensorOnPlatform() || true) {
-            float newTargetY = myAnimRenderSystem.roundToPixels(e.posY()) + e.boundsCy();
+            float newTargetY = myAnimRenderSystem.roundToPixels(e.posY()) + e.boundsCy() + G.SCREEN_HEIGHT / G.CAMERA_ZOOM / 2f;
             if (targetY != newTargetY) {
                 sourceY = (int) cameraSystem.camera.position.y;
                 targetY = (int) newTargetY;

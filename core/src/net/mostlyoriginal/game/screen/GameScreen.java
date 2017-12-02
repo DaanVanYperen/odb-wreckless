@@ -4,13 +4,13 @@ import com.artemis.SuperMapper;
 import com.artemis.World;
 import com.artemis.WorldConfigurationBuilder;
 import com.artemis.link.EntityLinkManager;
+import com.artemis.managers.GroupManager;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.graphics.Color;
 import net.mostlyoriginal.api.screen.core.WorldScreen;
 import net.mostlyoriginal.api.system.camera.CameraShakeSystem;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.system.graphics.RenderBatchingSystem;
-import net.mostlyoriginal.api.system.mouse.MouseCursorSystem;
 import net.mostlyoriginal.api.system.physics.*;
 import net.mostlyoriginal.api.system.render.ClearScreenSystem;
 import net.mostlyoriginal.game.GdxArtemisGame;
@@ -19,7 +19,6 @@ import net.mostlyoriginal.game.system.*;
 import net.mostlyoriginal.game.system.detection.*;
 import net.mostlyoriginal.game.system.map.*;
 import net.mostlyoriginal.game.system.render.*;
-import net.mostlyoriginal.game.system.ui.MouseClickSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 import net.mostlyoriginal.game.system.view.GameScreenSetupSystem;
 import net.mostlyoriginal.plugin.OperationsPlugin;
@@ -42,6 +41,7 @@ public class GameScreen extends WorldScreen {
                 .with(
                         new SuperMapper(),
                         new TagManager(),
+                        new GroupManager(),
 
                         new EntitySpawnerSystem(),
                         new MapSystem(),
@@ -62,10 +62,10 @@ public class GameScreen extends WorldScreen {
                         new FarewellSystem(),
                         new SpoutSystem(),
 
-
                         // Control and logic.
                         new FollowSystem(),
-                        new PlayerControlSystem(),
+                        new AttachmentSystem(),
+                        new ShipControlSystem(),
                         new BirdBrainSystem(),
 
                         // Physics.

@@ -2,16 +2,17 @@ package net.mostlyoriginal.game.system;
 
 import com.artemis.Aspect;
 import com.artemis.E;
+import com.artemis.Entity;
+import com.artemis.managers.GroupManager;
+import com.artemis.utils.ImmutableBag;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.physics.Physics;
-import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 import net.mostlyoriginal.api.system.physics.SocketSystem;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.Pickup;
-import net.mostlyoriginal.game.component.PlayerControlled;
+import net.mostlyoriginal.game.component.ShipControlled;
 import net.mostlyoriginal.game.component.Socket;
 import net.mostlyoriginal.game.component.map.WallSensor;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
@@ -23,7 +24,7 @@ import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 /**
  * @author Daan van Yperen
  */
-public class PlayerControlSystem extends FluidIteratingSystem {
+public class ShipControlSystem extends FluidIteratingSystem {
     private static final float RUN_SLOW_PACE_FACTOR = 500;
     private static final float RUN_FAST_PACE_FACTOR = 1000;
     private float MOVEMENT_FACTOR = 500;
@@ -33,9 +34,10 @@ public class PlayerControlSystem extends FluidIteratingSystem {
     private MyAnimRenderSystem animSystem;
     private GameScreenAssetSystem assetSystem;
     private DialogSystem dialogSystem;
+    private GroupManager groupManager;
 
-    public PlayerControlSystem() {
-        super(Aspect.all(PlayerControlled.class, Physics.class, WallSensor.class, Anim.class));
+    public ShipControlSystem() {
+        super(Aspect.all(ShipControlled.class, Physics.class, WallSensor.class, Anim.class));
     }
 
     @Override
@@ -79,6 +81,17 @@ public class PlayerControlSystem extends FluidIteratingSystem {
 
         float dx = 0;
         float dy = 1000f;
+
+        boolean firing = Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.isKeyPressed(Input.Keys.E);
+
+        ImmutableBag<Entity> entities = groupManager.getEntities("player-guns");
+        for (Entity entity : entities) {
+            E.E(entity.getId())
+                    .shooting(firing).tint(1f,1f,1f,1f)
+                    .physicsVx(e.physicsVx())
+                    .physicsVy(e.physicsVy())
+                    .tintColor().b = firing ? 1f : 0;
+        }
 
         if (Gdx.input.isKeyPressed(Input.Keys.A) && !e.hasDead()) {
             dx = -MOVEMENT_FACTOR;

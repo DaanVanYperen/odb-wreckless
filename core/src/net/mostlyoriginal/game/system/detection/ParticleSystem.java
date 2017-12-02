@@ -6,7 +6,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.sun.javafx.tk.Toolkit;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.operation.JamOperationFactory;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
@@ -28,7 +27,7 @@ public class ParticleSystem extends FluidIteratingSystem {
     private Color COLOR_WHITE = Color.valueOf("FFFFFF");
     private Color COLOR_DUST = Color.valueOf("D4CFB899");
     private Color COLOR_ACID = Color.valueOf("5F411CDD");
-    private Color COLOR_SAND = Color.valueOf("D4CFB866");
+    private Color COLOR_LASER = Color.valueOf("FEE300");
 
     private Builder bakery = new Builder();
     private GameScreenAssetSystem assetSystem;
@@ -70,7 +69,7 @@ public class ParticleSystem extends FluidIteratingSystem {
 
     public void sand(float x, float y, float angle, int force) {
         bakery
-                .color(COLOR_SAND)
+                .color(COLOR_LASER)
                 .at(x, y)
                 .angle(angle, angle)
                 .speed(force, force + 5)
@@ -82,19 +81,20 @@ public class ParticleSystem extends FluidIteratingSystem {
     }
 
 
-    public void acid(float x, float y, float angle, int force) {
+    public void bullet(float x, float y, float angle, int force, float x2, float y2) {
         bakery
-                .color(COLOR_ACID)
+                .color(COLOR_LASER)
                 .at(x, y)
+                .emitterVelocity(x2,y2)
                 .angle(angle, angle)
-                .speed(force, force + 5)
-                .deadly()
-                .fadeAfter(4f)
-                .slowlySplatDown()
+                .speed(force, force)
+                //.deadly()
+                .fadeAfter(30f)
+//                .slowlySplatDown()
                 .rotateRandomly()
-                .size(1, 2)
-                .solid()
-                .create(1, 5);
+                .size(2, 2)
+                //.solid()
+                .create(1, 1);
     }
 
     public void bloodExplosion(float x, float y) {
@@ -112,7 +112,7 @@ public class ParticleSystem extends FluidIteratingSystem {
 
     Vector2 v2 = new Vector2();
 
-    public E spawnVanillaParticle(float x, float y, float angle, float speed, float scale) {
+    public E spawnVanillaParticle(float x, float y, float angle, float speed, float scale, float emitterVx, float emitterVy) {
 
         v2.set(speed, 0).setAngle(angle);
 
@@ -123,8 +123,8 @@ public class ParticleSystem extends FluidIteratingSystem {
                 .renderLayer(G.LAYER_PARTICLES)
                 .origin(scale / 2f, scale / 2f)
                 .bounds(0, 0, scale, scale)
-                .physicsVx(v2.x)
-                .physicsVy(v2.y)
+                .physicsVx(v2.x + emitterVx)
+                .physicsVy(v2.y + emitterVy)
                 .physicsFriction(0);
     }
 
@@ -142,39 +142,6 @@ public class ParticleSystem extends FluidIteratingSystem {
     }
 
     float cooldown2 = 0;
-
-    public void gremlinWave() {
-        float borderX = cameraSystem.camera.position.x - (Gdx.graphics.getWidth() / G.CAMERA_ZOOM) * 0.5f - 24;
-        float borderY1 = cameraSystem.camera.position.y - (Gdx.graphics.getHeight() / G.CAMERA_ZOOM) * 0.5f;
-        float borderY2 = cameraSystem.camera.position.y + (Gdx.graphics.getHeight() / G.CAMERA_ZOOM) * 0.5f;
-
-        cooldown2 -= world.delta;
-        if (cooldown2 <= 0) {
-            cooldown2 = 0.32f;
-            for (int i = 0, s = 10; i < s; i++) {
-                float y = MathUtils.random(borderY1, borderY2);
-                E.E()
-                        .pos(borderX, y)
-                        .anim("gremlin-1-idle")
-                        .renderLayer(G.LAYER_PARTICLES)
-                        .physicsVr(MathUtils.random(-90f, 90f))
-                        .origin(0.5f, 0.5f)
-                        .angle()
-                        .scale(MathUtils.random(1f,2f))
-                        .bounds(0, 0, 24, 24)
-                        .physicsVx(MathUtils.random(100f, 300f))
-                        .physicsVy(MathUtils.random(40f, 200f))
-                        .gravityY(-5f)
-                        .physicsFriction(0)
-                        .script(sequence(
-                                delay(0.5f),
-                                JamOperationFactory.tintBetween(Tint.WHITE, Tint.TRANSPARENT, 0.5f),
-                                deleteFromWorld()
-                        ));
-            }
-        }
-
-    }
 
     private class Builder {
         private Color color;
@@ -197,6 +164,8 @@ public class ParticleSystem extends FluidIteratingSystem {
         private Tint tmpTo = new Tint();
         private float rotateR = 0;
         private boolean withDeadly;
+        private float emitterVx;
+        private float emitterVy;
 
         public Builder() {
             reset();
@@ -218,7 +187,8 @@ public class ParticleSystem extends FluidIteratingSystem {
                         random(minY, maxY),
                         random(minAngle, maxAngle),
                         random(minSpeed, maxSpeed),
-                        random(minScale, maxScale))
+                        random(minScale, maxScale),
+                        emitterVx,emitterVy)
                         .tint(color.r, color.g, color.b, color.a);
 
                 if (withGravity) {
@@ -334,6 +304,12 @@ public class ParticleSystem extends FluidIteratingSystem {
 
         public Builder deadly() {
             withDeadly = true;
+            return this;
+        }
+
+        public Builder emitterVelocity(float emitterVx, float emitterVy) {
+            this.emitterVx = emitterVx;
+            this.emitterVy = emitterVy;
             return this;
         }
     }
