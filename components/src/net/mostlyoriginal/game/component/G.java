@@ -34,7 +34,7 @@ public class G {
     // 1280 x 720
 
     public static int CAMERA_ZOOM = 1;
-    public static final int SCREEN_WIDTH = 720 / 2;
+    public static final int SCREEN_WIDTH = 1280 / 3;
     public static final int SCREEN_HEIGHT = 1280 / 2;
     private static int CARD_HEIGHT = 90;
     private static int MARGIN_BETWEEN_CARD_AND_SIM = 10;

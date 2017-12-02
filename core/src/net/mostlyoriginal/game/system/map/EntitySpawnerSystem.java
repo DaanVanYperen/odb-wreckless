@@ -258,6 +258,8 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .physicsVy(-10f)
                 .physicsFriction(0)
                 .mortal()
+                .physicsVr(50)
+                .angle()
                 .deadly()
                 .teamTeam(TEAM_ENEMIES)
                 .render(G.LAYER_GREMLIN)
