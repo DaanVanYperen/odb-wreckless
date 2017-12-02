@@ -63,14 +63,7 @@ public class DeathSystem extends FluidIteratingSystem {
         if (!e.hasDead()) {
             E deadlyStuffs = touchingDeadlyStuffs(e, false);
             if (mapCollisionSystem.isLava(e.posX(), e.posY()) || deadlyStuffs != null) {
-                if ( e.hasShield() && e.shieldHp() > 1 ) {
-                    e.shieldHp(e.shieldHp()-1);
-                    e.script(JamOperationFactory.tintBetween(BLINK,WHITE,0.1f));
-                    if ( deadlyStuffs != null ) deadlyStuffs.deleteFromWorld();
-                } else
-                {
-                    e.dead();
-                }
+                damage(e, deadlyStuffs);
             }
 
             float halfScreenWidth = (Gdx.graphics.getWidth() / G.CAMERA_ZOOM) * 0.5f + 16;
@@ -101,6 +94,22 @@ public class DeathSystem extends FluidIteratingSystem {
                 } else e.deleteFromWorld();
             }
 
+        }
+    }
+
+    private void damage(E e, E deadlyStuffs) {
+        if ( e.hasShield() && e.shieldHp() > 1 ) {
+            e.shieldHp(e.shieldHp()-1);
+            e.script(JamOperationFactory.tintBetween(BLINK,WHITE,0.1f));
+            if ( deadlyStuffs != null ) {
+                damage(e,null);
+            }
+        } else
+        {
+            if ( ! e.isMortal())
+            {
+                e.deleteFromWorld();
+            } else e.dead();
         }
     }
 

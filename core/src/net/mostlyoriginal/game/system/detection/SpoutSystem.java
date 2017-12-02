@@ -39,8 +39,7 @@ public class SpoutSystem extends FluidIteratingSystem {
             if (e.spoutSprayCooldown() <= 0) {
                 e.spoutSprayCooldown(e.spoutSprayInterval());
                 float angle = e.spoutAngle() + e.angleRotation(); //+ MathUtils.random(-2f, 2f);
-                v2.set(10, 0).setAngle(angle)
-                        .add(e.posX() + e.boundsCx(), e.posY() + e.boundsCy());
+                v2.set(e.posX() + e.boundsCx() - 3, e.posY() + e.boundsCy() - 3);
 
                 switch (e.spoutType()) {
                     case BULLET:

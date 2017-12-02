@@ -193,6 +193,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .teamTeam(team)
                 .spoutAngle(0)
                 .spoutType(Spout.Type.BULLET)
+                .spoutSprayInterval(60f/gunData.rpm)
                 .gunData(gunData)
                 .angleRotate(angle);
 

@@ -6,20 +6,20 @@
     {
       "id": "360_miniguns",
       "guns": [
-        { "anim" : "bullet-1", "angle" : 0 },
-        { "anim" : "bullet-1", "angle" : 45 },
-        { "anim" : "bullet-1", "angle" : 90 },
-        { "anim" : "bullet-1", "angle" : 135 },
-        { "anim" : "bullet-1", "angle" : 180 },
-        { "anim" : "bullet-1", "angle" : 225 },
-        { "anim" : "bullet-1", "angle" : 270 },
-        { "anim" : "bullet-1", "angle" : 315 },
+        { "anim" : "bullet-1", "angle" : 0, "rpm" : 160 },
+        { "anim" : "bullet-1", "angle" : 45, "rpm" : 480 },
+        { "anim" : "bullet-1", "angle" : 90, "rpm" : 160 },
+        { "anim" : "bullet-1", "angle" : 135, "rpm" : 160 },
+        { "anim" : "bullet-1", "angle" : 180, "rpm" : 160 },
+        { "anim" : "bullet-1", "angle" : 225, "rpm" : 160 },
+        { "anim" : "bullet-1", "angle" : 270, "rpm" : 160 },
+        { "anim" : "bullet-1", "angle" : 315, "rpm" : 480 },
       ]
     },
     {
       "id": "minigun",
       "guns": [
-        { "anim" : "bullet-1", "angle" : 0 }
+        { "anim" : "bullet-1", "angle" : 0, "rpm" : 30 }
       ]
     }
   ]
