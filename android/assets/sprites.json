@@ -4,22 +4,21 @@
       "id": "player-idle",
       "comment": "Player character idling.",
       "x": 0,
-      "y": 392,
+      "y": 918,
       "countX": 1,
       "countY": 1,
-      "width": 24,
-      "height": 24
+      "width": 46,
+      "height": 39
     },
     {
       "id": "player-walk",
       "comment": "Player character walking right.",
-      "x": 24,
-      "y": 392,
-      "countX": 8,
+      "x": 46,
+      "y": 918,
+      "countX": 1,
       "countY": 1,
-      "milliseconds": 50,
-      "width": 24,
-      "height": 24
+      "width": 46,
+      "height": 39
     },
     {
       "id": "player-jump",
