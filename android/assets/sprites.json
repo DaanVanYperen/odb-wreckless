@@ -45,6 +45,16 @@
       "height": 16
     },
     {
+      "id": "bullet-1",
+      "comment": "A round, green bullet.",
+      "x": 16,
+      "y": 870,
+      "countX": 1,
+      "countY": 1,
+      "width": 8,
+      "height": 8
+    },
+    {
       "id": "enemy-1",
       "comment": "Tiny enemy ship.",
       "x": 0,
@@ -53,6 +63,36 @@
       "countY": 1,
       "width": 31,
       "height": 20
+    },
+    {
+      "id": "enemy-2",
+      "comment": "Small enemy ship.",
+      "x": 31,
+      "y": 958,
+      "countX": 1,
+      "countY": 1,
+      "width": 45,
+      "height": 26
+    },
+    {
+      "id": "enemy-3",
+      "comment": "Medium enemy ship.",
+      "x": 76,
+      "y": 958,
+      "countX": 1,
+      "countY": 1,
+      "width": 51,
+      "height": 37
+    },
+    {
+      "id": "enemy-4",
+      "comment": "Large enemy ship.",
+      "x": 127,
+      "y": 958,
+      "countX": 1,
+      "countY": 1,
+      "width": 56,
+      "height": 46
     },
   ]
 }
