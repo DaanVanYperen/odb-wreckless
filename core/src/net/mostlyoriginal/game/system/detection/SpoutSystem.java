@@ -40,7 +40,7 @@ public class SpoutSystem extends FluidIteratingSystem {
 
                 switch (e.spoutType()) {
                     case BULLET:
-                        spawnBullet(angle, v2.x, v2.y, 100, e.physicsVx(), e.physicsVy());
+                        spawnBullet(angle, v2.x, v2.y, 100, e.physicsVx(), e.physicsVy(), e.teamTeam());
                         break;
                     case GREMLIN:
                         if (playerWithInRange(v2.x, v2.y)) {
@@ -62,7 +62,7 @@ public class SpoutSystem extends FluidIteratingSystem {
         entitySpawnerSystem.spawnGremlin(x - 12, y - 12);
     }
 
-    private void spawnBullet(float angle, float x, float y, int force, float emitterVx, float emitterVy) {
-        particleSystem.bullet(x, y, angle, force, emitterVx, emitterVy);
+    private void spawnBullet(float angle, float x, float y, int force, float emitterVx, float emitterVy, int team) {
+        particleSystem.bullet(x, y, angle, force, emitterVx, emitterVy, team);
     }
 }

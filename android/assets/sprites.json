@@ -651,5 +651,15 @@
       "width": 140,
       "height": 31
     },
+    {
+      "id": "enemy1",
+      "comment": "Tiny enemy ship.",
+      "x": 3,
+      "y": 973,
+      "countX": 1,
+      "countY": 1,
+      "width": 45,
+      "height": 26
+    },
   ]
 }

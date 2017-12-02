@@ -81,7 +81,7 @@ public class ParticleSystem extends FluidIteratingSystem {
     }
 
 
-    public void bullet(float x, float y, float angle, int force, float x2, float y2) {
+    public void bullet(float x, float y, float angle, int force, float x2, float y2, int team) {
         bakery
                 .color(COLOR_LASER)
                 .at(x, y)
@@ -90,6 +90,8 @@ public class ParticleSystem extends FluidIteratingSystem {
                 .speed(force, force)
                 //.deadly()
                 .fadeAfter(30f)
+                .deadly()
+                .team(team)
 //                .slowlySplatDown()
                 .rotateRandomly()
                 .size(2, 2)
@@ -166,6 +168,7 @@ public class ParticleSystem extends FluidIteratingSystem {
         private boolean withDeadly;
         private float emitterVx;
         private float emitterVy;
+        private int team;
 
         public Builder() {
             reset();
@@ -211,6 +214,10 @@ public class ParticleSystem extends FluidIteratingSystem {
                             JamOperationFactory.tintBetween(tmpFrom, tmpTo, 0.5f),
                             deleteFromWorld()
                     ));
+                }
+                if ( team != 0)
+                {
+                    e.teamTeam(team);
                 }
             }
             reset();
@@ -310,6 +317,11 @@ public class ParticleSystem extends FluidIteratingSystem {
         public Builder emitterVelocity(float emitterVx, float emitterVy) {
             this.emitterVx = emitterVx;
             this.emitterVy = emitterVy;
+            return this;
+        }
+
+        public Builder team(int team) {
+            this.team = team;
             return this;
         }
     }

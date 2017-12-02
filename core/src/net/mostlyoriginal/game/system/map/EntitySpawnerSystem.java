@@ -11,8 +11,7 @@ import net.mostlyoriginal.game.component.Spout;
 import net.mostlyoriginal.game.system.detection.SpoutSystem;
 
 import static com.artemis.E.E;
-import static net.mostlyoriginal.game.component.G.PLAYER_HEIGHT;
-import static net.mostlyoriginal.game.component.G.PLAYER_WIDTH;
+import static net.mostlyoriginal.game.component.G.*;
 
 /**
  * @author Daan van Yperen
@@ -36,6 +35,8 @@ public class EntitySpawnerSystem extends BaseSystem {
             case "player":
                 assemblePlayer(x, y);
                 break;
+            case "enemy1":
+                 assembleEnemy(x,y,1);
             case "exit":
                 assembleExit(x, y);
                 break;
@@ -168,6 +169,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                     .attachedXo((int)v2.x + PLAYER_WIDTH/2 - 3)
                     .attachedYo((int)v2.y + PLAYER_HEIGHT/2 - 3)
                     .attachedParent(entity)
+                    .teamTeam(G.TEAM_PLAYERS)
                     .spoutType(Spout.Type.BULLET)
                     .angleRotate(angle);
         }
@@ -219,6 +221,20 @@ public class EntitySpawnerSystem extends BaseSystem {
 
         return robot;
     }
+
+    private void assembleEnemy(float x, float y, int type) {
+        E robot = E().anim("enemy" + type)
+                .pos(x, y)
+                .physics()
+                .mortal()
+                .deadly()
+                .teamTeam(TEAM_ENEMIES)
+                .render(G.LAYER_GREMLIN)
+                .footstepsStepSize(4)
+                .bounds(0, 0, 45, 26)
+                .wallSensor();
+    }
+
 
     public void spawnGremlin(float x, float y) {
         E robot = E().anim("gremlin-1-idle")

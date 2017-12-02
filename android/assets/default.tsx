@@ -819,4 +819,9 @@
    <property name="entity" value="player"/>
   </properties>
  </tile>
+ <tile id="1953">
+  <properties>
+   <property name="entity" value="enemy1"/>
+  </properties>
+ </tile>
 </tileset>
