@@ -79,7 +79,7 @@ public class BoundingBoxRenderSystem extends DeferredEntityProcessingSystem {
         batch.setColor(DEFAULT_BOUNDINGBOX);
 
         if ( bounds != null ) {
-            drawAnimation(anim, angle, origin, pos, "marker",scale, bounds);
+            drawAnimation(anim, angle, origin, pos, "boundingbox",scale, bounds);
         }
 
         anim.age += world.delta * anim.speed;
@@ -130,16 +130,6 @@ public class BoundingBoxRenderSystem extends DeferredEntityProcessingSystem {
                     true,
                     false);
 
-        } else if ( angle.rotation != 0 )
-        {
-            batch.draw(frame,
-                    roundToPixels(position.xy.x),
-                    roundToPixels(position.xy.y),
-                    ox,
-                    oy,
-                    frame.getRegionWidth() * scale,
-                    frame.getRegionHeight() * scale, 1, 1,
-                    angle.rotation);
         } else {
             batch.draw(frame,
                     roundToPixels(position.xy.x + bounds.minx),

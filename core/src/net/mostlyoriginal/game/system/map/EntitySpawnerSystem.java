@@ -9,6 +9,7 @@ import net.mostlyoriginal.api.system.physics.SocketSystem;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.Spout;
 import net.mostlyoriginal.game.system.detection.SpoutSystem;
+import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 import static com.artemis.E.E;
 import static net.mostlyoriginal.game.component.G.*;
@@ -21,6 +22,7 @@ public class EntitySpawnerSystem extends BaseSystem {
     private SocketSystem socketSystem;
     private PowerSystem powerSystem;
     private SpoutSystem spoutSystem;
+    private GameScreenAssetSystem gameScreenAssetSystem;
 
     @Override
     protected void processSystem() {
@@ -37,6 +39,18 @@ public class EntitySpawnerSystem extends BaseSystem {
                 break;
             case "enemy1":
                 assembleEnemy(x, y, 1);
+                break;
+            case "enemy2":
+                assembleEnemy(x, y, 2);
+                break;
+            case "enemy3":
+                assembleEnemy(x, y, 3);
+                break;
+            case "enemy4":
+                assembleEnemy(x, y, 4);
+                break;
+            case "enemy5":
+                assembleEnemy(x, y, 5);
                 break;
             case "exit":
                 assembleExit(x, y);
@@ -149,7 +163,6 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .render(G.LAYER_PLAYER)
                 .mortal()
                 //.gravity()
-                .bounds(gracepaddingX, gracepaddingY, PLAYER_WIDTH-gracepaddingX, PLAYER_HEIGHT-gracepaddingY)
                 .wallSensor()
                 .cameraFocus()
                 .teamTeam(G.TEAM_PLAYERS)
@@ -158,6 +171,8 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .tag("player")
                 .shipControlled()
                 .id();
+
+        gameScreenAssetSystem.boundToAnim(entity, gracepaddingX, gracepaddingY);
 
         float directions = 16f;
         float angle = 0;
@@ -228,7 +243,7 @@ public class EntitySpawnerSystem extends BaseSystem {
     private void assembleEnemy(float x, float y, int type) {
         int gracepaddingX=8;
         int gracepaddingY=0;
-        E()
+        int enemyId = E()
                 .pos(x, y)
                 .physics()
                 .physicsVy(-10f)
@@ -237,8 +252,11 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .deadly()
                 .teamTeam(TEAM_ENEMIES)
                 .render(G.LAYER_GREMLIN)
-                .bounds(gracepaddingX, gracepaddingY, 45-gracepaddingX, 24-gracepaddingY)
-                .anim("fart");
+                .anim("enemy-" + type).id();
+
+
+        gameScreenAssetSystem.boundToAnim(enemyId, gracepaddingX, gracepaddingY);
+
     }
 
 

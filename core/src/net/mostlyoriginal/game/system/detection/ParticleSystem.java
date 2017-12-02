@@ -87,6 +87,7 @@ public class ParticleSystem extends FluidIteratingSystem {
                 .at(x, y)
                 .emitterVelocity(x2,y2)
                 .angle(angle, angle)
+                .anim("bullet-1")
                 .speed(force, force)
                 //.deadly()
                 .fadeAfter(1f)
@@ -94,7 +95,7 @@ public class ParticleSystem extends FluidIteratingSystem {
                 .team(team)
 //                .slowlySplatDown()
                 .rotateRandomly()
-                .size(2, 2)
+                .size(1, 1)
                 //.solid()
                 .create(1, 1);
     }
@@ -169,6 +170,7 @@ public class ParticleSystem extends FluidIteratingSystem {
         private float emitterVx;
         private float emitterVy;
         private int team;
+        private String anim;
 
         public Builder() {
             reset();
@@ -218,6 +220,9 @@ public class ParticleSystem extends FluidIteratingSystem {
                 if ( team != 0)
                 {
                     e.teamTeam(team);
+                }
+                if ( anim != null ) {
+                    e.anim(anim);
                 }
             }
             reset();
@@ -322,6 +327,11 @@ public class ParticleSystem extends FluidIteratingSystem {
 
         public Builder team(int team) {
             this.team = team;
+            return this;
+        }
+
+        public Builder anim(String anim) {
+            this.anim = anim;
             return this;
         }
     }

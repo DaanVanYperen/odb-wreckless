@@ -80,26 +80,28 @@ public class ShipControlSystem extends FluidIteratingSystem {
 
 
         float dx = 0;
-        float dy = 1000f;
 
         boolean firing = Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.isKeyPressed(Input.Keys.E);
 
         ImmutableBag<Entity> entities = groupManager.getEntities("player-guns");
         for (Entity entity : entities) {
             E.E(entity.getId())
-                    .shooting(firing).tint(1f,1f,1f,1f)
+                    .shooting(firing).tint(1f, 1f, 1f, 1f)
                     .physicsVx(e.physicsVx())
                     .physicsVy(e.physicsVy())
                     .tintColor().b = firing ? 1f : 0;
         }
 
+        e.animLoop(true);
         if (Gdx.input.isKeyPressed(Input.Keys.A) && !e.hasDead()) {
             dx = -MOVEMENT_FACTOR;
-            e.animFlippedX(true);
+            e.animId("player-left");
+            e.animLoop(false);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.D) && !e.hasDead()) {
             dx = MOVEMENT_FACTOR;
-            e.animFlippedX(false);
+            e.animId("player-right");
+            e.animLoop(false);
         }
 
         float veloX = Math.abs(e.physicsVx());
@@ -129,18 +131,8 @@ public class ShipControlSystem extends FluidIteratingSystem {
             }
         }
 
-        if (e.isRunning()) {
-            if (dx != 0) {
-                e.physicsVx(e.physicsVx() + (dx * world.delta));
-                e.animId(playerAnimPrefix + "run");
-                e.removePriorityAnim();
-            }
-        } else {
-            if (dx != 0) {
-                e.physicsVx(e.physicsVx() + (dx * world.delta));
-                e.animId(playerAnimPrefix + "walk");
-                e.removePriorityAnim();
-            }
+        if (dx != 0) {
+            e.physicsVx(e.physicsVx() + (dx * world.delta));
         }
 
 

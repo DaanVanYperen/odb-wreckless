@@ -737,6 +737,36 @@
    <property name="entity" value="gremlin"/>
   </properties>
  </tile>
+ <tile id="448">
+  <properties>
+   <property name="entity" value="enemy1"/>
+  </properties>
+ </tile>
+ <tile id="449">
+  <properties>
+   <property name="entity" value="enemy2"/>
+  </properties>
+ </tile>
+ <tile id="450">
+  <properties>
+   <property name="entity" value="enemy3"/>
+  </properties>
+ </tile>
+ <tile id="451">
+  <properties>
+   <property name="entity" value="enemy4"/>
+  </properties>
+ </tile>
+ <tile id="452">
+  <properties>
+   <property name="entity" value="enemy5"/>
+  </properties>
+ </tile>
+ <tile id="453">
+  <properties>
+   <property name="entity" value="player"/>
+  </properties>
+ </tile>
  <tile id="513">
   <properties>
    <property name="entity" value="robot"/>

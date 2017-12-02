@@ -1,5 +1,6 @@
 package net.mostlyoriginal.game.system.view;
 
+import com.artemis.E;
 import com.artemis.annotations.Wire;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -13,6 +14,8 @@ import net.mostlyoriginal.game.component.SpriteData;
 import net.mostlyoriginal.game.system.render.SpriteLibrary;
 
 import static net.mostlyoriginal.game.component.G.DEBUG_NO_MUSIC;
+import static net.mostlyoriginal.game.component.G.PLAYER_HEIGHT;
+import static net.mostlyoriginal.game.component.G.PLAYER_WIDTH;
 
 /**
  * @author Daan van Yperen
@@ -113,7 +116,13 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         spriteLibrary = json.fromJson(SpriteLibrary.class, Gdx.files.internal("sprites.json"));
         for (SpriteData sprite : spriteLibrary.sprites) {
             Animation animation = add(sprite.id, sprite.x, sprite.y, sprite.width, sprite.height, sprite.countX, sprite.countY, this.tileset, sprite.milliseconds * 0.001f);
+            if ( !sprite.repeat ) animation.setPlayMode(Animation.PlayMode.NORMAL);
         }
     }
 
+    public void boundToAnim(int entity, int gracepaddingX, int gracepaddingY) {
+        E e = E.E(entity);
+        TextureRegion frame = ((Animation<TextureRegion>) get(e.animId())).getKeyFrame(0);
+        e.bounds(gracepaddingX, gracepaddingY, frame.getRegionWidth() -gracepaddingX, frame.getRegionHeight()-gracepaddingY);
+    }
 }
