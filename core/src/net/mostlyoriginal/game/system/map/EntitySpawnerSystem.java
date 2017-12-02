@@ -36,7 +36,8 @@ public class EntitySpawnerSystem extends BaseSystem {
                 assemblePlayer(x, y);
                 break;
             case "enemy1":
-                 assembleEnemy(x,y,1);
+                assembleEnemy(x, y, 1);
+                break;
             case "exit":
                 assembleExit(x, y);
                 break;
@@ -47,15 +48,15 @@ public class EntitySpawnerSystem extends BaseSystem {
                 E robot = assembleRobot(x, y);
                 robot.chargeCharge(3).flying(true);
                 break;
-            case "battery":
-                assembleBattery(x, y, "battery");
-                break;
-            case "battery2":
-                assembleBattery(x, y, "battery2");
-                break;
-            case "gremlin":
-                spoutSystem.spawnGremlin(0,x,y);
-                return true;
+//            case "battery":
+//                assembleBattery(x, y, "battery");
+//                break;
+//            case "battery2":
+//                assembleBattery(x, y, "battery2");
+//                break;
+//            case "gremlin":
+//                spoutSystem.spawnGremlin(0,x,y);
+//                return true;
             case "birds":
                 for (int i = 0, s = MathUtils.random(1, 3); i <= s; i++) {
                     assembleBird(x + MathUtils.random(G.CELL_SIZE), y + MathUtils.random(G.CELL_SIZE));
@@ -72,7 +73,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 assembleBatterySlot(x, y, (Boolean) properties.get("powered"), (String) properties.get("accept"));
                 break;
             case "sandsprinkler":
-                assembleSandSprinkler(x,y-1);
+                assembleSandSprinkler(x, y - 1);
                 return false;
             default:
                 return false;
@@ -82,7 +83,7 @@ public class EntitySpawnerSystem extends BaseSystem {
     }
 
     private void assembleSandSprinkler(float x, float y) {
-        E.E().pos(x,y).bounds(0,0,16,1).sandSprinkler();
+        E.E().pos(x, y).bounds(0, 0, 16, 1).sandSprinkler();
     }
 
     private int birdIndex = 0;
@@ -140,13 +141,14 @@ public class EntitySpawnerSystem extends BaseSystem {
     Vector2 v2 = new Vector2();
 
     private void assemblePlayer(float x, float y) {
+        int gracepadding=-4;
         int entity = E().anim("player-idle")
                 .pos(x, y)
                 .physics()
                 .render(G.LAYER_PLAYER)
                 .mortal()
                 //.gravity()
-                .bounds(8, 0, PLAYER_WIDTH, PLAYER_HEIGHT)
+                .bounds(gracepadding, gracepadding, PLAYER_WIDTH-gracepadding, PLAYER_HEIGHT-gracepadding)
                 .wallSensor()
                 .cameraFocus()
                 .teamTeam(G.TEAM_PLAYERS)
@@ -160,14 +162,14 @@ public class EntitySpawnerSystem extends BaseSystem {
         float angle = 0;
         for (int i = 0; i < directions; i++) {
             angle += 360 / directions * i;
-            v2.set(20,0).rotate(angle);
+            v2.set(20, 0).rotate(angle);
             E().anim("marker")
-                    .render(G.LAYER_PLAYER+1)
-                    .pos(x,y)
-                    .bounds(0,0,5,5)
+                    .render(G.LAYER_PLAYER + 1)
+                    .pos(x, y)
+                    .bounds(0, 0, 5, 5)
                     .group("player-guns")
-                    .attachedXo((int)v2.x + PLAYER_WIDTH/2 - 3)
-                    .attachedYo((int)v2.y + PLAYER_HEIGHT/2 - 3)
+                    .attachedXo((int) v2.x + PLAYER_WIDTH / 2 - 3)
+                    .attachedYo((int) v2.y + PLAYER_HEIGHT / 2 - 3)
                     .attachedParent(entity)
                     .teamTeam(G.TEAM_PLAYERS)
                     .spoutType(Spout.Type.BULLET)
@@ -223,15 +225,18 @@ public class EntitySpawnerSystem extends BaseSystem {
     }
 
     private void assembleEnemy(float x, float y, int type) {
-        E robot = E().anim("enemy" + type)
+        int gracepadding=-4;
+        E()
                 .pos(x, y)
                 .physics()
-                .physicsVy(-50f)
+                .physicsVy(-10f)
+                .physicsFriction(0)
                 .mortal()
                 .deadly()
                 .teamTeam(TEAM_ENEMIES)
                 .render(G.LAYER_GREMLIN)
-                .bounds(0, 0, 45, 26);
+                .bounds(0+gracepadding, 0+gracepadding, 45-gracepadding, 26-gracepadding)
+                .anim("fart");
     }
 
 
