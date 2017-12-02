@@ -45,7 +45,7 @@
       "height": 16
     },
     {
-      "id": "enemy1",
+      "id": "enemy-1",
       "comment": "Tiny enemy ship.",
       "x": 0,
       "y": 958,
