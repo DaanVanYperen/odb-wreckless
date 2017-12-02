@@ -24,8 +24,12 @@ public class SpoutSystem extends FluidIteratingSystem {
 
     @Override
     protected void process(E e) {
+        if ( !e.hasShooting() ) {
+            e.spoutAge(0);
+            e.spoutSprayCooldown(0);
+            return;
+        }
         e.spoutAge(e.spoutAge() + world.delta);
-        if ( !e.hasShooting() ) return;
         if (e.spoutAge() >= e.spoutCooldown() + e.spoutSprayDuration()) {
             e.spoutSprayCooldown(0);
             e.spoutAge(0);

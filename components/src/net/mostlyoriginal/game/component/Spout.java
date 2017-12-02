@@ -8,10 +8,10 @@ import com.badlogic.gdx.math.MathUtils;
  */
 public class Spout extends Component {
     public float angle;
-    public float cooldown = 0.5f;
+    public float cooldown = 2f;
     public float age = 0;
-    public float sprayDuration = 0.5f;
-    public float sprayInterval = 0.1f;
+    public float sprayDuration = 10f;
+    public float sprayInterval = 6f/32f;
     public float sprayCooldown = 0f;
     public Type type = Type.BULLET;
     public enum Type {

@@ -6,7 +6,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.basic.Pos;
+import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.manager.AbstractAssetSystem;
+import net.mostlyoriginal.api.operation.JamOperationFactory;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.game.api.EBag;
 import net.mostlyoriginal.game.component.*;
@@ -45,6 +47,9 @@ public class DeathSystem extends FluidIteratingSystem {
         deadlies = allEntitiesWith(Deadly.class);
     }
 
+    Tint BLINK = new Tint(1f,0f,0f,1f);
+    Tint WHITE = new Tint(1f,1f,1f,1f);
+
     @Override
     protected void process(E e) {
 //
@@ -56,9 +61,16 @@ public class DeathSystem extends FluidIteratingSystem {
 //        }
 
         if (!e.hasDead()) {
-            if (mapCollisionSystem.isLava(e.posX(), e.posY()) || touchingDeadlyStuffs(e, false) != null) {
-                e.dead();
-
+            E deadlyStuffs = touchingDeadlyStuffs(e, false);
+            if (mapCollisionSystem.isLava(e.posX(), e.posY()) || deadlyStuffs != null) {
+                if ( e.hasShield() && e.shieldHp() > 1 ) {
+                    e.shieldHp(e.shieldHp()-1);
+                    e.script(JamOperationFactory.tintBetween(BLINK,WHITE,0.1f));
+                    if ( deadlyStuffs != null ) deadlyStuffs.deleteFromWorld();
+                } else
+                {
+                    e.dead();
+                }
             }
 
             float halfScreenWidth = (Gdx.graphics.getWidth() / G.CAMERA_ZOOM) * 0.5f + 16;
@@ -83,7 +95,7 @@ public class DeathSystem extends FluidIteratingSystem {
                 particleSystem.bloodExplosion(e.posX() + e.boundsCx(), e.posY() + e.boundsCy());
             }
             if (e.deadCooldown() <= 0) {
-                if ((e.isRobot() || e.isShipControlled())) {
+                if (e.isShipControlled()) {
                     doExit();
                     e.removeDead().removeMortal();
                 } else e.deleteFromWorld();
@@ -94,7 +106,8 @@ public class DeathSystem extends FluidIteratingSystem {
 
     private E touchingDeadlyStuffs(E e, boolean onlyMortals) {
         for (E o : deadlies) {
-            if (o != e && o.teamTeam() != e.teamTeam() && overlaps(o, e) && !o.hasDead() && (!onlyMortals || o.hasMortal())) return o;
+            if (o != e && o.teamTeam() != e.teamTeam() && overlaps(o, e) && !o.hasDead() && (!onlyMortals || o.hasMortal()))
+                return o;
         }
 
         return null;

@@ -38,7 +38,7 @@ public class EntitySpawnerSystem extends BaseSystem {
 
         switch (entity) {
             case "player":
-                assemblePlayer(x, y);
+                assemblePlayer(x, y, shipDataSystem.get("player"));
                 break;
             case "exit":
                 assembleExit(x, y);
@@ -79,7 +79,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 return false;
             default:
                 ShipData shipData = shipDataSystem.get(entity);
-                if ( shipData != null ) {
+                if (shipData != null) {
                     assembleEnemy(x, y, shipData);
                     return true;
                 }
@@ -147,10 +147,10 @@ public class EntitySpawnerSystem extends BaseSystem {
 
     Vector2 v2 = new Vector2();
 
-    private void assemblePlayer(float x, float y) {
-        int gracepaddingX=16;
-        int gracepaddingY=4;
-        int entity = E().anim("player-idle")
+    private void assemblePlayer(float x, float y, ShipData shipData) {
+        int gracepaddingX = 16;
+        int gracepaddingY = 4;
+        int playerShip = E().anim("player-idle")
                 .pos(x, y)
                 .physics()
                 .render(G.LAYER_PLAYER)
@@ -163,10 +163,15 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .footstepsSfx("footsteps_girl")
                 .tag("player")
                 .shipControlled()
+                .shieldHp(shipData.hp)
                 .id();
 
-        gameScreenAssetSystem.boundToAnim(entity, gracepaddingX, gracepaddingY);
+        gameScreenAssetSystem.boundToAnim(playerShip, gracepaddingX, gracepaddingY);
 
+        addGun(x, y, playerShip);
+    }
+
+    private void addGun(float x, float y, int shipId) {
         float directions = 16f;
         float angle = 0;
         for (int i = 0; i < directions; i++) {
@@ -174,12 +179,12 @@ public class EntitySpawnerSystem extends BaseSystem {
             v2.set(20, 0).rotate(angle);
             E().anim("marker")
                     .render(G.LAYER_PLAYER + 1)
-                    .pos(x, y)
+                    .pos()
                     .bounds(0, 0, 5, 5)
                     .group("player-guns")
                     .attachedXo((int) v2.x + PLAYER_WIDTH / 2 - 3)
                     .attachedYo((int) v2.y + PLAYER_HEIGHT / 2 - 3)
-                    .attachedParent(entity)
+                    .attachedParent(shipId)
                     .teamTeam(G.TEAM_PLAYERS)
                     .spoutType(Spout.Type.BULLET)
                     .angleRotate(angle);
@@ -234,8 +239,8 @@ public class EntitySpawnerSystem extends BaseSystem {
     }
 
     private void assembleEnemy(float x, float y, ShipData data) {
-        int gracepaddingX=8;
-        int gracepaddingY=0;
+        int gracepaddingX = 8;
+        int gracepaddingY = 0;
         int enemyId = E()
                 .pos(x, y)
                 .physics()
@@ -245,11 +250,12 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .deadly()
                 .teamTeam(TEAM_ENEMIES)
                 .render(G.LAYER_GREMLIN)
+                .shieldHp(data.hp)
                 .anim(data.anim).id();
 
         gameScreenAssetSystem.boundToAnim(enemyId, gracepaddingX, gracepaddingY);
         E e = E.E(enemyId);
-        e.pos(x - e.boundsCx(),y - e.boundsCy());
+        e.pos(x - e.boundsCx(), y - e.boundsCy());
 
     }
 
