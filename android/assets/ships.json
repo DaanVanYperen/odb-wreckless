@@ -11,35 +11,35 @@
       "id": "enemy1",
       "comment": "Enemy type 1.",
       "anim": "enemy-1",
-      "hp": 1,
+      "hp": 5,
       "arsenal": "minigun"
     },
     {
       "id": "enemy2",
       "comment": "Enemy type 2.",
       "anim": "enemy-2",
-      "hp": 2,
+      "hp": 10,
       "arsenal": "unarmed"
     },
     {
       "id": "enemy3",
       "comment": "Enemy type 3.",
       "anim": "enemy-3",
-      "hp": 4,
+      "hp": 20,
       "arsenal": "unarmed"
     },
     {
       "id": "enemy4",
       "comment": "Enemy type 4.",
       "anim": "enemy-4",
-      "hp": 8,
+      "hp": 40,
       "arsenal": "unarmed"
     },
     {
       "id": "enemy5",
       "comment": "Enemy type 5.",
       "anim": "enemy-5",
-      "hp": 16,
+      "hp": 80,
       "arsenal": "unarmed"
     }
   ],
