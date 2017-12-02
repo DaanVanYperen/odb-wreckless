@@ -58,6 +58,7 @@ public class DeathSystem extends FluidIteratingSystem {
         if (!e.hasDead()) {
             if (mapCollisionSystem.isLava(e.posX(), e.posY()) || touchingDeadlyStuffs(e, false) != null) {
                 e.dead();
+
             }
 
             float halfScreenWidth = (Gdx.graphics.getWidth() / G.CAMERA_ZOOM) * 0.5f + 16;

@@ -226,13 +226,12 @@ public class EntitySpawnerSystem extends BaseSystem {
         E robot = E().anim("enemy" + type)
                 .pos(x, y)
                 .physics()
+                .physicsVy(-50f)
                 .mortal()
                 .deadly()
                 .teamTeam(TEAM_ENEMIES)
                 .render(G.LAYER_GREMLIN)
-                .footstepsStepSize(4)
-                .bounds(0, 0, 45, 26)
-                .wallSensor();
+                .bounds(0, 0, 45, 26);
     }
 
 

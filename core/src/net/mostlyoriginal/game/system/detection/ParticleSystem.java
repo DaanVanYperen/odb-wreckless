@@ -89,7 +89,7 @@ public class ParticleSystem extends FluidIteratingSystem {
                 .angle(angle, angle)
                 .speed(force, force)
                 //.deadly()
-                .fadeAfter(30f)
+                .fadeAfter(1f)
                 .deadly()
                 .team(team)
 //                .slowlySplatDown()
