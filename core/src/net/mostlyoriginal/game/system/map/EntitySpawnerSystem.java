@@ -7,9 +7,11 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.api.system.physics.SocketSystem;
 import net.mostlyoriginal.game.component.G;
+import net.mostlyoriginal.game.component.ShipData;
 import net.mostlyoriginal.game.component.Spout;
 import net.mostlyoriginal.game.system.detection.SpoutSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
+import net.mostlyoriginal.game.system.view.ShipDataSystem;
 
 import static com.artemis.E.E;
 import static net.mostlyoriginal.game.component.G.*;
@@ -23,6 +25,7 @@ public class EntitySpawnerSystem extends BaseSystem {
     private PowerSystem powerSystem;
     private SpoutSystem spoutSystem;
     private GameScreenAssetSystem gameScreenAssetSystem;
+    private ShipDataSystem shipDataSystem;
 
     @Override
     protected void processSystem() {
@@ -36,21 +39,6 @@ public class EntitySpawnerSystem extends BaseSystem {
         switch (entity) {
             case "player":
                 assemblePlayer(x, y);
-                break;
-            case "enemy1":
-                assembleEnemy(x, y, 1);
-                break;
-            case "enemy2":
-                assembleEnemy(x, y, 2);
-                break;
-            case "enemy3":
-                assembleEnemy(x, y, 3);
-                break;
-            case "enemy4":
-                assembleEnemy(x, y, 4);
-                break;
-            case "enemy5":
-                assembleEnemy(x, y, 5);
                 break;
             case "exit":
                 assembleExit(x, y);
@@ -90,6 +78,11 @@ public class EntitySpawnerSystem extends BaseSystem {
                 assembleSandSprinkler(x, y - 1);
                 return false;
             default:
+                ShipData shipData = shipDataSystem.get(entity);
+                if ( shipData != null ) {
+                    assembleEnemy(x, y, shipData);
+                    return true;
+                }
                 return false;
             //throw new RuntimeException("No idea how to spawn entity of type " + entity);
         }
@@ -240,7 +233,7 @@ public class EntitySpawnerSystem extends BaseSystem {
         return robot;
     }
 
-    private void assembleEnemy(float x, float y, int type) {
+    private void assembleEnemy(float x, float y, ShipData data) {
         int gracepaddingX=8;
         int gracepaddingY=0;
         int enemyId = E()
@@ -252,8 +245,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .deadly()
                 .teamTeam(TEAM_ENEMIES)
                 .render(G.LAYER_GREMLIN)
-                .anim("enemy-" + type).id();
-
+                .anim(data.anim).id();
 
         gameScreenAssetSystem.boundToAnim(enemyId, gracepaddingX, gracepaddingY);
         E e = E.E(enemyId);

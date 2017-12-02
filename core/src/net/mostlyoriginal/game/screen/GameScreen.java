@@ -21,6 +21,7 @@ import net.mostlyoriginal.game.system.map.*;
 import net.mostlyoriginal.game.system.render.*;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 import net.mostlyoriginal.game.system.view.GameScreenSetupSystem;
+import net.mostlyoriginal.game.system.view.ShipDataSystem;
 import net.mostlyoriginal.plugin.OperationsPlugin;
 import net.mostlyoriginal.plugin.ProfilerPlugin;
 
@@ -49,6 +50,7 @@ public class GameScreen extends WorldScreen {
                         new PowerSystem(),
 
                         new GameScreenAssetSystem(),
+                        new ShipDataSystem(),
                         new GameScreenSetupSystem(),
 
                         // sensors.

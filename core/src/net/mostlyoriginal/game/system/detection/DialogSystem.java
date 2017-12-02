@@ -35,23 +35,24 @@ public class DialogSystem extends FluidIteratingSystem {
     }
 
     private void say(E e, String tag, String animId, float delay, float duration) {
-
-        E dialog = entityWithTag(tag);
-        if (dialog != null && dialog.animId().equals(animId)) return; // don't repeat.
-        if (dialog != null) dialog.deleteFromWorld();
-
-        dialog = E.E().pos(e.posX() + e.boundsCx() - 8, e.posY() + e.boundsMaxy() + 6)
-                .dialogEntityId(e.id())
-                .tag(tag)
-                .bounds(0, 0, 16, 16)
-                .render(G.LAYER_DIALOGS)
-                .anim(animId);
-
-        if (delay > 0) {
-            dialog.invisible().script(sequence(delay(delay), remove(Invisible.class), add(Wave.class), delay(duration), deleteFromWorld()));
-        } else {
-            dialog.script(sequence(delay(duration), deleteFromWorld()));
-        }
+//        return;
+//
+//        E dialog = entityWithTag(tag);
+//        if (dialog != null && dialog.animId().equals(animId)) return; // don't repeat.
+//        if (dialog != null) dialog.deleteFromWorld();
+//
+//        dialog = E.E().pos(e.posX() + e.boundsCx() - 8, e.posY() + e.boundsMaxy() + 6)
+//                .dialogEntityId(e.id())
+//                .tag(tag)
+//                .bounds(0, 0, 16, 16)
+//                .render(G.LAYER_DIALOGS)
+//                .anim(animId);
+//
+//        if (delay > 0) {
+//            dialog.invisible().script(sequence(delay(delay), remove(Invisible.class), add(Wave.class), delay(duration), deleteFromWorld()));
+//        } else {
+//            dialog.script(sequence(delay(duration), deleteFromWorld()));
+//        }
     }
 
     @Override

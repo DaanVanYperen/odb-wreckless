@@ -120,6 +120,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         }
     }
 
+
     public void boundToAnim(int entity, int gracepaddingX, int gracepaddingY) {
         E e = E.E(entity);
         TextureRegion frame = ((Animation<TextureRegion>) get(e.animId())).getKeyFrame(0);
