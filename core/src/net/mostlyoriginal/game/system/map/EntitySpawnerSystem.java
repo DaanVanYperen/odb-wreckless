@@ -256,6 +256,8 @@ public class EntitySpawnerSystem extends BaseSystem {
 
 
         gameScreenAssetSystem.boundToAnim(enemyId, gracepaddingX, gracepaddingY);
+        E e = E.E(enemyId);
+        e.pos(x - e.boundsCx(),y - e.boundsCy());
 
     }
 
