@@ -113,7 +113,7 @@
       "y": 858,
       "countX": 1,
       "countY": 1,
-      "width": 8,
+      "width": 5,
       "height": 8
     },
     {
@@ -123,8 +123,8 @@
       "y": 858,
       "countX": 1,
       "countY": 1,
-      "width": 8,
-      "height": 8
+      "width": 4,
+      "height": 7
     },
     {
       "id": "bullet-9",
@@ -133,8 +133,8 @@
       "y": 858,
       "countX": 1,
       "countY": 1,
-      "width": 8,
-      "height": 8
+      "width": 3,
+      "height": 6
     },
     {
       "id": "enemy-1",
