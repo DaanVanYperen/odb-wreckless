@@ -33,14 +33,14 @@
       "comment": "Enemy type 4.",
       "anim": "enemy-4",
       "hp": 35,
-      "arsenal": "unarmed"
+      "arsenal": "enemy_bouncegun"
     },
     {
       "id": "enemy5",
       "comment": "Enemy type 5.",
       "anim": "enemy-5",
       "hp": 80,
-      "arsenal": "unarmed"
+      "arsenal": "enemy_bouncegun"
     }
     {
       "id": "turret-1",
