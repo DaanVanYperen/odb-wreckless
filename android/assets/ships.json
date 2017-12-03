@@ -19,20 +19,20 @@
       "comment": "Enemy type 2.",
       "anim": "enemy-2",
       "hp": 10,
-      "arsenal": "unarmed"
+      "arsenal": "enemy_handgun"
     },
     {
       "id": "enemy3",
       "comment": "Enemy type 3.",
       "anim": "enemy-3",
-      "hp": 20,
+      "hp": 40,
       "arsenal": "unarmed"
     },
     {
       "id": "enemy4",
       "comment": "Enemy type 4.",
       "anim": "enemy-4",
-      "hp": 40,
+      "hp": 35,
       "arsenal": "unarmed"
     },
     {
@@ -41,6 +41,13 @@
       "anim": "enemy-5",
       "hp": 80,
       "arsenal": "unarmed"
+    }
+    {
+      "id": "turret-1",
+      "comment": "Enemy type 6.",
+      "anim": "enemy-6",
+      "hp": 60,
+      "arsenal": "enemy_3tap"
     }
   ],
 }

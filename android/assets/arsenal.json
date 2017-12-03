@@ -35,5 +35,20 @@
         { "anim" : "bullet-1", "angle" : 0, "rpm" : 30, "speed": 100, "bounces": 0 }
       ]
     }
+    {
+      "id": "enemy_bouncegun",
+      "guns": [
+        { "anim" : "bullet-1", "angle" : 225, "rpm" : 60, "speed": 60, "bounces": 4 }
+        { "anim" : "bullet-1", "angle" : 145, "rpm" : 60, "speed": 60, "bounces": 4 }
+      ]
+    }
+    {
+      "id": "enemy_3tap",
+      "guns": [
+        { "anim" : "bullet-1", "angle" : 180, "rpm" : 30, "speed": 100, "bounces": 0 }
+        { "anim" : "bullet-1", "angle" : 180, "rpm" : 29, "speed": 100, "bounces": 0 }
+        { "anim" : "bullet-1", "angle" : 180, "rpm" : 28, "speed": 100, "bounces": 0 }
+      ]
+    }
   ]
 }
