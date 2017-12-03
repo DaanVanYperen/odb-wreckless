@@ -19,7 +19,7 @@
     {
       "id": "minigun",
       "guns": [
-        { "anim" : "bullet-1", "angle" : 0, "rpm" : 600, "speed": 200, "bounces": 0 }
+        { "anim" : "bullet-1", "angle" : 1, "rpm" : 700, "speed": 300, "bounces": 0 }
       ]
     }
     {
