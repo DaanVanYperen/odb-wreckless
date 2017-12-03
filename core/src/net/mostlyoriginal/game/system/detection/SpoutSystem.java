@@ -49,7 +49,7 @@ public class SpoutSystem extends FluidIteratingSystem {
 
                 switch (e.spoutType()) {
                     case BULLET:
-                        spawnBullet(angle, v2.x, v2.y, e.gunData().speed, 0, e.physicsVy() + G.CAMERA_SCROLL_SPEED, e.teamTeam(), e.gunData().bounces, e.gunData());
+                        spawnBullet(angle, v2.x, v2.y, e.gunData().speed, 0, G.CAMERA_SCROLL_SPEED, e.teamTeam(), e.gunData().bounces, e.gunData());
                         break;
                     case GREMLIN:
                         if (playerWithInRange(v2.x, v2.y)) {

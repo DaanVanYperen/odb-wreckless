@@ -130,7 +130,7 @@ public class ParticleSystem extends FluidIteratingSystem {
                 .pos(x - (scale * frame.getRegionWidth() * 0.5f), y - (scale * frame.getRegionHeight() * 0.5f))
                 .anim(anim != null ? anim : "particle")
                 .scale(scale)
-                .angleRotate(angle)
+                .angleRotate(angle-90)
                 .renderLayer(G.LAYER_PARTICLES)
                 .origin(scale / 2f, scale / 2f)
                 .bounds(0, 0, scale, scale)
