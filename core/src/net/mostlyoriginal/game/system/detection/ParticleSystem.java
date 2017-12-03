@@ -2,7 +2,6 @@ package net.mostlyoriginal.game.system.detection;
 
 import com.artemis.Aspect;
 import com.artemis.E;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -83,7 +82,7 @@ public class ParticleSystem extends FluidIteratingSystem {
     }
 
 
-    public void bullet(float x, float y, float angle, int force, float x2, float y2, int team) {
+    public void bullet(float x, float y, float angle, int force, float x2, float y2, int team, int bounce) {
         bakery
                 .color(COLOR_LASER)
                 .at(x, y)
@@ -91,8 +90,9 @@ public class ParticleSystem extends FluidIteratingSystem {
                 .angle(angle, angle)
                 .anim("bullet-1")
                 .speed(force, force)
+                .bounce(bounce)
                 //.deadly()
-                .fadeAfter(1f)
+                .fadeAfter(50f)
                 .deadly()
                 .team(team)
 //                .slowlySplatDown()
@@ -100,10 +100,11 @@ public class ParticleSystem extends FluidIteratingSystem {
                 .size(1, 1)
                 .solid()
                 .create(1, 1);
-    }
 
+
+    }
     public void explosion(float x, float y) {
-        assetSystem.playSfx("explosion" + MathUtils.random(1, 4));
+        assetSystem.playSfx("boom");
         bakery
                 .at((int)x-5,(int)y-5,(int)x+5,(int)y+5)
                 .angle(0, 360)
@@ -176,6 +177,7 @@ public class ParticleSystem extends FluidIteratingSystem {
         private float emitterVy;
         private int team;
         private String anim;
+        private int bounce;
 
         public Builder() {
             reset();
@@ -211,6 +213,10 @@ public class ParticleSystem extends FluidIteratingSystem {
                 } else e.ethereal();
                 if (withDeadly) {
                     e.deadly();
+                }
+                if (bounce > 0) {
+                    e.bounceCount(999);
+                    e.physicsBounce(1f);
                 }
                 if (rotateR != 0) {
                     e.physicsVr(rotateR).angle();
@@ -343,6 +349,11 @@ public class ParticleSystem extends FluidIteratingSystem {
 
         public Builder anim(String anim) {
             this.anim = anim;
+            return this;
+        }
+
+        public Builder bounce(int bounce) {
+            this.bounce = bounce;
             return this;
         }
     }

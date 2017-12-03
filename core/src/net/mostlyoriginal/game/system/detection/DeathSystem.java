@@ -3,6 +3,7 @@ package net.mostlyoriginal.game.system.detection;
 import com.artemis.Aspect;
 import com.artemis.E;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.operation.JamOperationFactory;
@@ -44,8 +45,8 @@ public class DeathSystem extends FluidIteratingSystem {
         deadlies = allEntitiesWith(Deadly.class);
     }
 
-    Tint BLINK = new Tint(1f,0f,0f,1f);
-    Tint WHITE = new Tint(1f,1f,1f,1f);
+    Tint BLINK = new Tint(1f, 0f, 0f, 1f);
+    Tint WHITE = new Tint(1f, 1f, 1f, 1f);
 
     @Override
     protected void process(E e) {
@@ -60,7 +61,7 @@ public class DeathSystem extends FluidIteratingSystem {
         if (!e.hasDead()) {
             E deadlyStuffs = touchingDeadlyStuffs(e, false);
             if (mapCollisionSystem.isLava(e.posX(), e.posY()) || deadlyStuffs != null) {
-                damage(e, deadlyStuffs);
+                damage(e, deadlyStuffs, true);
             }
 
             float halfScreenWidth = (Gdx.graphics.getWidth() / G.CAMERA_ZOOM) * 0.5f + 16;
@@ -94,20 +95,36 @@ public class DeathSystem extends FluidIteratingSystem {
         }
     }
 
-    private void damage(E e, E deadlyStuffs) {
-        if ( e.hasShield() && e.shieldHp() > 1 ) {
-            e.shieldHp(e.shieldHp()-1);
-            e.script(JamOperationFactory.tintBetween(BLINK,WHITE,0.1f));
-            if ( deadlyStuffs != null ) {
-                damage(e,null);
+    private void damage(E e, E cause, boolean damageCause) {
+
+        // prevent same thing damaging the same thing twice.
+        if (cause.hasBounce() && cause.bounceLastEntityId() == e.id())
+            return;
+
+        if (e.hasShield() && e.shieldHp() > 1) {
+            e.shieldHp(e.shieldHp() - 1);
+            e.script(JamOperationFactory.tintBetween(BLINK, WHITE, 0.1f));
+            if (cause != null && damageCause) {
+                damage(cause, e, false);
             }
-        } else
-        {
-            if ( ! e.isMortal())
-            {
+        } else {
+            if (e.hasBounce() && e.bounceCount() > 0) {
+                attemptBounce(e, cause);
+            } else if (!e.isMortal()) {
                 e.deleteFromWorld();
             } else e.dead();
         }
+    }
+
+
+    Vector2 v2 = new Vector2();
+
+    private void attemptBounce(E e, E victim) {
+        e.bounceCount(e.bounceCount()-1);
+        v2.set(e.physicsVx(), e.physicsVy()).rotate(180);
+        e.bounceLastEntityId(victim.id());
+        e.physicsVx(v2.x);
+        e.physicsVy(v2.y);
     }
 
     private E touchingDeadlyStuffs(E e, boolean onlyMortals) {
