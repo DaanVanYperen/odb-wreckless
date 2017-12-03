@@ -61,7 +61,7 @@ public class DeathSystem extends FluidIteratingSystem {
         if (!e.hasDead()) {
             E deadlyStuffs = touchingDeadlyStuffs(e, false);
             if (mapCollisionSystem.isLava(e.posX(), e.posY()) || deadlyStuffs != null) {
-                damage(e, deadlyStuffs, true);
+                damage(e, deadlyStuffs, true, deadlyStuffs != null && deadlyStuffs.hasGun() ? deadlyStuffs.gunData().damage : 1);
             }
 
             float halfScreenWidth = (Gdx.graphics.getWidth() / G.CAMERA_ZOOM) * 0.5f + 16;
@@ -95,17 +95,17 @@ public class DeathSystem extends FluidIteratingSystem {
         }
     }
 
-    private void damage(E e, E cause, boolean damageCause) {
+    private void damage(E e, E cause, boolean damageCause, int damage) {
 
         // prevent same thing damaging the same thing twice.
         if (cause != null && cause.hasBounce() && cause.bounceLastEntityId() == e.id())
             return;
 
-        if (e.hasShield() && e.shieldHp() > 1) {
-            e.shieldHp(e.shieldHp() - 1);
+        if (e.hasShield() && e.shieldHp() > damage) {
+            e.shieldHp(e.shieldHp() - damage);
             e.script(JamOperationFactory.tintBetween(BLINK, WHITE, 0.1f));
             if (cause != null && damageCause) {
-                damage(cause, e, false);
+                damage(cause, e, false, 1);
             }
         } else {
             if (e.hasBounce() && e.bounceCount() > 0) {
@@ -120,7 +120,7 @@ public class DeathSystem extends FluidIteratingSystem {
     Vector2 v2 = new Vector2();
 
     private void attemptBounce(E e, E victim) {
-        e.bounceCount(e.bounceCount()-1);
+        e.bounceCount(e.bounceCount() - 1);
         v2.set(e.physicsVx(), e.physicsVy()).rotate(180);
         e.bounceLastEntityId(victim.id());
         e.physicsVx(v2.x);

@@ -13,6 +13,7 @@ public class GunData implements Serializable {
     public int rpm;
     public int speed;
     public int bounces;
+    public int damage;
 
     public GunData() {
     }

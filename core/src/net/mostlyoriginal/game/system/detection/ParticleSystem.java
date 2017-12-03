@@ -12,6 +12,7 @@ import net.mostlyoriginal.api.operation.JamOperationFactory;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.game.component.Deadly;
 import net.mostlyoriginal.game.component.G;
+import net.mostlyoriginal.game.component.GunData;
 import net.mostlyoriginal.game.component.SandSprinkler;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
@@ -82,7 +83,7 @@ public class ParticleSystem extends FluidIteratingSystem {
     }
 
 
-    public void bullet(float x, float y, float angle, int force, float x2, float y2, int team, int bounce) {
+    public void bullet(float x, float y, float angle, int force, float x2, float y2, int team, int bounce, GunData gunData) {
         bakery
                 .color(COLOR_LASER)
                 .at(x, y)
@@ -91,6 +92,7 @@ public class ParticleSystem extends FluidIteratingSystem {
                 .anim("bullet-1")
                 .speed(force, force)
                 .bounce(bounce)
+                .gunData(gunData)
                 //.deadly()
                 .fadeAfter(50f)
                 .deadly()
@@ -178,6 +180,7 @@ public class ParticleSystem extends FluidIteratingSystem {
         private int team;
         private String anim;
         private int bounce;
+        private GunData gunData;
 
         public Builder() {
             reset();
@@ -214,7 +217,11 @@ public class ParticleSystem extends FluidIteratingSystem {
                 if (withDeadly) {
                     e.deadly();
                 }
+                if ( gunData != null ) {
+                    e.gunData(gunData);
+                }
                 if (bounce > 0) {
+
                     e.bounceCount(999);
                     e.physicsBounce(1f);
                 }
@@ -354,6 +361,11 @@ public class ParticleSystem extends FluidIteratingSystem {
 
         public Builder bounce(int bounce) {
             this.bounce = bounce;
+            return this;
+        }
+
+        public Builder gunData(GunData gunData) {
+            this.gunData = gunData;
             return this;
         }
     }
