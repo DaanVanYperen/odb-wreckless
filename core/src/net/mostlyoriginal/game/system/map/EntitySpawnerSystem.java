@@ -180,7 +180,6 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .ethereal(true)
                 .physicsFriction(0);
     }
-
     private void addArsenal(E ship, String group, int team, int shipFacingAngle, String arsenal) {
         ArsenalData data = arsenalDataSystem.get(arsenal);
         if (data.guns != null) {

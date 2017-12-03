@@ -90,7 +90,8 @@ public class GameScreen extends WorldScreen {
 
                         new JumpAttackSystem(),
 
-                        new ClearScreenSystem(Color.valueOf("031D1E")),
+                        new ClearScreenSystem(Color.valueOf("000000")),
+                        new RenderBackgroundSystem(),
                         new MapRenderSystem(),
 
                         renderBatchingSystem = new RenderBatchingSystem(),
