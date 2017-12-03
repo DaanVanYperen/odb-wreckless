@@ -106,6 +106,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     @Override
     protected void initialize() {
         super.initialize();
+        playMusicInGame("something2.mp3");
     }
 
     private void loadSprites() {
