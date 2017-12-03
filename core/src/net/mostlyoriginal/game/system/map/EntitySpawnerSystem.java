@@ -176,7 +176,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .pos(x, y)
                 .cameraFocus()
                 .tag("camera")
-                .physicsVy(50)
+                .physicsVy(G.CAMERA_SCROLL_SPEED)
                 .ethereal(true)
                 .physicsFriction(0);
     }

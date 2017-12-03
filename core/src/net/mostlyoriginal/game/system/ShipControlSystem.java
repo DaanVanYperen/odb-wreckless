@@ -101,8 +101,12 @@ public class ShipControlSystem extends FluidIteratingSystem {
                 dy = MOVEMENT_FACTOR;
             } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
                 dy = -MOVEMENT_FACTOR;
-            } else clampY(e, dy); // hit the breaks.
+            } else {
+                clampY(e, dy); // hit the breaks.
+            }
         }
+
+
 
 
 
@@ -125,6 +129,8 @@ public class ShipControlSystem extends FluidIteratingSystem {
         if (e.hasCarries() && e.carriesEntityId() != 0) {
             e.carriesAnchorX(e.animFlippedX() ? 4 : -4);
         }
+
+        e.posY(e.posY() + G.CAMERA_SCROLL_SPEED * world.delta);
     }
 
     private void fireGuns(E e) {

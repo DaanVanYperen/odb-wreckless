@@ -179,7 +179,7 @@
       "comment": "An explosion.",
       "x": 0,
       "y": 749,
-      "countX": 1,
+      "countX": 9,
       "countY": 1,
       "milliseconds": 70,	  
 	  "repeat": false,
@@ -205,6 +205,18 @@
       "countY": 1,
       "width": 256,
       "height": 256
+    },	
+    {
+      "id": "pickup",
+      "comment": "Pickup object.",
+      "x": 0,
+      "y": 733,
+      "countX": 7,
+      "countY": 1,
+      "milliseconds": 70,	  
+	  "repeat": true,
+      "width": 28,
+      "height": 16
     },	
   ]
 }
