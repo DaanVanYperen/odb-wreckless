@@ -17,7 +17,7 @@
       "y": 918,
       "countX": 3,
       "countY": 1,
-      "milliseconds": 150,	  
+      "milliseconds": 250,	  
 	  "repeat": false,
       "width": 45,
       "height": 40
@@ -29,7 +29,7 @@
       "y": 918,
       "countX": 3,
       "countY": 1,
-      "milliseconds": 150,	  
+      "milliseconds": 250,	  
 	  "repeat": false,
       "width": 45,
       "height": 40
@@ -169,10 +169,42 @@
       "comment": "Enemy turret.",
       "x": 239,
       "y": 794,
-      "countX": 1,
+      "countX": 9,
       "countY": 1,
       "width": 34,
       "height": 32
+    },	
+    {
+      "id": "explosion",
+      "comment": "An explosion.",
+      "x": 0,
+      "y": 749,
+      "countX": 1,
+      "countY": 1,
+      "milliseconds": 70,	  
+	  "repeat": false,
+      "width": 54,
+      "height": 45
+    },	
+    {
+      "id": "background-stars",
+      "comment": "Background stars.",
+      "x": 0,
+      "y": 256,
+      "countX": 1,
+      "countY": 1,
+      "width": 256,
+      "height": 256
+    },	
+    {
+      "id": "background-clouds",
+      "comment": "Background clouds.",
+      "x": 256,
+      "y": 256,
+      "countX": 1,
+      "countY": 1,
+      "width": 256,
+      "height": 256
     },	
   ]
 }
