@@ -34,27 +34,6 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         loadSprites();
         loadSounds(
                 new String[]{
-                        "MOWV", //
-                        "voice1",
-                        "VWOM",
-                        "deathsound", // done
-                        "battery_eaten", // robot gets battery
-                        "deepsound", //
-                        "door_break", //
-                        "door_openclose", // electrical doors.
-                        "footsteps_girl",
-                        "footsteps_robot",
-                        "landing_girl",
-                        "boss_sound_1",
-                        "poop_pipe",
-                        "robot_attack",
-                        "death_jingle",
-                        "robot_fly",
-                        "gremlin_death",
-                        "splat1",
-                        "splat2",
-                        "splat3",
-                        "splat4",
                 }
         );
 
@@ -83,7 +62,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     private void playMusicTitle() {
         if (DEBUG_NO_MUSIC) return;
         if (music != null) music.stop();
-        music = Gdx.audio.newMusic(Gdx.files.internal("sfx/LD_titleloop.mp3"));
+        music = Gdx.audio.newMusic(Gdx.files.internal("sfx/something1.mp3"));
         music.setLooping(true);
         music.play();
         music.setPan(0, 0.1f);
