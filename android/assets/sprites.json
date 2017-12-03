@@ -104,5 +104,75 @@
       "width": 59,
       "height": 62
     },
+    {
+      "id": "turret-1",
+      "comment": "Enemy turret.",
+      "x": 239,
+      "y": 958,
+      "countX": 1,
+      "countY": 1,
+      "width": 34,
+      "height": 30
+    },
+{
+      "id": "enemy-shield-1",
+      "comment": "Tiny enemy ship.",
+      "x": 0,
+      "y": 794,
+      "countX": 1,
+      "countY": 1,
+      "width": 31,
+      "height": 22
+    },
+    {
+      "id": "enemy-shield-2",
+      "comment": "Small enemy ship.",
+      "x": 31,
+      "y": 794,
+      "countX": 1,
+      "countY": 1,
+      "width": 45,
+      "height": 28
+    },
+    {
+      "id": "enemy-shield-3",
+      "comment": "Medium enemy ship.",
+      "x": 76,
+      "y": 794,
+      "countX": 1,
+      "countY": 1,
+      "width": 51,
+      "height": 39
+    },
+    {
+      "id": "enemy-shield-4",
+      "comment": "Large enemy ship.",
+      "x": 127,
+      "y": 794,
+      "countX": 1,
+      "countY": 1,
+      "width": 56,
+      "height": 48
+    },
+    {
+      "id": "enemy-shield-5",
+      "comment": "Giant enemy ship.",
+      "x": 180,
+      "y": 794,
+      "countX": 1,
+      "countY": 1,
+      "width": 59,
+      "height": 64
+    },
+    {
+      "id": "turret-shield-1",
+      "comment": "Enemy turret.",
+      "x": 239,
+      "y": 794,
+      "countX": 1,
+      "countY": 1,
+      "width": 34,
+      "height": 32
+    },	
   ]
 }
