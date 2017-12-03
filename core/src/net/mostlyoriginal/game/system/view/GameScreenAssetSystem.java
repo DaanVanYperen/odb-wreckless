@@ -34,6 +34,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         loadSprites();
         loadSounds(
                 new String[]{
+                        "boom",
                 }
         );
 

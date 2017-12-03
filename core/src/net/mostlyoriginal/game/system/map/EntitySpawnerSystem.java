@@ -5,7 +5,6 @@ import com.artemis.E;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import net.mostlyoriginal.api.system.physics.SocketSystem;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.system.detection.SpoutSystem;
 import net.mostlyoriginal.game.system.view.ArsenalDataSystem;
@@ -166,7 +165,8 @@ public class EntitySpawnerSystem extends BaseSystem {
 
         gameScreenAssetSystem.boundToAnim(playerShip.id(), gracepaddingX, gracepaddingY);
 
-        addArsenal(shipData, playerShip, "player-guns", G.TEAM_PLAYERS, 0);
+        addArsenal(playerShip, "player-guns", G.TEAM_PLAYERS, 0, shipData.arsenal);
+        addArsenal(playerShip, "player-guns", G.TEAM_PLAYERS, 0, "bouncegun");
 
         spawnCamera(x, y);
     }
@@ -181,8 +181,8 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .physicsFriction(0);
     }
 
-    private void addArsenal(ShipData shipData, E ship, String group, int team, int shipFacingAngle) {
-        ArsenalData data = arsenalDataSystem.get(shipData.arsenal);
+    private void addArsenal(E ship, String group, int team, int shipFacingAngle, String arsenal) {
+        ArsenalData data = arsenalDataSystem.get(arsenal);
         if (data.guns != null) {
             for (GunData gun : data.guns) {
                 addGun(ship, gun, group, team, shipFacingAngle);
@@ -280,7 +280,7 @@ public class EntitySpawnerSystem extends BaseSystem {
         gameScreenAssetSystem.boundToAnim(enemyShip.id(), gracepaddingX, gracepaddingY);
         enemyShip.pos(x - enemyShip.boundsCx(), y - enemyShip.boundsCy());
 
-        addArsenal(shipData, enemyShip, "enemy-guns", G.TEAM_ENEMIES, -180);
+        addArsenal(enemyShip, "enemy-guns", G.TEAM_ENEMIES, -180, shipData.arsenal);
     }
 
 
