@@ -7,9 +7,9 @@ import com.artemis.managers.GroupManager;
 import com.artemis.utils.ImmutableBag;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.physics.Physics;
-import net.mostlyoriginal.api.system.physics.SocketSystem;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.Pickup;
 import net.mostlyoriginal.game.component.ShipControlled;
@@ -26,8 +26,10 @@ import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
  */
 public class ShipControlSystem extends FluidIteratingSystem {
     private static final float RUN_SLOW_PACE_FACTOR = 500;
-    private static final float RUN_FAST_PACE_FACTOR = 1000;
-    private float MOVEMENT_FACTOR = 1000;
+    public static final int SPEED_CLAMP = 300;
+    private static final float RUN_FAST_PACE_FACTOR = SPEED_CLAMP;
+    public static final float BRAKE_STRENGTH = 16f;
+    private float MOVEMENT_FACTOR = 2000;
     private float JUMP_FACTOR = 15000;
     //private SocketSystem socketSystem;
     private FollowSystem followSystem;
@@ -89,22 +91,21 @@ public class ShipControlSystem extends FluidIteratingSystem {
                 dx = -MOVEMENT_FACTOR;
                 e.animId("player-left");
                 e.animLoop(false);
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+            } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
                 dx = MOVEMENT_FACTOR;
                 e.animId("player-right");
                 e.animLoop(false);
-            }
+            } else clampX(e, dx); // hit the breaks.
+
             if (Gdx.input.isKeyPressed(Input.Keys.W)) {
                 dy = MOVEMENT_FACTOR;
-            }
-            if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+            } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
                 dy = -MOVEMENT_FACTOR;
-            }
+            } else clampY(e, dy); // hit the breaks.
         }
 
-        clampX(e, dx);
-        clampY(e, dy);
+
+
 
         if (!G.PRODUCTION) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.F6)) MapCollisionSystem.DEBUG = !MapCollisionSystem.DEBUG;
@@ -113,11 +114,11 @@ public class ShipControlSystem extends FluidIteratingSystem {
         whistle(e, playerAnimPrefix);
 
         if (dx != 0) {
-            e.physicsVx(e.physicsVx() + (dx * world.delta));
+            e.physicsVx(MathUtils.clamp(e.physicsVx() + (dx * world.delta), -SPEED_CLAMP, SPEED_CLAMP));
         }
 
         if (dy != 0) {
-            e.physicsVy(e.physicsVy() + (dy * world.delta));
+            e.physicsVy(MathUtils.clamp(e.physicsVy() + (dy * world.delta), -SPEED_CLAMP, SPEED_CLAMP));
         }
 
 
@@ -162,14 +163,14 @@ public class ShipControlSystem extends FluidIteratingSystem {
     private void clampX(E e, float dx) {
         float veloX = Math.abs(e.physicsVx());
         if (Math.abs(dx) < 0.05f && veloX >= 0.1f) {
-            e.physicsVx(e.physicsVx() - (e.physicsVx() * world.delta * 8f));
+            e.physicsVx(e.physicsVx() - (e.physicsVx() * world.delta * BRAKE_STRENGTH));
         }
     }
 
     private void clampY(E e, float dy) {
         float veloY = Math.abs(e.physicsVy());
         if (Math.abs(dy) < 0.05f && veloY >= 0.1f) {
-            e.physicsVy(e.physicsVy() - (e.physicsVy() * world.delta * 8f));
+            e.physicsVy(e.physicsVy() - (e.physicsVy() * world.delta * BRAKE_STRENGTH));
         }
     }
 
