@@ -137,6 +137,98 @@
       "height": 6
     },
     {
+      "id": "bullet-1-enemy",
+      "comment": "A big round bullet, purplish.",
+      "x": 16,
+      "y": 850,
+      "countX": 1,
+      "countY": 1,
+      "width": 8,
+      "height": 8
+    },
+    {
+      "id": "bullet-2-enemy",
+      "comment": "A medium round bullet, purplish.",
+      "x": 24,
+      "y": 850,
+      "countX": 1,
+      "countY": 1,
+      "width": 5,
+      "height": 5
+    },
+    {
+      "id": "bullet-3-enemy",
+      "comment": "A small round bullet, purplish.",
+      "x": 29,
+      "y": 850,
+      "countX": 1,
+      "countY": 1,
+      "width": 4,
+      "height": 4
+    },
+    {
+      "id": "bullet-4-enemy",
+      "comment": "A tiny round bullet, purplish.",
+      "x": 33,
+      "y": 850,
+      "countX": 1,
+      "countY": 1,
+      "width": 3,
+      "height": 3
+    },
+    {
+      "id": "bullet-5-enemy",
+      "comment": "DOUBLE HELIX MOTHERFUCKER, purplish!",
+      "x": 39,
+      "y": 842,
+      "countX": 8,
+      "countY": 1,
+      "milliseconds": 70,
+	  "repeat": true,	  
+      "width": 8,
+      "height": 16
+    },
+    {
+      "id": "bullet-6-enemy",
+      "comment": "A big long bullet, purplish.",
+      "x": 16,
+      "y": 838,
+      "countX": 1,
+      "countY": 1,
+      "width": 8,
+      "height": 12
+    },
+    {
+      "id": "bullet-7-enemy",
+      "comment": "A medium long bullet, purplish.",
+      "x": 24,
+      "y": 838,
+      "countX": 1,
+      "countY": 1,
+      "width": 5,
+      "height": 8
+    },
+    {
+      "id": "bullet-8-enemy",
+      "comment": "A small long bullet, purplish.",
+      "x": 29,
+      "y": 838,
+      "countX": 1,
+      "countY": 1,
+      "width": 4,
+      "height": 7
+    },
+    {
+      "id": "bullet-9-enemy",
+      "comment": "A tiny long bullet, purplish.",
+      "x": 33,
+      "y": 858,
+      "countX": 1,
+      "countY": 1,
+      "width": 3,
+      "height": 6
+    },
+    {
       "id": "enemy-1",
       "comment": "Tiny enemy ship.",
       "x": 0,
