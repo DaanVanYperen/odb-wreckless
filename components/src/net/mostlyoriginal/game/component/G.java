@@ -14,6 +14,7 @@ public class G {
     public static final int LAYER_DIALOGS = 2000;
     public static final int PLAYER_WIDTH = 46;
     public static final int PLAYER_HEIGHT = 39;
+    public static final float CAMERA_SCROLL_SPEED = 50;
     public static Settings settings;
 
     public static final boolean PRODUCTION = false;
