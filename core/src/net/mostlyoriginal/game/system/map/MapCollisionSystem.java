@@ -3,14 +3,17 @@ package net.mostlyoriginal.game.system.map;
 import com.artemis.Aspect;
 import com.artemis.E;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.basic.Bounds;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.physics.Physics;
+import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.utils.MapMask;
 import net.mostlyoriginal.game.component.Ethereal;
 import net.mostlyoriginal.game.component.Flying;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
+import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 /**
  * @author Daan van Yperen
@@ -29,6 +32,7 @@ public class MapCollisionSystem extends FluidIteratingSystem {
     protected MapMask solidForRobotMask;
 
     private Color RED = Color.valueOf("FF0000FF");
+    private GameScreenAssetSystem assetSystem;
 
     public MapCollisionSystem() {
         super(Aspect.all(Physics.class, Pos.class, Bounds.class).exclude(Flying.class, Ethereal.class));
@@ -59,37 +63,49 @@ public class MapCollisionSystem extends FluidIteratingSystem {
             float px = pos.xy.x + physics.vx * world.delta;
             float py = pos.xy.y + physics.vy * world.delta;
 
+            int bounce=0;
+
             if ((physics.vx > 0 && collides(e, px + bounds.maxx, py + bounds.miny + (bounds.maxy - bounds.miny) * 0.5f )) ||
                     (physics.vx < 0 && collides(e, px + bounds.minx, py + bounds.miny + (bounds.maxy - bounds.miny) * 0.5f))) {
                 physics.vx = physics.bounce > 0 ? -physics.vx * physics.bounce : 0;
+                if ( physics.bounce > 0 ) bounce=1;
                 px = pos.xy.x;
             }
 
             if ((physics.vx > 0 && collides(e, px + bounds.maxx, py + bounds.miny + (bounds.maxy - bounds.miny) * 0.25f + 3)) ||
                     (physics.vx < 0 && collides(e, px + bounds.minx, py + bounds.miny + (bounds.maxy - bounds.miny) * 0.25f + 3))) {
                 physics.vx = physics.bounce > 0 ? -physics.vx * physics.bounce : 0;
+                if ( physics.bounce > 0 ) bounce=1;
                 px = pos.xy.x;
             }
 
             if ((physics.vx > 0 && collides(e, px + bounds.maxx, py + bounds.miny + (bounds.maxy - bounds.miny) * 0.75f)) ||
                     (physics.vx < 0 && collides(e, px + bounds.minx, py + bounds.miny + (bounds.maxy - bounds.miny) * 0.75f))) {
                 physics.vx = physics.bounce > 0 ? -physics.vx * physics.bounce : 0;
+                if ( physics.bounce > 0 ) bounce=1;
                 px = pos.xy.x;
             }
 
             if ((physics.vy > 0 && collides(e, px + bounds.minx + (bounds.maxx - bounds.minx) * 0.5f, py + bounds.maxy)) ||
                     (physics.vy < 0 && collides(e, px + bounds.minx + (bounds.maxx - bounds.minx) * 0.5f, py + bounds.miny))) {
                 physics.vy = physics.bounce > 0 ? -physics.vy * physics.bounce : 0;
+                if ( physics.bounce > 0 ) bounce=1;
             }
 
             if ((physics.vy > 0 && collides(e, px + bounds.minx + (bounds.maxx - bounds.minx) * 0.25f, py + bounds.maxy)) ||
                     (physics.vy < 0 && collides(e, px + bounds.minx + (bounds.maxx - bounds.minx) * 0.25f, py + bounds.miny))) {
                 physics.vy = physics.bounce > 0 ? -physics.vy * physics.bounce : 0;
+                if ( physics.bounce > 0 ) bounce=1;
             }
 
             if ((physics.vy > 0 && collides(e, px + bounds.minx + (bounds.maxx - bounds.minx) * 0.75f, py + bounds.maxy)) ||
                     (physics.vy < 0 && collides(e, px + bounds.minx + (bounds.maxx - bounds.minx) * 0.75f, py + bounds.miny))) {
                 physics.vy = physics.bounce > 0 ? -physics.vy * physics.bounce : 0;
+                if ( physics.bounce > 0 ) bounce=1;
+            }
+
+            if ( bounce > 0 ) {
+                assetSystem.playSfx("bounce_" + MathUtils.random(1,4));
             }
 
         }

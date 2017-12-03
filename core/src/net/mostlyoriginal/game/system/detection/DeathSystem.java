@@ -3,6 +3,7 @@ package net.mostlyoriginal.game.system.detection;
 import com.artemis.Aspect;
 import com.artemis.E;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Tint;
@@ -125,6 +126,7 @@ public class DeathSystem extends FluidIteratingSystem {
         e.bounceLastEntityId(victim.id());
         e.physicsVx(v2.x);
         e.physicsVy(v2.y);
+        assetSystem.playSfx("bounce_" + MathUtils.random(1,4));
     }
 
     private E touchingDeadlyStuffs(E e, boolean onlyMortals) {

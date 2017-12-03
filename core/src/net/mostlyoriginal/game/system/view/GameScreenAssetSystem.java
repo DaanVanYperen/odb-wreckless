@@ -34,7 +34,24 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         loadSprites();
         loadSounds(
                 new String[]{
+                        "Explosion_1",
+                        "Explosion_2",
+                        "Explosion_3",
+                        "Explosion_4",
+                        "Explosion_5",
+                        "bounce_1",
+                        "bounce_2",
+                        "bounce_3",
+                        "bounce_4",
+                        "Misc_1",
+                        "Misc_2",
+                        "bang",
+                        "beepboop",
                         "boom",
+                        "Detect_1",
+                        "Laser_shoot_1",
+                        "pew",
+                        "woosh_1"
                 }
         );
 

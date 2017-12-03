@@ -2,12 +2,15 @@ package net.mostlyoriginal.game.system.detection;
 
 import com.artemis.Aspect;
 import com.artemis.E;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.api.component.basic.Pos;
+import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 import net.mostlyoriginal.game.component.GunData;
 import net.mostlyoriginal.game.component.Spout;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.map.EntitySpawnerSystem;
+import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 /**
  * @author Daan van Yperen
@@ -16,6 +19,7 @@ public class SpoutSystem extends FluidIteratingSystem {
 
     private ParticleSystem particleSystem;
     private EntitySpawnerSystem entitySpawnerSystem;
+    private GameScreenAssetSystem assetSystem;
 
     public SpoutSystem() {
         super(Aspect.all(Spout.class, Pos.class));
@@ -68,5 +72,6 @@ public class SpoutSystem extends FluidIteratingSystem {
 
     private void spawnBullet(float angle, float x, float y, int force, float emitterVx, float emitterVy, int team, int bounce, GunData gunData) {
         particleSystem.bullet(x, y, angle, force, emitterVx, emitterVy, team, bounce, gunData);
+        assetSystem.playSfx("pew");
     }
 }

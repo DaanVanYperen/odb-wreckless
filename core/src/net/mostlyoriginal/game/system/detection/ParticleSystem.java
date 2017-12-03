@@ -106,7 +106,7 @@ public class ParticleSystem extends FluidIteratingSystem {
 
     }
     public void explosion(float x, float y) {
-        assetSystem.playSfx("boom");
+        assetSystem.playSfx("Explosion_" + MathUtils.random(1,5));
         bakery
                 .at((int)x-5,(int)y-5,(int)x+5,(int)y+5)
                 .angle(0, 360)
