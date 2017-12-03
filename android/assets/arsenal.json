@@ -6,48 +6,48 @@
     {
       "id": "360_miniguns",
       "guns": [
-        { "anim" : "bullet-1", "angle" : 0, "rpm" : 160, "speed": 300, "bounces": 999 },
-        { "anim" : "bullet-1", "angle" : 45, "rpm" : 480, "speed": 300, "bounces": 999 },
-        { "anim" : "bullet-1", "angle" : 90, "rpm" : 160, "speed": 300, "bounces": 999 },
-        { "anim" : "bullet-1", "angle" : 135, "rpm" : 160, "speed": 300, "bounces": 999 },
-        { "anim" : "bullet-1", "angle" : 180, "rpm" : 160, "speed": 300, "bounces": 999 },
-        { "anim" : "bullet-1", "angle" : 225, "rpm" : 160, "speed": 300, "bounces": 999 },
-        { "anim" : "bullet-1", "angle" : 270, "rpm" : 160, "speed": 300, "bounces": 999 },
-        { "anim" : "bullet-1", "angle" : 315, "rpm" : 480, "speed": 300, "bounces": 999 }
+        { "anim" : "bullet-1", "angle" : 0, "rpm" : 160, "speed": 300, "bounces": 999, "damage": 1 },
+        { "anim" : "bullet-1", "angle" : 45, "rpm" : 480, "speed": 300, "bounces": 999, "damage": 1 },
+        { "anim" : "bullet-1", "angle" : 90, "rpm" : 160, "speed": 300, "bounces": 999, "damage": 1 },
+        { "anim" : "bullet-1", "angle" : 135, "rpm" : 160, "speed": 300, "bounces": 999, "damage": 1 },
+        { "anim" : "bullet-1", "angle" : 180, "rpm" : 160, "speed": 300, "bounces": 999, "damage": 1 },
+        { "anim" : "bullet-1", "angle" : 225, "rpm" : 160, "speed": 300, "bounces": 999, "damage": 1 },
+        { "anim" : "bullet-1", "angle" : 270, "rpm" : 160, "speed": 300, "bounces": 999, "damage": 1 },
+        { "anim" : "bullet-1", "angle" : 315, "rpm" : 480, "speed": 300, "bounces": 999, "damage": 1 }
       ]
     },
     {
       "id": "minigun",
       "guns": [
-        { "anim" : "bullet-1", "angle" : 1, "rpm" : 700, "speed": 300, "bounces": 0 }
+        { "anim" : "bullet-1", "angle" : 1, "rpm" : 700, "speed": 300, "bounces": 0, "damage": 1 }
       ]
     }
     {
       "id": "bouncegun",
       "guns": [
-        { "anim" : "bullet-1", "angle" : 45, "rpm" : 60, "speed": 60, "bounces": 2 }
-        { "anim" : "bullet-1", "angle" : 315, "rpm" : 60, "speed": 60, "bounces": 2 }
+        { "anim" : "bullet-1", "angle" : 45, "rpm" : 60, "speed": 60, "bounces": 2, "damage": 10 },
+        { "anim" : "bullet-1", "angle" : 315, "rpm" : 60, "speed": 60, "bounces": 2, "damage": 10 }
       ]
     }
     {
       "id": "enemy_handgun",
       "guns": [
-        { "anim" : "bullet-1", "angle" : 0, "rpm" : 30, "speed": 100, "bounces": 0 }
+        { "anim" : "bullet-1", "angle" : 0, "rpm" : 30, "speed": 100, "bounces": 0, "damage": 1 }
       ]
     }
     {
       "id": "enemy_bouncegun",
       "guns": [
-        { "anim" : "bullet-1", "angle" : 225, "rpm" : 60, "speed": 60, "bounces": 4 }
-        { "anim" : "bullet-1", "angle" : 145, "rpm" : 60, "speed": 60, "bounces": 4 }
+        { "anim" : "bullet-1", "angle" : 225, "rpm" : 60, "speed": 60, "bounces": 4, "damage": 10 },
+        { "anim" : "bullet-1", "angle" : 145, "rpm" : 60, "speed": 60, "bounces": 4, "damage": 10 }
       ]
     }
     {
       "id": "enemy_3tap",
       "guns": [
-        { "anim" : "bullet-1", "angle" : 180, "rpm" : 30, "speed": 100, "bounces": 0 }
-        { "anim" : "bullet-1", "angle" : 180, "rpm" : 29, "speed": 100, "bounces": 0 }
-        { "anim" : "bullet-1", "angle" : 180, "rpm" : 28, "speed": 100, "bounces": 0 }
+        { "anim" : "bullet-1", "angle" : 180, "rpm" : 30, "speed": 100, "bounces": 0, "damage": 1 },
+        { "anim" : "bullet-1", "angle" : 180, "rpm" : 29, "speed": 100, "bounces": 0, "damage": 1 },
+        { "anim" : "bullet-1", "angle" : 180, "rpm" : 28, "speed": 100, "bounces": 0, "damage": 1 }
       ]
     }
   ]
