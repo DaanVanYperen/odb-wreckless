@@ -36,6 +36,7 @@ public class ShipControlSystem extends FluidIteratingSystem {
     private DialogSystem dialogSystem;
     private GroupManager groupManager;
 
+
     public ShipControlSystem() {
         super(Aspect.all(ShipControlled.class, Physics.class, WallSensor.class, Anim.class));
     }
@@ -76,11 +77,56 @@ public class ShipControlSystem extends FluidIteratingSystem {
         e.animId(playerAnimPrefix + "idle");
         e.angleRotation(0);
         e.physicsVr(0);
-        e.physicsVy(100f);
-
 
         float dx = 0;
+        float dy = 0;
 
+        fireGuns(e);
+
+        e.animLoop(true);
+        if (!e.hasDead()) {
+            if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+                dx = -MOVEMENT_FACTOR;
+                e.animId("player-left");
+                e.animLoop(false);
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+                dx = MOVEMENT_FACTOR;
+                e.animId("player-right");
+                e.animLoop(false);
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+                dy = MOVEMENT_FACTOR;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+                dy = -MOVEMENT_FACTOR;
+            }
+        }
+
+        clampX(e, dx);
+        clampY(e, dy);
+
+        if (!G.PRODUCTION) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.F6)) MapCollisionSystem.DEBUG = !MapCollisionSystem.DEBUG;
+        }
+
+        whistle(e, playerAnimPrefix);
+
+        if (dx != 0) {
+            e.physicsVx(e.physicsVx() + (dx * world.delta));
+        }
+
+        if (dy != 0) {
+            e.physicsVy(e.physicsVy() + (dy * world.delta));
+        }
+
+
+        if (e.hasCarries() && e.carriesEntityId() != 0) {
+            e.carriesAnchorX(e.animFlippedX() ? 4 : -4);
+        }
+    }
+
+    private void fireGuns(E e) {
         boolean firing = Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.isKeyPressed(Input.Keys.E);
 
         ImmutableBag<Entity> entities = groupManager.getEntities("player-guns");
@@ -91,28 +137,9 @@ public class ShipControlSystem extends FluidIteratingSystem {
                     .physicsVy(e.physicsVy())
                     .tintColor().b = firing ? 1f : 0;
         }
+    }
 
-        e.animLoop(true);
-        if (Gdx.input.isKeyPressed(Input.Keys.A) && !e.hasDead()) {
-            dx = -MOVEMENT_FACTOR;
-            e.animId("player-left");
-            e.animLoop(false);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.D) && !e.hasDead()) {
-            dx = MOVEMENT_FACTOR;
-            e.animId("player-right");
-            e.animLoop(false);
-        }
-
-        float veloX = Math.abs(e.physicsVx());
-        if (Math.abs(dx) < 0.05f && veloX >= 0.1f) {
-            e.physicsVx(e.physicsVx() - (e.physicsVx() * world.delta * 8f));
-        }
-
-        if (!G.PRODUCTION) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.F6)) MapCollisionSystem.DEBUG = !MapCollisionSystem.DEBUG;
-        }
-
+    private void whistle(E e, String playerAnimPrefix) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.E) || Gdx.input.isKeyJustPressed(Input.Keys.X)) {
             if (e.hasCarries()) {
                 E socket = firstTouchingEntityMatching(e, Aspect.all(Socket.class));
@@ -130,14 +157,19 @@ public class ShipControlSystem extends FluidIteratingSystem {
                 }
             }
         }
+    }
 
-        if (dx != 0) {
-            e.physicsVx(e.physicsVx() + (dx * world.delta));
+    private void clampX(E e, float dx) {
+        float veloX = Math.abs(e.physicsVx());
+        if (Math.abs(dx) < 0.05f && veloX >= 0.1f) {
+            e.physicsVx(e.physicsVx() - (e.physicsVx() * world.delta * 8f));
         }
+    }
 
-
-        if (e.hasCarries() && e.carriesEntityId() != 0) {
-            e.carriesAnchorX(e.animFlippedX() ? 4 : -4);
+    private void clampY(E e, float dy) {
+        float veloY = Math.abs(e.physicsVy());
+        if (Math.abs(dy) < 0.05f && veloY >= 0.1f) {
+            e.physicsVy(e.physicsVy() - (e.physicsVy() * world.delta * 8f));
         }
     }
 
