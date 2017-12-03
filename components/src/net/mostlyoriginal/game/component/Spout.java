@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.MathUtils;
  */
 public class Spout extends Component {
     public float angle;
-    public float cooldown = 2f;
+    public float cooldown = 0f;
     public float age = 0;
     public float sprayDuration = 10f;
     public float sprayInterval = 6f/32f;
