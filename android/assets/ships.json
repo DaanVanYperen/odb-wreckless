@@ -5,14 +5,14 @@
       "comment": "Player default ship.",
       "anim": "special",
       "hp": 5,
-      "arsenal": "minigun"
+      "arsenal": "enemy_handgun"
     },
     {
       "id": "enemy1",
       "comment": "Enemy type 1.",
       "anim": "enemy-1",
       "hp": 5,
-      "arsenal": "minigun"
+      "arsenal": "enemy_handgun"
     },
     {
       "id": "enemy2",

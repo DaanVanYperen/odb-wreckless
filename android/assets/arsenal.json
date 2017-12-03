@@ -19,7 +19,20 @@
     {
       "id": "minigun",
       "guns": [
-        { "anim" : "bullet-1", "angle" : 0, "rpm" : 30, "speed": 50, "bounces": 0 }
+        { "anim" : "bullet-1", "angle" : 0, "rpm" : 600, "speed": 200, "bounces": 0 }
+      ]
+    }
+    {
+      "id": "bouncegun",
+      "guns": [
+        { "anim" : "bullet-1", "angle" : 45, "rpm" : 60, "speed": 60, "bounces": 2 }
+        { "anim" : "bullet-1", "angle" : 315, "rpm" : 60, "speed": 60, "bounces": 2 }
+      ]
+    }
+    {
+      "id": "enemy_handgun",
+      "guns": [
+        { "anim" : "bullet-1", "angle" : 0, "rpm" : 30, "speed": 100, "bounces": 0 }
       ]
     }
   ]
