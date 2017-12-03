@@ -64,6 +64,7 @@
       "width": 5,
       "height": 5
     },
+    {
       "id": "bullet-3",
       "comment": "A small round bullet.",
       "x": 29,
@@ -73,6 +74,7 @@
       "width": 4,
       "height": 4
     },
+    {
       "id": "bullet-4",
       "comment": "A tiny round bullet.",
       "x": 33,
@@ -82,6 +84,7 @@
       "width": 3,
       "height": 3
     },
+    {
       "id": "bullet-5",
       "comment": "DOUBLE HELIX MOTHERFUCKER!",
       "x": 39,
@@ -103,6 +106,7 @@
       "width": 8,
       "height": 12
     },
+    {
       "id": "bullet-7",
       "comment": "A medium long bullet.",
       "x": 24,
@@ -112,6 +116,7 @@
       "width": 8,
       "height": 8
     },
+    {
       "id": "bullet-8",
       "comment": "A small long bullet.",
       "x": 29,
@@ -121,6 +126,7 @@
       "width": 8,
       "height": 8
     },
+    {
       "id": "bullet-9",
       "comment": "A tiny long bullet.",
       "x": 3,
