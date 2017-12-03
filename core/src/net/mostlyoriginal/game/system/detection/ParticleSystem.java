@@ -4,6 +4,8 @@ import com.artemis.Aspect;
 import com.artemis.E;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.api.component.graphics.Tint;
@@ -100,28 +102,31 @@ public class ParticleSystem extends FluidIteratingSystem {
                 .create(1, 1);
     }
 
-    public void bloodExplosion(float x, float y) {
-        assetSystem.playSfx("splat" + MathUtils.random(1, 4));
+    public void explosion(float x, float y) {
+        assetSystem.playSfx("explosion" + MathUtils.random(1, 4));
         bakery
-                .color(BLOOD_COLOR)
-                .at(x, y)
+                .at((int)x-5,(int)y-5,(int)x+5,(int)y+5)
                 .angle(0, 360)
-                .speed(50, 80)
+                .speed(2, 5)
+                .anim("explosion")
+                .fadeAfter(9*0.007f)
                 .slowlySplatDown()
-                .size(1, 3)
+                .size(1, 1)
                 .solid()
-                .create(80);
+                .create(2,4);
     }
 
     Vector2 v2 = new Vector2();
 
-    public E spawnVanillaParticle(float x, float y, float angle, float speed, float scale, float emitterVx, float emitterVy) {
+    public E spawnVanillaParticle(String anim, float x, float y, float angle, float speed, float scale, float emitterVx, float emitterVy) {
 
         v2.set(speed, 0).setAngle(angle);
 
+        TextureRegion frame = ((Animation<TextureRegion>) assetSystem.get(anim)).getKeyFrame(0);
+
         return E.E()
-                .pos(x - scale * 0.5f, y - scale * 0.5f)
-                .anim("particle")
+                .pos(x - (scale * frame.getRegionWidth() * 0.5f), y - (scale * frame.getRegionHeight() * 0.5f))
+                .anim(anim != null ? anim : "particle")
                 .scale(scale)
                 .renderLayer(G.LAYER_PARTICLES)
                 .origin(scale / 2f, scale / 2f)
@@ -188,6 +193,7 @@ public class ParticleSystem extends FluidIteratingSystem {
         void create(int minCount, int maxCount) {
             for (int i = 0, s = random(minCount, maxCount); i < s; i++) {
                 final E e = spawnVanillaParticle(
+                        anim,
                         random(minX, maxX),
                         random(minY, maxY),
                         random(minAngle, maxAngle),
@@ -220,9 +226,6 @@ public class ParticleSystem extends FluidIteratingSystem {
                 if ( team != 0)
                 {
                     e.teamTeam(team);
-                }
-                if ( anim != null ) {
-                    e.anim(anim);
                 }
             }
             reset();
@@ -298,6 +301,14 @@ public class ParticleSystem extends FluidIteratingSystem {
         public Builder at(float x, float y) {
             minX = maxX = (int) x;
             minY = maxY = (int) y;
+            return this;
+        }
+
+        public Builder at(int minX, int minY, int maxX, int maxY) {
+            this.minX = minX;
+            this.minY = minY;
+            this.maxX = maxX;
+            this.maxY = maxY;
             return this;
         }
 

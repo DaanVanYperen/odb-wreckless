@@ -3,11 +3,8 @@ package net.mostlyoriginal.game.system.detection;
 import com.artemis.Aspect;
 import com.artemis.E;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Tint;
-import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 import net.mostlyoriginal.api.operation.JamOperationFactory;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.game.api.EBag;
@@ -85,7 +82,7 @@ public class DeathSystem extends FluidIteratingSystem {
                     assetSystem.playSfx("gremlin_death");
                 }
                 e.invisible();
-                particleSystem.bloodExplosion(e.posX() + e.boundsCx(), e.posY() + e.boundsCy());
+                particleSystem.explosion(e.posX() + e.boundsCx(), e.posY() + e.boundsCy());
             }
             if (e.deadCooldown() <= 0) {
                 if (e.isShipControlled()) {
