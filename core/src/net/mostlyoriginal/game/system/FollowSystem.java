@@ -23,7 +23,7 @@ public class FollowSystem extends FluidIteratingSystem {
     private float MOVEMENT_FACTOR = 200;
     private float JUMP_FACTOR = 800;
     private MapCollisionSystem mapCollision;
-    private SocketSystem socketSystem;
+    //private SocketSystem socketSystem;
     private boolean robotFacingPlayerAtStart = false;
 
     public FollowSystem() {
@@ -56,7 +56,7 @@ public class FollowSystem extends FluidIteratingSystem {
             boolean hasCharge = e.chargeCharge() > 0;
             if (hasCharge && e.chargeCharge() <= 0.9f) {
                 cooldownRespawnBatteries = 20f;
-                socketSystem.respawnRobotBatteries();
+                //socketSystem.respawnRobotBatteries();
             }
         }
 

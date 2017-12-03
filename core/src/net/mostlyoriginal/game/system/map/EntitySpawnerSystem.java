@@ -20,8 +20,8 @@ import static net.mostlyoriginal.game.component.G.*;
  */
 public class EntitySpawnerSystem extends BaseSystem {
 
-    private SocketSystem socketSystem;
-    private PowerSystem powerSystem;
+    //private SocketSystem socketSystem;
+    //private PowerSystem powerSystem;
     private SpoutSystem spoutSystem;
     private GameScreenAssetSystem gameScreenAssetSystem;
     private ShipDataSystem shipDataSystem;
@@ -72,7 +72,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                         .spoutSprayInterval(0.5f).spoutSprayDuration(1);
                 return false;
             case "socket":
-                assembleBatterySlot(x, y, (Boolean) properties.get("powered"), (String) properties.get("accept"));
+                //assembleBatterySlot(x, y, (Boolean) properties.get("powered"), (String) properties.get("accept"));
                 break;
             case "sandsprinkler":
                 assembleSandSprinkler(x, y - 1);
@@ -134,15 +134,15 @@ public class EntitySpawnerSystem extends BaseSystem {
         if (b) {
             spawnBatteryInSocket(batteryType, socket);
         } else {
-            powerSystem.powerMapCoordsAround((int) (x / G.CELL_SIZE + 0.5f), (int) (y / G.CELL_SIZE + 0.5f), false);
+            //powerSystem.powerMapCoordsAround((int) (x / G.CELL_SIZE + 0.5f), (int) (y / G.CELL_SIZE + 0.5f), false);
         }
 
 
     }
 
     public void spawnBatteryInSocket(String batteryType, E socket) {
-        socketSystem.socket(assembleBattery(socket.posX(), socket.posY(), batteryType), socket);
-        powerSystem.powerMapCoordsAround((int) (socket.posX() / G.CELL_SIZE + 0.5f), (int) (socket.posY() / G.CELL_SIZE + 0.5f), true);
+        //socketSystem.socket(assembleBattery(socket.posX(), socket.posY(), batteryType), socket);
+        //powerSystem.powerMapCoordsAround((int) (socket.posX() / G.CELL_SIZE + 0.5f), (int) (socket.posY() / G.CELL_SIZE + 0.5f), true);
     }
 
     Vector2 v2 = new Vector2();

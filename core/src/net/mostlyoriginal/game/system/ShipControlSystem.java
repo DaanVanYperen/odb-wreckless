@@ -29,7 +29,7 @@ public class ShipControlSystem extends FluidIteratingSystem {
     private static final float RUN_FAST_PACE_FACTOR = 1000;
     private float MOVEMENT_FACTOR = 1000;
     private float JUMP_FACTOR = 15000;
-    private SocketSystem socketSystem;
+    //private SocketSystem socketSystem;
     private FollowSystem followSystem;
     private MyAnimRenderSystem animSystem;
     private GameScreenAssetSystem assetSystem;
@@ -145,7 +145,7 @@ public class ShipControlSystem extends FluidIteratingSystem {
         if (e.hasCarries() && socket.socketEntityId() == 0) {
             E battery = E.E(e.getCarries().entityId);
             if (battery.typeType().equals(socket.typeType())) {
-                socketSystem.socket(battery, socket);
+                //socketSystem.socket(battery, socket);
                 e.removeCarries();
             }
         }
@@ -160,7 +160,7 @@ public class ShipControlSystem extends FluidIteratingSystem {
 
     private void carryItem(E e, E pickup) {
         if (pickup.hasSocketedInside()) {
-            socketSystem.unsocket(pickup);
+            //socketSystem.unsocket(pickup);
         }
         e.carriesEntityId(pickup.id());
         e.carriesAnchorY((int) e.boundsMaxy() - 4);
