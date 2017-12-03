@@ -187,8 +187,8 @@
       "height": 45
     },	
     {
-      "id": "background-stars",
-      "comment": "Background stars.",
+      "id": "background-clouds",
+      "comment": "Background clouds.",
       "x": 0,
       "y": 256,
       "countX": 1,
@@ -197,8 +197,8 @@
       "height": 256
     },	
     {
-      "id": "background-clouds",
-      "comment": "Background clouds.",
+      "id": "background-stars",
+      "comment": "Background stars.",	
       "x": 256,
       "y": 256,
       "countX": 1,
