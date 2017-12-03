@@ -38,8 +38,8 @@
     {
       "id": "enemy_bouncegun",
       "guns": [
-        { "anim" : "bullet-3", "angle" : 225, "rpm" : 60, "speed": 60, "bounces": 4, "damage": 10 },
-        { "anim" : "bullet-3", "angle" : 145, "rpm" : 60, "speed": 60, "bounces": 4, "damage": 10 }
+        { "anim" : "bullet-3", "angle" : 225, "rpm" : 60, "speed": 60, "bounces": 4, "damage": 5 },
+        { "anim" : "bullet-3", "angle" : 145, "rpm" : 60, "speed": 60, "bounces": 4, "damage": 5 }
       ]
     }
     {
