@@ -48,15 +48,16 @@ public class RenderBackgroundSystem extends BaseSystem {
 
         for (int y = 0; y < (G.SCREEN_HEIGHT / stars.getRegionHeight()) + 2; y++) {
             for (int x = 0; x < (G.SCREEN_WIDTH / stars.getRegionWidth()) + 1; x++) {
-                batch.draw(clouds, x * clouds.getRegionWidth(), y * clouds.getRegionHeight() - (int) lax2);
+                batch.draw(stars, x * stars.getRegionWidth(), y * stars.getRegionHeight() - (int) lax1);
             }
         }
 
         for (int y = 0; y < (G.SCREEN_HEIGHT / stars.getRegionHeight()) + 2; y++) {
             for (int x = 0; x < (G.SCREEN_WIDTH / stars.getRegionWidth()) + 1; x++) {
-                batch.draw(stars, x * stars.getRegionWidth(), y * stars.getRegionHeight() - (int) lax1);
+                batch.draw(clouds, x * clouds.getRegionWidth(), y * clouds.getRegionHeight() - (int) lax2);
             }
         }
+
     }
 
     @Override
