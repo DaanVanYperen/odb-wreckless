@@ -25,28 +25,28 @@
       "id": "enemy3",
       "comment": "Enemy type 3.",
       "anim": "enemy-3",
-      "hp": 40,
+      "hp": 20,
       "arsenal": "unarmed"
     },
     {
       "id": "enemy4",
       "comment": "Enemy type 4.",
       "anim": "enemy-4",
-      "hp": 35,
+      "hp": 30,
       "arsenal": "enemy_bouncegun"
     },
     {
       "id": "enemy5",
       "comment": "Enemy type 5.",
       "anim": "enemy-5",
-      "hp": 80,
+      "hp": 40,
       "arsenal": "enemy_bouncegun"
     }
     {
       "id": "turret-1",
       "comment": "Enemy type 6.",
       "anim": "enemy-6",
-      "hp": 60,
+      "hp": 30,
       "arsenal": "enemy_3tap"
     }
   ],

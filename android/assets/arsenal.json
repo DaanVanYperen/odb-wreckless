@@ -19,14 +19,14 @@
     {
       "id": "minigun",
       "guns": [
-        { "anim" : "bullet-1", "angle" : 1, "rpm" : 700, "speed": 300, "bounces": 0, "damage": 1 }
+        { "anim" : "bullet-9", "angle" : 1, "rpm" : 700, "speed": 300, "bounces": 0, "damage": 1 }
       ]
     }
     {
       "id": "bouncegun",
       "guns": [
-        { "anim" : "bullet-1", "angle" : 45, "rpm" : 60, "speed": 60, "bounces": 2, "damage": 999 },
-        { "anim" : "bullet-1", "angle" : 315, "rpm" : 60, "speed": 60, "bounces": 2, "damage": 999 }
+        { "anim" : "bullet-1", "angle" : 45, "rpm" : 60, "speed": 60, "bounces": 2, "damage": 10 },
+        { "anim" : "bullet-1", "angle" : 315, "rpm" : 60, "speed": 60, "bounces": 2, "damage": 10 }
       ]
     }
     {

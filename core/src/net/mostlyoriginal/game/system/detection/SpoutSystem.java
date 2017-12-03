@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.manager.AbstractAssetSystem;
+import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.GunData;
 import net.mostlyoriginal.game.component.Spout;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
@@ -48,7 +49,7 @@ public class SpoutSystem extends FluidIteratingSystem {
 
                 switch (e.spoutType()) {
                     case BULLET:
-                        spawnBullet(angle, v2.x, v2.y, e.gunData().speed, 0, 0, e.teamTeam(), e.gunData().bounces, e.gunData());
+                        spawnBullet(angle, v2.x, v2.y, e.gunData().speed, 0, e.physicsVy() + G.CAMERA_SCROLL_SPEED, e.teamTeam(), e.gunData().bounces, e.gunData());
                         break;
                     case GREMLIN:
                         if (playerWithInRange(v2.x, v2.y)) {
