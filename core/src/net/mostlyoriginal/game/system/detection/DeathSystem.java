@@ -98,7 +98,7 @@ public class DeathSystem extends FluidIteratingSystem {
     private void damage(E e, E cause, boolean damageCause) {
 
         // prevent same thing damaging the same thing twice.
-        if (cause.hasBounce() && cause.bounceLastEntityId() == e.id())
+        if (cause != null && cause.hasBounce() && cause.bounceLastEntityId() == e.id())
             return;
 
         if (e.hasShield() && e.shieldHp() > 1) {
