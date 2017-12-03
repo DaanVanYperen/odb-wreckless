@@ -157,7 +157,6 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .mortal()
                 //.gravity()
                 .wallSensor()
-                .cameraFocus()
                 .teamTeam(G.TEAM_PLAYERS)
                 .footsteps()
                 .footstepsSfx("footsteps_girl")
@@ -168,11 +167,23 @@ public class EntitySpawnerSystem extends BaseSystem {
         gameScreenAssetSystem.boundToAnim(playerShip.id(), gracepaddingX, gracepaddingY);
 
         addArsenal(shipData, playerShip, "player-guns", G.TEAM_PLAYERS, 0);
+
+        spawnCamera(x, y);
+    }
+
+    private void spawnCamera(float x, float y) {
+        E()
+                .pos(x, y)
+                .cameraFocus()
+                .tag("camera")
+                .physicsVy(50)
+                .ethereal(true)
+                .physicsFriction(0);
     }
 
     private void addArsenal(ShipData shipData, E ship, String group, int team, int shipFacingAngle) {
         ArsenalData data = arsenalDataSystem.get(shipData.arsenal);
-        if ( data.guns != null ) {
+        if (data.guns != null) {
             for (GunData gun : data.guns) {
                 addGun(ship, gun, group, team, shipFacingAngle);
             }
@@ -187,17 +198,17 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .pos()
                 .bounds(0, 0, 5, 5)
                 .group(group)
-                .attachedXo((int) v2.x + (int)e.boundsCx() - 3)
-                .attachedYo((int) v2.y + (int)e.boundsCy() - 3)
+                .attachedXo((int) v2.x + (int) e.boundsCx() - 3)
+                .attachedYo((int) v2.y + (int) e.boundsCy() - 3)
                 .attachedParent(e.id())
                 .teamTeam(team)
                 .spoutAngle(0)
                 .spoutType(Spout.Type.BULLET)
-                .spoutSprayInterval(60f/gunData.rpm)
+                .spoutSprayInterval(60f / gunData.rpm)
                 .gunData(gunData)
                 .angleRotate(angle);
 
-        if ( team == TEAM_ENEMIES ) {
+        if (team == TEAM_ENEMIES) {
             gun.shooting(true); // ai always shoots.
         }
     }
