@@ -34,7 +34,7 @@ public class CameraUnfreezeSystem extends FluidIteratingSystem {
 
     @Override
     protected void process(E e) {
-        if ( e.posY() <= maxY - G.SCREEN_HEIGHT ) {
+        if ( e.posY() <= maxY ) {
             e.removeFrozen();
         }
     }
