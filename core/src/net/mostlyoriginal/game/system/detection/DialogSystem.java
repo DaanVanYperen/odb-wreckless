@@ -29,6 +29,7 @@ public class DialogSystem extends FluidIteratingSystem {
     private E portrait;
     private CameraSystem cameraSystem;
     private E pressSpace;
+    private String align;
 
 
     public DialogSystem() {
@@ -60,17 +61,27 @@ public class DialogSystem extends FluidIteratingSystem {
     protected void end() {
         super.end();
         if (activeDialog != null) {
-            portrait.posX(cameraSystem.camera.position.x - G.SCREEN_WIDTH / 2 + DIALOG_PADDING_X );
-            portrait.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y);
-            dialog.posX(cameraSystem.camera.position.x - G.SCREEN_WIDTH / 2 + DIALOG_PADDING_X + 64 + 8);
-            dialog.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y + 32);
-            pressSpace.posX(cameraSystem.camera.position.x - G.SCREEN_WIDTH / 2 +DIALOG_PADDING_X + 64 + 8);
-            pressSpace.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y + 8 );
+            if ( "right".equals(align)) {
+                portrait.posX(cameraSystem.camera.position.x + G.SCREEN_WIDTH / 2 - DIALOG_PADDING_X - 64);
+                portrait.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y);
+                dialog.posX(cameraSystem.camera.position.x - G.SCREEN_WIDTH / 2 + DIALOG_PADDING_X + 8);
+                dialog.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y + 32);
+                pressSpace.posX(cameraSystem.camera.position.x - G.SCREEN_WIDTH / 2 + DIALOG_PADDING_X  + 8);
+                pressSpace.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y + 8);
+            } else {
+                portrait.posX(cameraSystem.camera.position.x - G.SCREEN_WIDTH / 2 + DIALOG_PADDING_X);
+                portrait.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y);
+                dialog.posX(cameraSystem.camera.position.x - G.SCREEN_WIDTH / 2 + DIALOG_PADDING_X + 64 + 8);
+                dialog.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y + 32);
+                pressSpace.posX(cameraSystem.camera.position.x - G.SCREEN_WIDTH / 2 + DIALOG_PADDING_X + 64 + 8);
+                pressSpace.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y + 8);
+            }
         }
     }
 
     private void renderActiveLine() {
         LineData line = activeDialog.lines[activeLine];
+        align = line.align;
         renderLine(0, line.text, line.portrait);
     }
 

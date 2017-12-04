@@ -8,4 +8,5 @@ import java.io.Serializable;
 public class LineData implements Serializable {
     public String portrait;
     public String text;
+    public String align;
 }
