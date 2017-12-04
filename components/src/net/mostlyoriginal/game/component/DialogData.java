@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class DialogData implements Serializable {
 
     public String id;
+    public String music;
     public LineData[] lines;
     public boolean triggered = false;
 

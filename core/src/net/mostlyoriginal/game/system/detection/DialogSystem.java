@@ -12,6 +12,7 @@ import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.map.EntitySpawnerSystem;
+import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 /**
  * @author Daan van Yperen
@@ -31,6 +32,7 @@ public class DialogSystem extends FluidIteratingSystem {
     private CameraSystem cameraSystem;
     private E pressSpace;
     private String align;
+    private GameScreenAssetSystem gameScreenAssetSystem;
 
 
     public DialogSystem() {
@@ -98,6 +100,10 @@ public class DialogSystem extends FluidIteratingSystem {
             if (!e.getDialog().data.triggered) {
                 e.getDialog().data.triggered = true;
                 activeDialog = e.getDialog().data;
+                if ( activeDialog.music != null )
+                {
+                    gameScreenAssetSystem.playMusicInGame(activeDialog.music);
+                }
                 activeLine=0;
                 renderActiveLine();
             }
