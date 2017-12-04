@@ -49,33 +49,6 @@ public class ShipControlSystem extends FluidIteratingSystem {
 
         String playerAnimPrefix = "player-";
 
-        // use carry animation group.
-        if (e.hasCarries() && e.carriesEntityId() != 0) {
-            E carried = E.E(e.carriesEntityId());
-            carried.invisible();
-            playerAnimPrefix = carried.typeType().equals("battery2") ? "player-red-battery-" : "player-green-battery-";
-
-        }
-
-        {
-            E socket = firstTouchingEntityMatching(e, Aspect.all(Socket.class));
-            E carried = e.hasCarries() ? E.E(e.carriesEntityId()) : null;
-
-            // battery to put.
-            if (socket != null
-                    && carried != null
-                    && socket.typeType() != null
-                    && carried.typeType().equals(socket.typeType())
-                    && socket.socketEntityId() == 0) {
-                dialogSystem.playerSay(DialogSystem.Dialog.E, 0f, 1f);
-            }
-
-            // battery to get.
-            if (socket != null && carried == null && socket.socketEntityId() != 0) {
-                dialogSystem.playerSay(DialogSystem.Dialog.E, 0f, 1f);
-            }
-        }
-
         e.animId(playerAnimPrefix + "idle");
         e.angleRotation(0);
         e.physicsVr(0);
@@ -106,11 +79,6 @@ public class ShipControlSystem extends FluidIteratingSystem {
             }
         }
 
-
-
-
-
-
         if (!G.PRODUCTION) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.F6)) MapCollisionSystem.DEBUG = !MapCollisionSystem.DEBUG;
         }
@@ -134,7 +102,7 @@ public class ShipControlSystem extends FluidIteratingSystem {
     }
 
     private void fireGuns(E e) {
-        boolean firing = Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.isKeyPressed(Input.Keys.E);
+        boolean firing = !e.hasDead() && (Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.isKeyPressed(Input.Keys.E));
 
         ImmutableBag<Entity> entities = groupManager.getEntities("player-guns");
         for (Entity entity : entities) {
