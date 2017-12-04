@@ -85,6 +85,8 @@ public class DialogSystem extends FluidIteratingSystem {
                 pressSpace.posX(cameraSystem.camera.position.x - G.SCREEN_WIDTH / 2 + DIALOG_PADDING_X + 64 + 8);
                 pressSpace.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y + 8 + 8);
             }
+            background1.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2);
+            background2.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2);
         }
     }
 
