@@ -1,0 +1,23 @@
+{
+  "dialog": [
+    {
+      "id": "missing",
+      "lines": [
+        { "portrait" : "portrait-woofberg", "text": "Arf! This dialog is missing!" },
+      ]
+    },
+    {
+      "id": "intro",
+      "lines": [
+        { "portrait" : "portrait-fcl", "text": "Flight Control Leader to Chip! Red alert! We have alien raiders coming in!" },
+        { "portrait" : "portrait-chip", "text": "The convoy is under attack! Come on, Mr. Woofberg, we have to save everyone!" },
+        { "portrait" : "portrait-woofberg", "text": "Arf!" },
+        { "portrait" : "portrait-raider", "text": "Not so fast, Chip. You won’t be thwarting our plans this time! Get him, boys!" },
+        { "portrait" : "portrait-chip", "text": "Oh no, I am a fantastic pilot, but I don’t know self-defense. Save me, Mr. Woofberg!" },
+        { "portrait" : "portrait-woofberg", "text": "Arf?" },
+        { "portrait" : "portrait-fcl", "text": "Quickly, Chip. We need you, they’re all over us!" },
+        { "portrait" : "portrait-woofberg", "text": "Arf!" },
+      ]
+    },
+  ]
+}

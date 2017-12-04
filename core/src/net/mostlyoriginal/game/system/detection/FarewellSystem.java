@@ -59,27 +59,20 @@ public class FarewellSystem extends FluidIteratingSystem {
         if (!step1 && age > STEP) {
             step1 = true;
             robot.chargeCharge(3f);
-            dialogSystem.playerSay(DialogSystem.Dialog.SAD, 0, 2f);
-            dialogSystem.robotSay(DialogSystem.Dialog.SAD, 0, 4f);
         }
 
         if (!step2 && age > STEP * 2) {
             step2 = true;
-            dialogSystem.playerSay(DialogSystem.Dialog.QUESTION, 0, 2f);
             robot.chargeCharge(2f);
         }
 
         if (!step3 && age > STEP * 3) {
             step3 = true;
-            dialogSystem.robotSay(DialogSystem.Dialog.COME, 0, 1f);
-            dialogSystem.robotSay(DialogSystem.Dialog.S76, 1f, 2f);
             robot.chargeCharge(1.5f);
         }
 
         if (!step4 && age > STEP * 4) {
             step4 = true;
-            dialogSystem.playerSay(DialogSystem.Dialog.COME, 0, 1f);
-            dialogSystem.playerSay(DialogSystem.Dialog.FLOWER, 0, 2f);
         }
 
         if (!step5 && age > STEP * 5) {
@@ -100,7 +93,6 @@ public class FarewellSystem extends FluidIteratingSystem {
         if (!step6 && age > STEP * 7) {
             step6 = true;
             robot.chargeCharge(1f);
-            dialogSystem.robotSay(DialogSystem.Dialog.FLOWER, 0, 8000f);
         }
 
         if (!step7 && age > STEP * 9) {
@@ -129,7 +121,6 @@ public class FarewellSystem extends FluidIteratingSystem {
             E marker = entityWithTag("marker");
             marker.deleteFromWorld();
             robot.anim("robot-idle");
-            dialogSystem.playerSay(DialogSystem.Dialog.HAPPY, 0, 2f);
             E.E().farewell();
         }
     }
