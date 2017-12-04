@@ -650,5 +650,45 @@
       "width": 6,
       "height": 18
     },
+    {
+      "id": "portrait-woofberg",
+      "comment": "Portrait for Mr. Woofberg.",
+      "x": 0,
+      "y": 512,
+      "countX": 1,
+      "countY": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "id": "portrait-chip",
+      "comment": "Portrait for Chip Allwin.",
+      "x": 64,
+      "y": 512,
+      "countX": 1,
+      "countY": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "id": "portrait-fcl",
+      "comment": "Portrait for Flight Control Leader.",
+      "x": 128,
+      "y": 512,
+      "countX": 1,
+      "countY": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "id": "portrait-raider",
+      "comment": "Portrait for alien raider.",
+      "x": 192,
+      "y": 512,
+      "countX": 1,
+      "countY": 1,
+      "width": 64,
+      "height": 64
+    },
   ]
 }
