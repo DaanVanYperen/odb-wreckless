@@ -55,58 +55,58 @@
     {
       "id": "bouncegun",
       "guns": [
-        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 45, "rpm" : 60, "speed": 60, "bounces": 2, "damage": 10 },
-        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 315, "rpm" : 60, "speed": 60, "bounces": 2, "damage": 10 }
+        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 45, "rpm" : 60, "speed": 60, "bounces": 3, "damage": 10 },
+        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 315, "rpm" : 60, "speed": 60, "bounces": 3, "damage": 10 }
       ]
     },
     {
       "id": "bouncegun_r2",
       "guns": [
-        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 45, "rpm" : 60, "speed": 60, "bounces": 2, "damage": 10 },
-        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 315, "rpm" : 60, "speed": 60, "bounces": 2, "damage": 10 },
-        { "anim" : "bullet-2", "animbounced": "bullet-2-enemy", "angle" : 60, "rpm" : 60, "speed": 90, "bounces": 2, "damage": 5 },
-        { "anim" : "bullet-2", "animbounced": "bullet-2-enemy", "angle" : 300, "rpm" : 60, "speed": 90, "bounces": 2, "damage": 5 }
+        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 45, "rpm" : 60, "speed": 60, "bounces": 3, "damage": 10 },
+        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 315, "rpm" : 60, "speed": 60, "bounces": 3, "damage": 10 },
+        { "anim" : "bullet-2", "animbounced": "bullet-2-enemy", "angle" : 60, "rpm" : 60, "speed": 90, "bounces": 3, "damage": 5 },
+        { "anim" : "bullet-2", "animbounced": "bullet-2-enemy", "angle" : 300, "rpm" : 60, "speed": 90, "bounces": 3, "damage": 5 }
       ]
     },
     {
       "id": "bouncegun_r3",
       "guns": [
-        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 45, "rpm" : 60, "speed": 60, "bounces": 2, "damage": 10 },
-        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 315, "rpm" : 60, "speed": 60, "bounces": 2, "damage": 10 },
-        { "anim" : "bullet-2", "animbounced": "bullet-2-enemy", "angle" : 90, "rpm" : 60, "speed": 90, "bounces": 2, "damage": 5 },
-        { "anim" : "bullet-2", "animbounced": "bullet-2-enemy", "angle" : 270, "rpm" : 60, "speed": 90, "bounces": 2, "damage": 5 }
+        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 45, "rpm" : 60, "speed": 60, "bounces": 3, "damage": 10 },
+        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 315, "rpm" : 60, "speed": 60, "bounces": 3, "damage": 10 },
+        { "anim" : "bullet-2", "animbounced": "bullet-2-enemy", "angle" : 90, "rpm" : 60, "speed": 90, "bounces": 3, "damage": 5 },
+        { "anim" : "bullet-2", "animbounced": "bullet-2-enemy", "angle" : 270, "rpm" : 60, "speed": 90, "bounces": 3, "damage": 5 }
       ]
     },
     {
       "id": "bouncegun_r4",
       "guns": [
-        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 45, "rpm" : 60, "speed": 60, "bounces": 2, "damage": 10 },
-        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 315, "rpm" : 60, "speed": 60, "bounces": 2, "damage": 10 },
-        { "anim" : "bullet-2", "animbounced": "bullet-2-enemy", "angle" : 180, "rpm" : 60, "speed": 90, "bounces": 2, "damage": 5 }
+        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 45, "rpm" : 60, "speed": 60, "bounces": 3, "damage": 10 },
+        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 315, "rpm" : 60, "speed": 60, "bounces": 3, "damage": 10 },
+        { "anim" : "bullet-2", "animbounced": "bullet-2-enemy", "angle" : 180, "rpm" : 60, "speed": 90, "bounces": 3, "damage": 5 }
       ]
     },
     {
       "id": "bouncegun_r5",
       "guns": [
-        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 45, "rpm" : 60, "speed": 60, "bounces": 2, "damage": 10 },
-        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 315, "rpm" : 60, "speed": 60, "bounces": 2, "damage": 10 },
-        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 60, "rpm" : 60, "speed": 60, "bounces": 2, "damage": 10 },
-        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 300, "rpm" : 60, "speed": 60, "bounces": 2, "damage": 10 },
-        { "anim" : "bullet-2", "animbounced": "bullet-2-enemy", "angle" : 90, "rpm" : 60, "speed": 90, "bounces": 2, "damage": 5 },
-        { "anim" : "bullet-2", "animbounced": "bullet-2-enemy", "angle" : 180, "rpm" : 60, "speed": 90, "bounces": 2, "damage": 5 }
+        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 45, "rpm" : 60, "speed": 60, "bounces": 3, "damage": 10 },
+        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 315, "rpm" : 60, "speed": 60, "bounces": 3, "damage": 10 },
+        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 60, "rpm" : 60, "speed": 60, "bounces": 3, "damage": 10 },
+        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 300, "rpm" : 60, "speed": 60, "bounces": 3, "damage": 10 },
+        { "anim" : "bullet-2", "animbounced": "bullet-2-enemy", "angle" : 90, "rpm" : 60, "speed": 90, "bounces": 3, "damage": 5 },
+        { "anim" : "bullet-2", "animbounced": "bullet-2-enemy", "angle" : 180, "rpm" : 60, "speed": 90, "bounces": 3, "damage": 5 }
       ]
     },
     {
       "id": "bouncegun_r6",
       "guns": [
-        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 45, "rpm" : 60, "speed": 60, "bounces": 2, "damage": 10 },
-        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 315, "rpm" : 60, "speed": 60, "bounces": 2, "damage": 10 },
-        { "anim" : "bullet-2", "animbounced": "bullet-2-enemy", "angle" : 60, "rpm" : 60, "speed": 90, "bounces": 2, "damage": 5 },
-        { "anim" : "bullet-2", "animbounced": "bullet-2-enemy", "angle" : 300, "rpm" : 60, "speed": 90, "bounces": 2, "damage": 5 },
-        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 75, "rpm" : 60, "speed": 60, "bounces": 2, "damage": 10 },
-        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 285, "rpm" : 60, "speed": 60, "bounces": 2, "damage": 10 },
-        { "anim" : "bullet-2", "animbounced": "bullet-2-enemy", "angle" : 90, "rpm" : 60, "speed": 90, "bounces": 2, "damage": 5 },
-        { "anim" : "bullet-2", "animbounced": "bullet-2-enemy", "angle" : 180, "rpm" : 60, "speed": 90, "bounces": 2, "damage": 5 }
+        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 45, "rpm" : 60, "speed": 60, "bounces": 3, "damage": 10 },
+        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 315, "rpm" : 60, "speed": 60, "bounces": 3, "damage": 10 },
+        { "anim" : "bullet-2", "animbounced": "bullet-2-enemy", "angle" : 60, "rpm" : 60, "speed": 90, "bounces": 3, "damage": 5 },
+        { "anim" : "bullet-2", "animbounced": "bullet-2-enemy", "angle" : 300, "rpm" : 60, "speed": 90, "bounces": 3, "damage": 5 },
+        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 75, "rpm" : 60, "speed": 60, "bounces": 3, "damage": 10 },
+        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 285, "rpm" : 60, "speed": 60, "bounces": 3, "damage": 10 },
+        { "anim" : "bullet-2", "animbounced": "bullet-2-enemy", "angle" : 90, "rpm" : 60, "speed": 90, "bounces": 3, "damage": 5 },
+        { "anim" : "bullet-2", "animbounced": "bullet-2-enemy", "angle" : 180, "rpm" : 60, "speed": 90, "bounces": 3, "damage": 5 }
       ]
     },
     {

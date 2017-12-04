@@ -201,11 +201,10 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .player()
                 .diesFromWalls(true)
                 .teamTeam(G.TEAM_PLAYERS)
-                .footsteps()
-                .footstepsSfx("footsteps_girl")
                 .tag("player")
                 .shipControlled()
-                .shieldHp(shipData.hp);
+                .shieldHp(shipData.hp)
+                .shieldMaxHp(shipData.hp);
 
         E().anim("thruster")
                 .pos(x,y)

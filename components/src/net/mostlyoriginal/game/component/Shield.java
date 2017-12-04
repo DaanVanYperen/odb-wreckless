@@ -7,6 +7,7 @@ import com.artemis.Component;
  */
 public class Shield extends Component {
     public int hp=1;
+    public int maxHp=1;
     public Shield() {
     }
 }

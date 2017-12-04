@@ -108,6 +108,7 @@ public class DialogSystem extends FluidIteratingSystem {
     protected void process(E e) {
         if (overlaps(e, player)) {
             if (!e.getDialog().data.triggered) {
+                player.shieldHp(player.shieldMaxHp()); // help player on dialog.
                 e.getDialog().data.triggered = true;
                 activeDialog = e.getDialog().data;
                 if (activeDialog.music != null) {
