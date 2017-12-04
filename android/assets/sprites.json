@@ -394,7 +394,7 @@
     },	
     {
       "id": "bullet-1-glow",
-      "comment": "Glow for bullet-1 and bullet-1-enemy.",
+      "comment": "Glow for bullet-1.",
       "x": 103,
       "y": 866,
       "countX": 1,
@@ -404,7 +404,7 @@
     },
     {
       "id": "bullet-2-glow",
-      "comment": "Glow for bullet-2 and bullet-2-enemy.",
+      "comment": "Glow for bullet-2.",
       "x": 115,
       "y": 866,
       "countX": 1,
@@ -414,7 +414,7 @@
     },
     {
       "id": "bullet-3-glow",
-      "comment": "Glow for bullet-3 and bullet-3-enemy.",
+      "comment": "Glow for bullet-3.",
       "x": 124,
       "y": 866,
       "countX": 1,
@@ -424,7 +424,7 @@
     },
     {
       "id": "bullet-4-glow",
-      "comment": "Glow for bullet-4 and bullet-4-enemy.",
+      "comment": "Glow for bullet-4.",
       "x": 132,
       "y": 866,
       "countX": 1,
@@ -434,7 +434,7 @@
     },
     {
       "id": "bullet-5-glow",
-      "comment": "Glow for bullet-5 and bullet-5-enemy.",
+      "comment": "Glow for bullet-5.",
       "x": 139,
       "y": 858,
       "countX": 8,
@@ -446,7 +446,7 @@
     },
     {
       "id": "bullet-6-glow",
-      "comment": "Glow for bullet-6 and bullet-6-enemy.",
+      "comment": "Glow for bullet-6.",
       "x": 103,
       "y": 850,
       "countX": 1,
@@ -456,7 +456,7 @@
     },
     {
       "id": "bullet-7-glow",
-      "comment": "Glow for bullet-7 and bullet-7-enemy.",
+      "comment": "Glow for bullet-7.",
       "x": 115,
       "y": 850,
       "countX": 1,
@@ -466,7 +466,7 @@
     },
     {
       "id": "bullet-8-glow",
-      "comment": "Glow for bullet-8 and bullet-8-enemy.",
+      "comment": "Glow for bullet-8.",
       "x": 124
       "y": 850,
       "countX": 1,
@@ -476,8 +476,100 @@
     },
     {
       "id": "bullet-9-glow",
-      "comment": "Glow for bullet-9 and bullet-9-enemy.",
+      "comment": "Glow for bullet-9.",
       "x": 132,
+      "y": 850,
+      "countX": 1,
+      "countY": 1,
+      "width": 7,
+      "height": 10
+    },
+   {
+      "id": "bullet-1-enemy-glow",
+      "comment": "Glow for bullet-1-enemy.",
+      "x": 239,
+      "y": 866,
+      "countX": 1,
+      "countY": 1,
+      "width": 12,
+      "height": 12
+    },
+    {
+      "id": "bullet-2-enemy-glow",
+      "comment": "Glow for bullet-2-enemy.",
+      "x": 251,
+      "y": 866,
+      "countX": 1,
+      "countY": 1,
+      "width": 9,
+      "height": 9
+    },
+    {
+      "id": "bullet-3-enemy-glow",
+      "comment": "Glow for bullet-3-enemy.",
+      "x": 260,
+      "y": 866,
+      "countX": 1,
+      "countY": 1,
+      "width": 8,
+      "height": 8
+    },
+    {
+      "id": "bullet-4-enemy-glow",
+      "comment": "Glow for bullet-4-enemy.",
+      "x": 268,
+      "y": 866,
+      "countX": 1,
+      "countY": 1,
+      "width": 7,
+      "height": 7
+    },
+    {
+      "id": "bullet-5-enemy-glow",
+      "comment": "Glow for bullet-5-enemy.",
+      "x": 275,
+      "y": 858,
+      "countX": 8,
+      "countY": 1,
+      "milliseconds": 70,
+	  "repeat": true,	  
+      "width": 12,
+      "height": 20
+    },
+    {
+      "id": "bullet-6-enemy-glow",
+      "comment": "Glow for bullet-6-enemy.",
+      "x": 239,
+      "y": 850,
+      "countX": 1,
+      "countY": 1,
+      "width": 12,
+      "height": 16
+    },
+    {
+      "id": "bullet-7-enemy-glow",
+      "comment": "Glow for bullet-7-enemy.",
+      "x": 251,
+      "y": 850,
+      "countX": 1,
+      "countY": 1,
+      "width": 9,
+      "height": 12
+    },
+    {
+      "id": "bullet-8-enemy-glow",
+      "comment": "Glow for bullet-8-enemy.",
+      "x": 260,
+      "y": 850,
+      "countX": 1,
+      "countY": 1,
+      "width": 8,
+      "height": 11
+    },
+    {
+      "id": "bullet-9-enemy-glow",
+      "comment": "Glow for bullet-9-enemy.",
+      "x": 268,
       "y": 850,
       "countX": 1,
       "countY": 1,
