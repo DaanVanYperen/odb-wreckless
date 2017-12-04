@@ -23,7 +23,9 @@
       "id": "start",
       "music": "something2.mp3",
       "lines": [
-        { "portrait" : "portrait-fcl", "align": "right","text": "We installed that prototype gun that fires those bouncing plasma bolts ..." },
+        { "portrait" : "portrait-fcl", "align": "right","text": "Remember, Chip, Mr. Woofberg jettisoned the power-ups ..." },
+        { "portrait" : "portrait-fcl", "align": "right","text": "to the prototype bounce gun this morning, so you’ll have to pick them up!" },
+        { "portrait" : "portrait-fcl", "align": "right","text": "There's one right there." },
         { "portrait" : "portrait-fcl", "align": "right","text": "Take care not to get hit by your own shots!" },
         { "portrait" : "portrait-woofberg", "text": "Arf?" },
         { "portrait" : "portrait-fcl", "align": "right","text": "Are you coming down with a cold? You sound a little off." },
