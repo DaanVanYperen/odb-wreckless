@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.api.system.physics.SocketSystem;
 import net.mostlyoriginal.game.component.*;
+import net.mostlyoriginal.game.system.detection.PickupSystem;
 import net.mostlyoriginal.game.system.detection.SpoutSystem;
 import net.mostlyoriginal.game.system.view.ArsenalDataSystem;
 import net.mostlyoriginal.game.system.view.FlightPatternDataSystem;
@@ -28,6 +29,7 @@ public class EntitySpawnerSystem extends BaseSystem {
     private ShipDataSystem shipDataSystem;
     private ArsenalDataSystem arsenalDataSystem;
     private FlightPatternDataSystem flightPatternDataSystem;
+    private PickupSystem pickupSystem;
 
     @Override
     protected void processSystem() {
@@ -186,6 +188,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .mortal()
                 //.gravity()
                 .wallSensor()
+                .player()
                 .diesFromWalls(true)
                 .teamTeam(G.TEAM_PLAYERS)
                 .footsteps()
@@ -196,8 +199,7 @@ public class EntitySpawnerSystem extends BaseSystem {
 
         gameScreenAssetSystem.boundToAnim(playerShip.id(), gracepaddingX, gracepaddingY);
 
-        addArsenal(playerShip, "player-guns", G.TEAM_PLAYERS, 0, shipData.arsenal, false);
-        addArsenal(playerShip, "player-guns", G.TEAM_PLAYERS, 0, "bouncegun", false);
+        pickupSystem.upgradeGuns(playerShip);
 
         spawnCamera(playerShip, x, y);
     }
@@ -213,7 +215,7 @@ public class EntitySpawnerSystem extends BaseSystem {
 
     }
 
-    private void addArsenal(E ship, String group, int team, int shipFacingAngle, String arsenal, boolean frozen) {
+    public void addArsenal(E ship, String group, int team, int shipFacingAngle, String arsenal, boolean frozen) {
         if (arsenal != null) {
             ArsenalData data = arsenalDataSystem.get(arsenal);
             if (data.guns != null) {

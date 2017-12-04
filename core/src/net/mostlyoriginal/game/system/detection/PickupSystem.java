@@ -2,6 +2,8 @@ package net.mostlyoriginal.game.system.detection;
 
 import com.artemis.Aspect;
 import com.artemis.E;
+import com.artemis.Entity;
+import com.artemis.managers.GroupManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -12,10 +14,7 @@ import net.mostlyoriginal.api.operation.JamOperationFactory;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.system.physics.SocketSystem;
 import net.mostlyoriginal.game.api.EBag;
-import net.mostlyoriginal.game.component.Deadly;
-import net.mostlyoriginal.game.component.G;
-import net.mostlyoriginal.game.component.Mortal;
-import net.mostlyoriginal.game.component.Pickup;
+import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.screen.GameScreen;
 import net.mostlyoriginal.game.system.FollowSystem;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
@@ -33,6 +32,8 @@ import static net.mostlyoriginal.api.operation.OperationFactory.*;
 public class PickupSystem extends FluidIteratingSystem {
 
     private E player;
+    private EntitySpawnerSystem entitySpawnerSystem;
+    private GroupManager groupManager;
 
     public PickupSystem() {
         super(Aspect.all(Pos.class, Pickup.class).exclude(Frozen.class));
@@ -47,7 +48,52 @@ public class PickupSystem extends FluidIteratingSystem {
     @Override
     protected void process(E e) {
         if ( overlaps(e, player) ) {
+            upgradeGuns(player);
             e.deleteFromWorld();
+        }
+    }
+
+    public void upgradeGuns(E playerShip) {
+        Player player = playerShip.getPlayer();
+        player.upgradeLevel++;
+        String mainGun = null;
+        String bounceGun = null;
+        switch (player.upgradeLevel) {
+            case 1:
+                mainGun = "minigun";
+                bounceGun = "bouncegun";
+                break;
+            case 2:
+                mainGun = "minigun";
+                bounceGun = "bouncegun_r2";
+                break;
+            case 3:
+                mainGun = "minigun";
+                bounceGun = "bouncegun_r3";
+                break;
+            case 4:
+                mainGun = "minigun";
+                bounceGun = "bouncegun_r4";
+                break;
+            case 5:
+                mainGun = "minigun";
+                bounceGun = "bouncegun_r5";
+                break;
+            case 6:
+                mainGun = "minigun";
+                bounceGun = "bouncegun_r6";
+                break;
+            default: return;
+        }
+
+        killOldGuns();
+        entitySpawnerSystem.addArsenal(playerShip, "player-guns", G.TEAM_PLAYERS, 0, mainGun, false);
+        entitySpawnerSystem.addArsenal(playerShip, "player-guns", G.TEAM_PLAYERS, 0, bounceGun, false);
+    }
+
+    private void killOldGuns() {
+        for (Entity entity : groupManager.getEntities("player-guns")) {
+            entity.deleteFromWorld();
         }
     }
 }
