@@ -50,8 +50,8 @@
     {
       "id": "turret-1",
       "comment": "Enemy type 6.",
-      "anim": "enemy-6",
-      "shieldAnim": "enemy-shield-6",
+      "anim": "turret-1",
+      "shieldAnim": "turret-shield-1",
       "hp": 30,
       "arsenal": "enemy_3tap"
     }
