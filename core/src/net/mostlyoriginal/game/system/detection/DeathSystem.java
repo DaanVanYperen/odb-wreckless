@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.operation.JamOperationFactory;
+import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.game.api.EBag;
 import net.mostlyoriginal.game.component.*;
@@ -19,6 +20,8 @@ import net.mostlyoriginal.game.system.map.MapCollisionSystem;
 import net.mostlyoriginal.game.system.render.MyAnimRenderSystem;
 import net.mostlyoriginal.game.system.render.TransitionSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
+
+import static net.mostlyoriginal.api.operation.OperationFactory.*;
 
 /**
  * @author Daan van Yperen
@@ -111,8 +114,7 @@ public class DeathSystem extends FluidIteratingSystem {
         }
 
         if (victim.hasShield() && victim.shieldHp() > damage) {
-            victim.shieldHp(victim.shieldHp() - damage);
-            victim.script(JamOperationFactory.tintBetween(BLINK, WHITE, 0.1f));
+            damageShield(victim, damage);
             if (cause != null && damageCause) {
                 damage(cause, victim, false, 1);
             }
@@ -122,6 +124,25 @@ public class DeathSystem extends FluidIteratingSystem {
             } else if (!victim.isMortal()) {
                 victim.deleteFromWorld();
             } else victim.dead();
+        }
+    }
+
+    private void damageShield(E victim, int damage) {
+        victim.shieldHp(victim.shieldHp() - damage);
+        victim.script(JamOperationFactory.tintBetween(BLINK, WHITE, 0.1f));
+        if ( victim.shipData() != null ) {
+            E.E()
+                    .posX(victim.posX())
+                    .posY(victim.posY())
+                    .renderLayer(victim.renderLayer()+5)
+                    .attachedParent(victim.id())
+                    .tint(1f,1f,1f,0.5f)
+                    .script(sequence(
+                            delay(0.1f),
+                            JamOperationFactory.tintBetween(WHITE, Tint.TRANSPARENT, 0.4f),
+                            deleteFromWorld()
+                    ))
+                    .anim(victim.shipData().shieldAnim);
         }
     }
 

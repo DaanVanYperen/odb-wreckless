@@ -268,6 +268,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .physicsVy(-10f)
                 .physicsFriction(0)
                 .mortal()
+                .shipData(shipData)
                 //.physicsVr(50)
                 .angle()
                 .deadly()

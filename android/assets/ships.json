@@ -11,6 +11,7 @@
       "id": "enemy1",
       "comment": "Enemy type 1.",
       "anim": "enemy-1",
+      "shieldAnim": "enemy-shield-1",
       "hp": 5,
       "arsenal": "enemy_handgun"
     },
@@ -18,6 +19,7 @@
       "id": "enemy2",
       "comment": "Enemy type 2.",
       "anim": "enemy-2",
+      "shieldAnim": "enemy-shield-2",
       "hp": 10,
       "arsenal": "enemy_handgun"
     },
@@ -25,6 +27,7 @@
       "id": "enemy3",
       "comment": "Enemy type 3.",
       "anim": "enemy-3",
+      "shieldAnim": "enemy-shield-3",
       "hp": 20,
       "arsenal": "unarmed"
     },
@@ -32,6 +35,7 @@
       "id": "enemy4",
       "comment": "Enemy type 4.",
       "anim": "enemy-4",
+      "shieldAnim": "enemy-shield-4",
       "hp": 30,
       "arsenal": "enemy_bouncegun"
     },
@@ -39,6 +43,7 @@
       "id": "enemy5",
       "comment": "Enemy type 5.",
       "anim": "enemy-5",
+      "shieldAnim": "enemy-shield-5",
       "hp": 40,
       "arsenal": "enemy_bouncegun"
     }
@@ -46,6 +51,7 @@
       "id": "turret-1",
       "comment": "Enemy type 6.",
       "anim": "enemy-6",
+      "shieldAnim": "enemy-shield-6",
       "hp": 30,
       "arsenal": "enemy_3tap"
     }
