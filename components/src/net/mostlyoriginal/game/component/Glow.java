@@ -9,8 +9,8 @@ public class Glow extends Component {
     public String anim;
     public float age;
     public float pulseSpeed=1f;
-    public float maxIntensity=1f;
-    public float minIntensity=0.6f;
+    public float maxIntensity=0.6f;
+    public float minIntensity=0.4f;
     public int extendPixels=4;
     public Glow() {
     }

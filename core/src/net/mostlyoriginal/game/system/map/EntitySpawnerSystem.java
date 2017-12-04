@@ -103,7 +103,8 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .glowAnim(glow)
                 .glowExtendPixels(0)
                 .glowMinIntensity(0)
-                .glowPulseSpeed(2f);
+                .glowMaxIntensity(0.5f)
+                .glowPulseSpeed(3f);
     }
 
     private void assembleSandSprinkler(float x, float y) {
