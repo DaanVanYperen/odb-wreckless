@@ -107,6 +107,12 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .bounds(0,0,28,16)
                 .anim("pickup")
                 .pickup()
+                .frozen()
+                .physicsFriction(0)
+                .angle()
+                .ethereal()
+                .physicsVr(-100f)
+                .physicsVy(-75f)
                 .renderLayer(990);
     }
     private void assembleDialog(float x, float y, String dialog) {
