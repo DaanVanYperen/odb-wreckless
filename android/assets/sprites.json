@@ -690,5 +690,15 @@
       "width": 64,
       "height": 64
     },
+    {
+      "id": "black",
+      "comment": "Black background for dialogue.",
+      "x": 0,
+      "y": 640
+      "countX": 1,
+      "countY": 1,
+      "width": 300,
+      "height": 70
+    },
   ]
 }
