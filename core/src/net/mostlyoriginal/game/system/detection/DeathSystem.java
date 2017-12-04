@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Tint;
+import net.mostlyoriginal.api.component.physics.Attached;
 import net.mostlyoriginal.api.operation.JamOperationFactory;
 import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.api.system.camera.CameraShakeSystem;
@@ -85,16 +86,20 @@ public class DeathSystem extends FluidIteratingSystem {
             if (!e.hasInvisible()) {
                 particleSystem.explosion(e.posX() + e.boundsCx(), e.posY() + e.boundsCy());
 
-                if ( e.hasShip() && e.shipData() != null && e.shipData().corpseAnim != null ) {
-                    particleSystem.explosion(e.posX() + e.boundsCx() + MathUtils.random(-20f,20f), e.posY() + e.boundsCy() + MathUtils.random(-20f,20f));
-                    particleSystem.explosion(e.posX() + e.boundsCx() + MathUtils.random(-20f,20f), e.posY() + e.boundsCy() + MathUtils.random(-20f,20f));
-                    particleSystem.explosion(e.posX() + e.boundsCx() + MathUtils.random(-20f,20f), e.posY() + e.boundsCy() + MathUtils.random(-20f,20f));
-                    E.E().posX(e.posX()).posY(e.posY()).anim(e.shipData().corpseAnim).renderLayer(e.renderLayer());
-                }
+                if ( e.hasShip() && e.shipData() != null ) {
+                    if (e.shipData().corpseAnim != null) {
+                        particleSystem.explosion(e.posX() + e.boundsCx() + MathUtils.random(-20f, 20f), e.posY() + e.boundsCy() + MathUtils.random(-20f, 20f));
+                        particleSystem.explosion(e.posX() + e.boundsCx() + MathUtils.random(-20f, 20f), e.posY() + e.boundsCy() + MathUtils.random(-20f, 20f));
+                        particleSystem.explosion(e.posX() + e.boundsCx() + MathUtils.random(-20f, 20f), e.posY() + e.boundsCy() + MathUtils.random(-20f, 20f));
+                        E.E().posX(e.posX()).posY(e.posY()).anim(e.shipData().corpseAnim).renderLayer(e.renderLayer());
+                    }
 
-                if ( e.hasShip() && e.shipData() != null && "boss".equals(e.shipData().id) )  {
-                    shipControlSystem.scrolling=true;
-                    assetSystem.playMusicInGame("something1.mp3");
+                    if ("boss".equals(e.shipData().id)) {
+                        shipControlSystem.scrolling = true;
+                        assetSystem.playMusicInGame("something1.mp3");
+                    }
+
+                    purgeGuns(e.id());
                 }
 
                 if (e.hasSocket()) {
@@ -124,6 +129,13 @@ public class DeathSystem extends FluidIteratingSystem {
                 }
             }
 
+        }
+    }
+
+    private void purgeGuns(int id) {
+        for (E e : allEntitiesWith(Attached.class)) {
+            if ( e.attachedParent() == id )
+                e.deleteFromWorld();
         }
     }
 
