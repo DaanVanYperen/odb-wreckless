@@ -630,6 +630,42 @@
    <property name="entity" value="cable"/>
   </properties>
  </tile>
+ <tile id="416">
+  <properties>
+   <property name="dialog" value="intro"/>
+   <property name="entity" value="dialog"/>
+  </properties>
+ </tile>
+ <tile id="417">
+  <properties>
+   <property name="dialog" value="start"/>
+   <property name="entity" value="dialog"/>
+  </properties>
+ </tile>
+ <tile id="418">
+  <properties>
+   <property name="dialog" value="shields"/>
+   <property name="entity" value="dialog"/>
+  </properties>
+ </tile>
+ <tile id="419">
+  <properties>
+   <property name="dialog" value="barriers"/>
+   <property name="entity" value="dialog"/>
+  </properties>
+ </tile>
+ <tile id="420">
+  <properties>
+   <property name="dialog" value="boss"/>
+   <property name="entity" value="dialog"/>
+  </properties>
+ </tile>
+ <tile id="421">
+  <properties>
+   <property name="dialog" value="victory"/>
+   <property name="entity" value="dialog"/>
+  </properties>
+ </tile>
  <tile id="448">
   <properties>
    <property name="entity" value="enemy1"/>
