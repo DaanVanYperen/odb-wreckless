@@ -67,6 +67,8 @@ public class FlightPatternControlSystem extends FluidIteratingSystem {
             case FACE_PLAYER:
                 facePlayer(e, step);
                 break;
+            case PAUSE:
+                break;
         }
     }
 

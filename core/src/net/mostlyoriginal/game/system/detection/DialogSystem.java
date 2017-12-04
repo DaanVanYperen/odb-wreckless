@@ -6,6 +6,7 @@ import com.artemis.Entity;
 import com.artemis.managers.GroupManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import javafx.scene.layout.Background;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.ui.Label;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
@@ -36,6 +37,8 @@ public class DialogSystem extends FluidIteratingSystem {
     private E pressSpace;
     private String align;
     private GameScreenAssetSystem gameScreenAssetSystem;
+    private E background1;
+    private E background2;
 
 
     public DialogSystem() {
@@ -49,13 +52,13 @@ public class DialogSystem extends FluidIteratingSystem {
 
 
         if (activeDialog != null) {
-            world.delta=0;
+            world.delta = 0;
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 activeLine++;
                 hideActiveLines();
                 if (activeLine >= activeDialog.lines.length) {
                     activeDialog = null;
-                    dialog = portrait = pressSpace= null;
+                    dialog = portrait = pressSpace = background1 = background2 = null;
                 } else {
                     renderActiveLine();
                 }
@@ -67,7 +70,7 @@ public class DialogSystem extends FluidIteratingSystem {
     protected void end() {
         super.end();
         if (activeDialog != null) {
-            if ( "right".equals(align)) {
+            if ("right".equals(align)) {
                 portrait.posX(cameraSystem.camera.position.x + G.SCREEN_WIDTH / 2 - DIALOG_PADDING_X - 64);
                 portrait.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y);
                 dialog.posX(cameraSystem.camera.position.x + G.SCREEN_WIDTH / 2 - DIALOG_PADDING_X - 64 - 8);
@@ -103,11 +106,10 @@ public class DialogSystem extends FluidIteratingSystem {
             if (!e.getDialog().data.triggered) {
                 e.getDialog().data.triggered = true;
                 activeDialog = e.getDialog().data;
-                if ( activeDialog.music != null )
-                {
+                if (activeDialog.music != null) {
                     gameScreenAssetSystem.playMusicInGame(activeDialog.music);
                 }
-                activeLine=0;
+                activeLine = 0;
                 renderActiveLine();
             }
             e.deleteFromWorld();
@@ -127,7 +129,7 @@ public class DialogSystem extends FluidIteratingSystem {
                 .labelText("press space")
                 .group("dialog")
                 .fontFontName(font)
-                .tint(0f,0f,1f,1f)
+                .tint(0f, 0f, 1f, 1f)
                 .pos()
                 .renderLayer(2000);
         this.portrait = E.E()
@@ -136,7 +138,21 @@ public class DialogSystem extends FluidIteratingSystem {
                 .pos()
                 .renderLayer(2000);
 
-        if ( right ) {
+        this.background1 = E.E()
+                .anim("black")
+                .group("dialog")
+                .tint(1f, 1f, 1f, 0.5f)
+                .posX(300)
+                .renderLayer(1800);
+        this.background2 = E.E()
+                .anim("black")
+                .group("dialog")
+                .pos()
+                .tint(1f, 1f, 1f, 0.5f)
+                .posX(0)
+                .renderLayer(1800);
+
+        if (right) {
             dialog.labelAlign(Label.Align.RIGHT);
             pressSpace.labelAlign(Label.Align.RIGHT);
         }

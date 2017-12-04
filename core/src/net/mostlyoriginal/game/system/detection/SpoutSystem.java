@@ -33,6 +33,7 @@ public class SpoutSystem extends FluidIteratingSystem {
     protected void process(E e) {
         if ( !e.hasShooting() ) {
             e.spoutAge(0);
+            e.spoutSprayCooldown(e.spoutSprayCooldown() - world.delta);
             return;
         }
         e.spoutAge(e.spoutAge() + world.delta);

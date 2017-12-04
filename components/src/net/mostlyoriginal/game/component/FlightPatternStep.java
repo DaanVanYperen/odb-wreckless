@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class FlightPatternStep implements Serializable {
     public enum Step {
         FLY,
-        EXPLODE, HIDE_LEFT, HIDE_RIGHT, FACE_PLAYER, FLY_SINUS
+        EXPLODE, HIDE_LEFT, HIDE_RIGHT, FACE_PLAYER, FLY_SINUS, PAUSE
     }
     public Step step;
     public float angle=0;

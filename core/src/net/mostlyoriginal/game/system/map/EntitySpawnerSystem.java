@@ -192,7 +192,7 @@ public class EntitySpawnerSystem extends BaseSystem {
         int gracepaddingX = 16;
         int gracepaddingY = 4;
         E playerShip = E().anim("player-idle")
-                .pos(x, y)
+                .pos(x - 14, y)
                 .physics()
                 .render(G.LAYER_PLAYER)
                 .mortal()
