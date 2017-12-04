@@ -392,6 +392,7 @@
       "width": 28,
       "height": 16
     },	
+    {
       "id": "bullet-1-glow",
       "comment": "Glow for bullet-1 and bullet-1-enemy.",
       "x": 103,
