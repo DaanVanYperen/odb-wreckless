@@ -7,6 +7,7 @@ import com.artemis.managers.GroupManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import net.mostlyoriginal.api.component.basic.Pos;
+import net.mostlyoriginal.api.component.ui.Label;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
@@ -64,9 +65,9 @@ public class DialogSystem extends FluidIteratingSystem {
             if ( "right".equals(align)) {
                 portrait.posX(cameraSystem.camera.position.x + G.SCREEN_WIDTH / 2 - DIALOG_PADDING_X - 64);
                 portrait.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y);
-                dialog.posX(cameraSystem.camera.position.x - G.SCREEN_WIDTH / 2 + DIALOG_PADDING_X + 8);
+                dialog.posX(cameraSystem.camera.position.x + G.SCREEN_WIDTH / 2 - DIALOG_PADDING_X - 64 - 8);
                 dialog.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y + 32);
-                pressSpace.posX(cameraSystem.camera.position.x - G.SCREEN_WIDTH / 2 + DIALOG_PADDING_X  + 8);
+                pressSpace.posX(cameraSystem.camera.position.x + G.SCREEN_WIDTH / 2 - DIALOG_PADDING_X - 64 - 8);
                 pressSpace.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y + 8);
             } else {
                 portrait.posX(cameraSystem.camera.position.x - G.SCREEN_WIDTH / 2 + DIALOG_PADDING_X);
@@ -82,7 +83,7 @@ public class DialogSystem extends FluidIteratingSystem {
     private void renderActiveLine() {
         LineData line = activeDialog.lines[activeLine];
         align = line.align;
-        renderLine(0, line.text, line.portrait);
+        renderLine(0, line.text, line.portrait, "right".equals(line.align));
     }
 
     private void hideActiveLines() {
@@ -104,20 +105,22 @@ public class DialogSystem extends FluidIteratingSystem {
         }
     }
 
-    private void renderLine(int offsetY, String text, String portrait) {
+    private void renderLine(int offsetY, String text, String portrait, boolean right) {
         int id = entityWithTag("camera").id();
-        dialog = E.E()
+        E dialog = E.E()
                 .labelText(text)
                 .group("dialog")
                 .fontFontName("5x5")
                 .fontScale(3)
                 .pos()
                 .renderLayer(2000);
+        this.dialog = dialog;
         pressSpace = E.E()
                 .labelText("press space")
                 .group("dialog")
                 .fontFontName("5x5")
                 .fontScale(3)
+                .tint(0f,0f,1f,1f)
                 .pos()
                 .renderLayer(2000);
         this.portrait = E.E()
@@ -125,5 +128,11 @@ public class DialogSystem extends FluidIteratingSystem {
                 .group("dialog")
                 .pos()
                 .renderLayer(2000);
+
+        if ( right ) {
+            dialog.labelAlign(Label.Align.RIGHT);
+            pressSpace.labelAlign(Label.Align.RIGHT);
+        }
+
     }
 }
