@@ -12,6 +12,7 @@ public class GunData implements Serializable {
     public String animbounced;
     public int angle;
     public int rpm;
+    public int x=0;
     public int speed;
     public int bounces;
     public int damage;

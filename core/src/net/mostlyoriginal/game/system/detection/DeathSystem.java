@@ -9,6 +9,7 @@ import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.operation.JamOperationFactory;
 import net.mostlyoriginal.api.operation.OperationFactory;
+import net.mostlyoriginal.api.system.camera.CameraShakeSystem;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.system.physics.SocketSystem;
 import net.mostlyoriginal.game.api.EBag;
@@ -40,6 +41,7 @@ public class DeathSystem extends FluidIteratingSystem {
     private CameraSystem cameraSystem;
     private EBag deadlies;
     private SocketSystem socketSystem;
+    private CameraShakeSystem cameraShakeSystem;
 
     public DeathSystem() {
         super(Aspect.all(Pos.class).one(Mortal.class));
@@ -132,6 +134,11 @@ public class DeathSystem extends FluidIteratingSystem {
             if (cause.bounceCount() > 0) {
                 attemptBounce(cause, victim);
             }
+        }
+
+        if (victim.hasPlayer()) {
+            particleSystem.explosion(cause.posX() + cause.boundsCx(), cause.posY() +cause.boundsCy() );
+            cameraShakeSystem.shake(damage/4 + 1);
         }
 
         if (victim.hasShield() && victim.shieldHp() > damage) {

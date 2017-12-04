@@ -68,20 +68,36 @@ public class PickupSystem extends FluidIteratingSystem {
                 bounceGun = "bouncegun_r2";
                 break;
             case 3:
-                mainGun = "minigun";
+                mainGun = "minigun_r2";
                 bounceGun = "bouncegun_r3";
                 break;
             case 4:
-                mainGun = "minigun";
+                mainGun = "minigun_r2";
                 bounceGun = "bouncegun_r4";
                 break;
             case 5:
-                mainGun = "minigun";
+                mainGun = "minigun_r3";
                 bounceGun = "bouncegun_r5";
                 break;
             case 6:
-                mainGun = "minigun";
+                mainGun = "minigun_r3";
                 bounceGun = "bouncegun_r6";
+                break;
+            case 7:
+                mainGun = "minigun_r3";
+                bounceGun = "bouncegun_r7";
+                break;
+            case 8:
+                mainGun = "minigun_r4";
+                bounceGun = "bouncegun_r7";
+                break;
+            case 9:
+                mainGun = "minigun_r5";
+                bounceGun = "bouncegun_r7";
+                break;
+            case 10:
+                mainGun = "minigun_r5";
+                bounceGun = "bouncegun_r7";
                 break;
             default: return;
         }

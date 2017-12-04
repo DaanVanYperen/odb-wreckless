@@ -228,7 +228,7 @@ public class EntitySpawnerSystem extends BaseSystem {
 
     private void addGun(E e, GunData gunData, String group, int team, int shipFacingAngle, boolean frozen) {
         float angle = gunData.angle + shipFacingAngle + 90;
-        v2.set(1, 0).rotate(angle);
+        v2.set(0, gunData.x).rotate(angle);
         E gun = E()
                 .pos(e.posX(), e.posY())
                 .bounds(0, 0, 5, 5)
