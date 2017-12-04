@@ -62,41 +62,45 @@ public class PickupSystem extends FluidIteratingSystem {
         switch (player.upgradeLevel) {
             case 1:
                 mainGun = "minigun";
-                bounceGun = "bouncegun";
+                bounceGun = null;
                 break;
             case 2:
                 mainGun = "minigun";
-                bounceGun = "bouncegun_r2";
+                bounceGun = "bouncegun";
                 break;
             case 3:
-                mainGun = "minigun_r2";
-                bounceGun = "bouncegun_r3";
+                mainGun = "minigun";
+                bounceGun = "bouncegun_r2";
                 break;
             case 4:
                 mainGun = "minigun_r2";
-                bounceGun = "bouncegun_r4";
+                bounceGun = "bouncegun_r3";
                 break;
             case 5:
-                mainGun = "minigun_r3";
-                bounceGun = "bouncegun_r5";
+                mainGun = "minigun_r2";
+                bounceGun = "bouncegun_r4";
                 break;
             case 6:
                 mainGun = "minigun_r3";
-                bounceGun = "bouncegun_r6";
+                bounceGun = "bouncegun_r5";
                 break;
             case 7:
                 mainGun = "minigun_r3";
-                bounceGun = "bouncegun_r7";
+                bounceGun = "bouncegun_r6";
                 break;
             case 8:
-                mainGun = "minigun_r4";
+                mainGun = "minigun_r3";
                 bounceGun = "bouncegun_r7";
                 break;
             case 9:
-                mainGun = "minigun_r5";
+                mainGun = "minigun_r4";
                 bounceGun = "bouncegun_r7";
                 break;
             case 10:
+                mainGun = "minigun_r5";
+                bounceGun = "bouncegun_r7";
+                break;
+            case 11:
                 mainGun = "minigun_r5";
                 bounceGun = "bouncegun_r7";
                 break;
@@ -106,7 +110,7 @@ public class PickupSystem extends FluidIteratingSystem {
         gameScreenAssetSystem.playSfx("Misc_2");
         killOldGuns();
         entitySpawnerSystem.addArsenal(playerShip, "player-guns", G.TEAM_PLAYERS, 0, mainGun, false);
-        entitySpawnerSystem.addArsenal(playerShip, "player-guns", G.TEAM_PLAYERS, 0, bounceGun, false);
+        if ( bounceGun != null  ) entitySpawnerSystem.addArsenal(playerShip, "player-guns", G.TEAM_PLAYERS, 0, bounceGun, false);
     }
 
     private void killOldGuns() {
