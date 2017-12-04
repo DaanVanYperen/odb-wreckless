@@ -81,7 +81,7 @@ public class DeathSystem extends FluidIteratingSystem {
             if (!e.hasInvisible()) {
                 particleSystem.explosion(e.posX() + e.boundsCx(), e.posY() + e.boundsCy());
 
-                // sockets just blow out.
+
                 if (e.hasSocket()) {
                     e.socketEntityId(0);
                     socketSystem.power(e, false);

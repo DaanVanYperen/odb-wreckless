@@ -159,6 +159,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .mortal()
                 //.gravity()
                 .wallSensor()
+                .diesFromWalls(true)
                 .teamTeam(G.TEAM_PLAYERS)
                 .footsteps()
                 .footstepsSfx("footsteps_girl")
