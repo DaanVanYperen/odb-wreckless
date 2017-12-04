@@ -69,6 +69,16 @@
       "hp": 1,
       "originX": 0.5,
       "originY": 0.5
+    },
+    {
+      "id": "boss",
+      "comment": "boss type.",
+      "anim": "biosphere-1",
+      "corpseAnim": "biosphere-1-destroyed",
+      "shieldAnim": "enemy-shield-4",
+      "hp": 1,
+      "arsenal": "360_miniguns",
+      "flight": "boss"
     }
   ]
 }

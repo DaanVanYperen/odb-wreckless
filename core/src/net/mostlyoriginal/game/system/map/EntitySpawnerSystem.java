@@ -268,6 +268,13 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .gunData(gunData)
                 .angleRotate(angle);
 
+        if ( gunData.cooldown > 0 ) {
+            gun.spoutCooldown(gunData.cooldown);
+        }
+        if ( gunData.duration > 0 ) {
+            gun.spoutSprayDuration(gunData.duration);
+        }
+
         if (frozen) {
             gun.frozen();
         }

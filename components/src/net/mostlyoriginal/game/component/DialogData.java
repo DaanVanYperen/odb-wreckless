@@ -12,6 +12,7 @@ public class DialogData implements Serializable {
     public String music;
     public LineData[] lines;
     public boolean triggered = false;
+    public boolean scrolling = true;
 
     public DialogData() {
     }

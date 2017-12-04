@@ -16,6 +16,7 @@ import net.mostlyoriginal.game.api.EBag;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.screen.GameScreen;
 import net.mostlyoriginal.game.system.FollowSystem;
+import net.mostlyoriginal.game.system.ShipControlSystem;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.map.EntitySpawnerSystem;
 import net.mostlyoriginal.game.system.map.MapCollisionSystem;
@@ -42,6 +43,7 @@ public class DeathSystem extends FluidIteratingSystem {
     private EBag deadlies;
     private SocketSystem socketSystem;
     private CameraShakeSystem cameraShakeSystem;
+    private ShipControlSystem shipControlSystem;
 
     public DeathSystem() {
         super(Aspect.all(Pos.class).one(Mortal.class));
@@ -88,6 +90,11 @@ public class DeathSystem extends FluidIteratingSystem {
                     particleSystem.explosion(e.posX() + e.boundsCx() + MathUtils.random(-20f,20f), e.posY() + e.boundsCy() + MathUtils.random(-20f,20f));
                     particleSystem.explosion(e.posX() + e.boundsCx() + MathUtils.random(-20f,20f), e.posY() + e.boundsCy() + MathUtils.random(-20f,20f));
                     E.E().posX(e.posX()).posY(e.posY()).anim(e.shipData().corpseAnim).renderLayer(e.renderLayer());
+                }
+
+                if ( e.hasShip() && e.shipData() != null && "boss".equals(e.shipData().id) )  {
+                    shipControlSystem.scrolling=true;
+                    assetSystem.playMusicInGame("something1.mp3");
                 }
 
                 if (e.hasSocket()) {

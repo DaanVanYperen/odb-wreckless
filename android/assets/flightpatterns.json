@@ -55,6 +55,22 @@
         { "step" : "FLY", "angle" : 270, "facing" : 180, "seconds" : 5.0 },
         { "step" : "EXPLODE" }
       ]
+    },
+    {
+      "id": "boss",
+      "comment": "boss",
+      "steps": [
+        { "step" : "FLY", "angle" : 90, "facing" : 180, "seconds" : 2.0 },
+        { "step" : "FACE_PLAYER", "seconds": 2.0 },
+        { "step" : "FLY", "angle" : 90, "facing" : 180, "seconds" : 2.0 },
+        { "step" : "FLY", "angle" : 270, "facing" : 180, "seconds" : 2.0 },
+        { "step" : "FACE_PLAYER", "seconds": 2.0 },
+        { "step" : "FLY", "angle" : 270, "facing" : 180, "seconds" : 2.0 },
+        { "step" : "FLY", "angle" : 90, "facing" : 180, "seconds" : 2.0 },
+        { "step" : "SPIN", "seconds": 2.0 },
+        { "step" : "FLY", "angle" : 90, "facing" : 180, "seconds" : 2.0 },
+        { "step" : "FLY", "angle" : 270, "facing" : 180, "seconds" : 4.0 }
+      ]
     }
   ],
 }

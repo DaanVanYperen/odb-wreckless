@@ -11,6 +11,7 @@ import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.ui.Label;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.game.component.*;
+import net.mostlyoriginal.game.system.ShipControlSystem;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.map.EntitySpawnerSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
@@ -40,6 +41,7 @@ public class DialogSystem extends FluidIteratingSystem {
     private E background1;
     private E background2;
 
+    ShipControlSystem shipControlSystem;
 
     public DialogSystem() {
         super(Aspect.all(Pos.class, Dialog.class));
@@ -113,6 +115,8 @@ public class DialogSystem extends FluidIteratingSystem {
                 }
                 activeLine = 0;
                 renderActiveLine();
+
+                shipControlSystem.scrolling =  e.getDialog().data.scrolling;
             }
             e.deleteFromWorld();
         }

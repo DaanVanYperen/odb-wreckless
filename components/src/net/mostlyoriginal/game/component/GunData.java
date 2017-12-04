@@ -16,6 +16,8 @@ public class GunData implements Serializable {
     public int speed;
     public int bounces;
     public int damage;
+    public float cooldown=0;
+    public float duration=0;
 
     public GunData() {
     }

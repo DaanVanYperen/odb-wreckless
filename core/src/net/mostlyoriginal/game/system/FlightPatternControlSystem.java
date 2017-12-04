@@ -67,9 +67,17 @@ public class FlightPatternControlSystem extends FluidIteratingSystem {
             case FACE_PLAYER:
                 facePlayer(e, step);
                 break;
+            case SPIN:
+                spin(e, step);
+                break;
             case PAUSE:
                 break;
         }
+    }
+
+    private void spin(E e, FlightPatternStep step) {
+
+        e.physicsVr(e.physicsVr() + world.delta * 100f );
     }
 
     private void facePlayer(E e, FlightPatternStep step) {
@@ -80,6 +88,7 @@ public class FlightPatternControlSystem extends FluidIteratingSystem {
             Pos playerPos = player.getPos();
             float angle = v2.set(playerPos.getX(), playerPos.getY()).sub(turretPos.getX(), turretPos.getY()).angle();
             e.angleRotation(90 + angle);
+            e.physicsVr(0);
         }
     }
 

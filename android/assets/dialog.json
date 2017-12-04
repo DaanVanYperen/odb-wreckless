@@ -51,6 +51,7 @@
     {
       "id": "boss",
       "music": "something3.mp3",
+      "scrolling": "false",
       "lines": [
         { "portrait" : "portrait-fcl", "align": "right","text": "By god, look at that... It’s as big as a small moon!" },
         { "portrait" : "portrait-fcl", "align": "right","text": "To be honest, Chip, I don’t see how you could possibly defeat that thing." },

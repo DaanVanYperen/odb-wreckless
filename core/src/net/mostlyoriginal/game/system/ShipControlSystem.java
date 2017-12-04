@@ -38,6 +38,8 @@ public class ShipControlSystem extends FluidIteratingSystem {
     private DialogSystem dialogSystem;
     private GroupManager groupManager;
 
+    public boolean scrolling = true;
+
 
     public ShipControlSystem() {
         super(Aspect.all(ShipControlled.class, Physics.class, WallSensor.class, Anim.class));
@@ -45,7 +47,7 @@ public class ShipControlSystem extends FluidIteratingSystem {
 
     @Override
     protected void process(E e) {
-        if ( world.delta == 0 ) return;
+        if (world.delta == 0) return;
 
 
         String playerAnimPrefix = "player-";
@@ -62,14 +64,14 @@ public class ShipControlSystem extends FluidIteratingSystem {
         e.animLoop(true);
         if (!e.hasDead()) {
             if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-                if ( Gdx.input.isKeyJustPressed(Input.Keys.A) ) {
+                if (Gdx.input.isKeyJustPressed(Input.Keys.A)) {
                     e.animAge(0);
                 }
                 dx = -MOVEMENT_FACTOR;
                 e.animId("player-left");
                 e.animLoop(false);
             } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-                if ( Gdx.input.isKeyJustPressed(Input.Keys.D) ) {
+                if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
                     e.animAge(0);
                 }
                 dx = MOVEMENT_FACTOR;
@@ -105,7 +107,11 @@ public class ShipControlSystem extends FluidIteratingSystem {
             e.carriesAnchorX(e.animFlippedX() ? 4 : -4);
         }
 
-        e.posY(e.posY() + G.CAMERA_SCROLL_SPEED * world.delta);
+        if (scrolling) {
+            e.posY(e.posY() + G.CAMERA_SCROLL_SPEED * world.delta);
+        }
+        entityWithTag("camera")
+                .physicsVy(scrolling ? G.CAMERA_SCROLL_SPEED : 0);
 
         entityWithTag("camera").posX(e.posX());
     }
