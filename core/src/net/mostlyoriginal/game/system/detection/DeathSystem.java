@@ -10,6 +10,7 @@ import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.operation.JamOperationFactory;
 import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
+import net.mostlyoriginal.api.system.physics.SocketSystem;
 import net.mostlyoriginal.game.api.EBag;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.screen.GameScreen;
@@ -38,6 +39,7 @@ public class DeathSystem extends FluidIteratingSystem {
     private DialogSystem dialogSystem;
     private CameraSystem cameraSystem;
     private EBag deadlies;
+    private SocketSystem socketSystem;
 
     public DeathSystem() {
         super(Aspect.all(Pos.class).one(Mortal.class));
@@ -64,6 +66,7 @@ public class DeathSystem extends FluidIteratingSystem {
 
         if (!e.hasDead()) {
             E deadlyStuffs = touchingDeadlyStuffs(e, false);
+
             if (mapCollisionSystem.isLava(e.posX(), e.posY()) || deadlyStuffs != null) {
                 damage(e, deadlyStuffs, true, deadlyStuffs != null && deadlyStuffs.hasGun() ? deadlyStuffs.gunData().damage : 1);
             }
@@ -76,6 +79,16 @@ public class DeathSystem extends FluidIteratingSystem {
         } else {
             e.deadCooldown(e.deadCooldown() - world.delta);
             if (!e.hasInvisible()) {
+                particleSystem.explosion(e.posX() + e.boundsCx(), e.posY() + e.boundsCy());
+
+                // sockets just blow out.
+                if (e.hasSocket()) {
+                    e.socketEntityId(0);
+                    socketSystem.power(e, false);
+                    e.removeMortal();
+                    return;
+                }
+
                 if (e.teamTeam() == 2) {
                     assetSystem.stopMusic();
                     assetSystem.playSfx("deathsound");
@@ -87,9 +100,10 @@ public class DeathSystem extends FluidIteratingSystem {
                     assetSystem.playSfx("gremlin_death");
                 }
                 e.invisible();
-                particleSystem.explosion(e.posX() + e.boundsCx(), e.posY() + e.boundsCy());
             }
             if (e.deadCooldown() <= 0) {
+
+                // unpower sockets.
                 if (e.isShipControlled()) {
                     doExit();
                     e.removeDead().removeMortal();
@@ -102,13 +116,12 @@ public class DeathSystem extends FluidIteratingSystem {
     private void damage(E victim, E cause, boolean damageCause, int damage) {
 
         // prevent same thing damaging the same thing twice.
-        if (cause != null && cause.hasBounce())
-        {
+        if (cause != null && cause.hasBounce()) {
             // do not bounce on same entity twice.
             if (cause.bounceLastEntityId() == victim.id())
                 return;
 
-            if ( cause.bounceCount() > 0) {
+            if (cause.bounceCount() > 0) {
                 attemptBounce(cause, victim);
             }
         }
@@ -130,14 +143,14 @@ public class DeathSystem extends FluidIteratingSystem {
     private void damageShield(E victim, int damage) {
         victim.shieldHp(victim.shieldHp() - damage);
         victim.script(JamOperationFactory.tintBetween(BLINK, WHITE, 0.1f));
-        if ( victim.shipData() != null ) {
+        if (victim.shipData() != null) {
             E.E()
                     .posX(victim.posX())
                     .posY(victim.posY())
-                    .renderLayer(victim.renderLayer()+5)
+                    .renderLayer(victim.renderLayer() + 5)
                     .attachedParent(victim.id())
                     .attachedYo(-2)
-                    .tint(1f,1f,1f,0.5f)
+                    .tint(1f, 1f, 1f, 0.5f)
                     .script(sequence(
                             delay(0.1f),
                             JamOperationFactory.tintBetween(WHITE, Tint.TRANSPARENT, 0.4f),

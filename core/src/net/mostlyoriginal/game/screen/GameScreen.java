@@ -45,7 +45,7 @@ public class GameScreen extends WorldScreen {
                         new EntitySpawnerSystem(),
                         new MapSystem(),
                         new ParticleSystem(),
-                        //new PowerSystem(),
+                        new PowerSystem(),
 
                         new GameScreenAssetSystem(),
                         new ArsenalDataSystem(),
@@ -79,7 +79,7 @@ public class GameScreen extends WorldScreen {
                         // Effects.
                         new FootstepSystem(),
                         new CarriedSystem(),
-                        //new SocketSystem(),
+                        new SocketSystem(),
 
                         // Camera.
                         new CameraFollowSystem(),
