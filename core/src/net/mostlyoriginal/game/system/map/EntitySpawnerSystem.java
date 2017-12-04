@@ -174,7 +174,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .pos(x, y)
                 .socketAnimSocketed("socket_on_" + batteryType)
                 .socketAnimEmpty("socket_off_" + batteryType)
-                .shieldHp(10)
+                .shieldHp(6)
                 .mortal(true)
                 .type(batteryType)
                 .render(G.LAYER_PLAYER - 1)
