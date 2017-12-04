@@ -12,10 +12,10 @@
         { "portrait" : "portrait-fcl", "align": "right", "text": "Flight Control Leader to Chip! Red alert! We have alien raiders coming in!" },
         { "portrait" : "portrait-chip", "text": "The convoy is under attack! Come on, Mr. Woofberg, we have to save everyone!" },
         { "portrait" : "portrait-woofberg", "text": "Arf!" },
-        { "portrait" : "portrait-raider", "align": "right", "text": "Not so fast, Chip. You won’t be thwarting our plans this time! Get him, boys!" },
-        { "portrait" : "portrait-chip", "text": "Oh no, I am a fantastic pilot, but I don’t know self-defense. Save me, Mr. Woofberg!" },
+        { "portrait" : "portrait-raider", "align": "right", "text": "Not so fast, Chip. You will not be thwarting our plans this time! Get him, boys!" },
+        { "portrait" : "portrait-chip", "text": "Oh no, I am a fantastic pilot, but I do not know self-defense. Pilot the ship and save me, Mr. Woofberg!" },
         { "portrait" : "portrait-woofberg", "text": "Arf?" },
-        { "portrait" : "portrait-fcl", "align": "right", "text": "Quickly, Chip. We need you, they’re all over us!" },
+        { "portrait" : "portrait-fcl", "align": "right", "text": "Quickly, Chip. We need you, they are all over us!" },
         { "portrait" : "portrait-woofberg", "text": "Arf!" },
       ]
     },
@@ -24,8 +24,8 @@
       "music": "something2.mp3",
       "lines": [
         { "portrait" : "portrait-fcl", "align": "right","text": "Remember, Chip, Mr. Woofberg jettisoned the power-ups ..." },
-        { "portrait" : "portrait-fcl", "align": "right","text": "to the prototype bounce gun this morning, so you’ll have to pick them up!" },
-        { "portrait" : "portrait-fcl", "align": "right","text": "There's one right there." },
+        { "portrait" : "portrait-fcl", "align": "right","text": "to the prototype bounce gun this morning, so you will have to pick them up!" },
+        { "portrait" : "portrait-fcl", "align": "right","text": "There is one right there." },
         { "portrait" : "portrait-fcl", "align": "right","text": "Take care not to get hit by your own shots!" },
         { "portrait" : "portrait-woofberg", "text": "Arf?" },
         { "portrait" : "portrait-fcl", "align": "right","text": "Are you coming down with a cold? You sound a little off." },
@@ -35,19 +35,18 @@
       "id": "shields",
       "lines": [
         { "portrait" : "portrait-fcl", "align": "right","text": "Oh no! Those fiends have adaptive shielding!" },
-        { "portrait" : "portrait-fcl", "align": "right","text": "We’re damaging them, but until the shields are destroyed ..." },
-        { "portrait" : "portrait-fcl", "align": "right","text": "they reflect our bouncy bolts!" },
+        { "portrait" : "portrait-fcl", "align": "right","text": "We can damage the shields, but until they are destroyed ..." },
+        { "portrait" : "portrait-fcl", "align": "right","text": "our bouncy bolts get reflected!" },
         { "portrait" : "portrait-woofberg", "text": "Arf arf!" },
-        { "portrait" : "portrait-fcl", "align": "right","text": "Just keep shooting them, but take care to avoid those bolts, Chip!" },
       ]
     },
     {
       "id": "barriers",
       "lines": [
         { "portrait" : "portrait-fcl", "align": "right","text": "Those alien bastards have dropped laser barriers! .." },
-        { "portrait" : "portrait-fcl", "align": "right","text": "You’ll have to destroy the power unit to disable them." },
+        { "portrait" : "portrait-fcl", "align": "right","text": "You will have to destroy the power unit to disable them." },
         { "portrait" : "portrait-woofberg", "text": "Arf!" },
-        { "portrait" : "portrait-fcl", "align": "right","text": "I swear, it sounds just like you’re barking sometimes." },
+        { "portrait" : "portrait-fcl", "align": "right","text": "I swear, it sounds just like you are barking sometimes." },
       ]
     },
     {
@@ -55,9 +54,9 @@
       "music": "something3.mp3",
       "scrolling": "false",
       "lines": [
-        { "portrait" : "portrait-fcl", "align": "right","text": "By god, look at that... It’s as big as a small moon!" },
-        { "portrait" : "portrait-fcl", "align": "right","text": "To be honest, Chip, I don’t see how you could possibly defeat that thing." },
-        { "portrait" : "portrait-fcl", "align": "right","text": "It’s been nice knowing you. I have a date with an escape pod. Goodbye!" },
+        { "portrait" : "portrait-fcl", "align": "right","text": "By god, look at that... It is as big as a small moon!" },
+        { "portrait" : "portrait-fcl", "align": "right","text": "To be honest, Chip, I do not see how you could possibly defeat that thing." },
+        { "portrait" : "portrait-fcl", "align": "right","text": "It has been nice knowing you. I have a date with an escape pod. Goodbye!" },
         { "portrait" : "portrait-woofberg", "text": "GRRR." }
       ]
     },
@@ -65,10 +64,10 @@
       "id": "victory",
       "lines": [
         { "portrait" : "portrait-chip", "text": "Mr. Woofberg? Is that you? .." },
-        { "portrait" : "portrait-chip", "text": "You actually saved us? How?! You’re a dog!" },
+        { "portrait" : "portrait-chip", "text": "You actually saved us? How?! You are a dog!" },
         { "portrait" : "portrait-woofberg", "text": "Arf!" },
-        { "portrait" : "portrait-chip", "text": "That’s amazing! No one is going to believe it, though." },
-        { "portrait" : "portrait-chip", "text": "So we’ll have to tell everyone I won us the battle." },
+        { "portrait" : "portrait-chip", "text": "That is amazing! No one is going to believe it, though." },
+        { "portrait" : "portrait-chip", "text": "So we will have to tell everyone I won us the battle." },
         { "portrait" : "portrait-woofberg", "text": "GRRR." },
         { "portrait" : "portrait-chip", "text": "Haha, good boy!" }
       ]
