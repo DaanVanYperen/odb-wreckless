@@ -606,5 +606,25 @@
       "width": 16,
       "height": 16
     },
+    {
+      "id": "biosphere",
+      "comment": "Biosphere.",
+      "x": 352,
+      "y": 192,
+      "countX": 1,
+      "countY": 1,
+      "width": 64,
+      "height": 64
+    },
+    {
+      "id": "biosphere-destroyed",
+      "comment": "Destroyed biosphere.",
+      "x": 416,
+      "y": 192,
+      "countX": 1,
+      "countY": 1,
+      "width": 64,
+      "height": 64
+    },
   ]
 }
