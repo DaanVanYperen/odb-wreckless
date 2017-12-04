@@ -61,10 +61,16 @@ public class ShipControlSystem extends FluidIteratingSystem {
         e.animLoop(true);
         if (!e.hasDead()) {
             if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+                if ( Gdx.input.isKeyJustPressed(Input.Keys.A) ) {
+                    e.animAge(0);
+                }
                 dx = -MOVEMENT_FACTOR;
                 e.animId("player-left");
                 e.animLoop(false);
             } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+                if ( Gdx.input.isKeyJustPressed(Input.Keys.D) ) {
+                    e.animAge(0);
+                }
                 dx = MOVEMENT_FACTOR;
                 e.animId("player-right");
                 e.animLoop(false);
