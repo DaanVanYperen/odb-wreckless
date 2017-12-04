@@ -4,14 +4,14 @@
       "id": "player",
       "comment": "Player default ship.",
       "anim": "special",
-      "hp": 30
+      "hp": 50
     },
     {
       "id": "enemy1",
       "comment": "Enemy type 1.",
       "anim": "enemy-1",
       "shieldAnim": "enemy-shield-1",
-      "hp": 5,
+      "hp": 15,
       "arsenal": "enemy_handgun",
       "flight": "enter_stage_left"
     },
@@ -20,7 +20,7 @@
       "comment": "Enemy type 2.",
       "anim": "enemy-2",
       "shieldAnim": "enemy-shield-2",
-      "hp": 10,
+      "hp": 25,
       "arsenal": "enemy_handgun",
       "flight": "enter_exit_stage_left"
     },
@@ -29,7 +29,7 @@
       "comment": "Enemy type 3.",
       "anim": "enemy-3",
       "shieldAnim": "enemy-shield-3",
-      "hp": 20,
+      "hp": 25,
       "arsenal": "unarmed",
       "flight": "enter_stage_right"
     },
@@ -47,7 +47,7 @@
       "comment": "Enemy type 5.",
       "anim": "enemy-5",
       "shieldAnim": "enemy-shield-5",
-      "hp": 40,
+      "hp": 80,
       "arsenal": "enemy_bouncegun",
       "flight": "straight_down"
     },
@@ -56,7 +56,7 @@
       "comment": "Enemy type 6.",
       "anim": "turret-1",
       "shieldAnim": "turret-shield-1",
-      "hp": 30,
+      "hp": 25,
       "arsenal": "enemy_3tap",
       "originY": 0.9,
       "flight": "stationary_face_player"
