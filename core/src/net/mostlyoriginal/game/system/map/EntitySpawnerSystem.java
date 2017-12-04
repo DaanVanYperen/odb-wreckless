@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.system.detection.SpoutSystem;
 import net.mostlyoriginal.game.system.view.ArsenalDataSystem;
+import net.mostlyoriginal.game.system.view.FlightPatternDataSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 import net.mostlyoriginal.game.system.view.ShipDataSystem;
 
@@ -25,6 +26,7 @@ public class EntitySpawnerSystem extends BaseSystem {
     private GameScreenAssetSystem gameScreenAssetSystem;
     private ShipDataSystem shipDataSystem;
     private ArsenalDataSystem arsenalDataSystem;
+    private FlightPatternDataSystem flightPatternDataSystem;
 
     @Override
     protected void processSystem() {
@@ -265,13 +267,13 @@ public class EntitySpawnerSystem extends BaseSystem {
         E enemyShip = E()
                 .pos(x, y)
                 .physics()
-                .physicsVy(-10f)
                 .physicsFriction(0)
                 .mortal()
                 .shipData(shipData)
                 //.physicsVr(50)
                 .angle()
                 .deadly()
+                .flightPatternData(flightPatternDataSystem.get(shipData.flight))
                 .teamTeam(TEAM_ENEMIES)
                 .render(G.LAYER_GREMLIN)
                 .shieldHp(shipData.hp)

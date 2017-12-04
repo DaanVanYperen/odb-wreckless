@@ -13,7 +13,8 @@
       "anim": "enemy-1",
       "shieldAnim": "enemy-shield-1",
       "hp": 5,
-      "arsenal": "enemy_handgun"
+      "arsenal": "enemy_handgun",
+      "flight": "enter_from_closest_edge"
     },
     {
       "id": "enemy2",
@@ -21,7 +22,8 @@
       "anim": "enemy-2",
       "shieldAnim": "enemy-shield-2",
       "hp": 10,
-      "arsenal": "enemy_handgun"
+      "arsenal": "enemy_handgun",
+      "flight": "enter_and_exit_from_closest_edge"
     },
     {
       "id": "enemy3",
@@ -29,7 +31,8 @@
       "anim": "enemy-3",
       "shieldAnim": "enemy-shield-3",
       "hp": 20,
-      "arsenal": "unarmed"
+      "arsenal": "unarmed",
+      "flight": "enter_from_closest_edge"
     },
     {
       "id": "enemy4",
@@ -37,7 +40,8 @@
       "anim": "enemy-4",
       "shieldAnim": "enemy-shield-4",
       "hp": 30,
-      "arsenal": "enemy_bouncegun"
+      "arsenal": "enemy_bouncegun",
+      "flight": "sinus"
     },
     {
       "id": "enemy5",
@@ -45,15 +49,17 @@
       "anim": "enemy-5",
       "shieldAnim": "enemy-shield-5",
       "hp": 40,
-      "arsenal": "enemy_bouncegun"
-    }
+      "arsenal": "enemy_bouncegun",
+      "flight": "straight_down"
+    },
     {
       "id": "turret-1",
       "comment": "Enemy type 6.",
       "anim": "turret-1",
       "shieldAnim": "turret-shield-1",
       "hp": 30,
-      "arsenal": "enemy_3tap"
+      "arsenal": "enemy_3tap",
+      "flight": "stationary"
     }
   ],
 }

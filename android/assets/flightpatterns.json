@@ -1,0 +1,12 @@
+{
+  "patterns": [
+    {
+      "id": "straight_down",
+      "comment": "Fly straight down.",
+      "steps": [
+        { "step" : "FLY", "angle" : 180, "seconds" : 1.0 },
+        { "step" : "FLY", "angle" : 0, "seconds" : 1.0 }
+      ]
+    },
+  ],
+}
