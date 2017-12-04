@@ -92,6 +92,7 @@ public class ParticleSystem extends FluidIteratingSystem {
                 .speed(force, force)
                 .diesFromWalls()
                 .bounce(bounce)
+                .glow(gunData.anim+"-glow")
                 .gunData(gunData)
                 //.deadly()
                 .fadeAfter(50f)
@@ -183,6 +184,7 @@ public class ParticleSystem extends FluidIteratingSystem {
         private int bounce;
         private GunData gunData;
         private boolean diesFromWalls;
+        private String glow;
 
         public Builder() {
             reset();
@@ -226,6 +228,9 @@ public class ParticleSystem extends FluidIteratingSystem {
 
                     e.bounceCount(999);
                     e.physicsBounce(1f);
+                }
+                if (glow != null) {
+                    e.glowAnim(glow);
                 }
                 if (rotateR != 0) {
                     e.physicsVr(rotateR).angle();
@@ -375,6 +380,11 @@ public class ParticleSystem extends FluidIteratingSystem {
 
         public Builder diesFromWalls() {
             this.diesFromWalls = true;
+            return this;
+        }
+
+        public Builder glow(String glow) {
+            this.glow = glow;
             return this;
         }
     }

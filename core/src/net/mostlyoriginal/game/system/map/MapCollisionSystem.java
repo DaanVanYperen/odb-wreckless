@@ -130,6 +130,7 @@ public class MapCollisionSystem extends FluidIteratingSystem {
             if (e.hasGun() && e.gunData().animbounced != null) {
                 e.teamTeam(G.TEAM_ENEMIES);
                 e.animId(e.gunData().animbounced);
+                e.glowAnim(e.gunData().animbounced +"-glow");
             }
         }
     }

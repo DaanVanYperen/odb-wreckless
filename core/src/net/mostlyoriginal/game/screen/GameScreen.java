@@ -97,7 +97,7 @@ public class GameScreen extends WorldScreen {
                         renderBatchingSystem = new RenderBatchingSystem(),
                         new MyAnimRenderSystem(renderBatchingSystem),
                         new BoundingBoxRenderSystem(renderBatchingSystem),
-
+                        new AdditiveRenderSystem(),
                         new MapRenderInFrontSystem(),
                         new TerminalSystem(),
                         new ExitSystem(),

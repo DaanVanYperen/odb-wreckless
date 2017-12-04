@@ -50,7 +50,10 @@ public class SpoutSystem extends FluidIteratingSystem {
                 if ( e.hasAttached() ) {
                     if ( e.attachedParent() != 0 )
                     {
-                        angle += E.E(e.attachedParent()).angleRotation();
+                        E parent = E.E(e.attachedParent());
+                        if ( parent != null ) {
+                            angle += parent.angleRotation();
+                        }
                     }
                 }
 
