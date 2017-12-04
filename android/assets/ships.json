@@ -11,7 +11,7 @@
       "comment": "Enemy type 1.",
       "anim": "enemy-1",
       "shieldAnim": "enemy-shield-1",
-      "hp": 15,
+      "hp": 1,
       "arsenal": "enemy_handgun",
       "flight": "enter_stage_left"
     },
@@ -20,7 +20,7 @@
       "comment": "Enemy type 2.",
       "anim": "enemy-2",
       "shieldAnim": "enemy-shield-2",
-      "hp": 25,
+      "hp": 5,
       "arsenal": "enemy_handgun",
       "flight": "enter_exit_stage_left"
     },
