@@ -64,6 +64,7 @@ public class GameScreen extends WorldScreen {
 
                         // Control and logic.
                         new CameraUnfreezeSystem(),
+                        new EnemyCleanupSystem(),
                         new FollowSystem(),
                         new AttachmentSystem(),
                         new FlightPatternControlSystem(),
