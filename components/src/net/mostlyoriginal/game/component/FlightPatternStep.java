@@ -7,9 +7,11 @@ import java.io.Serializable;
  */
 public class FlightPatternStep implements Serializable {
     public enum Step {
-        FLY
+        FLY,
+        FLY_SINUS
     }
     public Step step;
     public float angle;
+    public float facing;
     public float seconds;
 }

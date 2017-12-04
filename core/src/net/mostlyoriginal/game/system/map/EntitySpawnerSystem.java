@@ -167,8 +167,8 @@ public class EntitySpawnerSystem extends BaseSystem {
 
         gameScreenAssetSystem.boundToAnim(playerShip.id(), gracepaddingX, gracepaddingY);
 
-        addArsenal(playerShip, "player-guns", G.TEAM_PLAYERS, 0, shipData.arsenal);
-        addArsenal(playerShip, "player-guns", G.TEAM_PLAYERS, 0, "bouncegun");
+        addArsenal(playerShip, "player-guns", G.TEAM_PLAYERS, 0, shipData.arsenal, false);
+        addArsenal(playerShip, "player-guns", G.TEAM_PLAYERS, 0, "bouncegun", false);
 
         spawnCamera(x, y);
     }
@@ -182,21 +182,20 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .ethereal(true)
                 .physicsFriction(0);
     }
-    private void addArsenal(E ship, String group, int team, int shipFacingAngle, String arsenal) {
+    private void addArsenal(E ship, String group, int team, int shipFacingAngle, String arsenal, boolean frozen) {
         ArsenalData data = arsenalDataSystem.get(arsenal);
         if (data.guns != null) {
             for (GunData gun : data.guns) {
-                addGun(ship, gun, group, team, shipFacingAngle);
+                addGun(ship, gun, group, team, shipFacingAngle, frozen);
             }
         }
     }
 
-    private void addGun(E e, GunData gunData, String group, int team, int shipFacingAngle) {
+    private void addGun(E e, GunData gunData, String group, int team, int shipFacingAngle, boolean frozen) {
         float angle = gunData.angle + shipFacingAngle + 90;
         v2.set(20, 0).rotate(angle);
-        E gun = E().anim("marker")
-                .render(G.LAYER_PLAYER + 1)
-                .pos()
+        E gun = E()
+                .pos(e.posX(), e.posY())
                 .bounds(0, 0, 5, 5)
                 .group(group)
                 .attachedXo((int) v2.x + (int) e.boundsCx() - 3)
@@ -208,6 +207,10 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .spoutSprayInterval(60f / gunData.rpm)
                 .gunData(gunData)
                 .angleRotate(angle);
+
+        if (frozen) {
+            gun.frozen();
+        }
 
         if (team == TEAM_ENEMIES) {
             gun.shooting(true); // ai always shoots.
@@ -277,12 +280,13 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .teamTeam(TEAM_ENEMIES)
                 .render(G.LAYER_GREMLIN)
                 .shieldHp(shipData.hp)
+                .frozen()
                 .anim(shipData.anim);
 
         gameScreenAssetSystem.boundToAnim(enemyShip.id(), gracepaddingX, gracepaddingY);
         enemyShip.pos(x - enemyShip.boundsCx(), y - enemyShip.boundsCy());
 
-        addArsenal(enemyShip, "enemy-guns", G.TEAM_ENEMIES, -180, shipData.arsenal);
+        addArsenal(enemyShip, "enemy-guns", G.TEAM_ENEMIES, -180, shipData.arsenal, true);
     }
 
 

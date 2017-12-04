@@ -4,8 +4,14 @@
       "id": "straight_down",
       "comment": "Fly straight down.",
       "steps": [
-        { "step" : "FLY", "angle" : 180, "seconds" : 1.0 },
-        { "step" : "FLY", "angle" : 0, "seconds" : 1.0 }
+        { "step" : "FLY", "angle" : 180, "facing" : 180, "seconds" : 100.0 }
+      ]
+    },
+    {
+      "id": "sinus",
+      "comment": "Fly in a sinus wave.",
+      "steps": [
+        { "step" : "FLY_SINUS", "angle" : 180, "facing" : 180, "seconds" : 100.0 }
       ]
     },
   ],

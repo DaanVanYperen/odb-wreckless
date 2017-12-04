@@ -10,6 +10,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.api.component.graphics.Anim;
+import net.mostlyoriginal.api.component.physics.Frozen;
 import net.mostlyoriginal.api.component.physics.Physics;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.component.map.WallSensor;
@@ -25,7 +26,7 @@ import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 public class FlightPatternControlSystem extends FluidIteratingSystem {
 
     public FlightPatternControlSystem() {
-        super(Aspect.all(FlightPattern.class, Physics.class));
+        super(Aspect.all(FlightPattern.class, Physics.class).exclude(Frozen.class));
     }
 
     Vector2 v2 = new Vector2();
@@ -48,10 +49,25 @@ public class FlightPatternControlSystem extends FluidIteratingSystem {
         FlightPatternStep step = pattern.data.steps[pattern.activeStep];
         switch (step.step) {
             case FLY:
-                v2.set(50, 0).rotate(step.angle);
-                e.physicsVx(v2.x);
-                e.physicsVy(v2.y);
+                fly(e, step);
+                break;
+            case FLY_SINUS:
+                flySinus(e, step);
                 break;
         }
+    }
+
+    private void fly(E e, FlightPatternStep step) {
+        v2.set(0, 50).rotate(step.angle);
+        e.angleRotate(step.facing);
+        e.physicsVx(v2.x);
+        e.physicsVy(v2.y);
+    }
+
+    private void flySinus(E e, FlightPatternStep step) {
+        v2.set(MathUtils.sin(e.flightPatternAge()*4f)*100f, 50).rotate(step.angle);
+        e.angleRotate(step.facing);
+        e.physicsVx(v2.x);
+        e.physicsVy(v2.y);
     }
 }
