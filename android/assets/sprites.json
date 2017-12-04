@@ -576,5 +576,35 @@
       "width": 7,
       "height": 10
     },
+    {
+      "id": "barrier-glow-left",
+      "comment": "Glow for left side of barrier.",
+      "x": 16,
+      "y": 136,
+      "countX": 1,
+      "countY": 1,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "barrier-glow-middle",
+      "comment": "Glow for left side of barrier.",
+      "x": 32,
+      "y": 136,
+      "countX": 1,
+      "countY": 1,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "barrier-glow-right",
+      "comment": "Glow for left side of barrier.",
+      "x": 48,
+      "y": 136,
+      "countX": 1,
+      "countY": 1,
+      "width": 16,
+      "height": 16
+    },
   ]
 }
