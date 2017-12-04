@@ -30,6 +30,10 @@ public class CameraFollowSystem extends FluidIteratingSystem {
     private int sourceY = 0;
     private float cooldown = 0f;
 
+    public float minCameraY() {
+        return cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2;
+    }
+
     @Override
     protected void process(E e) {
         if ( Gdx.input.isKeyJustPressed(Input.Keys.F9) ) lockCamera = !lockCamera;

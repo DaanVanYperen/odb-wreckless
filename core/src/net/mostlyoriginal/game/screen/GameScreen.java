@@ -19,10 +19,7 @@ import net.mostlyoriginal.game.system.*;
 import net.mostlyoriginal.game.system.detection.*;
 import net.mostlyoriginal.game.system.map.*;
 import net.mostlyoriginal.game.system.render.*;
-import net.mostlyoriginal.game.system.view.ArsenalDataSystem;
-import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
-import net.mostlyoriginal.game.system.view.GameScreenSetupSystem;
-import net.mostlyoriginal.game.system.view.ShipDataSystem;
+import net.mostlyoriginal.game.system.view.*;
 import net.mostlyoriginal.plugin.OperationsPlugin;
 import net.mostlyoriginal.plugin.ProfilerPlugin;
 
@@ -53,6 +50,7 @@ public class GameScreen extends WorldScreen {
                         new GameScreenAssetSystem(),
                         new ArsenalDataSystem(),
                         new ShipDataSystem(),
+                        new FlightPatternDataSystem(),
                         new GameScreenSetupSystem(),
 
                         // sensors.
@@ -65,8 +63,10 @@ public class GameScreen extends WorldScreen {
                         new SpoutSystem(),
 
                         // Control and logic.
+                        new CameraUnfreezeSystem(),
                         new FollowSystem(),
                         new AttachmentSystem(),
+                        new FlightPatternControlSystem(),
                         new ShipControlSystem(),
                         new BirdBrainSystem(),
 

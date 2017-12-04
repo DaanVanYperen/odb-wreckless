@@ -13,6 +13,7 @@ public class ShipData implements Serializable {
     public String anim;
     public String shieldAnim;
     public String arsenal;
+    public String flight;
     public int hp=1;
 
     public ShipData() {

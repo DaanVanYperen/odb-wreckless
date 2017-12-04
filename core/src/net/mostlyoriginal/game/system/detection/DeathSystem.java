@@ -136,6 +136,7 @@ public class DeathSystem extends FluidIteratingSystem {
                     .posY(victim.posY())
                     .renderLayer(victim.renderLayer()+5)
                     .attachedParent(victim.id())
+                    .attachedYo(-2)
                     .tint(1f,1f,1f,0.5f)
                     .script(sequence(
                             delay(0.1f),

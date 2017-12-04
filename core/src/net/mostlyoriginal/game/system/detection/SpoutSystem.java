@@ -5,6 +5,7 @@ import com.artemis.E;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.api.component.basic.Pos;
+import net.mostlyoriginal.api.component.physics.Frozen;
 import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.GunData;
@@ -23,7 +24,7 @@ public class SpoutSystem extends FluidIteratingSystem {
     private GameScreenAssetSystem assetSystem;
 
     public SpoutSystem() {
-        super(Aspect.all(Spout.class, Pos.class));
+        super(Aspect.all(Spout.class, Pos.class).exclude(Frozen.class));
     }
 
     Vector2 v2 = new Vector2();
@@ -32,7 +33,6 @@ public class SpoutSystem extends FluidIteratingSystem {
     protected void process(E e) {
         if ( !e.hasShooting() ) {
             e.spoutAge(0);
-
             return;
         }
         e.spoutAge(e.spoutAge() + world.delta);
