@@ -21,6 +21,9 @@ public class DialogSystem extends FluidIteratingSystem {
 
     public static final int DIALOG_PADDING_X = 16;
     public static final int DIALOG_PADDING_Y = 16;
+
+    public static final String font = "opendis";
+
     private E player;
     private EntitySpawnerSystem entitySpawnerSystem;
     private GroupManager groupManager;
@@ -68,16 +71,16 @@ public class DialogSystem extends FluidIteratingSystem {
                 portrait.posX(cameraSystem.camera.position.x + G.SCREEN_WIDTH / 2 - DIALOG_PADDING_X - 64);
                 portrait.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y);
                 dialog.posX(cameraSystem.camera.position.x + G.SCREEN_WIDTH / 2 - DIALOG_PADDING_X - 64 - 8);
-                dialog.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y + 32);
+                dialog.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y + 32 + 8);
                 pressSpace.posX(cameraSystem.camera.position.x + G.SCREEN_WIDTH / 2 - DIALOG_PADDING_X - 64 - 8);
-                pressSpace.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y + 8);
+                pressSpace.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y + 8 + 8);
             } else {
                 portrait.posX(cameraSystem.camera.position.x - G.SCREEN_WIDTH / 2 + DIALOG_PADDING_X);
                 portrait.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y);
                 dialog.posX(cameraSystem.camera.position.x - G.SCREEN_WIDTH / 2 + DIALOG_PADDING_X + 64 + 8);
-                dialog.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y + 32);
+                dialog.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y + 32 + 8);
                 pressSpace.posX(cameraSystem.camera.position.x - G.SCREEN_WIDTH / 2 + DIALOG_PADDING_X + 64 + 8);
-                pressSpace.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y + 8);
+                pressSpace.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y + 8 + 8);
             }
         }
     }
@@ -116,16 +119,14 @@ public class DialogSystem extends FluidIteratingSystem {
         E dialog = E.E()
                 .labelText(text)
                 .group("dialog")
-                .fontFontName("5x5")
-                .fontScale(3)
+                .fontFontName(font)
                 .pos()
                 .renderLayer(2000);
         this.dialog = dialog;
         pressSpace = E.E()
                 .labelText("press space")
                 .group("dialog")
-                .fontFontName("5x5")
-                .fontScale(3)
+                .fontFontName(font)
                 .tint(0f,0f,1f,1f)
                 .pos()
                 .renderLayer(2000);
