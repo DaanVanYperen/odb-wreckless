@@ -64,49 +64,58 @@ public class MapCollisionSystem extends FluidIteratingSystem {
             float px = pos.xy.x + physics.vx * world.delta;
             float py = pos.xy.y + physics.vy * world.delta;
 
-            int bounce=0;
+            int bounce = 0;
+            boolean hitWall = false;
 
-            if ((physics.vx > 0 && collides(e, px + bounds.maxx, py + bounds.miny + (bounds.maxy - bounds.miny) * 0.5f )) ||
+            if ((physics.vx > 0 && collides(e, px + bounds.maxx, py + bounds.miny + (bounds.maxy - bounds.miny) * 0.5f)) ||
                     (physics.vx < 0 && collides(e, px + bounds.minx, py + bounds.miny + (bounds.maxy - bounds.miny) * 0.5f))) {
                 physics.vx = physics.bounce > 0 ? -physics.vx * physics.bounce : 0;
-                if ( physics.bounce > 0 ) bounce=1;
+                if (physics.bounce > 0) bounce = 1;
+                hitWall = true;
                 px = pos.xy.x;
             }
 
             if ((physics.vx > 0 && collides(e, px + bounds.maxx, py + bounds.miny + (bounds.maxy - bounds.miny) * 0.25f + 3)) ||
                     (physics.vx < 0 && collides(e, px + bounds.minx, py + bounds.miny + (bounds.maxy - bounds.miny) * 0.25f + 3))) {
                 physics.vx = physics.bounce > 0 ? -physics.vx * physics.bounce : 0;
-                if ( physics.bounce > 0 ) bounce=1;
+                if (physics.bounce > 0) bounce = 1;
+                hitWall = true;
                 px = pos.xy.x;
             }
 
             if ((physics.vx > 0 && collides(e, px + bounds.maxx, py + bounds.miny + (bounds.maxy - bounds.miny) * 0.75f)) ||
                     (physics.vx < 0 && collides(e, px + bounds.minx, py + bounds.miny + (bounds.maxy - bounds.miny) * 0.75f))) {
                 physics.vx = physics.bounce > 0 ? -physics.vx * physics.bounce : 0;
-                if ( physics.bounce > 0 ) bounce=1;
+                if (physics.bounce > 0) bounce = 1;
+                hitWall = true;
                 px = pos.xy.x;
             }
 
             if ((physics.vy > 0 && collides(e, px + bounds.minx + (bounds.maxx - bounds.minx) * 0.5f, py + bounds.maxy)) ||
                     (physics.vy < 0 && collides(e, px + bounds.minx + (bounds.maxx - bounds.minx) * 0.5f, py + bounds.miny))) {
                 physics.vy = physics.bounce > 0 ? -physics.vy * physics.bounce : 0;
-                if ( physics.bounce > 0 ) bounce=1;
+                if (physics.bounce > 0) bounce = 1;
+                hitWall = true;
             }
 
             if ((physics.vy > 0 && collides(e, px + bounds.minx + (bounds.maxx - bounds.minx) * 0.25f, py + bounds.maxy)) ||
                     (physics.vy < 0 && collides(e, px + bounds.minx + (bounds.maxx - bounds.minx) * 0.25f, py + bounds.miny))) {
                 physics.vy = physics.bounce > 0 ? -physics.vy * physics.bounce : 0;
-                if ( physics.bounce > 0 ) bounce=1;
+                if (physics.bounce > 0) bounce = 1;
+                hitWall = true;
             }
 
             if ((physics.vy > 0 && collides(e, px + bounds.minx + (bounds.maxx - bounds.minx) * 0.75f, py + bounds.maxy)) ||
                     (physics.vy < 0 && collides(e, px + bounds.minx + (bounds.maxx - bounds.minx) * 0.75f, py + bounds.miny))) {
                 physics.vy = physics.bounce > 0 ? -physics.vy * physics.bounce : 0;
-                if ( physics.bounce > 0 ) bounce=1;
+                if (physics.bounce > 0) bounce = 1;
+                hitWall = true;
             }
 
-            if ( bounce > 0 ) {
+            if (bounce > 0) {
                 alterBulletTeamAndColor(e);
+            } else if (hitWall && e.isDeadly()) {
+                e.deleteFromWorld();
             }
 
         }
@@ -114,9 +123,9 @@ public class MapCollisionSystem extends FluidIteratingSystem {
     }
 
     public void alterBulletTeamAndColor(E e) {
-        if ( e.hasTeam() && e.teamTeam() == G.TEAM_PLAYERS ) {
-            assetSystem.playSfx("bounce_" + MathUtils.random(1,4));
-            if ( e.hasGun() && e.gunData().animbounced != null ) {
+        if (e.hasTeam() && e.teamTeam() == G.TEAM_PLAYERS) {
+            assetSystem.playSfx("bounce_" + MathUtils.random(1, 4));
+            if (e.hasGun() && e.gunData().animbounced != null) {
                 e.teamTeam(G.TEAM_ENEMIES);
                 e.animId(e.gunData().animbounced);
             }
@@ -140,12 +149,12 @@ public class MapCollisionSystem extends FluidIteratingSystem {
             return true;
         }
 
-        return e.isRobot() && solidForRobotMask(x,y);
+        return e.isRobot() && solidForRobotMask(x, y);
 
     }
 
     public boolean isLava(final float x, final float y) {
-        return deadlyMask != null && deadlyMask.atScreen(x,y, true);
+        return deadlyMask != null && deadlyMask.atScreen(x, y, true);
     }
 
     public boolean canHover(final float x, final float y) {
