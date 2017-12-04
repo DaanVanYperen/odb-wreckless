@@ -265,7 +265,7 @@ public class EntitySpawnerSystem extends BaseSystem {
     }
 
     private void assembleEnemy(float x, float y, ShipData shipData) {
-        int gracepaddingX = 8;
+        int gracepaddingX = 2;
         int gracepaddingY = 0;
         E enemyShip = E()
                 .pos(x, y)

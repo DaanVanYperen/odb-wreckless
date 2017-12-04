@@ -59,14 +59,14 @@ public class FlightPatternControlSystem extends FluidIteratingSystem {
 
     private void fly(E e, FlightPatternStep step) {
         v2.set(0, 50).rotate(step.angle);
-        e.angleRotate(step.facing);
+        //e.angleRotate(step.facing);
         e.physicsVx(v2.x);
         e.physicsVy(v2.y);
     }
 
     private void flySinus(E e, FlightPatternStep step) {
         v2.set(MathUtils.sin(e.flightPatternAge()*4f)*100f, 50).rotate(step.angle);
-        e.angleRotate(step.facing);
+        //e.angleRotate(step.facing);
         e.physicsVx(v2.x);
         e.physicsVy(v2.y);
     }
