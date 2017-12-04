@@ -53,13 +53,13 @@
       "flight": "straight_down"
     },
     {
-      "id": "turret-1",
+      "id": "turret1",
       "comment": "Enemy type 6.",
       "anim": "turret-1",
       "shieldAnim": "turret-shield-1",
       "hp": 30,
       "arsenal": "enemy_3tap",
-      "flight": "stationary"
+      "flight": "stationary_face_player"
     }
   ],
 }

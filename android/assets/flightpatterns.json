@@ -17,6 +17,13 @@
       ]
     },
     {
+      "id": "stationary_face_player",
+      "comment": "Face the player.",
+      "steps": [
+        { "step" : "FACE_PLAYER" }
+      ]
+    },
+    {
       "id": "enter_stage_left",
       "comment": "Fly in from the left.",
       "steps": [

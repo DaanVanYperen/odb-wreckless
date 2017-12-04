@@ -45,9 +45,9 @@
     {
       "id": "enemy_3tap",
       "guns": [
-        { "anim" : "bullet-3-enemy", "angle" : 180, "rpm" : 30, "speed": 100, "bounces": 0, "damage": 1 },
-        { "anim" : "bullet-3-enemy", "angle" : 180, "rpm" : 29, "speed": 100, "bounces": 0, "damage": 1 },
-        { "anim" : "bullet-3-enemy", "angle" : 180, "rpm" : 28, "speed": 100, "bounces": 0, "damage": 1 }
+        { "anim" : "bullet-3-enemy", "angle" : 0, "rpm" : 30, "speed": 100, "bounces": 0, "damage": 1 },
+        { "anim" : "bullet-3-enemy", "angle" : 0, "rpm" : 29, "speed": 100, "bounces": 0, "damage": 1 },
+        { "anim" : "bullet-3-enemy", "angle" : 0, "rpm" : 28, "speed": 100, "bounces": 0, "damage": 1 }
       ]
     }
   ]

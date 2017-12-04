@@ -9,6 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.physics.Frozen;
 import net.mostlyoriginal.api.component.physics.Physics;
@@ -63,7 +64,18 @@ public class FlightPatternControlSystem extends FluidIteratingSystem {
             case EXPLODE:
                 explode(e, step);
                 break;
+            case FACE_PLAYER:
+                facePlayer(e, step);
+                break;
         }
+    }
+
+    private void facePlayer(E e, FlightPatternStep step) {
+
+        Pos turretPos = e.getPos();
+        Pos playerPos = entityWithTag("player").getPos();
+        float angle = v2.set(playerPos.getX(), playerPos.getY()).sub(turretPos.getX(), turretPos.getY()).angle();
+        e.angleRotation(90 + angle);
     }
 
     private void hide(E e, FlightPatternStep step, float offsetX) {
