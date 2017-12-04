@@ -48,7 +48,7 @@ public class SpoutSystem extends FluidIteratingSystem {
 
                 // rotate to parent orientation.
                 if ( e.hasAttached() ) {
-                    if ( e.attachedParent() != 0 )
+                    if ( e.attachedParent() > 0 )
                     {
                         E parent = E.E(e.attachedParent());
                         if ( parent != null ) {

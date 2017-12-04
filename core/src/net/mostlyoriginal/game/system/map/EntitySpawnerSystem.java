@@ -42,6 +42,11 @@ public class EntitySpawnerSystem extends BaseSystem {
             case "player":
                 assemblePlayer(x, y, shipDataSystem.get("player"));
                 break;
+            case "cable":
+                if ( properties.containsKey("glow")) {
+                    spawnGlow(x,y,(String) properties.get("glow") );
+                }
+                return false;
             case "exit":
                 assembleExit(x, y);
                 break;
@@ -89,6 +94,16 @@ public class EntitySpawnerSystem extends BaseSystem {
             //throw new RuntimeException("No idea how to spawn entity of type " + entity);
         }
         return true;
+    }
+
+    private void spawnGlow(float x, float y, String glow) {
+        E()
+                .pos(x,y)
+                .bounds(0,0,16,16)
+                .glowAnim(glow)
+                .glowExtendPixels(0)
+                .glowMinIntensity(0)
+                .glowPulseSpeed(2f);
     }
 
     private void assembleSandSprinkler(float x, float y) {

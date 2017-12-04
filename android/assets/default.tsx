@@ -580,6 +580,7 @@
    <property name="cable-state" type="bool" value="true"/>
    <property name="cable-type" type="int" value="17"/>
    <property name="entity" value="cable"/>
+   <property name="glow" value="barrier-glow-left"/>
    <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
@@ -588,6 +589,7 @@
    <property name="cable-state" type="bool" value="true"/>
    <property name="cable-type" type="int" value="18"/>
    <property name="entity" value="cable"/>
+   <property name="glow" value="barrier-glow-middle"/>
    <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
@@ -596,6 +598,7 @@
    <property name="cable-state" type="bool" value="true"/>
    <property name="cable-type" type="int" value="19"/>
    <property name="entity" value="cable"/>
+   <property name="glow" value="barrier-glow-right"/>
    <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
