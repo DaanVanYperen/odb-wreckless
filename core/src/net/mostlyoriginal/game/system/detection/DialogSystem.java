@@ -42,6 +42,7 @@ public class DialogSystem extends FluidIteratingSystem {
     private E background2;
 
     ShipControlSystem shipControlSystem;
+    private E camera;
 
     public DialogSystem() {
         super(Aspect.all(Pos.class, Dialog.class));
@@ -51,6 +52,7 @@ public class DialogSystem extends FluidIteratingSystem {
     protected void begin() {
         super.begin();
         player = entityWithTag("player");
+        camera = entityWithTag("camera");
 
 
         if (activeDialog != null) {
@@ -106,7 +108,9 @@ public class DialogSystem extends FluidIteratingSystem {
 
     @Override
     protected void process(E e) {
-        if (overlaps(e, player)) {
+        boolean triggerOnCamera = "camera".equals(e.getDialog().data.trigger);
+
+        if ((triggerOnCamera ? cameraSystem.camera.position.y > e.posY() : overlaps(e, player))) {
             if (!e.getDialog().data.triggered) {
                 player.shieldHp(player.shieldMaxHp()); // help player on dialog.
                 e.getDialog().data.triggered = true;

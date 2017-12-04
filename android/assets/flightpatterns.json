@@ -67,7 +67,7 @@
         { "step" : "FACE_PLAYER", "seconds": 2.0 },
         { "step" : "FLY", "angle" : 270, "facing" : 180, "seconds" : 2.0 },
         { "step" : "FLY", "angle" : 90, "facing" : 180, "seconds" : 2.0 },
-        { "step" : "SPIN", "seconds": 2.0 },
+        { "step" : "SPIN", "seconds": 4.0 },
         { "step" : "FLY", "angle" : 90, "facing" : 180, "seconds" : 2.0 },
         { "step" : "FLY", "angle" : 270, "facing" : 180, "seconds" : 4.0 }
       ]

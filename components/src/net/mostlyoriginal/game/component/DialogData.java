@@ -13,6 +13,7 @@ public class DialogData implements Serializable {
     public LineData[] lines;
     public boolean triggered = false;
     public boolean scrolling = true;
+    public String trigger;
 
     public DialogData() {
     }
