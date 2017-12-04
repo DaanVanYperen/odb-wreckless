@@ -85,7 +85,6 @@ public class ParticleSystem extends FluidIteratingSystem {
 
     public void bullet(float x, float y, float angle, int force, float x2, float y2, int team, int bounce, GunData gunData) {
         bakery
-                .color(COLOR_LASER)
                 .at(x, y)
                 .emitterVelocity(x2,y2)
                 .angle(angle, angle)
