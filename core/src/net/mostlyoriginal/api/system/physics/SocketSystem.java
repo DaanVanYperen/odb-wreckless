@@ -54,15 +54,8 @@ public class SocketSystem extends FluidIteratingSystem {
             if (socket.hasSlumbering()) {
                 animSystem.forceAnim(socket, "robot-wake-up");
                 socket.removeSlumbering();
-                dialogSystem.playerSay(DialogSystem.Dialog.HAPPY, 2f,3f).robotSay(DialogSystem.Dialog.HAPPY, 1f,2f);
             } else {
                 animSystem.forceAnim(socket, "robot-close-battery");
-                if (MathUtils.random(1,100) < 25) {
-                    dialogSystem.robotSay(DialogSystem.Dialog.HEART, 1.5f,3f);
-                }
-                if (MathUtils.random(1,100) < 25) {
-                    dialogSystem.playerSay(DialogSystem.Dialog.HAPPY, 0.1f,3f);
-                }
             }
         } else {
             socket.socketEntityId(battery.socketedInsideEntityId(socket.id()).invisible().id());

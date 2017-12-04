@@ -9,10 +9,7 @@ import net.mostlyoriginal.api.system.physics.SocketSystem;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.system.detection.PickupSystem;
 import net.mostlyoriginal.game.system.detection.SpoutSystem;
-import net.mostlyoriginal.game.system.view.ArsenalDataSystem;
-import net.mostlyoriginal.game.system.view.FlightPatternDataSystem;
-import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
-import net.mostlyoriginal.game.system.view.ShipDataSystem;
+import net.mostlyoriginal.game.system.view.*;
 
 import static com.artemis.E.E;
 import static net.mostlyoriginal.game.component.G.*;
@@ -30,6 +27,7 @@ public class EntitySpawnerSystem extends BaseSystem {
     private ArsenalDataSystem arsenalDataSystem;
     private FlightPatternDataSystem flightPatternDataSystem;
     private PickupSystem pickupSystem;
+    private DialogDataSystem dialogDataSystem;
 
     @Override
     protected void processSystem() {
@@ -76,6 +74,9 @@ public class EntitySpawnerSystem extends BaseSystem {
             case "powerup":
                 assemblePowerup(x,y);
                 return true;
+            case "dialog":
+                assembleDialog(x,y, (String) properties.get("dialog"));
+                return true;
             case "spout":
                 assembleSpout(x, y, (Integer) properties.get("angle"), "ACID");
                 return false;
@@ -107,6 +108,15 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .anim("pickup")
                 .pickup()
                 .renderLayer(990);
+    }
+    private void assembleDialog(float x, float y, String dialog) {
+        DialogData data = dialogDataSystem.get(dialog);
+        if ( data == null) data =dialogDataSystem.get("missing");
+        E().pos(x, y)
+                .bounds(0,0,64,64)
+                .dialogData(data);
+        //.anim("player-idle")
+        //.renderLayer(9999);
     }
 
     private void spawnGlow(float x, float y, String glow) {

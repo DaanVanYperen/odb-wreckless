@@ -101,9 +101,6 @@ public class DeathSystem extends FluidIteratingSystem {
                     assetSystem.stopMusic();
                     assetSystem.playSfx("deathsound");
                     assetSystem.playSfx("death_jingle");
-                    if (!e.isRobot()) {
-                        dialogSystem.robotSay(DialogSystem.Dialog.SAD, 0.5f, 5f);
-                    }
                 } else {
                     assetSystem.playSfx("gremlin_death");
                 }
@@ -137,7 +134,9 @@ public class DeathSystem extends FluidIteratingSystem {
         }
 
         if (victim.hasPlayer()) {
-            particleSystem.explosion(cause.posX() + cause.boundsCx(), cause.posY() +cause.boundsCy() );
+            if ( cause != null ){
+                particleSystem.explosion(cause.posX() + cause.boundsCx(), cause.posY() + cause.boundsCy());
+            }
             cameraShakeSystem.shake(damage/4 + 1);
         }
 

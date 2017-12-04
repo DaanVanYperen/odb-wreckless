@@ -38,7 +38,6 @@ public class ExitSystem extends FluidIteratingSystem {
             if (robot.chargeCharge() < G.BARS_NEEDED_FOR_BREAKING_DOOR && e.exitCooldown() >= 2.9f) {
                 if ( !robot.hasNeedsBatteries() ) {
                     robot.needsBatteries();
-                    dialogSystem.robotSay(DialogSystem.Dialog.BATTERY, 0.5f,5f);
                 }
             } else {
                 robot.removeNeedsBatteries();
@@ -68,9 +67,6 @@ public class ExitSystem extends FluidIteratingSystem {
             doExit(e);
         }
 
-        if (!e.exitOpen() && overlaps(player, e) && !overlaps(robot, e) && !robot.hasSlumbering()) {
-            dialogSystem.playerSay(DialogSystem.Dialog.E, 0f, 1f);
-        }
     }
 
     private void doExit(E e) {

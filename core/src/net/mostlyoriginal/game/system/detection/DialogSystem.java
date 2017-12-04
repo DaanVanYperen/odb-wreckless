@@ -2,77 +2,137 @@ package net.mostlyoriginal.game.system.detection;
 
 import com.artemis.Aspect;
 import com.artemis.E;
-import net.mostlyoriginal.api.component.graphics.Invisible;
-import net.mostlyoriginal.api.operation.OperationFactory;
-import net.mostlyoriginal.game.component.Dialog;
-import net.mostlyoriginal.game.component.G;
-import net.mostlyoriginal.game.component.Wave;
+import com.artemis.Entity;
+import com.artemis.managers.GroupManager;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import net.mostlyoriginal.api.component.basic.Pos;
+import net.mostlyoriginal.api.component.ui.Label;
+import net.mostlyoriginal.api.system.camera.CameraSystem;
+import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
-import net.mostlyoriginal.game.system.render.MyAnimRenderSystem;
-
-import static net.mostlyoriginal.api.operation.OperationFactory.*;
+import net.mostlyoriginal.game.system.map.EntitySpawnerSystem;
 
 /**
  * @author Daan van Yperen
  */
 public class DialogSystem extends FluidIteratingSystem {
 
-    private MyAnimRenderSystem animSystem;
+    public static final int DIALOG_PADDING_X = 16;
+    public static final int DIALOG_PADDING_Y = 16;
+    private E player;
+    private EntitySpawnerSystem entitySpawnerSystem;
+    private GroupManager groupManager;
+
+    private DialogData activeDialog;
+    private int activeLine = 0;
+    private E dialog;
+    private E portrait;
+    private CameraSystem cameraSystem;
+    private E pressSpace;
+    private String align;
+
 
     public DialogSystem() {
-        super(Aspect.all(net.mostlyoriginal.game.component.Dialog.class));
+        super(Aspect.all(Pos.class, Dialog.class));
     }
 
-    public DialogSystem playerSay(Dialog dialog, float delay, float duration) {
-        say(entityWithTag("player"), "playerDialog", "cloud-" + dialog.toString().toLowerCase(), delay, duration);
-        return this;
+    @Override
+    protected void begin() {
+        super.begin();
+        player = entityWithTag("player");
+
+
+        if (activeDialog != null) {
+            world.delta=0;
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+                activeLine++;
+                hideActiveLines();
+                if (activeLine >= activeDialog.lines.length) {
+                    activeDialog = null;
+                    dialog = portrait = pressSpace= null;
+                } else {
+                    renderActiveLine();
+                }
+            }
+        }
     }
 
-    public DialogSystem robotSay(Dialog dialog, float delay, float duration) {
-        E e = entityWithTag("robot");
-        say(e, "robotDialog", "cloud-" + dialog.toString().toLowerCase(), delay, duration);
-        return this;
+    @Override
+    protected void end() {
+        super.end();
+        if (activeDialog != null) {
+            if ( "right".equals(align)) {
+                portrait.posX(cameraSystem.camera.position.x + G.SCREEN_WIDTH / 2 - DIALOG_PADDING_X - 64);
+                portrait.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y);
+                dialog.posX(cameraSystem.camera.position.x + G.SCREEN_WIDTH / 2 - DIALOG_PADDING_X - 64 - 8);
+                dialog.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y + 32);
+                pressSpace.posX(cameraSystem.camera.position.x + G.SCREEN_WIDTH / 2 - DIALOG_PADDING_X - 64 - 8);
+                pressSpace.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y + 8);
+            } else {
+                portrait.posX(cameraSystem.camera.position.x - G.SCREEN_WIDTH / 2 + DIALOG_PADDING_X);
+                portrait.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y);
+                dialog.posX(cameraSystem.camera.position.x - G.SCREEN_WIDTH / 2 + DIALOG_PADDING_X + 64 + 8);
+                dialog.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y + 32);
+                pressSpace.posX(cameraSystem.camera.position.x - G.SCREEN_WIDTH / 2 + DIALOG_PADDING_X + 64 + 8);
+                pressSpace.posY(cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2 + DIALOG_PADDING_Y + 8);
+            }
+        }
     }
 
-    private void say(E e, String tag, String animId, float delay, float duration) {
-//        return;
-//
-//        E dialog = entityWithTag(tag);
-//        if (dialog != null && dialog.animId().equals(animId)) return; // don't repeat.
-//        if (dialog != null) dialog.deleteFromWorld();
-//
-//        dialog = E.E().pos(e.posX() + e.boundsCx() - 8, e.posY() + e.boundsMaxy() + 6)
-//                .dialogEntityId(e.id())
-//                .tag(tag)
-//                .bounds(0, 0, 16, 16)
-//                .render(G.LAYER_DIALOGS)
-//                .anim(animId);
-//
-//        if (delay > 0) {
-//            dialog.invisible().script(sequence(delay(delay), remove(Invisible.class), add(Wave.class), delay(duration), deleteFromWorld()));
-//        } else {
-//            dialog.script(sequence(delay(duration), deleteFromWorld()));
-//        }
+    private void renderActiveLine() {
+        LineData line = activeDialog.lines[activeLine];
+        align = line.align;
+        renderLine(0, line.text, line.portrait, "right".equals(line.align));
+    }
+
+    private void hideActiveLines() {
+        for (Entity dialog : groupManager.getEntities("dialog")) {
+            dialog.deleteFromWorld();
+        }
     }
 
     @Override
     protected void process(E e) {
-        if (entityWithTag("player") == null || entityWithTag("robot") == null)
-            return;
-        E follow = E.E(e.dialogEntityId());
-
-        if (e.hasWave() && follow.isRobot()) {
-            e.removeWave();
-            if (e.animId().equals("cloud-happy")) {
-                animSystem.forceAnim(follow, "robot-wave");
+        if (overlaps(e, player)) {
+            if (!e.getDialog().data.triggered) {
+                e.getDialog().data.triggered = true;
+                activeDialog = e.getDialog().data;
+                activeLine=0;
+                renderActiveLine();
             }
+            e.deleteFromWorld();
         }
-
-        e.posX(follow.posX() + follow.boundsCx() - 8);
-        e.posY(follow.posY() + follow.boundsMaxy() + 6);
     }
 
-    public enum Dialog {
-        HEART, HAPPY, BATTERY, E, QUESTION, S76, FLOWER, COME, SAD
+    private void renderLine(int offsetY, String text, String portrait, boolean right) {
+        int id = entityWithTag("camera").id();
+        E dialog = E.E()
+                .labelText(text)
+                .group("dialog")
+                .fontFontName("5x5")
+                .fontScale(3)
+                .pos()
+                .renderLayer(2000);
+        this.dialog = dialog;
+        pressSpace = E.E()
+                .labelText("press space")
+                .group("dialog")
+                .fontFontName("5x5")
+                .fontScale(3)
+                .tint(0f,0f,1f,1f)
+                .pos()
+                .renderLayer(2000);
+        this.portrait = E.E()
+                .anim(portrait)
+                .group("dialog")
+                .pos()
+                .renderLayer(2000);
+
+        if ( right ) {
+            dialog.labelAlign(Label.Align.RIGHT);
+            pressSpace.labelAlign(Label.Align.RIGHT);
+        }
+
     }
 }

@@ -45,6 +45,7 @@ public class ShipControlSystem extends FluidIteratingSystem {
 
     @Override
     protected void process(E e) {
+        if ( world.delta == 0 ) return;
 
 
         String playerAnimPrefix = "player-";

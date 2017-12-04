@@ -6,13 +6,16 @@ import com.artemis.WorldConfigurationBuilder;
 import com.artemis.link.EntityLinkManager;
 import com.artemis.managers.GroupManager;
 import com.artemis.managers.TagManager;
+import com.badlogic.gdx.assets.loaders.BitmapFontLoader;
 import com.badlogic.gdx.graphics.Color;
+import net.mostlyoriginal.api.manager.FontManager;
 import net.mostlyoriginal.api.screen.core.WorldScreen;
 import net.mostlyoriginal.api.system.camera.CameraShakeSystem;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.system.graphics.RenderBatchingSystem;
 import net.mostlyoriginal.api.system.physics.*;
 import net.mostlyoriginal.api.system.render.ClearScreenSystem;
+import net.mostlyoriginal.api.system.render.LabelRenderSystem;
 import net.mostlyoriginal.game.GdxArtemisGame;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.system.*;
@@ -46,12 +49,15 @@ public class GameScreen extends WorldScreen {
                         new MapSystem(),
                         new ParticleSystem(),
                         new PowerSystem(),
+                        new DialogSystem(),
 
                         new GameScreenAssetSystem(),
                         new ArsenalDataSystem(),
                         new ShipDataSystem(),
+                        new DialogDataSystem(),
                         new FlightPatternDataSystem(),
                         new GameScreenSetupSystem(),
+                        new FontManager(),
 
                         // sensors.
                         new WallSensorSystem(),
@@ -99,12 +105,12 @@ public class GameScreen extends WorldScreen {
                         renderBatchingSystem = new RenderBatchingSystem(),
                         new MyAnimRenderSystem(renderBatchingSystem),
                         new BoundingBoxRenderSystem(renderBatchingSystem),
+                        new MyLabelRenderSystem(renderBatchingSystem),
                         new AdditiveRenderSystem(),
                         new MapRenderInFrontSystem(),
                         new TerminalSystem(),
                         new ExitSystem(),
                         new DeathSystem(),
-                        new DialogSystem(),
                         new TransitionSystem(GdxArtemisGame.getInstance())
                 ).build());
     }
