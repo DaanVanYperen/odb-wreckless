@@ -207,6 +207,21 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .shipControlled()
                 .shieldHp(shipData.hp);
 
+        E().anim("thruster")
+                .pos(x,y)
+                .attachedXo(14)
+                .attachedYo(-18)
+                .attachedParent(playerShip.id())
+                .renderLayer(G.LAYER_PLAYER-1);
+
+        E().anim("thruster")
+                .pos(x,y)
+                .attachedXo(26)
+                .attachedYo(-18)
+                .attachedParent(playerShip.id())
+                .renderLayer(G.LAYER_PLAYER-1);
+
+
         gameScreenAssetSystem.boundToAnim(playerShip.id(), gracepaddingX, gracepaddingY);
 
         pickupSystem.upgradeGuns(playerShip);
