@@ -63,15 +63,15 @@ public class ShipControlSystem extends FluidIteratingSystem {
 
         e.animLoop(true);
         if (!e.hasDead()) {
-            if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-                if (Gdx.input.isKeyJustPressed(Input.Keys.A)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.A)||Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                if (Gdx.input.isKeyJustPressed(Input.Keys.A)||Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
                     e.animAge(0);
                 }
                 dx = -MOVEMENT_FACTOR;
                 e.animId("player-left");
                 e.animLoop(false);
-            } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-                if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
+            } else if (Gdx.input.isKeyPressed(Input.Keys.D)||Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+                if (Gdx.input.isKeyJustPressed(Input.Keys.D)||Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
                     e.animAge(0);
                 }
                 dx = MOVEMENT_FACTOR;
@@ -79,9 +79,9 @@ public class ShipControlSystem extends FluidIteratingSystem {
                 e.animLoop(false);
             } else clampX(e, dx); // hit the breaks.
 
-            if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.W)||Gdx.input.isKeyPressed(Input.Keys.UP)) {
                 dy = MOVEMENT_FACTOR;
-            } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+            } else if (Gdx.input.isKeyPressed(Input.Keys.S)||Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
                 dy = -MOVEMENT_FACTOR;
             } else {
                 clampY(e, dy); // hit the breaks.
