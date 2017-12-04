@@ -626,5 +626,29 @@
       "width": 64,
       "height": 64
     },
+    {
+      "id": "thruster",
+      "comment": "Playership thruster.",
+      "x": 371,
+      "y": 860,
+      "countX": 5,
+      "countY": 1,
+      "milliseconds": 70,
+	  "repeat": true,	  
+      "width": 6,
+      "height": 18
+    },
+    {
+      "id": "thruster-enemy",
+      "comment": "Enemy thruster.",
+      "x": 401
+      "y": 860,
+      "countX": 5,
+      "countY": 1,
+      "milliseconds": 70,
+	  "repeat": true,	  
+      "width": 6,
+      "height": 18
+    },
   ]
 }
