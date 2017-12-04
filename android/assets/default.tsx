@@ -665,6 +665,16 @@
    <property name="entity" value="turret1"/>
   </properties>
  </tile>
+ <tile id="455">
+  <properties>
+   <property name="entity" value="biosphere"/>
+  </properties>
+ </tile>
+ <tile id="456">
+  <properties>
+   <property name="entity" value="powerup"/>
+  </properties>
+ </tile>
  <tile id="513">
   <properties>
    <property name="entity" value="robot"/>

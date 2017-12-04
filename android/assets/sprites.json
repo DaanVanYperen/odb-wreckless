@@ -607,7 +607,7 @@
       "height": 16
     },
     {
-      "id": "biosphere",
+      "id": "biosphere-1",
       "comment": "Biosphere.",
       "x": 352,
       "y": 192,
@@ -617,7 +617,7 @@
       "height": 64
     },
     {
-      "id": "biosphere-destroyed",
+      "id": "biosphere-1-destroyed",
       "comment": "Destroyed biosphere.",
       "x": 416,
       "y": 192,
