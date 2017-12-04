@@ -59,6 +59,7 @@
       "shieldAnim": "turret-shield-1",
       "hp": 30,
       "arsenal": "enemy_3tap",
+      "originY": 0.9,
       "flight": "stationary_face_player"
     }
   ],
