@@ -99,6 +99,8 @@ public class ShipControlSystem extends FluidIteratingSystem {
         }
 
         e.posY(e.posY() + G.CAMERA_SCROLL_SPEED * world.delta);
+
+        entityWithTag("camera").posX(e.posX());
     }
 
     private void fireGuns(E e) {

@@ -172,10 +172,10 @@ public class EntitySpawnerSystem extends BaseSystem {
         addArsenal(playerShip, "player-guns", G.TEAM_PLAYERS, 0, shipData.arsenal, false);
         addArsenal(playerShip, "player-guns", G.TEAM_PLAYERS, 0, "bouncegun", false);
 
-        spawnCamera(x, y);
+        spawnCamera(playerShip, x, y);
     }
 
-    private void spawnCamera(float x, float y) {
+    private void spawnCamera(E playerShip, float x, float y) {
         E()
                 .pos(x, y)
                 .cameraFocus()
@@ -183,6 +183,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .physicsVy(G.CAMERA_SCROLL_SPEED)
                 .ethereal(true)
                 .physicsFriction(0);
+
     }
     private void addArsenal(E ship, String group, int team, int shipFacingAngle, String arsenal, boolean frozen) {
         ArsenalData data = arsenalDataSystem.get(arsenal);
