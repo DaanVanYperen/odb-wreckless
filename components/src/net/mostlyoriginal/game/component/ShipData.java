@@ -15,6 +15,7 @@ public class ShipData implements Serializable {
     public String corpseAnim;
     public String arsenal;
     public String flight;
+    public int layerOffset = 0;
     public float originX = 0.5f;
     public float originY = 0.5f;
     public int hp=1;

@@ -63,6 +63,7 @@
     },
     {
       "id": "biosphere",
+      "layerOffset": -10,
       "comment": "Biosphere.",
       "anim": "biosphere-1",
       "corpseAnim": "biosphere-1-destroyed",

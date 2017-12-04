@@ -345,7 +345,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .deadly()
                 .flightPatternData(flightPatternDataSystem.get(shipData.flight))
                 .teamTeam(TEAM_ENEMIES)
-                .render(G.LAYER_GREMLIN)
+                .render(G.LAYER_GREMLIN + shipData.layerOffset)
                 .shieldHp(shipData.hp)
                 .origin(shipData.originX, shipData.originY)
                 .flying()
