@@ -12,6 +12,7 @@ public class ShipData implements Serializable {
     public String comment; // not used.
     public String anim;
     public String shieldAnim;
+    public String corpseAnim;
     public String arsenal;
     public String flight;
     public float originX = 0.5f;

@@ -61,6 +61,15 @@
       "arsenal": "enemy_3tap",
       "originY": 0.9,
       "flight": "stationary_face_player"
+    },
+    {
+      "id": "biosphere",
+      "comment": "Biosphere.",
+      "anim": "biosphere-1",
+      "corpseAnim": "biosphere-1-destroyed",
+      "hp": 1,
+      "originX": 0.5,
+      "originY": 0.5
     }
-  ],
+  ]
 }

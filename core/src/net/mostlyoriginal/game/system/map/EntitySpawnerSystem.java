@@ -43,8 +43,8 @@ public class EntitySpawnerSystem extends BaseSystem {
                 assemblePlayer(x, y, shipDataSystem.get("player"));
                 break;
             case "cable":
-                if ( properties.containsKey("glow")) {
-                    spawnGlow(x,y,(String) properties.get("glow") );
+                if (properties.containsKey("glow")) {
+                    spawnGlow(x, y, (String) properties.get("glow"));
                 }
                 return false;
             case "exit":
@@ -98,8 +98,8 @@ public class EntitySpawnerSystem extends BaseSystem {
 
     private void spawnGlow(float x, float y, String glow) {
         E()
-                .pos(x,y)
-                .bounds(0,0,16,16)
+                .pos(x, y)
+                .bounds(0, 0, 16, 16)
                 .glowAnim(glow)
                 .glowExtendPixels(0)
                 .glowMinIntensity(0)
@@ -201,11 +201,14 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .physicsFriction(0);
 
     }
+
     private void addArsenal(E ship, String group, int team, int shipFacingAngle, String arsenal, boolean frozen) {
-        ArsenalData data = arsenalDataSystem.get(arsenal);
-        if (data.guns != null) {
-            for (GunData gun : data.guns) {
-                addGun(ship, gun, group, team, shipFacingAngle, frozen);
+        if (arsenal != null) {
+            ArsenalData data = arsenalDataSystem.get(arsenal);
+            if (data.guns != null) {
+                for (GunData gun : data.guns) {
+                    addGun(ship, gun, group, team, shipFacingAngle, frozen);
+                }
             }
         }
     }

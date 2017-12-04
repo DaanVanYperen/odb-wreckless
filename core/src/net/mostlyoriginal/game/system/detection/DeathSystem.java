@@ -81,6 +81,12 @@ public class DeathSystem extends FluidIteratingSystem {
             if (!e.hasInvisible()) {
                 particleSystem.explosion(e.posX() + e.boundsCx(), e.posY() + e.boundsCy());
 
+                if ( e.hasShip() && e.shipData() != null && e.shipData().corpseAnim != null ) {
+                    particleSystem.explosion(e.posX() + e.boundsCx() + MathUtils.random(-20f,20f), e.posY() + e.boundsCy() + MathUtils.random(-20f,20f));
+                    particleSystem.explosion(e.posX() + e.boundsCx() + MathUtils.random(-20f,20f), e.posY() + e.boundsCy() + MathUtils.random(-20f,20f));
+                    particleSystem.explosion(e.posX() + e.boundsCx() + MathUtils.random(-20f,20f), e.posY() + e.boundsCy() + MathUtils.random(-20f,20f));
+                    E.E().posX(e.posX()).posY(e.posY()).anim(e.shipData().corpseAnim).renderLayer(e.renderLayer());
+                }
 
                 if (e.hasSocket()) {
                     e.socketEntityId(0);
@@ -107,7 +113,9 @@ public class DeathSystem extends FluidIteratingSystem {
                 if (e.isShipControlled()) {
                     doExit();
                     e.removeDead().removeMortal();
-                } else e.deleteFromWorld();
+                } else {
+                    e.deleteFromWorld();
+                }
             }
 
         }

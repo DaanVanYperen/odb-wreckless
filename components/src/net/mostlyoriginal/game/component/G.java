@@ -6,7 +6,7 @@ package net.mostlyoriginal.game.component;
 public class G {
     public static final float ROBOT_HOVER_ABOVE_PLAYER_HEIGHT = 8;
     public static final float BARS_NEEDED_FOR_BREAKING_DOOR = 3;
-    public static final int LAYER_PARTICLES = 800;
+    public static final int LAYER_PARTICLES = 1200;
     public static final int LAYER_GREMLIN = 998;
     public static final int TEAM_PLAYERS = 2;
     public static final int TEAM_ENEMIES = 0;
