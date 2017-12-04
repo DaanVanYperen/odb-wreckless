@@ -51,7 +51,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
                         "Detect_1",
                         "Laser_shoot_1",
                         "pew",
-                        "woosh_1"
+                        "woosh_1",
                 }
         );
 

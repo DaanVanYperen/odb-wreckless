@@ -34,6 +34,7 @@ public class PickupSystem extends FluidIteratingSystem {
     private E player;
     private EntitySpawnerSystem entitySpawnerSystem;
     private GroupManager groupManager;
+    private GameScreenAssetSystem gameScreenAssetSystem;
 
     public PickupSystem() {
         super(Aspect.all(Pos.class, Pickup.class).exclude(Frozen.class));
@@ -102,6 +103,7 @@ public class PickupSystem extends FluidIteratingSystem {
             default: return;
         }
 
+        gameScreenAssetSystem.playSfx("Misc_2");
         killOldGuns();
         entitySpawnerSystem.addArsenal(playerShip, "player-guns", G.TEAM_PLAYERS, 0, mainGun, false);
         entitySpawnerSystem.addArsenal(playerShip, "player-guns", G.TEAM_PLAYERS, 0, bounceGun, false);
