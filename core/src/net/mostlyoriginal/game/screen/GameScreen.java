@@ -81,6 +81,7 @@ public class GameScreen extends WorldScreen {
                         new FootstepSystem(),
                         new CarriedSystem(),
                         new SocketSystem(),
+                        new PickupSystem(),
 
                         // Camera.
                         new CameraFollowSystem(),

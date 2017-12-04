@@ -71,6 +71,9 @@ public class EntitySpawnerSystem extends BaseSystem {
                     assembleBird(x + MathUtils.random(G.CELL_SIZE), y + MathUtils.random(G.CELL_SIZE));
                 }
                 return true;
+            case "powerup":
+                assemblePowerup(x,y);
+                return true;
             case "spout":
                 assembleSpout(x, y, (Integer) properties.get("angle"), "ACID");
                 return false;
@@ -94,6 +97,14 @@ public class EntitySpawnerSystem extends BaseSystem {
             //throw new RuntimeException("No idea how to spawn entity of type " + entity);
         }
         return true;
+    }
+
+    private void assemblePowerup(float x, float y) {
+        E().pos(x+8-14, y+8-16)
+                .bounds(0,0,28,16)
+                .anim("pickup")
+                .pickup()
+                .renderLayer(990);
     }
 
     private void spawnGlow(float x, float y, String glow) {
