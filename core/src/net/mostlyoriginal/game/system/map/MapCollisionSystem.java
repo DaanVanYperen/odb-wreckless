@@ -114,8 +114,10 @@ public class MapCollisionSystem extends FluidIteratingSystem {
 
             if (bounce > 0) {
                 alterBulletTeamAndColor(e);
-            } else if (hitWall && e.isDeadly()) {
-                e.deleteFromWorld();
+            } else if (hitWall && e.isDiesFromWalls()) {
+                if (e.hasMortal()) {
+                    e.dead();
+                } else e.deleteFromWorld();
             }
 
         }

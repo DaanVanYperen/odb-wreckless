@@ -14,6 +14,8 @@ public class ShipData implements Serializable {
     public String shieldAnim;
     public String arsenal;
     public String flight;
+    public float originX = 0.5f;
+    public float originY = 0.5f;
     public int hp=1;
 
     public ShipData() {

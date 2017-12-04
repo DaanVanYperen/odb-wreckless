@@ -78,7 +78,7 @@ public class SocketSystem extends FluidIteratingSystem {
         }
     }
 
-    private void power(E socket, boolean enable) {
+    public void power(E socket, boolean enable) {
         powerSystem.powerMapCoordsAround((int) (socket.posX() / G.CELL_SIZE + 0.5f), (int) (socket.posY() / G.CELL_SIZE + 0.5f), enable);
     }
 

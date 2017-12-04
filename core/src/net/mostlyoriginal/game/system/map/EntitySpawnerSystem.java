@@ -5,6 +5,7 @@ import com.artemis.E;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import net.mostlyoriginal.api.system.physics.SocketSystem;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.system.detection.SpoutSystem;
 import net.mostlyoriginal.game.system.view.ArsenalDataSystem;
@@ -20,8 +21,8 @@ import static net.mostlyoriginal.game.component.G.*;
  */
 public class EntitySpawnerSystem extends BaseSystem {
 
-    //private SocketSystem socketSystem;
-    //private PowerSystem powerSystem;
+    private SocketSystem socketSystem;
+    private PowerSystem powerSystem;
     private SpoutSystem spoutSystem;
     private GameScreenAssetSystem gameScreenAssetSystem;
     private ShipDataSystem shipDataSystem;
@@ -51,12 +52,12 @@ public class EntitySpawnerSystem extends BaseSystem {
                 E robot = assembleRobot(x, y);
                 robot.chargeCharge(3).flying(true);
                 break;
-//            case "battery":
-//                assembleBattery(x, y, "battery");
-//                break;
-//            case "battery2":
-//                assembleBattery(x, y, "battery2");
-//                break;
+            case "battery":
+                assembleBattery(x, y, "battery");
+                break;
+            case "battery2":
+                assembleBattery(x, y, "battery2");
+                break;
 //            case "gremlin":
 //                spoutSystem.spawnGremlin(0,x,y);
 //                return true;
@@ -73,7 +74,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                         .spoutSprayInterval(0.5f).spoutSprayDuration(1);
                 return false;
             case "socket":
-                //assembleBatterySlot(x, y, (Boolean) properties.get("powered"), (String) properties.get("accept"));
+                assembleBatterySlot(x, y, (Boolean) properties.get("powered"), (String) properties.get("accept"));
                 break;
             case "sandsprinkler":
                 assembleSandSprinkler(x, y - 1);
@@ -128,6 +129,8 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .pos(x, y)
                 .socketAnimSocketed("socket_on_" + batteryType)
                 .socketAnimEmpty("socket_off_" + batteryType)
+                .shieldHp(10)
+                .mortal(true)
                 .type(batteryType)
                 .render(G.LAYER_PLAYER - 1)
                 .bounds(0, 0, G.CELL_SIZE, G.CELL_SIZE);
@@ -135,15 +138,13 @@ public class EntitySpawnerSystem extends BaseSystem {
         if (b) {
             spawnBatteryInSocket(batteryType, socket);
         } else {
-            //powerSystem.powerMapCoordsAround((int) (x / G.CELL_SIZE + 0.5f), (int) (y / G.CELL_SIZE + 0.5f), false);
+            powerSystem.powerMapCoordsAround((int) (x / G.CELL_SIZE + 0.5f), (int) (y / G.CELL_SIZE + 0.5f), false);
         }
-
-
     }
 
     public void spawnBatteryInSocket(String batteryType, E socket) {
-        //socketSystem.socket(assembleBattery(socket.posX(), socket.posY(), batteryType), socket);
-        //powerSystem.powerMapCoordsAround((int) (socket.posX() / G.CELL_SIZE + 0.5f), (int) (socket.posY() / G.CELL_SIZE + 0.5f), true);
+        socketSystem.socket(assembleBattery(socket.posX(), socket.posY(), batteryType), socket);
+        powerSystem.powerMapCoordsAround((int) (socket.posX() / G.CELL_SIZE + 0.5f), (int) (socket.posY() / G.CELL_SIZE + 0.5f), true);
     }
 
     Vector2 v2 = new Vector2();
@@ -158,6 +159,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .mortal()
                 //.gravity()
                 .wallSensor()
+                .diesFromWalls(true)
                 .teamTeam(G.TEAM_PLAYERS)
                 .footsteps()
                 .footstepsSfx("footsteps_girl")
@@ -170,10 +172,10 @@ public class EntitySpawnerSystem extends BaseSystem {
         addArsenal(playerShip, "player-guns", G.TEAM_PLAYERS, 0, shipData.arsenal, false);
         addArsenal(playerShip, "player-guns", G.TEAM_PLAYERS, 0, "bouncegun", false);
 
-        spawnCamera(x, y);
+        spawnCamera(playerShip, x, y);
     }
 
-    private void spawnCamera(float x, float y) {
+    private void spawnCamera(E playerShip, float x, float y) {
         E()
                 .pos(x, y)
                 .cameraFocus()
@@ -181,6 +183,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .physicsVy(G.CAMERA_SCROLL_SPEED)
                 .ethereal(true)
                 .physicsFriction(0);
+
     }
     private void addArsenal(E ship, String group, int team, int shipFacingAngle, String arsenal, boolean frozen) {
         ArsenalData data = arsenalDataSystem.get(arsenal);
@@ -193,7 +196,7 @@ public class EntitySpawnerSystem extends BaseSystem {
 
     private void addGun(E e, GunData gunData, String group, int team, int shipFacingAngle, boolean frozen) {
         float angle = gunData.angle + shipFacingAngle + 90;
-        v2.set(20, 0).rotate(angle);
+        v2.set(1, 0).rotate(angle);
         E gun = E()
                 .pos(e.posX(), e.posY())
                 .bounds(0, 0, 5, 5)
@@ -265,7 +268,7 @@ public class EntitySpawnerSystem extends BaseSystem {
     }
 
     private void assembleEnemy(float x, float y, ShipData shipData) {
-        int gracepaddingX = 8;
+        int gracepaddingX = 2;
         int gracepaddingY = 0;
         E enemyShip = E()
                 .pos(x, y)
@@ -280,6 +283,8 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .teamTeam(TEAM_ENEMIES)
                 .render(G.LAYER_GREMLIN)
                 .shieldHp(shipData.hp)
+                .origin(shipData.originX, shipData.originY)
+                .flying()
                 .frozen()
                 .anim(shipData.anim);
 

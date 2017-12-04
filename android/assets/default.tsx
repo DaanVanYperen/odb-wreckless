@@ -292,14 +292,8 @@
  </tile>
  <tile id="144">
   <animation>
-   <frame tileid="144" duration="100"/>
-   <frame tileid="145" duration="100"/>
-   <frame tileid="146" duration="100"/>
-   <frame tileid="147" duration="100"/>
-   <frame tileid="148" duration="100"/>
-   <frame tileid="149" duration="100"/>
-   <frame tileid="150" duration="100"/>
-   <frame tileid="151" duration="100"/>
+   <frame tileid="321" duration="70"/>
+   <frame tileid="353" duration="70"/>
   </animation>
  </tile>
  <tile id="145">
@@ -348,24 +342,289 @@
    <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
+ <tile id="196">
+  <properties>
+   <property name="cable-state" type="bool" value="true"/>
+   <property name="cable-type" type="int" value="1"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="197">
+  <properties>
+   <property name="cable-state" type="bool" value="true"/>
+   <property name="cable-type" type="int" value="2"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="198">
+  <properties>
+   <property name="cable-state" type="bool" value="true"/>
+   <property name="cable-type" type="int" value="3"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="199">
+  <properties>
+   <property name="cable-state" type="bool" value="true"/>
+   <property name="cable-type" type="int" value="4"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="200">
+  <properties>
+   <property name="cable-state" type="bool" value="true"/>
+   <property name="cable-type" type="int" value="5"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="201">
+  <properties>
+   <property name="cable-state" type="bool" value="true"/>
+   <property name="cable-type" type="int" value="6"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="202">
+  <properties>
+   <property name="cable-state" type="bool" value="true"/>
+   <property name="cable-type" type="int" value="7"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="203">
+  <properties>
+   <property name="cable-state" type="bool" value="true"/>
+   <property name="cable-type" type="int" value="8"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="228">
+  <properties>
+   <property name="cable-state" type="bool" value="true"/>
+   <property name="cable-type" type="int" value="9"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
  <tile id="229">
   <properties>
+   <property name="accept" value="battery"/>
+   <property name="entity" value="socket"/>
+   <property name="powered" type="bool" value="true"/>
    <property name="solid" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="230">
+  <properties>
+   <property name="cable-state" type="bool" value="true"/>
+   <property name="cable-type" type="int" value="10"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="231">
+  <properties>
+   <property name="cable-state" type="bool" value="true"/>
+   <property name="cable-type" type="int" value="11"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="232">
+  <properties>
+   <property name="cable-state" type="bool" value="true"/>
+   <property name="cable-type" type="int" value="12"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="233">
+  <properties>
+   <property name="cable-state" type="bool" value="true"/>
+   <property name="cable-type" type="int" value="13"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="234">
+  <properties>
+   <property name="cable-state" type="bool" value="true"/>
+   <property name="cable-type" type="int" value="14"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="235">
+  <properties>
+   <property name="cable-state" type="bool" value="true"/>
+   <property name="cable-type" type="int" value="15"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="260">
+  <properties>
+   <property name="cable-state" type="bool" value="false"/>
+   <property name="cable-type" type="int" value="1"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="261">
+  <properties>
+   <property name="cable-state" type="bool" value="false"/>
+   <property name="cable-type" type="int" value="2"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="262">
+  <properties>
+   <property name="cable-state" type="bool" value="false"/>
+   <property name="cable-type" type="int" value="3"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="263">
+  <properties>
+   <property name="cable-state" type="bool" value="false"/>
+   <property name="cable-type" type="int" value="4"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="264">
+  <properties>
+   <property name="cable-state" type="bool" value="false"/>
+   <property name="cable-type" type="int" value="5"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="265">
+  <properties>
+   <property name="cable-state" type="bool" value="false"/>
+   <property name="cable-type" type="int" value="6"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="266">
+  <properties>
+   <property name="cable-state" type="bool" value="false"/>
+   <property name="cable-type" type="int" value="7"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="267">
+  <properties>
+   <property name="cable-state" type="bool" value="false"/>
+   <property name="cable-type" type="int" value="8"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="292">
+  <properties>
+   <property name="cable-state" type="bool" value="false"/>
+   <property name="cable-type" type="int" value="9"/>
+   <property name="entity" value="cable"/>
   </properties>
  </tile>
  <tile id="293">
   <properties>
-   <property name="solid" type="bool" value="true"/>
+   <property name="accept" value="battery"/>
+   <property name="entity" value="socket"/>
+   <property name="powered" type="bool" value="false"/>
+  </properties>
+ </tile>
+ <tile id="294">
+  <properties>
+   <property name="cable-state" type="bool" value="false"/>
+   <property name="cable-type" type="int" value="10"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="295">
+  <properties>
+   <property name="cable-state" type="bool" value="false"/>
+   <property name="cable-type" type="int" value="11"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="296">
+  <properties>
+   <property name="cable-state" type="bool" value="false"/>
+   <property name="cable-type" type="int" value="12"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="297">
+  <properties>
+   <property name="cable-state" type="bool" value="false"/>
+   <property name="cable-type" type="int" value="13"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="298">
+  <properties>
+   <property name="cable-state" type="bool" value="false"/>
+   <property name="cable-type" type="int" value="14"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="299">
+  <properties>
+   <property name="cable-state" type="bool" value="false"/>
+   <property name="cable-type" type="int" value="15"/>
+   <property name="entity" value="cable"/>
   </properties>
  </tile>
  <tile id="320">
   <properties>
+   <property name="cable-state" type="bool" value="true"/>
+   <property name="cable-type" type="int" value="16"/>
+   <property name="entity" value="cable"/>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="321">
+  <properties>
+   <property name="cable-state" type="bool" value="true"/>
+   <property name="cable-type" type="int" value="17"/>
+   <property name="entity" value="cable"/>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="322">
+  <properties>
+   <property name="cable-state" type="bool" value="true"/>
+   <property name="cable-type" type="int" value="18"/>
+   <property name="entity" value="cable"/>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="323">
+  <properties>
+   <property name="cable-state" type="bool" value="true"/>
+   <property name="cable-type" type="int" value="19"/>
+   <property name="entity" value="cable"/>
    <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="324">
   <properties>
-   <property name="solid" type="bool" value="true"/>
+   <property name="cable-state" type="bool" value="false"/>
+   <property name="cable-type" type="int" value="16"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="385">
+  <properties>
+   <property name="cable-state" type="bool" value="false"/>
+   <property name="cable-type" type="int" value="17"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="386">
+  <properties>
+   <property name="cable-state" type="bool" value="false"/>
+   <property name="cable-type" type="int" value="18"/>
+   <property name="entity" value="cable"/>
+  </properties>
+ </tile>
+ <tile id="387">
+  <properties>
+   <property name="cable-state" type="bool" value="false"/>
+   <property name="cable-type" type="int" value="19"/>
+   <property name="entity" value="cable"/>
   </properties>
  </tile>
  <tile id="448">

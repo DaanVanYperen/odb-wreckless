@@ -45,6 +45,15 @@ public class SpoutSystem extends FluidIteratingSystem {
             if (e.spoutSprayCooldown() <= 0) {
                 e.spoutSprayCooldown(e.spoutSprayInterval());
                 float angle = e.spoutAngle() + e.angleRotation(); //+ MathUtils.random(-2f, 2f);
+
+                // rotate to parent orientation.
+                if ( e.hasAttached() ) {
+                    if ( e.attachedParent() != 0 )
+                    {
+                        angle += E.E(e.attachedParent()).angleRotation();
+                    }
+                }
+
                 v2.set(e.posX() + e.boundsCx(), e.posY() + e.boundsCy());
 
                 switch (e.spoutType()) {

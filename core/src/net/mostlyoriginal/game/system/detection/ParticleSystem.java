@@ -86,10 +86,11 @@ public class ParticleSystem extends FluidIteratingSystem {
     public void bullet(float x, float y, float angle, int force, float x2, float y2, int team, int bounce, GunData gunData) {
         bakery
                 .at(x, y)
-                .emitterVelocity(x2,y2)
+                .emitterVelocity(x2, y2)
                 .angle(angle, angle)
                 .anim(gunData.anim)
                 .speed(force, force)
+                .diesFromWalls()
                 .bounce(bounce)
                 .gunData(gunData)
                 //.deadly()
@@ -103,18 +104,19 @@ public class ParticleSystem extends FluidIteratingSystem {
 
 
     }
+
     public void explosion(float x, float y) {
-        assetSystem.playSfx("Explosion_" + MathUtils.random(1,5));
+        assetSystem.playSfx("Explosion_" + MathUtils.random(1, 5));
         bakery
-                .at((int)x-5,(int)y-5,(int)x+5,(int)y+5)
+                .at((int) x - 5, (int) y - 5, (int) x + 5, (int) y + 5)
                 .angle(0, 360)
                 .speed(2, 5)
                 .anim("explosion")
-                .fadeAfter(9*0.007f)
+                .fadeAfter(9 * 0.007f)
                 .slowlySplatDown()
                 .size(1, 1)
                 .solid()
-                .create(2,4);
+                .create(2, 4);
     }
 
     Vector2 v2 = new Vector2();
@@ -129,7 +131,7 @@ public class ParticleSystem extends FluidIteratingSystem {
                 .pos(x - (scale * frame.getRegionWidth() * 0.5f), y - (scale * frame.getRegionHeight() * 0.5f))
                 .anim(anim != null ? anim : "particle")
                 .scale(scale)
-                .angleRotate(angle-90)
+                .angleRotate(angle - 90)
                 .renderLayer(G.LAYER_PARTICLES)
                 .origin(scale / 2f, scale / 2f)
                 .bounds(0, 0, scale, scale)
@@ -180,6 +182,7 @@ public class ParticleSystem extends FluidIteratingSystem {
         private String anim;
         private int bounce;
         private GunData gunData;
+        private boolean diesFromWalls;
 
         public Builder() {
             reset();
@@ -203,7 +206,7 @@ public class ParticleSystem extends FluidIteratingSystem {
                         random(minAngle, maxAngle),
                         random(minSpeed, maxSpeed),
                         random(minScale, maxScale),
-                        emitterVx,emitterVy)
+                        emitterVx, emitterVy)
                         .tint(color.r, color.g, color.b, color.a);
 
                 if (withGravity) {
@@ -216,7 +219,7 @@ public class ParticleSystem extends FluidIteratingSystem {
                 if (withDeadly) {
                     e.deadly();
                 }
-                if ( gunData != null ) {
+                if (gunData != null) {
                     e.gunData(gunData);
                 }
                 if (bounce > 0) {
@@ -235,8 +238,10 @@ public class ParticleSystem extends FluidIteratingSystem {
                             deleteFromWorld()
                     ));
                 }
-                if ( team != 0)
-                {
+                if (diesFromWalls) {
+                    e.diesFromWalls(true);
+                }
+                if (team != 0) {
                     e.teamTeam(team);
                 }
             }
@@ -365,6 +370,11 @@ public class ParticleSystem extends FluidIteratingSystem {
 
         public Builder gunData(GunData gunData) {
             this.gunData = gunData;
+            return this;
+        }
+
+        public Builder diesFromWalls() {
+            this.diesFromWalls = true;
             return this;
         }
     }
