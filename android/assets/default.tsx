@@ -711,6 +711,11 @@
    <property name="entity" value="powerup"/>
   </properties>
  </tile>
+ <tile id="457">
+  <properties>
+   <property name="entity" value="boss"/>
+  </properties>
+ </tile>
  <tile id="513">
   <properties>
    <property name="entity" value="robot"/>
