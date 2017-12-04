@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class GunData implements Serializable {
 
     public String anim;
+    public String animbounced;
     public int angle;
     public int rpm;
     public int speed;

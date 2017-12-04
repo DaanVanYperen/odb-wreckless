@@ -12,6 +12,7 @@ import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.utils.MapMask;
 import net.mostlyoriginal.game.component.Ethereal;
 import net.mostlyoriginal.game.component.Flying;
+import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
@@ -105,11 +106,21 @@ public class MapCollisionSystem extends FluidIteratingSystem {
             }
 
             if ( bounce > 0 ) {
-                assetSystem.playSfx("bounce_" + MathUtils.random(1,4));
+                alterBulletTeamAndColor(e);
             }
 
         }
 
+    }
+
+    public void alterBulletTeamAndColor(E e) {
+        if ( e.hasTeam() && e.teamTeam() == G.TEAM_PLAYERS ) {
+            assetSystem.playSfx("bounce_" + MathUtils.random(1,4));
+            if ( e.hasGun() && e.gunData().animbounced != null ) {
+                e.teamTeam(G.TEAM_ENEMIES);
+                e.animId(e.gunData().animbounced);
+            }
+        }
     }
 
     public boolean collides(final float x, final float y) {

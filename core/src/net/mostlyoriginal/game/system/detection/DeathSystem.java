@@ -96,24 +96,32 @@ public class DeathSystem extends FluidIteratingSystem {
         }
     }
 
-    private void damage(E e, E cause, boolean damageCause, int damage) {
+    private void damage(E victim, E cause, boolean damageCause, int damage) {
 
         // prevent same thing damaging the same thing twice.
-        if (cause != null && cause.hasBounce() && cause.bounceLastEntityId() == e.id())
-            return;
+        if (cause != null && cause.hasBounce())
+        {
+            // do not bounce on same entity twice.
+            if (cause.bounceLastEntityId() == victim.id())
+                return;
 
-        if (e.hasShield() && e.shieldHp() > damage) {
-            e.shieldHp(e.shieldHp() - damage);
-            e.script(JamOperationFactory.tintBetween(BLINK, WHITE, 0.1f));
+            if ( cause.bounceCount() > 0) {
+                attemptBounce(cause, victim);
+            }
+        }
+
+        if (victim.hasShield() && victim.shieldHp() > damage) {
+            victim.shieldHp(victim.shieldHp() - damage);
+            victim.script(JamOperationFactory.tintBetween(BLINK, WHITE, 0.1f));
             if (cause != null && damageCause) {
-                damage(cause, e, false, 1);
+                damage(cause, victim, false, 1);
             }
         } else {
-            if (e.hasBounce() && e.bounceCount() > 0) {
-                attemptBounce(e, cause);
-            } else if (!e.isMortal()) {
-                e.deleteFromWorld();
-            } else e.dead();
+            if (victim.hasBounce() && victim.bounceCount() > 0) {
+                // do nothing.
+            } else if (!victim.isMortal()) {
+                victim.deleteFromWorld();
+            } else victim.dead();
         }
     }
 
@@ -126,7 +134,7 @@ public class DeathSystem extends FluidIteratingSystem {
         e.bounceLastEntityId(victim.id());
         e.physicsVx(v2.x);
         e.physicsVy(v2.y);
-        assetSystem.playSfx("bounce_" + MathUtils.random(1,4));
+        mapCollisionSystem.alterBulletTeamAndColor(e);
     }
 
     private E touchingDeadlyStuffs(E e, boolean onlyMortals) {
