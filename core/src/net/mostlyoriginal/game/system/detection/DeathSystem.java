@@ -148,6 +148,8 @@ public class DeathSystem extends FluidIteratingSystem {
                     .posX(victim.posX())
                     .posY(victim.posY())
                     .angleRotation(victim.angleRotation())
+                    .originX(victim.originX())
+                    .originY(victim.originY())
                     .renderLayer(victim.renderLayer() + 5)
                     .attachedParent(victim.id())
                     .attachedYo(-2)
