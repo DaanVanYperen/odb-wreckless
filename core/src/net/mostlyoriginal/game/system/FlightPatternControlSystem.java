@@ -48,19 +48,37 @@ public class FlightPatternControlSystem extends FluidIteratingSystem {
 
         FlightPatternStep step = pattern.data.steps[pattern.activeStep];
         switch (step.step) {
+            case HIDE_LEFT:
+                hide(e, step, -G.SCREEN_WIDTH * 0.5f);
+                break;
+            case HIDE_RIGHT:
+                hide(e, step, G.SCREEN_WIDTH * 0.5f);
+                break;
             case FLY:
                 fly(e, step);
                 break;
             case FLY_SINUS:
                 flySinus(e, step);
                 break;
+            case EXPLODE:
+                explode(e, step);
+                break;
         }
+    }
+
+    private void hide(E e, FlightPatternStep step, float offsetX) {
+        e.posX( e.posX() + offsetX);
+        e.flightPatternActiveStep(e.flightPatternActiveStep()+1); // step instantly dobne.
+    }
+
+    private void explode(E e, FlightPatternStep step) {
+        e.deleteFromWorld();
     }
 
     private void fly(E e, FlightPatternStep step) {
         v2.set(0, 50).rotate(step.angle);
         //e.angleRotate(step.facing);
-        e.physicsVx(v2.x);
+        e.physicsVx(-v2.x);
         e.physicsVy(v2.y);
     }
 

@@ -280,6 +280,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .teamTeam(TEAM_ENEMIES)
                 .render(G.LAYER_GREMLIN)
                 .shieldHp(shipData.hp)
+                .flying()
                 .frozen()
                 .anim(shipData.anim);
 

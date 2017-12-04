@@ -4,15 +4,50 @@
       "id": "straight_down",
       "comment": "Fly straight down.",
       "steps": [
-        { "step" : "FLY", "angle" : 180, "facing" : 180, "seconds" : 100.0 }
+        { "step" : "FLY", "angle" : 180, "facing" : 180, "seconds" : 60.0 },
+        { "step" : "EXPLODE" }
       ]
     },
     {
       "id": "sinus",
       "comment": "Fly in a sinus wave.",
       "steps": [
-        { "step" : "FLY_SINUS", "angle" : 180, "facing" : 180, "seconds" : 100.0 }
+        { "step" : "FLY_SINUS", "angle" : 180, "facing" : 180, "seconds" : 60.0 },
+        { "step" : "EXPLODE" }
       ]
     },
+    {
+      "id": "enter_stage_left",
+      "comment": "Fly in from the left.",
+      "steps": [
+        { "step" : "HIDE_LEFT" },
+        { "step" : "FLY", "angle" : 90, "facing" : 180, "seconds" : 3.0 },
+        { "step" : "FLY", "angle" : 135, "facing" : 180, "seconds" : 1.0 },
+        { "step" : "FLY", "angle" : 180, "facing" : 180, "seconds" : 100.0 }
+      ]
+    },
+    {
+      "id": "enter_stage_right",
+      "comment": "Fly in from the right.",
+      "steps": [
+        { "step" : "HIDE_RIGHT" },
+        { "step" : "FLY", "angle" : 270, "facing" : 180, "seconds" : 3.0 },
+        { "step" : "FLY", "angle" : 225, "facing" : 180, "seconds" : 1.0 },
+        { "step" : "FLY", "angle" : 180, "facing" : 180, "seconds" : 100.0 }
+      ]
+    },
+    {
+      "id": "enter_exit_stage_left",
+      "comment": "Fly and exit from the left.",
+      "steps": [
+        { "step" : "HIDE_LEFT" },
+        { "step" : "FLY", "angle" : 90, "facing" : 180, "seconds" : 5.0 },
+        { "step" : "FLY", "angle" : 135, "facing" : 180, "seconds" : 1.0 },
+        { "step" : "FLY", "angle" : 180, "facing" : 180, "seconds" : 3.0 },
+        { "step" : "FLY", "angle" : 225, "facing" : 180, "seconds" : 1.0 },
+        { "step" : "FLY", "angle" : 270, "facing" : 180, "seconds" : 5.0 },
+        { "step" : "EXPLODE" }
+      ]
+    }
   ],
 }

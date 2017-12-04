@@ -14,7 +14,7 @@
       "shieldAnim": "enemy-shield-1",
       "hp": 5,
       "arsenal": "enemy_handgun",
-      "flight": "enter_from_closest_edge"
+      "flight": "enter_stage_left"
     },
     {
       "id": "enemy2",
@@ -23,7 +23,7 @@
       "shieldAnim": "enemy-shield-2",
       "hp": 10,
       "arsenal": "enemy_handgun",
-      "flight": "enter_and_exit_from_closest_edge"
+      "flight": "enter_exit_stage_left"
     },
     {
       "id": "enemy3",
@@ -32,7 +32,7 @@
       "shieldAnim": "enemy-shield-3",
       "hp": 20,
       "arsenal": "unarmed",
-      "flight": "enter_from_closest_edge"
+      "flight": "enter_stage_right"
     },
     {
       "id": "enemy4",
