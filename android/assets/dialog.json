@@ -63,6 +63,8 @@
     },
     {
       "id": "victory",
+      "scrolling": "false",
+      "trigger": "camera",
       "lines": [
         { "portrait" : "portrait-chip", "text": "Mr. Woofberg? Is that you? .." },
         { "portrait" : "portrait-chip", "text": "You actually saved us? How?! You are a dog!" },
