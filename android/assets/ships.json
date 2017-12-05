@@ -29,7 +29,7 @@
       "comment": "Enemy type 3.",
       "anim": "enemy-3",
       "shieldAnim": "enemy-shield-3",
-      "hp": 25,
+      "hp": 21,
       "arsenal": "unarmed",
       "flight": "enter_stage_right"
     },
@@ -56,7 +56,7 @@
       "comment": "Enemy type 6.",
       "anim": "turret-1",
       "shieldAnim": "turret-shield-1",
-      "hp": 25,
+      "hp": 20,
       "arsenal": "enemy_3tap",
       "originY": 0.9,
       "flight": "stationary_face_player"
@@ -74,10 +74,9 @@
     {
       "id": "boss",
       "comment": "boss type.",
-      "anim": "biosphere-1",
-      "corpseAnim": "biosphere-1-destroyed",
+      "anim": "boss-1",
       "shieldAnim": "enemy-shield-4",
-      "hp": 200,
+      "hp": 250,
       "arsenal": "360_miniguns",
       "flight": "boss"
     }

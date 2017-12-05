@@ -357,6 +357,10 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .frozen()
                 .anim(shipData.anim);
 
+        if ( "boss".equals(shipData.id) ) {
+            enemyShip.tag("boss");
+        }
+
         gameScreenAssetSystem.boundToAnim(enemyShip.id(), gracepaddingX, gracepaddingY);
         enemyShip.pos(x - enemyShip.boundsCx(), y - enemyShip.boundsCy());
 

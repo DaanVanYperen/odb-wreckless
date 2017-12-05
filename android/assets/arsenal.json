@@ -46,10 +46,10 @@
     {
       "id": "minigun_r5",
       "guns": [
-        { "anim" : "bullet-5", "animbounced": "bullet-5-enemy", "angle" : 0, "x": -10, "rpm" : 700, "speed": 300, "bounces": 1, "damage": 2 },
-        { "anim" : "bullet-5", "animbounced": "bullet-5-enemy", "angle" : 0, "x": -5, "rpm" : 700, "speed": 300, "bounces": 1, "damage": 2 },
-        { "anim" : "bullet-5", "animbounced": "bullet-5-enemy", "angle" : 0, "x": 5, "rpm" : 700, "speed": 300, "bounces": 1, "damage": 2 },
-        { "anim" : "bullet-5", "animbounced": "bullet-5-enemy", "angle" : 0, "x": 10, "rpm" : 700, "speed": 300, "bounces": 1, "damage": 2 }
+        { "anim" : "bullet-5", "animbounced": "bullet-5-enemy", "angle" : 0, "x": -10, "rpm" : 300, "speed": 300, "bounces": 1, "damage": 2 },
+        { "anim" : "bullet-5", "animbounced": "bullet-5-enemy", "angle" : 0, "x": -5, "rpm" : 300, "speed": 300, "bounces": 1, "damage": 2 },
+        { "anim" : "bullet-5", "animbounced": "bullet-5-enemy", "angle" : 0, "x": 5, "rpm" : 300, "speed": 300, "bounces": 1, "damage": 2 },
+        { "anim" : "bullet-5", "animbounced": "bullet-5-enemy", "angle" : 0, "x": 10, "rpm" : 300, "speed": 300, "bounces": 1, "damage": 2 }
       ]
     },
     {
