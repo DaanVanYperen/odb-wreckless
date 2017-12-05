@@ -169,4 +169,8 @@ public class DialogSystem extends FluidIteratingSystem {
         }
 
     }
+
+    public boolean isActive() {
+        return activeDialog != null;
+    }
 }

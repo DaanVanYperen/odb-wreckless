@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.game.component.G;
+import net.mostlyoriginal.game.system.detection.DialogSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 /**
@@ -22,6 +23,7 @@ public class HealthUISystem extends BaseSystem {
     private E player;
     private GameScreenAssetSystem assetSystem;
     private TextureRegion tick;
+    private DialogSystem dialogSystem;
 
     @Override
     protected void initialize() {
@@ -46,7 +48,7 @@ public class HealthUISystem extends BaseSystem {
 
     @Override
     protected void processSystem() {
-        if ( player != null )
+        if ( player != null && !dialogSystem.isActive() )
         for (int i = 0, s = player.shieldHp()/5; i <s; i++) {
             batch.draw(tick, 4 + i * (tick.getRegionWidth()+2), 4, 4, 8);
         }
