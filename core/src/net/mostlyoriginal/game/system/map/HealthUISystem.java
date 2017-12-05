@@ -63,10 +63,10 @@ public class HealthUISystem extends BaseSystem {
 
         if (boss != null && !boss.hasFrozen() && !dialogSystem.isActive()) {
             batch.setProjectionMatrix(cameraSystem.guiCamera.combined);
+            batch.setColor(1f, 1f, 1f, 1f);
             batch.begin();
-            batch.setColor(1f, 1f, 1f, 0.8f);
             for (int i = 0, s = boss.shieldHp() / 5; i < s; i++) {
-                batch.draw(tick, 4 + i * (tick.getRegionWidth() + 2), G.SCREEN_HEIGHT - 14, 4, 8);
+                batch.draw(tickEnemy, 4 + i * (tickEnemy.getRegionWidth() + 2), G.SCREEN_HEIGHT - 14, 4, 8);
             }
             batch.end();
         }
