@@ -38,8 +38,8 @@
     {
       "id": "minigun_r4",
       "guns": [
-        { "anim" : "bullet-5", "animbounced": "bullet-5-enemy", "angle" : 0, "x": -5, "rpm" : 240, "speed": 300, "bounces": 1, "damage": 1 },
-        { "anim" : "bullet-5", "animbounced": "bullet-5-enemy", "angle" : 0, "x": 5, "rpm" : 240, "speed": 300, "bounces": 1, "damage": 1 },
+        { "anim" : "bullet-5", "animbounced": "bullet-5-enemy", "angle" : -5, "x": -5, "rpm" : 240, "speed": 300, "bounces": 1, "damage": 1 },
+        { "anim" : "bullet-5", "animbounced": "bullet-5-enemy", "angle" : 5, "x": 5, "rpm" : 240, "speed": 300, "bounces": 1, "damage": 1 },
         { "anim" : "bullet-5", "animbounced": "bullet-5-enemy", "angle" : 0, "x": 0, "rpm" : 240, "speed": 300, "bounces": 1, "damage": 1 }
       ]
     },
@@ -55,8 +55,8 @@
     {
       "id": "bouncegun",
       "guns": [
-        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 45, "rpm" : 60, "speed": 60, "bounces": 3, "damage": 10 },
-        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 315, "rpm" : 60, "speed": 60, "bounces": 3, "damage": 10 }
+        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 20, "rpm" : 60, "speed": 80, "bounces": 3, "damage": 10 },
+        { "anim" : "bullet-1", "animbounced": "bullet-1-enemy", "angle" : 340, "rpm" : 60, "speed": 80, "bounces": 3, "damage": 10 }
       ]
     },
     {
@@ -138,9 +138,9 @@
     {
       "id": "enemy_3tap",
       "guns": [
-        { "anim" : "bullet-3-enemy", "angle" : 0, "rpm" : 30, "speed": 100, "bounces": 0, "damage": 1 },
-        { "anim" : "bullet-3-enemy", "angle" : 0, "rpm" : 29, "speed": 100, "bounces": 0, "damage": 1 },
-        { "anim" : "bullet-3-enemy", "angle" : 0, "rpm" : 28, "speed": 100, "bounces": 0, "damage": 1 }
+        { "anim" : "bullet-3-enemy", "angle" : 0, "rpm" : 30, "speed": 140, "bounces": 0, "damage": 1 },
+        { "anim" : "bullet-3-enemy", "angle" : 0, "rpm" : 29, "speed": 140, "bounces": 0, "damage": 1 },
+        { "anim" : "bullet-3-enemy", "angle" : 0, "rpm" : 28, "speed": 140, "bounces": 0, "damage": 1 }
       ]
     }
   ]

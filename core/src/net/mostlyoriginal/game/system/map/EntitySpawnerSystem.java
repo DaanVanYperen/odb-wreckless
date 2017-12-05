@@ -178,7 +178,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .mortal(true)
                 .type(batteryType)
                 .render(G.LAYER_PLAYER - 1)
-                .bounds(0, 0, G.CELL_SIZE, G.CELL_SIZE);
+                .bounds(-4, -4, G.CELL_SIZE+4, G.CELL_SIZE+4);
 
         if (b) {
             spawnBatteryInSocket(batteryType, socket);
