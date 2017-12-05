@@ -710,5 +710,25 @@
       "width": 2,
       "height": 4
     },
+    {
+      "id": "boss-1",
+      "comment": "Giant boss.",
+      "x": 273,
+      "y": 958,
+      "countX": 1,
+      "countY": 1,
+      "width": 62,
+      "height": 62
+    },
+    {
+      "id": "tick-enemy",
+      "comment": "Health/shield tick for the boss.",
+      "x": 3,
+      "y": 824
+      "countX": 1,
+      "countY": 1,
+      "width": 2,
+      "height": 4
+    },
   ]
 }
