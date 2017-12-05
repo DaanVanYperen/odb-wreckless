@@ -1,4 +1,4 @@
-odb-artax
+odb-spacelitch
 =====================
 
 #### Summary
@@ -16,4 +16,4 @@ The project was created on top of [libgdx-artemis-quickstart](https://github.com
 #### License summary
 Code, graphics and sound are under a separate license. Feel free to do whatever with the code, the graphics and sound however may be copyrighted.
 
-[Play it online!](http://www.mostlyoriginal.net/play-artax/)
+[Play it online!](http://www.mostlyoriginal.net/play-spacelitch/)
