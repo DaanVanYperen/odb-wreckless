@@ -23,7 +23,7 @@ public class TowedSystem extends FluidIteratingSystem {
 
     public void hookOnto(E e, E towed) {
 
-        E currentlyTowing = getTowing(e);
+        E currentlyTowing = getCargo(e);
         disconnectCargoFrom(e, false);
         disconnectFromTowingCar(towed, false);
 
@@ -33,6 +33,19 @@ public class TowedSystem extends FluidIteratingSystem {
         // hook car behind this one.
         if (currentlyTowing != null) {
             hookOnto(towed, currentlyTowing);
+        }
+
+        disconnectCargoIfChainLongerThan(e, 4);
+    }
+
+    private void disconnectCargoIfChainLongerThan(E e, int chainLength) {
+        E cargo = e;
+        while (cargo != null && cargo.hasTowing()) {
+            cargo = getCargo(cargo);
+            if (--chainLength == 0) {
+                disconnectCargoFrom(cargo, true);
+                return;
+            }
         }
     }
 
@@ -48,22 +61,26 @@ public class TowedSystem extends FluidIteratingSystem {
     }
 
     public void disconnectCargoFrom(E e, boolean violently) {
-        final E towed = getTowing(e);
-        if (towed != null) {
-            towed.removeTowed();
-        }
+        final E cargo = getCargo(e);
         e.removeTowing();
+        if (cargo != null) {
+            cargo.removeTowed();
+            if (violently) {
+                cargo.snapToGridX(cargo.snapToGridX()-3);
+                disconnectCargoFrom(cargo, true);
+            }
+        }
     }
 
     @Override
     protected void process(E e) {
-        final E towed = getTowing(e);
+        final E towed = getCargo(e);
         if (towed != null) {
             gridSnapSystem.moveRelativeToOther(towed, e, -1, 0); // drag behind.
         } else disconnectCargoFrom(e, false);
     }
 
-    private E getTowing(E e) {
+    private E getCargo(E e) {
         return e.hasTowing() ? E(e.towingEntityId()) : null;
     }
 
