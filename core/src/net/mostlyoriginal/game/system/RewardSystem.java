@@ -3,6 +3,7 @@ package net.mostlyoriginal.game.system;
 import com.artemis.Aspect;
 import com.artemis.E;
 import com.badlogic.gdx.graphics.g3d.utils.ShapeCache;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.api.component.graphics.Tint;
@@ -35,10 +36,7 @@ public class RewardSystem extends FluidIteratingSystem {
         sfx(shackle);
         killTows(shackle);
         shackle.removeCashable();
-        shackle.script(sequence(
-                JamOperationFactory.tintBetween(WHITE, Tint.TRANSPARENT, 0.4f),
-                deleteFromWorld()
-        ));
+        shackle.script(deleteFromWorld());
     }
 
     private void sfx(E shackle) {
@@ -54,9 +52,9 @@ public class RewardSystem extends FluidIteratingSystem {
                 .tint(1f, 1f, 1f, 1f)
                 .script(sequence(
                         parallel(
-                                JamOperationFactory.moveBetween(x, y, x - compensateForScaling, y - compensateForScaling, FADEOUT_DURATION),
-                                JamOperationFactory.scaleBetween(1f, GLOW_MAX_SCALE, FADEOUT_DURATION),
-                                JamOperationFactory.tintBetween(WHITE, Tint.TRANSPARENT, FADEOUT_DURATION)
+                                JamOperationFactory.moveBetween(x, y, x - compensateForScaling, y - compensateForScaling, FADEOUT_DURATION, Interpolation.pow2Out),
+                                JamOperationFactory.scaleBetween(1f, GLOW_MAX_SCALE, FADEOUT_DURATION, Interpolation.pow2Out),
+                                JamOperationFactory.tintBetween(WHITE, Tint.TRANSPARENT, FADEOUT_DURATION, Interpolation.pow2Out)
                         ),
                         deleteFromWorld()
                 ));
