@@ -14,6 +14,8 @@ import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 public class GridSnapSystem extends FluidIteratingSystem {
 
     private static final int PIXELS_PER_SECOND = 128;
+    private static final int MAX_LANE = 11;
+    private static final int MIN_LANE = 1;
 
     public GridSnapSystem() {
         super(Aspect.all(SnapToGrid.class));
@@ -45,8 +47,8 @@ public class GridSnapSystem extends FluidIteratingSystem {
     }
 
     public void moveRelativeToSelf(E e, int dx, int dy) {
-        e.snapToGridX(curX(e) + dx);
-        e.snapToGridY(curY(e) + dy);
+        e.snapToGridX(MathUtils.clamp(curX(e) + dx, 0, 9999));
+        e.snapToGridY(MathUtils.clamp(curY(e) + dy, MIN_LANE, MAX_LANE));
     }
 
     private int curX(E e) {
