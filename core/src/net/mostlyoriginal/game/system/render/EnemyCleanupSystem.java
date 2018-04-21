@@ -20,7 +20,7 @@ public class EnemyCleanupSystem extends FluidIteratingSystem {
     private MyAnimRenderSystem myAnimRenderSystem;
     private boolean lockCamera;
     private CameraFollowSystem cameraFollowSystem;
-    private float minY;
+    private float minX;
 
     public EnemyCleanupSystem() {
         super(Aspect.all(Pos.class, Team.class));
@@ -30,12 +30,12 @@ public class EnemyCleanupSystem extends FluidIteratingSystem {
     protected void begin() {
         super.begin();
         final E camera = entityWithTag("camera");
-        minY = cameraFollowSystem.minCameraY() - 60;
+        minX = cameraFollowSystem.minCameraX() - 60;
     }
 
     @Override
     protected void process(E e) {
-        if ( e.teamTeam() == G.TEAM_ENEMIES && e.posY() <= minY ) {
+        if ( e.teamTeam() == G.TEAM_ENEMIES && e.posX() <= minX ) {
             e.deleteFromWorld();
         }
     }

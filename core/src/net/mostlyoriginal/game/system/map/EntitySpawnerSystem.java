@@ -74,6 +74,8 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .render(G.LAYER_GREMLIN)
                 .snapToGrid()
                 .towable()
+                .frozen(true)
+                .teamTeam(TEAM_ENEMIES)
                 .chainableColor(ChainColor.valueOf(color))
                 .snapToGridX(x / G.CELL_SIZE)
                 .snapToGridY(y / G.CELL_SIZE)
@@ -88,6 +90,7 @@ public class EntitySpawnerSystem extends BaseSystem {
         final E e = E()
                 .pos(x, y)
                 .render(G.LAYER_GREMLIN)
+                .teamTeam(TEAM_ENEMIES)
                 .chainableColor(ChainColor.valueOf(color))
                 .chainablePitstop(true).bounds(0,0,G.CELL_SIZE,G.CELL_SIZE);
         return e;

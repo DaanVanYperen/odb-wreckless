@@ -27,6 +27,7 @@ public class ChainingSystem extends FluidIteratingSystem {
     private final Chain[] pitstopChains = new Chain[MAX_PITSTOP_CHAINS];
     private int activeChains = 0;
     private int activePitstopChains = 0;
+    private int cameraGridOffset;
 
     class Chain {
         public int length;
@@ -83,6 +84,8 @@ public class ChainingSystem extends FluidIteratingSystem {
     @Override
     protected void begin() {
         super.begin();
+        resetGrid();
+        cameraGridOffset = GridSnapSystem.gridX(entityWithTag("camera")) - 3;
     }
 
     private void resetChains() {
@@ -113,7 +116,6 @@ public class ChainingSystem extends FluidIteratingSystem {
         rewardUnbrokenPitstopChains();
 
         resetChains();
-        resetGrid();
     }
 
     private void rewardUnbrokenPitstopChains() {
@@ -208,18 +210,24 @@ public class ChainingSystem extends FluidIteratingSystem {
         }
     }
 
+    public E getOccupant(int gridX, int gridY, E e) {
+        final int localGridX = gridX - cameraGridOffset;
+        if (localGridX >= 0 && gridY >= 0 && localGridX < WIDTH && gridY < HEIGHT) {
+            return grid[gridY][localGridX].eCar;
+        }
+        return null;
+    }
+
     @Override
     protected void process(E e) {
 
         final int gridX = GridSnapSystem.gridX(e);
         final int gridY = GridSnapSystem.gridY(e);
 
-        final int gridOffsetX = GridSnapSystem.gridX(entityWithTag("camera")) - 3;
-
 //        entityWithTag("control-ghost")
 //                .posX(gridOffsetX * G.CELL_SIZE).posY(1 * G.CELL_SIZE);
 
-        final int localGridX = gridX - gridOffsetX;
+        final int localGridX = gridX - cameraGridOffset;
 
         if (localGridX >= 0 && gridY >= 0 && localGridX < WIDTH && gridY < HEIGHT) {
             if (e.chainablePitstop()) {

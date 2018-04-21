@@ -19,7 +19,7 @@ public class CameraUnfreezeSystem extends FluidIteratingSystem {
     private MyAnimRenderSystem myAnimRenderSystem;
     private boolean lockCamera;
     private CameraFollowSystem cameraFollowSystem;
-    private float maxY;
+    private float maxX;
 
     public CameraUnfreezeSystem() {
         super(Aspect.all(Pos.class, Frozen.class));
@@ -29,12 +29,12 @@ public class CameraUnfreezeSystem extends FluidIteratingSystem {
     protected void begin() {
         super.begin();
         final E camera = entityWithTag("camera");
-        maxY = cameraFollowSystem.minCameraY() + (G.SCREEN_HEIGHT / G.CAMERA_ZOOM);
+        maxX = cameraFollowSystem.minCameraX() + (G.SCREEN_WIDTH / G.CAMERA_ZOOM);
     }
 
     @Override
     protected void process(E e) {
-        if ( e.posY() <= maxY ) {
+        if ( e.posX() <= maxX ) {
             e.removeFrozen();
         }
     }

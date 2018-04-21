@@ -42,6 +42,8 @@ public class GameScreen extends WorldScreen {
                         new TagManager(),
                         new GroupManager(),
 
+                        new ChainingSystem(),
+
                         new EntitySpawnerSystem(),
                         new MapSystem(),
                         new ParticleSystem(),
@@ -89,7 +91,6 @@ public class GameScreen extends WorldScreen {
 //                        new SocketSystem(),
                         new PickupSystem(),
 
-                        new ChainingSystem(),
 //
 //                        // Camera.
                         new CameraFollowSystem(),

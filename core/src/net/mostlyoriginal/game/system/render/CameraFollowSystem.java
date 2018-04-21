@@ -30,8 +30,8 @@ public class CameraFollowSystem extends FluidIteratingSystem {
     private int sourceX = 0;
     private float cooldown = 0f;
 
-    public float minCameraY() {
-        return cameraSystem.camera.position.y - G.SCREEN_HEIGHT / 2;
+    public float minCameraX() {
+        return cameraSystem.camera.position.x - (G.SCREEN_WIDTH / G.CAMERA_ZOOM) * 0.5f;
     }
 
     @Override

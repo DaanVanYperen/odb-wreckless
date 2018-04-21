@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
+import net.mostlyoriginal.game.system.detection.ChainingSystem;
 
 import static com.artemis.E.E;
 
@@ -16,30 +17,56 @@ public class GridSnapSystem extends FluidIteratingSystem {
 
     private static final int MAX_LANE = 11;
     private static final int MIN_LANE = 1;
+    private ChainingSystem chainingSystem;
 
     public GridSnapSystem() {
+
         super(Aspect.all(SnapToGrid.class));
     }
 
     Vector2 v = new Vector2();
 
     @Override
+    protected void begin() {
+        super.begin();
+    }
+
+    @Override
     protected void process(E e) {
         if (world.delta == 0) return;
 
-        float maxSpeedX = e.snapToGridPixelsPerSecondX() * world.delta;
-        float maxSpeedY = e.snapToGridPixelsPerSecondY() * world.delta;
+        float maxSpeedX = e.snapToGridPixelsPerSecondX();
+        float maxSpeedY = e.snapToGridPixelsPerSecondY();
 
 
-        float speedX = MathUtils.clamp((e.snapToGridX() * G.CELL_SIZE) - e.posX(), -maxSpeedX, maxSpeedX);
-        float speedY = MathUtils.clamp((e.snapToGridY() * G.CELL_SIZE) - e.posY(), -maxSpeedY, maxSpeedY);
+        final int sx = e.snapToGridX();
+        final int sy = e.snapToGridY();
+
+        float xDestination = 0;
+        float yDestination = 0;
+
+        float speedX = MathUtils.clamp(((sx * G.CELL_SIZE) - e.posX()) * maxSpeedX * 0.1f, -maxSpeedX, maxSpeedX);
+        float speedY = MathUtils.clamp(((sy * G.CELL_SIZE) - e.posY()) * maxSpeedX * 0.1f, -maxSpeedY, maxSpeedY);
 
         if (e.hasTowed() && e.towedEntityId() != -1) {
             e.posX(E(e.towedEntityId()).posX() - G.CELL_SIZE);
         } else {
-            e.posX(e.posX() + speedX);
+            if (gridX(e) == sx && gridY(e) == sy && !e.isFrozen()) {
+                if ( e.isShipControlled() ) {
+                    xDestination = e.posX() + maxSpeedX * 0.3f * world.delta;
+                    e.snapToGridX(gridX(e)); // assume our current location is our desired location.
+                    e.posX(xDestination);
+                }
+            } else {
+                xDestination = e.posX() + speedX * world.delta;
+                e.posX(xDestination);
+            }
+
         }
-        e.posY(e.posY() + speedY);
+
+        yDestination = e.posY() + speedY * world.delta;
+
+        e.posY(yDestination);
 
         // ideal vector.
 //        v.set(e.snapToGridX() * G.CELL_SIZE, e.snapToGridY() * G.CELL_SIZE).sub(e.posX(), e.posY());
@@ -59,11 +86,13 @@ public class GridSnapSystem extends FluidIteratingSystem {
     }
 
     public static int gridX(E e) {
+        if (e == null) return 0;
         final float cX = e.posX() + e.boundsCx();
         return (int) (cX - (cX % G.CELL_SIZE)) / G.CELL_SIZE;
     }
 
     public static int gridY(E e) {
+        if (e == null) return 0;
         final float cY = e.posY() + e.boundsCy();
         return (int) (cY - (cY % G.CELL_SIZE)) / G.CELL_SIZE;
     }
