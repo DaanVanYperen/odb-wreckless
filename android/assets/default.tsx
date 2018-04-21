@@ -12,10 +12,22 @@
    <property name="entity" value="car"/>
   </properties>
  </tile>
+ <tile id="111">
+  <properties>
+   <property name="color" value="BLUE"/>
+   <property name="entity" value="pitstop"/>
+  </properties>
+ </tile>
  <tile id="128">
   <properties>
    <property name="color" value="GREEN"/>
    <property name="entity" value="car"/>
+  </properties>
+ </tile>
+ <tile id="143">
+  <properties>
+   <property name="color" value="GREEN"/>
+   <property name="entity" value="pitstop"/>
   </properties>
  </tile>
  <tile id="160">
@@ -24,16 +36,34 @@
    <property name="entity" value="car"/>
   </properties>
  </tile>
+ <tile id="175">
+  <properties>
+   <property name="color" value="YELLOW"/>
+   <property name="entity" value="pitstop"/>
+  </properties>
+ </tile>
  <tile id="192">
   <properties>
    <property name="color" value="RED"/>
    <property name="entity" value="car"/>
   </properties>
  </tile>
+ <tile id="207">
+  <properties>
+   <property name="color" value="RED"/>
+   <property name="entity" value="pitstop"/>
+  </properties>
+ </tile>
  <tile id="224">
   <properties>
    <property name="color" value="PURPLE"/>
    <property name="entity" value="car"/>
+  </properties>
+ </tile>
+ <tile id="239">
+  <properties>
+   <property name="color" value="PURPLE"/>
+   <property name="entity" value="pitstop"/>
   </properties>
  </tile>
 </tileset>

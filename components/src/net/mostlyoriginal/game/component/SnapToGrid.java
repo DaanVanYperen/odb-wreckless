@@ -8,4 +8,7 @@ import com.artemis.Component;
 public class SnapToGrid extends Component {
     public int x;
     public int y;
+
+    public int pixelsPerSecondX = 128;
+    public int pixelsPerSecondY = 128;
 }

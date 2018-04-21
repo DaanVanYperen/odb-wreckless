@@ -5,10 +5,9 @@ import com.artemis.E;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import net.mostlyoriginal.api.system.physics.SocketSystem;
 import net.mostlyoriginal.game.component.*;
+import net.mostlyoriginal.game.system.TowedSystem;
 import net.mostlyoriginal.game.system.detection.PickupSystem;
-import net.mostlyoriginal.game.system.detection.SpoutSystem;
 import net.mostlyoriginal.game.system.view.*;
 
 import static com.artemis.E.E;
@@ -27,6 +26,7 @@ public class EntitySpawnerSystem extends BaseSystem {
     private ArsenalDataSystem arsenalDataSystem;
     private FlightPatternDataSystem flightPatternDataSystem;
     private PickupSystem pickupSystem;
+    private TowedSystem towedSystem;
 
     @Override
     protected void processSystem() {
@@ -64,16 +64,21 @@ public class EntitySpawnerSystem extends BaseSystem {
         return true;
     }
 
-    private void assembleCar(int x, int y, String color) {
-
-        E()
+    private E assembleCar(int x, int y, String color) {
+        final E e = E()
                 .pos(x, y)
                 .angle()
                 .render(G.LAYER_GREMLIN)
                 .snapToGrid()
+                .towable()
                 .snapToGridX(x / G.CELL_SIZE)
                 .snapToGridY(y / G.CELL_SIZE)
+                .bounds(0, 0, 32, 32)
                 .anim("car-" + color);
+        gameScreenAssetSystem.boundToAnim(e.id(), 0,0);
+        return e;
+
+
     }
 
     private void assemblePowerup(float x, float y) {
@@ -114,13 +119,12 @@ public class EntitySpawnerSystem extends BaseSystem {
     private void assemblePlayer(float x, float y, ShipData shipData) {
         int gracepaddingX = 16;
         int gracepaddingY = 4;
-        E playerShip = E().anim("player-idle")
+        E playerCar = E().anim("player-idle")
                 .pos(x - 14, y)
                 .render(G.LAYER_PLAYER)
                 .snapToGridX((int) x / G.CELL_SIZE)
                 .snapToGridY((int) y / G.CELL_SIZE)
                 .mortal()
-                .cameraFocus()
                 //.gravity()
                 .wallSensor()
                 .player()
@@ -141,29 +145,37 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .pos(x, y)
                 .attachedXo(14)
                 .attachedYo(-18)
-                .attachedParent(playerShip.id())
+                .attachedParent(playerCar.id())
                 .renderLayer(G.LAYER_PLAYER - 1);
 
         E().anim("thruster")
                 .pos(x, y)
                 .attachedXo(26)
                 .attachedYo(-18)
-                .attachedParent(playerShip.id())
+                .attachedParent(playerCar.id())
                 .renderLayer(G.LAYER_PLAYER - 1);
 
 
-        gameScreenAssetSystem.boundToAnim(playerShip.id(), gracepaddingX, gracepaddingY);
+        gameScreenAssetSystem.boundToAnim(playerCar.id(), gracepaddingX, gracepaddingY);
 
-        pickupSystem.upgradeGuns(playerShip);
+        pickupSystem.upgradeGuns(playerCar);
 
-//        spawnCamera(playerShip, x, y);
+        final E c1 = assembleCar((int) x, (int) y, "RED");
+        final E c2 = assembleCar((int) x, (int) y, "GREEN");
+        final E c3 = assembleCar((int) x, (int) y, "BLUE");
+        towedSystem.hookOnto(playerCar, c1);
+        towedSystem.hookOnto(c1, c2);
+        towedSystem.hookOnto(c2, c3);
+
+        //towedSystem.hookTo(playerCar,assembleCar(x,y, "RED"));
+        spawnCamera(x, y);
     }
 
-    private void spawnCamera(E playerShip, float x, float y) {
+    private void spawnCamera( float x, float y) {
         E()
                 .pos(x, y)
                 .cameraFocus()
-                .attachedParent(playerShip.id())
+                .physicsVx(50f)
                 .tag("camera")
                 .ethereal(true)
                 .physicsFriction(0);
