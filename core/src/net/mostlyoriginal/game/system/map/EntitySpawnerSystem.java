@@ -46,7 +46,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 break;
             case "pitstop":
                 assemblePitstop((int) x, (int) y, (String) properties.get("color"));
-                break;
+                return false;
             case "birds":
                 for (int i = 0, s = MathUtils.random(1, 3); i <= s; i++) {
                     assembleBird(x + MathUtils.random(G.CELL_SIZE), y + MathUtils.random(G.CELL_SIZE));
@@ -89,10 +89,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .pos(x, y)
                 .render(G.LAYER_GREMLIN)
                 .chainableColor(ChainColor.valueOf(color))
-                .chainablePitstop(true)
-                .tint(1f, 1f, 1f, 0.5f)
-                .anim("car-" + color);
-        gameScreenAssetSystem.boundToAnim(e.id(), 0, 0);
+                .chainablePitstop(true).bounds(0,0,G.CELL_SIZE,G.CELL_SIZE);
         return e;
     }
 

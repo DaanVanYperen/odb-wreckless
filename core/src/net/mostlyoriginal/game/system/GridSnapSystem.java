@@ -34,7 +34,7 @@ public class GridSnapSystem extends FluidIteratingSystem {
         float speedX = MathUtils.clamp((e.snapToGridX() * G.CELL_SIZE) - e.posX(), -maxSpeedX, maxSpeedX);
         float speedY = MathUtils.clamp((e.snapToGridY() * G.CELL_SIZE) - e.posY(), -maxSpeedY, maxSpeedY);
 
-        if (e.hasTowed()) {
+        if (e.hasTowed() && e.towedEntityId() != -1) {
             e.posX(E(e.towedEntityId()).posX() - G.CELL_SIZE);
         } else {
             e.posX(e.posX() + speedX);

@@ -9,4 +9,10 @@ public class Cashable extends Component {
     public Cashable() {
     }
     public int chainLength;
+    public Type type;
+
+    public enum Type {
+        COLOR,
+        PITSTOP
+    }
 }

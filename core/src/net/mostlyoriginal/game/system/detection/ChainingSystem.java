@@ -2,14 +2,12 @@ package net.mostlyoriginal.game.system.detection;
 
 import com.artemis.Aspect;
 import com.artemis.E;
-import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.basic.Bounds;
 import net.mostlyoriginal.api.component.basic.Pos;
+import net.mostlyoriginal.game.component.Cashable;
 import net.mostlyoriginal.game.component.ChainColor;
 import net.mostlyoriginal.game.component.Chainable;
-import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.system.GridSnapSystem;
-import net.mostlyoriginal.game.system.TowedSystem;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 
 /**
@@ -20,19 +18,24 @@ public class ChainingSystem extends FluidIteratingSystem {
     private static final int WIDTH = 20; // base + 1 for easier scanning
     private static final int HEIGHT = 12; // base + 1 for easier scanning/
     private static final int MAX_CHAINS = WIDTH * HEIGHT; // too many but safe. :)
+    private static final int MAX_PITSTOP_CHAINS = 20;
     private int MAX_CHAIN_LENGTH = 10;
 
     private GridSnapSystem gridSnapSystem;
     private final Cell[][] grid = new Cell[HEIGHT][WIDTH];
     private final Chain[] chains = new Chain[MAX_CHAINS];
+    private final Chain[] pitstopChains = new Chain[MAX_PITSTOP_CHAINS];
     private int activeChains = 0;
+    private int activePitstopChains = 0;
 
     class Chain {
         public int length;
+        public boolean broken;
         public final Cell[] cells = new Cell[MAX_CHAIN_LENGTH];
 
         void reset() {
             length = 0;
+            broken = false;
         }
 
         public void add(Cell cell) {
@@ -41,8 +44,10 @@ public class ChainingSystem extends FluidIteratingSystem {
     }
 
     class Cell {
-        E e;
+        E eCar;
+        E ePitstop;
         Chain chain;
+        Chain pitstopChain;
         int x;
         int y;
 
@@ -52,13 +57,15 @@ public class ChainingSystem extends FluidIteratingSystem {
         }
 
         void reset() {
-            e = null;
+            eCar = null;
+            ePitstop = null;
             chain = null;
+            pitstopChain = null;
         }
     }
 
     public ChainingSystem() {
-        super(Aspect.all(Chainable.class, Pos.class, Bounds.class));
+        super(Aspect.all(Chainable.class, Pos.class));
 
         for (int y = 0; y < HEIGHT; y++) {
             for (int x = 0; x < WIDTH; x++) {
@@ -68,7 +75,9 @@ public class ChainingSystem extends FluidIteratingSystem {
         for (int c = 0; c < MAX_CHAINS; c++) {
             chains[c] = new Chain();
         }
-
+        for (int c = 0; c < MAX_PITSTOP_CHAINS; c++) {
+            pitstopChains[c] = new Chain();
+        }
     }
 
     @Override
@@ -81,6 +90,10 @@ public class ChainingSystem extends FluidIteratingSystem {
             chains[c].reset();
         }
         activeChains = 0;
+        for (int c = 0; c < activePitstopChains; c++) {
+            pitstopChains[c].reset();
+        }
+        activePitstopChains = 0;
     }
 
     private void resetGrid() {
@@ -95,20 +108,36 @@ public class ChainingSystem extends FluidIteratingSystem {
         super.end();
 
         collectChains();
-        terminateLongChains();
+
+        rewardLongColorChains();
+        rewardUnbrokenPitstopChains();
 
         resetChains();
         resetGrid();
     }
 
-    private void terminateLongChains() {
+    private void rewardUnbrokenPitstopChains() {
+        for (int c = 0; c < activePitstopChains; c++) {
+            final Chain chain = pitstopChains[c];
+            if (!chain.broken) {
+                cashoutChain(chain, Cashable.Type.PITSTOP);
+            }
+        }
+    }
+
+    private void cashoutChain(Chain chain, Cashable.Type type) {
+        for (int i = 0; i < chain.length; i++) {
+            prepareForReward(chain.cells[i].eCar
+                    .cashableChainLength(chain.length)
+                    .cashableType(type), chain.cells[i]);
+        }
+    }
+
+    private void rewardLongColorChains() {
         for (int c = 0; c < activeChains; c++) {
             final Chain chain = chains[c];
             if (chain.length >= 3) {
-                for (int i = 0; i < chain.length; i++) {
-                    prepareForReward(chain.cells[i].e
-                            .cashableChainLength(chain.length), chain.cells[i]);
-                }
+                cashoutChain(chain, Cashable.Type.COLOR);
             }
         }
     }
@@ -119,20 +148,48 @@ public class ChainingSystem extends FluidIteratingSystem {
     }
 
     private void collectChains() {
-
         // scan north-east, excluding outer rim to speed up visit logic.
         for (int y = 0; y < HEIGHT; y++) {
             for (int x = 0; x < WIDTH; x++) {
                 final Cell cell = grid[y][x];
-                if (cell.e != null && cell.chain == null) {
-                    visit(cell, chains[activeChains++], cell.e.chainableColor());
+
+                if (cell.eCar != null && cell.chain == null) {
+                    // new car chain!
+                    visit(cell, chains[activeChains++], cell.eCar.chainableColor());
+                }
+
+                if (cell.ePitstop != null && cell.pitstopChain == null) {
+                    // new pitstop chain!
+                    visitPitstop(cell, pitstopChains[activePitstopChains++]);
                 }
             }
         }
     }
 
-    int[] dx = {0, 1, 0, -1};
-    int[] dy = {1, 0, -1, 0};
+    private void visitPitstop(Cell cell, Chain c) {
+        // already part of a different chain, or no pitstop?
+        if (cell.pitstopChain != null || cell.ePitstop == null) return;
+
+        // We don't care about pitstops with (wrong) cars.
+        if (cell.eCar == null || cell.eCar.chainableColor() != cell.ePitstop.chainableColor()) {
+            c.broken = true;
+        }
+
+        cell.pitstopChain = c;
+        c.add(cell);
+
+        // these chains can only be orthogonal.
+        for (int i = 0; i < 4; i++) {
+            final int nx = cell.x + dx[i];
+            final int ny = cell.y + dy[i];
+            if (nx >= 0 && ny >= 0 && nx < WIDTH && ny < HEIGHT) {
+                visitPitstop(grid[ny][nx], c);
+            }
+        }
+    }
+
+    private int[] dx = {0, 1, 0, -1};
+    private int[] dy = {1, 0, -1, 0};
 
     private void visit(Cell cell, Chain chain, ChainColor chainColor) {
         if (cell.chain != null) return;
@@ -145,7 +202,7 @@ public class ChainingSystem extends FluidIteratingSystem {
             final int ny = cell.y + dy[i];
             if (nx >= 0 && ny >= 0 && nx < WIDTH && ny < HEIGHT) {
                 final Cell neighbour = grid[ny][nx];
-                if (neighbour.e != null && chainColor == neighbour.e.chainableColor())
+                if (neighbour.eCar != null && chainColor == neighbour.eCar.chainableColor())
                     visit(neighbour, chain, chainColor);
             }
         }
@@ -153,22 +210,23 @@ public class ChainingSystem extends FluidIteratingSystem {
 
     @Override
     protected void process(E e) {
-        if (e.chainablePitstop()) return; // we don't deal with pitstops yet.
 
         final int gridX = GridSnapSystem.gridX(e);
         final int gridY = GridSnapSystem.gridY(e);
 
         final int gridOffsetX = GridSnapSystem.gridX(entityWithTag("camera")) - 3;
 
-        entityWithTag("control-ghost")
-                .posX(gridOffsetX * G.CELL_SIZE).posY(1 * G.CELL_SIZE);
-
+//        entityWithTag("control-ghost")
+//                .posX(gridOffsetX * G.CELL_SIZE).posY(1 * G.CELL_SIZE);
 
         final int localGridX = gridX - gridOffsetX;
 
         if (localGridX >= 0 && gridY >= 0 && localGridX < WIDTH && gridY < HEIGHT) {
-            grid[gridY][localGridX].e = e;
-            //e.tint(MathUtils.random(0,1f),1f,1f,1f);
+            if (e.chainablePitstop()) {
+                grid[gridY][localGridX].ePitstop = e;
+            } else {
+                grid[gridY][localGridX].eCar = e;
+            }
         }
     }
 }

@@ -6,10 +6,27 @@
    <property name="entity" value="player"/>
   </properties>
  </tile>
+ <tile id="65">
+  <properties>
+   <property name="entity" value="player"/>
+  </properties>
+ </tile>
  <tile id="96">
   <properties>
    <property name="color" value="BLUE"/>
    <property name="entity" value="car"/>
+  </properties>
+ </tile>
+ <tile id="97">
+  <properties>
+   <property name="color" value="BLUE"/>
+   <property name="entity" value="car"/>
+  </properties>
+ </tile>
+ <tile id="110">
+  <properties>
+   <property name="color" value="BLUE"/>
+   <property name="entity" value="pitstop"/>
   </properties>
  </tile>
  <tile id="111">
@@ -24,6 +41,18 @@
    <property name="entity" value="car"/>
   </properties>
  </tile>
+ <tile id="129">
+  <properties>
+   <property name="color" value="GREEN"/>
+   <property name="entity" value="car"/>
+  </properties>
+ </tile>
+ <tile id="142">
+  <properties>
+   <property name="color" value="GREEN"/>
+   <property name="entity" value="pitstop"/>
+  </properties>
+ </tile>
  <tile id="143">
   <properties>
    <property name="color" value="GREEN"/>
@@ -34,6 +63,18 @@
   <properties>
    <property name="color" value="YELLOW"/>
    <property name="entity" value="car"/>
+  </properties>
+ </tile>
+ <tile id="161">
+  <properties>
+   <property name="color" value="YELLOW"/>
+   <property name="entity" value="car"/>
+  </properties>
+ </tile>
+ <tile id="174">
+  <properties>
+   <property name="color" value="YELLOW"/>
+   <property name="entity" value="pitstop"/>
   </properties>
  </tile>
  <tile id="175">
@@ -48,6 +89,18 @@
    <property name="entity" value="car"/>
   </properties>
  </tile>
+ <tile id="193">
+  <properties>
+   <property name="color" value="RED"/>
+   <property name="entity" value="car"/>
+  </properties>
+ </tile>
+ <tile id="206">
+  <properties>
+   <property name="color" value="RED"/>
+   <property name="entity" value="pitstop"/>
+  </properties>
+ </tile>
  <tile id="207">
   <properties>
    <property name="color" value="RED"/>
@@ -58,6 +111,18 @@
   <properties>
    <property name="color" value="PURPLE"/>
    <property name="entity" value="car"/>
+  </properties>
+ </tile>
+ <tile id="225">
+  <properties>
+   <property name="color" value="PURPLE"/>
+   <property name="entity" value="car"/>
+  </properties>
+ </tile>
+ <tile id="238">
+  <properties>
+   <property name="color" value="PURPLE"/>
+   <property name="entity" value="pitstop"/>
   </properties>
  </tile>
  <tile id="239">
