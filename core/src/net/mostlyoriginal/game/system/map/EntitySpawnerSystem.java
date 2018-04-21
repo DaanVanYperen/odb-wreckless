@@ -19,7 +19,7 @@ import static net.mostlyoriginal.game.component.G.*;
  */
 public class EntitySpawnerSystem extends BaseSystem {
 
-//    private SocketSystem socketSystem;
+    //    private SocketSystem socketSystem;
 //    private PowerSystem powerSystem;
 //    private SpoutSystem spoutSystem;
     private GameScreenAssetSystem gameScreenAssetSystem;
@@ -41,13 +41,16 @@ public class EntitySpawnerSystem extends BaseSystem {
             case "player":
                 assemblePlayer(x, y, shipDataSystem.get("player"));
                 break;
+            case "car":
+                assembleCar((int)x, (int)y, (String)properties.get("color"));
+                break;
             case "birds":
                 for (int i = 0, s = MathUtils.random(1, 3); i <= s; i++) {
                     assembleBird(x + MathUtils.random(G.CELL_SIZE), y + MathUtils.random(G.CELL_SIZE));
                 }
                 return true;
             case "powerup":
-                assemblePowerup(x,y);
+                assemblePowerup(x, y);
                 return true;
             default:
                 ShipData shipData = shipDataSystem.get(entity);
@@ -61,9 +64,21 @@ public class EntitySpawnerSystem extends BaseSystem {
         return true;
     }
 
+    private void assembleCar(int x, int y, String color) {
+
+        E()
+                .pos(x, y)
+                .angle()
+                .render(G.LAYER_GREMLIN)
+                .snapToGrid()
+                .snapToGridX(x / G.CELL_SIZE)
+                .snapToGridY(y / G.CELL_SIZE)
+                .anim("car-" + color);
+    }
+
     private void assemblePowerup(float x, float y) {
-        E().pos(x+8-14, y+8-16)
-                .bounds(0,0,28,16)
+        E().pos(x + 8 - 14, y + 8 - 16)
+                .bounds(0, 0, 28, 16)
                 .anim("pickup")
                 .pickup()
                 .frozen()
@@ -102,8 +117,8 @@ public class EntitySpawnerSystem extends BaseSystem {
         E playerShip = E().anim("player-idle")
                 .pos(x - 14, y)
                 .render(G.LAYER_PLAYER)
-                .snapToGridX((int)x / G.CELL_SIZE)
-                .snapToGridY((int)y /  G.CELL_SIZE)
+                .snapToGridX((int) x / G.CELL_SIZE)
+                .snapToGridY((int) y / G.CELL_SIZE)
                 .mortal()
                 .cameraFocus()
                 //.gravity()
@@ -119,22 +134,22 @@ public class EntitySpawnerSystem extends BaseSystem {
         E().anim("player-idle")
                 .pos(0, 0)
                 .render(G.LAYER_PLAYER)
-                .tint(0f,0f,1f,0.5f)
+                .tint(0f, 0f, 1f, 0.5f)
                 .tag("control-ghost");
 
         E().anim("thruster")
-                .pos(x,y)
+                .pos(x, y)
                 .attachedXo(14)
                 .attachedYo(-18)
                 .attachedParent(playerShip.id())
-                .renderLayer(G.LAYER_PLAYER-1);
+                .renderLayer(G.LAYER_PLAYER - 1);
 
         E().anim("thruster")
-                .pos(x,y)
+                .pos(x, y)
                 .attachedXo(26)
                 .attachedYo(-18)
                 .attachedParent(playerShip.id())
-                .renderLayer(G.LAYER_PLAYER-1);
+                .renderLayer(G.LAYER_PLAYER - 1);
 
 
         gameScreenAssetSystem.boundToAnim(playerShip.id(), gracepaddingX, gracepaddingY);
@@ -183,10 +198,10 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .gunData(gunData)
                 .angleRotate(angle);
 
-        if ( gunData.cooldown > 0 ) {
+        if (gunData.cooldown > 0) {
             gun.spoutCooldown(gunData.cooldown);
         }
-        if ( gunData.duration > 0 ) {
+        if (gunData.duration > 0) {
             gun.spoutSprayDuration(gunData.duration);
         }
 
@@ -231,7 +246,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .frozen()
                 .anim(shipData.anim);
 
-        if ( "boss".equals(shipData.id) ) {
+        if ("boss".equals(shipData.id)) {
             enemyShip.tag("boss");
         }
 
