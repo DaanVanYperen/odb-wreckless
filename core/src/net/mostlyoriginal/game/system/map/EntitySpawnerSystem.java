@@ -152,12 +152,12 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .shieldHp(shipData.hp)
                 .shieldMaxHp(shipData.hp);
 
-        E().anim("player-hook")
-                .pos(x, y)
-                .attachedXo(-28)
-                .attachedYo(-12)
-                .attachedParent(playerCar.id())
-                .renderLayer(G.LAYER_GREMLIN - 1);
+//        E().anim("player-hook")
+//                .pos(x, y)
+//                .attachedXo(-28)
+//                .attachedYo(-12)
+//                .attachedParent(playerCar.id())
+//                .renderLayer(G.LAYER_GREMLIN - 1);
 //
 //        E().anim("player-idle")
 //                .pos(0, 0)

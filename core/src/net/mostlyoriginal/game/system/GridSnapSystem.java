@@ -48,10 +48,13 @@ public class GridSnapSystem extends FluidIteratingSystem {
         float speedX = MathUtils.clamp(((sx * G.CELL_SIZE) - e.posX()) * maxSpeedX * 0.1f, -maxSpeedX, maxSpeedX);
         float speedY = MathUtils.clamp(((sy * G.CELL_SIZE) - e.posY()) * maxSpeedX * 0.1f, -maxSpeedY, maxSpeedY);
 
+        final boolean isOnDesiredGrid = gridX(e) == sx && gridY(e) == sy;
+
         if (e.hasTowed() && e.towedEntityId() != -1) {
             e.posX(E(e.towedEntityId()).posX() - G.CELL_SIZE);
         } else {
-            if (gridX(e) == sx && gridY(e) == sy && !e.isFrozen()) {
+
+            if (isOnDesiredGrid) {
                 if ( e.isShipControlled() ) {
                     xDestination = e.posX() + maxSpeedX * 0.3f * world.delta;
                     e.snapToGridX(gridX(e)); // assume our current location is our desired location.
@@ -67,6 +70,9 @@ public class GridSnapSystem extends FluidIteratingSystem {
         yDestination = e.posY() + speedY * world.delta;
 
         e.posY(yDestination);
+
+            e.angleRotation(MathUtils.clamp(speedY, -20, 20));
+
 
         // ideal vector.
 //        v.set(e.snapToGridX() * G.CELL_SIZE, e.snapToGridY() * G.CELL_SIZE).sub(e.posX(), e.posY());
