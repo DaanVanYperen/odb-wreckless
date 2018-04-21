@@ -40,6 +40,7 @@ public class CarControlSystem extends FluidIteratingSystem {
     //
     // private DialogSystem dialogSystem;
     private GroupManager groupManager;
+    private TowedSystem towedSystem;
 
     public boolean scrolling = true;
 
@@ -66,6 +67,10 @@ public class CarControlSystem extends FluidIteratingSystem {
 
         e.animLoop(true);
         if (!e.hasDead()) {
+            if (Gdx.input.isKeyPressed(Input.Keys.SPACE)||Gdx.input.isKeyPressed(Input.Keys.E)) {
+                towedSystem.disconnectCargoFrom(e,true);
+            }
+
             if (Gdx.input.isKeyPressed(Input.Keys.A)||Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
                 if (Gdx.input.isKeyJustPressed(Input.Keys.A)||Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
                     e.animAge(0);

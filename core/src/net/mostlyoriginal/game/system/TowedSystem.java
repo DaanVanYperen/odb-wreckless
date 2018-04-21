@@ -3,7 +3,6 @@ package net.mostlyoriginal.game.system;
 import com.artemis.Aspect;
 import com.artemis.E;
 import com.badlogic.gdx.math.Vector2;
-import net.mostlyoriginal.game.api.EBag;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 
@@ -25,22 +24,22 @@ public class TowedSystem extends FluidIteratingSystem {
     public void hookOnto(E e, E towed) {
 
         E currentlyTowing = getTowing(e);
-        releaseTows(e);
-        releaseTowed(towed);
+        disconnectCargoFrom(e, false);
+        disconnectFromTowingCar(towed, false);
 
         towed.towedEntityId(e.id());
         e.towingEntityId(towed.id());
 
         // hook car behind this one.
-        if ( currentlyTowing != null ) {
+        if (currentlyTowing != null) {
             hookOnto(towed, currentlyTowing);
         }
     }
 
-    private void releaseTowed(E towed) {
+    private void disconnectFromTowingCar(E towed, boolean violently) {
         final E tower = getTower(towed);
         if (tower != null) {
-            releaseTows(tower);
+            disconnectCargoFrom(tower, false);
         }
     }
 
@@ -48,7 +47,7 @@ public class TowedSystem extends FluidIteratingSystem {
         return towed.hasTowed() ? E(towed.towedEntityId()) : null;
     }
 
-    private void releaseTows(E e) {
+    public void disconnectCargoFrom(E e, boolean violently) {
         final E towed = getTowing(e);
         if (towed != null) {
             towed.removeTowed();
@@ -61,7 +60,7 @@ public class TowedSystem extends FluidIteratingSystem {
         final E towed = getTowing(e);
         if (towed != null) {
             gridSnapSystem.moveRelativeToOther(towed, e, -1, 0); // drag behind.
-        } else releaseTows(e);
+        } else disconnectCargoFrom(e, false);
     }
 
     private E getTowing(E e) {
