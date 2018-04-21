@@ -90,7 +90,7 @@ public class GameScreen extends WorldScreen {
                         new CarriedSystem(),
 //                        new SocketSystem(),
                         new PickupSystem(),
-
+                        new CrashSystem(),
 //
 //                        // Camera.
                         new CameraFollowSystem(),

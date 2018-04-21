@@ -1,6 +1,16 @@
 {
   "sprites": [
     {
+      "id": "player-hook",
+      "comment": "player hook.",
+      "x": 0,
+      "y": 298,
+      "countX": 1,
+      "countY": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
       "id": "player-idle",
       "comment": "Player flying straight.",
       "x": 0,

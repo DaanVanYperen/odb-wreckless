@@ -72,6 +72,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .pos(x, y)
                 .angle()
                 .render(G.LAYER_GREMLIN)
+                .crashable()
                 .snapToGrid()
                 .towable()
                 .frozen(true)
@@ -151,37 +152,44 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .shieldHp(shipData.hp)
                 .shieldMaxHp(shipData.hp);
 
-        E().anim("player-idle")
-                .pos(0, 0)
-                .render(G.LAYER_PLAYER)
-                .tint(0f, 0f, 1f, 0.5f)
-                .tag("control-ghost");
-
-        E().anim("thruster")
+        E().anim("player-hook")
                 .pos(x, y)
-                .attachedXo(14)
-                .attachedYo(-18)
+                .attachedXo(-28)
+                .attachedYo(-12)
                 .attachedParent(playerCar.id())
-                .renderLayer(G.LAYER_PLAYER - 1);
-
-        E().anim("thruster")
-                .pos(x, y)
-                .attachedXo(26)
-                .attachedYo(-18)
-                .attachedParent(playerCar.id())
-                .renderLayer(G.LAYER_PLAYER - 1);
+                .renderLayer(G.LAYER_GREMLIN - 1);
+//
+//        E().anim("player-idle")
+//                .pos(0, 0)
+//                .render(G.LAYER_PLAYER)
+//                .tint(0f, 0f, 1f, 0.5f)
+//                .tag("control-ghost");
+//
+//        E().anim("thruster")
+//                .pos(x, y)
+//                .attachedXo(14)
+//                .attachedYo(-18)
+//                .attachedParent(playerCar.id())
+//                .renderLayer(G.LAYER_PLAYER - 1);
+//
+//        E().anim("thruster")
+//                .pos(x, y)
+//                .attachedXo(26)
+//                .attachedYo(-18)
+//                .attachedParent(playerCar.id())
+//                .renderLayer(G.LAYER_PLAYER - 1);
 
 
         gameScreenAssetSystem.boundToAnim(playerCar.id(), gracepaddingX, gracepaddingY);
 
-        pickupSystem.upgradeGuns(playerCar);
+//        pickupSystem.upgradeGuns(playerCar);
 
-        final E c1 = assembleCar((int) x, (int) y, "RED");
-        final E c2 = assembleCar((int) x, (int) y, "GREEN");
-        final E c3 = assembleCar((int) x, (int) y, "BLUE");
-        towedSystem.hookOnto(playerCar, c1);
-        towedSystem.hookOnto(c1, c2);
-        towedSystem.hookOnto(c2, c3);
+//        final E c1 = assembleCar((int) x, (int) y, "RED");
+//        final E c2 = assembleCar((int) x, (int) y, "GREEN");
+//        final E c3 = assembleCar((int) x, (int) y, "BLUE");
+//        towedSystem.hookOnto(playerCar, c1);
+//        towedSystem.hookOnto(c1, c2);
+//        towedSystem.hookOnto(c2, c3);
 
         //towedSystem.hookTo(playerCar,assembleCar(x,y, "RED"));
         spawnCamera(x, y);
