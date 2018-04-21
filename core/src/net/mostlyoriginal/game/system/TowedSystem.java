@@ -13,6 +13,7 @@ import static com.artemis.E.E;
  */
 public class TowedSystem extends FluidIteratingSystem {
 
+    private static final int MAXIMUM_TOWS = 7;
     GridSnapSystem gridSnapSystem;
 
     public TowedSystem() {
@@ -35,7 +36,7 @@ public class TowedSystem extends FluidIteratingSystem {
             hookOnto(towed, currentlyTowing);
         }
 
-        disconnectCargoIfChainLongerThan(e, 4);
+        disconnectCargoIfChainLongerThan(e, MAXIMUM_TOWS);
     }
 
     private void disconnectCargoIfChainLongerThan(E e, int chainLength) {

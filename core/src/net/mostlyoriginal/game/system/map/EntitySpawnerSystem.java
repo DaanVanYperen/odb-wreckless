@@ -136,6 +136,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .render(G.LAYER_PLAYER)
                 .snapToGridX((int) x / G.CELL_SIZE)
                 .snapToGridY((int) y / G.CELL_SIZE)
+                .snapToGridPixelsPerSecondX(196)
                 .mortal()
                 //.gravity()
                 .wallSensor()

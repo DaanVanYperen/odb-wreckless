@@ -10,5 +10,5 @@ public class SnapToGrid extends Component {
     public int y;
 
     public int pixelsPerSecondX = 128;
-    public int pixelsPerSecondY = 128;
+    public int pixelsPerSecondY = 128 + 32;
 }
