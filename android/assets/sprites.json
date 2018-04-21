@@ -4,35 +4,35 @@
       "id": "player-idle",
       "comment": "Player flying straight.",
       "x": 0,
-      "y": 918,
+      "y": 64,
       "countX": 1,
       "countY": 1,
-      "width": 45,
-      "height": 40
+      "width": 32,
+      "height": 32
     },
     {
       "id": "player-left",
       "comment": "Player rolling left.",
-      "x": 45,
-      "y": 918,
-      "countX": 3,
+      "x": 0,
+      "y": 64,
+      "countX": 1,
       "countY": 1,
+      "width": 32,
+      "height": 32
       "milliseconds": 250,	  
-	  "repeat": false,
-      "width": 45,
-      "height": 40
+	  "repeat": false
     },
     {
       "id": "player-right",
       "comment": "Player rolling right.",
-      "x": 180,
-      "y": 918,
-      "countX": 3,
+      "x": 0,
+      "y": 64,
+      "countX": 1,
       "countY": 1,
-      "milliseconds": 250,	  
-	  "repeat": false,
-      "width": 45,
-      "height": 40
+      "width": 32,
+      "height": 32
+      "milliseconds": 250,
+      "repeat": false
     },
     {
       "id": "boundingbox",

@@ -9,7 +9,6 @@ import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.component.physics.Attached;
 import net.mostlyoriginal.api.operation.JamOperationFactory;
-import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.api.system.camera.CameraShakeSystem;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.api.system.physics.SocketSystem;
@@ -17,7 +16,7 @@ import net.mostlyoriginal.game.api.EBag;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.screen.GameScreen;
 import net.mostlyoriginal.game.system.FollowSystem;
-import net.mostlyoriginal.game.system.ShipControlSystem;
+import net.mostlyoriginal.game.system.CarControlSystem;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.map.EntitySpawnerSystem;
 import net.mostlyoriginal.game.system.map.MapCollisionSystem;
@@ -44,7 +43,7 @@ public class DeathSystem extends FluidIteratingSystem {
     private EBag deadlies;
     private SocketSystem socketSystem;
     private CameraShakeSystem cameraShakeSystem;
-    private ShipControlSystem shipControlSystem;
+    private CarControlSystem carControlSystem;
 
     public DeathSystem() {
         super(Aspect.all(Pos.class).one(Mortal.class));
@@ -95,7 +94,7 @@ public class DeathSystem extends FluidIteratingSystem {
                     }
 
                     if ("boss".equals(e.shipData().id)) {
-                        shipControlSystem.scrolling = true;
+                        carControlSystem.scrolling = true;
                         assetSystem.playMusicInGame("something1.mp3");
                     }
 

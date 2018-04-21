@@ -24,25 +24,28 @@ import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 /**
  * @author Daan van Yperen
  */
-public class ShipControlSystem extends FluidIteratingSystem {
+public class CarControlSystem extends FluidIteratingSystem {
     private static final float RUN_SLOW_PACE_FACTOR = 500;
     public static final int SPEED_CLAMP = 300;
     private static final float RUN_FAST_PACE_FACTOR = SPEED_CLAMP;
     public static final float BRAKE_STRENGTH = 16f;
-    private float MOVEMENT_FACTOR = 2000;
+    private int MOVEMENT_FACTOR = 1;
     private float JUMP_FACTOR = 15000;
     //private SocketSystem socketSystem;
     private FollowSystem followSystem;
     private MyAnimRenderSystem animSystem;
     private GameScreenAssetSystem assetSystem;
-    private DialogSystem dialogSystem;
+
+    private GridSnapSystem gridSnapSystem;
+    //
+    // private DialogSystem dialogSystem;
     private GroupManager groupManager;
 
     public boolean scrolling = true;
 
 
-    public ShipControlSystem() {
-        super(Aspect.all(ShipControlled.class, Physics.class, WallSensor.class, Anim.class));
+    public CarControlSystem() {
+        super(Aspect.all(ShipControlled.class, WallSensor.class, Anim.class));
     }
 
     @Override
@@ -56,8 +59,8 @@ public class ShipControlSystem extends FluidIteratingSystem {
         e.angleRotation(0);
         e.physicsVr(0);
 
-        float dx = 0;
-        float dy = 0;
+        int dx = 0;
+        int dy = 0;
 
         fireGuns(e);
 
@@ -77,14 +80,12 @@ public class ShipControlSystem extends FluidIteratingSystem {
                 dx = MOVEMENT_FACTOR;
                 e.animId("player-right");
                 e.animLoop(false);
-            } else clampX(e, dx); // hit the breaks.
+            }
 
             if (Gdx.input.isKeyPressed(Input.Keys.W)||Gdx.input.isKeyPressed(Input.Keys.UP)) {
                 dy = MOVEMENT_FACTOR;
             } else if (Gdx.input.isKeyPressed(Input.Keys.S)||Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
                 dy = -MOVEMENT_FACTOR;
-            } else {
-                clampY(e, dy); // hit the breaks.
             }
         }
 
@@ -92,28 +93,18 @@ public class ShipControlSystem extends FluidIteratingSystem {
             if (Gdx.input.isKeyJustPressed(Input.Keys.F6)) MapCollisionSystem.DEBUG = !MapCollisionSystem.DEBUG;
         }
 
-        whistle(e, playerAnimPrefix);
+        //whistle(e, playerAnimPrefix);
 
-        if (dx != 0) {
-            e.physicsVx(MathUtils.clamp(e.physicsVx() + (dx * world.delta), -SPEED_CLAMP, SPEED_CLAMP));
-        }
+            gridSnapSystem.moveRelativeToSelf(e, dx*3, dy*3);
 
-        if (dy != 0) {
-            e.physicsVy(MathUtils.clamp(e.physicsVy() + (dy * world.delta), -SPEED_CLAMP, SPEED_CLAMP));
-        }
-
-
-        if (e.hasCarries() && e.carriesEntityId() != 0) {
-            e.carriesAnchorX(e.animFlippedX() ? 4 : -4);
-        }
-
-        if (scrolling) {
-            e.posY(e.posY() + G.CAMERA_SCROLL_SPEED * world.delta);
-        }
-        entityWithTag("camera")
-                .physicsVy(scrolling ? G.CAMERA_SCROLL_SPEED : 0);
-
-        entityWithTag("camera").posX(e.posX());
+//
+//        if (scrolling) {
+//            e.posX(e.posX() + G.CAMERA_SCROLL_SPEED * world.delta);
+//        }
+//        entityWithTag("camera")
+//                .physicsVx(scrolling ? G.CAMERA_SCROLL_SPEED : 0);
+//
+//        entityWithTag("camera").posX(e.posX());
     }
 
     private void fireGuns(E e) {

@@ -2,8 +2,8 @@
   "ships": [
     {
       "id": "player",
-      "comment": "Player default ship.",
-      "anim": "special",
+      "comment": "Player car.",
+      "anim": "player-car",
       "hp": 80
     },
     {

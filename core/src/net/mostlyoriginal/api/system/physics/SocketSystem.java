@@ -63,14 +63,6 @@ public class SocketSystem extends FluidIteratingSystem {
         }
     }
 
-    public void respawnRobotBatteries() {
-        for (E socket : allEntitiesWith(Socket.class)) {
-            if (socket.typeType().equals("battery2") && socket.socketEntityId() == 0 && !socket.isRobot()) {
-                entitySpawnerSystem.spawnBatteryInSocket("battery2", socket);
-            }
-        }
-    }
-
     public void power(E socket, boolean enable) {
         powerSystem.powerMapCoordsAround((int) (socket.posX() / G.CELL_SIZE + 0.5f), (int) (socket.posY() / G.CELL_SIZE + 0.5f), enable);
     }

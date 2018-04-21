@@ -37,7 +37,9 @@ public class CameraClampToMapSystem extends BaseSystem {
         if (minCameraX > maxCameraX) {
             maxCameraX = minCameraX;
         }
-        if (minCameraY > maxCameraY) maxCameraY = minCameraY;
+        if (minCameraY > maxCameraY) {
+            maxCameraY = minCameraY;
+        }
 
         cameraSystem.camera.position.x = MathUtils.clamp(cameraSystem.camera.position.x, minCameraX, maxCameraX);
         cameraSystem.camera.position.y = MathUtils.clamp(cameraSystem.camera.position.y, minCameraY, maxCameraY);

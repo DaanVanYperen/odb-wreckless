@@ -17,15 +17,6 @@ public class GameScreenSetupSystem extends PassiveSystem {
 
     @Override
     protected void initialize() {
-        createMousecursor();
-    }
-
-    private Entity createMousecursor() {
-        return E()
-                .pos()
-                .mouseCursor()
-                .bounds()
-                .tag("cursor").entity();
 
     }
 

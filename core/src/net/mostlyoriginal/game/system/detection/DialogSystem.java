@@ -6,12 +6,11 @@ import com.artemis.Entity;
 import com.artemis.managers.GroupManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import javafx.scene.layout.Background;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.ui.Label;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.game.component.*;
-import net.mostlyoriginal.game.system.ShipControlSystem;
+import net.mostlyoriginal.game.system.CarControlSystem;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.map.EntitySpawnerSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
@@ -41,7 +40,7 @@ public class DialogSystem extends FluidIteratingSystem {
     private E background1;
     private E background2;
 
-    ShipControlSystem shipControlSystem;
+    CarControlSystem carControlSystem;
     private E camera;
 
     public DialogSystem() {
@@ -121,7 +120,7 @@ public class DialogSystem extends FluidIteratingSystem {
                 activeLine = 0;
                 renderActiveLine();
 
-                shipControlSystem.scrolling =  e.getDialog().data.scrolling;
+                carControlSystem.scrolling =  e.getDialog().data.scrolling;
             }
             e.deleteFromWorld();
         }
