@@ -42,7 +42,10 @@ public class EntitySpawnerSystem extends BaseSystem {
                 assemblePlayer(x, y, shipDataSystem.get("player"));
                 break;
             case "car":
-                assembleCar((int)x, (int)y, (String)properties.get("color"));
+                assembleCar((int) x, (int) y, (String) properties.get("color"));
+                break;
+            case "pitstop":
+                assemblePitstop((int) x, (int) y, (String) properties.get("color"));
                 break;
             case "birds":
                 for (int i = 0, s = MathUtils.random(1, 3); i <= s; i++) {
@@ -71,14 +74,26 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .render(G.LAYER_GREMLIN)
                 .snapToGrid()
                 .towable()
+                .chainableColor(ChainColor.valueOf(color))
                 .snapToGridX(x / G.CELL_SIZE)
                 .snapToGridY(y / G.CELL_SIZE)
-                .bounds(0, 0, 32, 32)
                 .anim("car-" + color);
-        gameScreenAssetSystem.boundToAnim(e.id(), 0,0);
+        gameScreenAssetSystem.boundToAnim(e.id(), 0, 0);
         return e;
 
 
+    }
+
+    private E assemblePitstop(int x, int y, String color) {
+        final E e = E()
+                .pos(x, y)
+                .render(G.LAYER_GREMLIN)
+                .chainableColor(ChainColor.valueOf(color))
+                .chainablePitstop(true)
+                .tint(1f, 1f, 1f, 0.5f)
+                .anim("car-" + color);
+        gameScreenAssetSystem.boundToAnim(e.id(), 0, 0);
+        return e;
     }
 
     private void assemblePowerup(float x, float y) {
@@ -171,7 +186,7 @@ public class EntitySpawnerSystem extends BaseSystem {
         spawnCamera(x, y);
     }
 
-    private void spawnCamera( float x, float y) {
+    private void spawnCamera(float x, float y) {
         E()
                 .pos(x, y)
                 .cameraFocus()

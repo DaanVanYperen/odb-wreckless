@@ -4,7 +4,6 @@ import com.artemis.Aspect;
 import com.artemis.E;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import net.mostlyoriginal.api.component.physics.Physics;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 
@@ -27,8 +26,6 @@ public class GridSnapSystem extends FluidIteratingSystem {
     @Override
     protected void process(E e) {
         if (world.delta == 0) return;
-
-        entityWithTag("control-ghost").posX(e.snapToGridX() * G.CELL_SIZE).posY(e.snapToGridY() * G.CELL_SIZE);
 
         float maxSpeedX = e.snapToGridPixelsPerSecondX() * world.delta;
         float maxSpeedY = e.snapToGridPixelsPerSecondY() * world.delta;
@@ -57,17 +54,17 @@ public class GridSnapSystem extends FluidIteratingSystem {
     }
 
     public void moveRelativeToOther(E e, E other, int dx, int dy) {
-        e.snapToGridX(MathUtils.clamp(curX(other) + dx, 0, 9999));
-        e.snapToGridY(MathUtils.clamp(curY(other) + dy, MIN_LANE, MAX_LANE));
+        e.snapToGridX(MathUtils.clamp(gridX(other) + dx, 0, 9999));
+        e.snapToGridY(MathUtils.clamp(gridY(other) + dy, MIN_LANE, MAX_LANE));
     }
 
-    private int curX(E e) {
-        final float cX = e.posX() + e.boundsCy();
+    public static int gridX(E e) {
+        final float cX = e.posX() + e.boundsCx();
         return (int) (cX - (cX % G.CELL_SIZE)) / G.CELL_SIZE;
     }
 
-    private int curY(E e) {
-        final float cY = e.posY() + e.boundsCx();
+    public static int gridY(E e) {
+        final float cY = e.posY() + e.boundsCy();
         return (int) (cY - (cY % G.CELL_SIZE)) / G.CELL_SIZE;
     }
 

@@ -88,12 +88,15 @@ public class GameScreen extends WorldScreen {
                         new CarriedSystem(),
 //                        new SocketSystem(),
                         new PickupSystem(),
+
+                        new ChainingSystem(),
 //
 //                        // Camera.
                         new CameraFollowSystem(),
                         new CameraShakeSystem(),
                         new CameraClampToMapSystem(),
                         new CameraSystem(G.CAMERA_ZOOM),
+                        new RewardSystem(),
                         new PriorityAnimSystem(),
 //
 //                        new JumpAttackSystem(),

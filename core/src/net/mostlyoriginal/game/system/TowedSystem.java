@@ -16,7 +16,7 @@ public class TowedSystem extends FluidIteratingSystem {
     GridSnapSystem gridSnapSystem;
 
     public TowedSystem() {
-        super(Aspect.all(Towing.class, SnapToGrid.class));
+        super(Aspect.all(Towing.class, SnapToGrid.class).exclude(Cashable.class));
     }
 
     Vector2 v = new Vector2();
@@ -49,7 +49,7 @@ public class TowedSystem extends FluidIteratingSystem {
         }
     }
 
-    private void disconnectFromTowingCar(E towed, boolean violently) {
+    public void disconnectFromTowingCar(E towed, boolean violently) {
         final E tower = getTower(towed);
         if (tower != null) {
             disconnectCargoFrom(tower, false);
