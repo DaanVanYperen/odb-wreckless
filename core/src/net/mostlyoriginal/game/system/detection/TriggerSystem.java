@@ -36,6 +36,9 @@ public class TriggerSystem extends FluidIteratingSystem {
                 case "finish":
                     entityWithTag("camera").removePhysics();
                     player.removeShipControlled();
+                    player.removeSnapToGrid();
+                    player.physicsVx(300);
+                    player.physicsFriction(0);
                     break;
 ////                case "start-running":
 ////                    player.running();

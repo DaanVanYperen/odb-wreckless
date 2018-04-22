@@ -99,6 +99,7 @@ public class GameScreen extends WorldScreen {
                         new CameraShakeSystem(),
                         new CameraClampToMapSystem(),
                         new CameraSystem(G.CAMERA_ZOOM),
+                        new ScoreUISystem(),
                         new RewardSystem(),
                         new PriorityAnimSystem(),
 //
@@ -108,7 +109,6 @@ public class GameScreen extends WorldScreen {
 //                        new RenderBackgroundSystem(),
                         new MapRenderSystem(),
 
-                        new ScoreUISystem(),
 //
                         renderBatchingSystem = new RenderBatchingSystem(),
                         new MyAnimRenderSystem(renderBatchingSystem),

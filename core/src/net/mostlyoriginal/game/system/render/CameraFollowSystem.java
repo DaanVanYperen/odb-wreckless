@@ -36,26 +36,25 @@ public class CameraFollowSystem extends FluidIteratingSystem {
 
     @Override
     protected void process(E e) {
-        if ( Gdx.input.isKeyJustPressed(Input.Keys.F9) ) lockCamera = !lockCamera;
+        if (Gdx.input.isKeyJustPressed(Input.Keys.F9)) lockCamera = !lockCamera;
 
-        if ( lockCamera) return;
-        if (e.wallSensorOnFloor() || e.wallSensorOnPlatform() || true) {
-            float newTargetX = (int) myAnimRenderSystem.roundToPixels(e.posX() + e.boundsCx()) + (G.SCREEN_WIDTH / G.CAMERA_ZOOM);
-            if (targetX != newTargetX) {
-                sourceX = (int) cameraSystem.camera.position.x;
-                targetX = (int) (newTargetX);
-                cooldown = 0f;
-            }
+        if (lockCamera) return;
+        float newTargetX = (int) myAnimRenderSystem.roundToPixels(e.posX() + e.boundsCx()) + (G.SCREEN_WIDTH / G.CAMERA_ZOOM);
+        if (targetX != newTargetX) {
+            sourceX = (int) myAnimRenderSystem.roundToPixels(cameraSystem.camera.position.x);
+            targetX = (int) myAnimRenderSystem.roundToPixels(newTargetX);
+            cooldown = 0f;
         }
         if (cooldown <= 1F) {
-            cooldown += world.delta*2f;
+            cooldown += world.delta * 2f;
             if (cooldown > 1f) cooldown = 1f;
-            cameraSystem.camera.position.x = myAnimRenderSystem.roundToPixels(Interpolation.pow2Out.apply(sourceX,targetX, cooldown));        }
+            cameraSystem.camera.position.x = myAnimRenderSystem.roundToPixels(Interpolation.pow2Out.apply(sourceX, targetX, cooldown));
+        }
         cameraSystem.camera.position.y = myAnimRenderSystem.roundToPixels(e.posY()) + e.boundsCy();
         cameraSystem.camera.update();
 
         float maxDistance = (Gdx.graphics.getWidth() / G.CAMERA_ZOOM) * 0.5F * 0.7f;
-        if (  e.posX() < cameraSystem.camera.position.x - maxDistance) {
+        if (e.posX() < cameraSystem.camera.position.x - maxDistance) {
             cameraSystem.camera.position.x = myAnimRenderSystem.roundToPixels(e.posX() + maxDistance);
             cameraSystem.camera.update();
         }

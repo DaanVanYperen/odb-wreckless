@@ -5,6 +5,7 @@ import com.artemis.BaseSystem;
 import com.artemis.E;
 import com.artemis.Entity;
 import com.artemis.managers.GroupManager;
+import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import net.mostlyoriginal.api.component.basic.Pos;
@@ -17,7 +18,11 @@ import net.mostlyoriginal.game.component.LineData;
 import net.mostlyoriginal.game.system.CarControlSystem;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.map.EntitySpawnerSystem;
+import net.mostlyoriginal.game.system.render.CameraFollowSystem;
+import net.mostlyoriginal.game.system.render.MyAnimRenderSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
+
+import java.util.StringTokenizer;
 
 /**
  * @author Daan van Yperen
@@ -26,20 +31,69 @@ public class ScoreUISystem extends BaseSystem {
 
     protected CameraSystem cameraSystem;
     private E eScore;
+    private CameraFollowSystem cameraFollowSystem;
+
+
+    private int score = 0;
 
     @Override
     protected void initialize() {
         super.initialize();
         eScore = E.E()
-                .labelText("1.000.000.000")
+                .labelText("0")
                 .fontFontName("ital")
-                .tint(0f, 0f, 1f, 1f)
+                .tint(1f, 1f, 1f, 1f)
                 .pos(0, G.SCREEN_HEIGHT / 2f)
                 .renderLayer(G.LAYER_PLAYER + 100);
     }
 
+    public void addPoints( int points) {
+        score += points;
+        eScore.labelText(getDecimalFormattedString(""+score));
+    }
+
+
+    public static String getDecimalFormattedString(String value)
+    {
+        StringTokenizer lst = new StringTokenizer(value, ".");
+        String str1 = value;
+        String str2 = "";
+        if (lst.countTokens() > 1)
+        {
+            str1 = lst.nextToken();
+            str2 = lst.nextToken();
+        }
+        String str3 = "";
+        int i = 0;
+        int j = -1 + str1.length();
+        if (str1.charAt( -1 + str1.length()) == '.')
+        {
+            j--;
+            str3 = ".";
+        }
+        for (int k = j;; k--)
+        {
+            if (k < 0)
+            {
+                if (str2.length() > 0)
+                    str3 = str3 + "." + str2;
+                return str3;
+            }
+            if (i == 3)
+            {
+                str3 = "," + str3;
+                i = 0;
+            }
+            str3 = str1.charAt(k) + str3;
+            i++;
+        }
+
+    }
+
     @Override
     protected void processSystem() {
-        eScore.posX((int)cameraSystem.camera.position.x);
+        eScore.posX(cameraSystem.camera.position.x - (G.SCREEN_WIDTH / G.CAMERA_ZOOM) / 2);
+        eScore.posY(cameraSystem.camera.position.y + (G.SCREEN_HEIGHT / G.CAMERA_ZOOM) / 2 - 10);
+
     }
 }

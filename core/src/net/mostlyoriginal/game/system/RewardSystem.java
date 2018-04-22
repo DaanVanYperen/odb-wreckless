@@ -10,6 +10,7 @@ import net.mostlyoriginal.api.operation.JamOperationFactory;
 import net.mostlyoriginal.game.component.Cashable;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
+import net.mostlyoriginal.game.system.detection.ScoreUISystem;
 
 import static net.mostlyoriginal.api.operation.OperationFactory.*;
 import static net.mostlyoriginal.api.utils.Duration.milliseconds;
@@ -37,6 +38,8 @@ public class RewardSystem extends FluidIteratingSystem {
 
     int rewardCount = 0;
     float textDelay = MS_DELAY_PER_TEXTITEM;
+
+    ScoreUISystem scoreUISystem;
 
     @Override
     protected void process(E shackle) {
@@ -91,6 +94,7 @@ public class RewardSystem extends FluidIteratingSystem {
 
     private void payout(int points, String label, int x, int y, int targetX, int targetY, String font) {
         if (points == 0) return;
+        scoreUISystem.addPoints(points);
         createFloaterLabel(label, x, y, targetX, targetY, font);
         rewardCount++;
     }
