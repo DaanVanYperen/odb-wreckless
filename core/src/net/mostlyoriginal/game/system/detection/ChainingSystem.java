@@ -168,7 +168,7 @@ public class ChainingSystem extends FluidIteratingSystem {
         ChainColor lastColor = null;
         for (int i = 0; i < chain.length; i++) {
             final E eCar = chain.cells[i].eCar;
-            if (lastColor != null && ChainColor.matches(lastColor, eCar.chainableColor())) {
+            if (lastColor != null && !ChainColor.matches(lastColor, eCar.chainableColor())) {
                 return true;
             }
             lastColor = eCar.chainableColor();

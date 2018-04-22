@@ -6,6 +6,7 @@ package net.mostlyoriginal.game.system.render;
 
 import com.artemis.Aspect;
 import com.artemis.annotations.Wire;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -71,7 +72,9 @@ public class MyLabelRenderSystem extends DeferredEntityProcessingSystem {
 
             final BitmapFont font = mBitmapFontAsset.get(e).bitmapFont;
 
-            batch.setColor(mTint.getSafe(e, Tint.WHITE).color);
+            final Color color = mTint.getSafe(e, Tint.WHITE).color;
+            font.setColor(color);
+            batch.setColor(color);
 
             switch ( label.align ) {
                 case LEFT:

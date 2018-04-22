@@ -4,6 +4,7 @@ import com.artemis.Aspect;
 import com.artemis.E;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
+import net.mostlyoriginal.api.component.graphics.Invisible;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.operation.JamOperationFactory;
 import net.mostlyoriginal.game.component.Cashable;
@@ -22,6 +23,7 @@ public class RewardSystem extends FluidIteratingSystem {
     private static final float GLOW_MAX_SCALE = 2f;
     private static final int SPACING_BETWEEN_BONUSES = 10;
     private static final int PITSTOP_LENGTH_BONUS = 2;
+    private static final int MS_DELAY_PER_TEXTITEM = 40;
 
     public RewardSystem() {
         super(Aspect.all(Cashable.class));
@@ -34,10 +36,14 @@ public class RewardSystem extends FluidIteratingSystem {
     int chainMulticolorBonus[] = {0, 0, 0, 200, 500, 1000, 1500, 2000, 4000, 8000, 10000, 10000, 10000, 10000, 10000, 10000};
 
     int rewardCount = 0;
+    float textDelay = MS_DELAY_PER_TEXTITEM;
 
     @Override
     protected void process(E shackle) {
         shackle.cashableCooldown(shackle.cashableCooldown() - world.delta);
+
+
+        textDelay = 1 + shackle.cashableCooldown();
 
 //        if ( shackle.cashableCooldown() <= 0 )
         {
@@ -49,16 +55,20 @@ public class RewardSystem extends FluidIteratingSystem {
             final boolean isPitstop = shackle.cashableType() == Cashable.Type.PITSTOP;
             final int bonusLength = isPitstop ? PITSTOP_LENGTH_BONUS : 0;
 
+            rewardPoints(multiplier*chainLengthShacklePoints[shackle.cashableChainLength() + bonusLength], x, y + G.CELL_SIZE);
+
             if ( multiplier > 1 ) {
-                createFloaterLabel("x" + multiplier, x, y,  MathUtils.random(5, 10),   MathUtils.random(60, 65), "ital");
+                textDelay = shackle.cashableCooldown() + 200;
+                createFloaterLabel("x" + multiplier, x, y + G.CELL_SIZE,  MathUtils.random(5, 10),   MathUtils.random(60, 65), "ital");
             }
 
-            rewardPoints(multiplier*chainLengthShacklePoints[shackle.cashableChainLength() + bonusLength], x, y);
             if (shackle.cashableChainBonusPayout()) {
-                rewardBonus(multiplier*chainLengthChainBonus[shackle.cashableChainLength() + bonusLength], x, y + (rewardCount * SPACING_BETWEEN_BONUSES), isPitstop ? " PITSTOP BONUS!" : " CHAIN BONUS!");
+                textDelay = shackle.cashableCooldown() + 300;
+                rewardBonus(multiplier*chainLengthChainBonus[shackle.cashableChainLength() + bonusLength], x, y + G.CELL_SIZE + (rewardCount * SPACING_BETWEEN_BONUSES), isPitstop ? " PITSTOP BONUS!" : " CHAIN BONUS!");
             }
             if (shackle.cashableChainMulticolorPayout()) {
-                rewardBonus(multiplier*chainMulticolorBonus[shackle.cashableChainLength()+ bonusLength], x, y + (rewardCount * SPACING_BETWEEN_BONUSES), " MULTICOLOR BONUS!");
+                textDelay = shackle.cashableCooldown() + 500;
+                rewardBonus(multiplier*chainMulticolorBonus[shackle.cashableChainLength()+ bonusLength], x, y + G.CELL_SIZE + (rewardCount * SPACING_BETWEEN_BONUSES), " MULTICOLOR BONUS!");
             }
 
             sfx(shackle, x, y);
@@ -69,7 +79,7 @@ public class RewardSystem extends FluidIteratingSystem {
     }
 
     private void rewardPoints(int chainLengthShacklePoint, int x, int y) {
-        payout(chainLengthShacklePoint, "" + chainLengthShacklePoint, x, y + 20, MathUtils.random(5, 10), MathUtils.random(60, 65), "italsmall");
+        payout(chainLengthShacklePoint, "" + chainLengthShacklePoint, x, y, MathUtils.random(5, 10), MathUtils.random(60, 65), "italsmall");
     }
 
     private void rewardBonus(int chainLengthChainNonus, int x, int y, String suffix) {
@@ -94,18 +104,14 @@ public class RewardSystem extends FluidIteratingSystem {
                 .renderLayer(50000)
                 .physicsFriction(0)
                 .labelText(label)
-                .tint(1f, 1f, 1f, 1f)
+                .tint(1f, 1f, 1f, 0f)
                 .script(sequence(
-                        JamOperationFactory.tintBetween(YELLOW, Tint.WHITE, milliseconds(100), Interpolation.pow2Out),
-                        parallel(
-                                JamOperationFactory.moveBetween(x, y, x + targetX, y + targetY, milliseconds(500), Interpolation.pow2Out),
-                                sequence(
-                                        JamOperationFactory.tintBetween(YELLOW, Tint.WHITE, milliseconds(250), Interpolation.pow2Out),
-                                        JamOperationFactory.tintBetween(Tint.WHITE, Tint.TRANSPARENT, milliseconds(250), Interpolation.pow2Out)
-                                )
-                        ),
+                        delay(milliseconds(textDelay)),
+                        JamOperationFactory.tintBetween(Tint.TRANSPARENT,Tint.WHITE, 0.1f),
+                        JamOperationFactory.moveBetween(x, y, x + targetX, y + targetY, 0.5f, Interpolation.pow2Out),
                         deleteFromWorld()
                 ));
+        textDelay += MS_DELAY_PER_TEXTITEM;
     }
 
     private void sfx(E shackle, float x, float y) {
@@ -113,7 +119,7 @@ public class RewardSystem extends FluidIteratingSystem {
         E.E()
                 .posX(x)
                 .posY(y)
-                .renderLayer(G.LAYER_PARTICLES)
+                .renderLayer(G.LAYER_PLAYER-10)
                 .anim(shackle.animId() + "-score")
                 .script(sequence(
                         delay(milliseconds(250)),
