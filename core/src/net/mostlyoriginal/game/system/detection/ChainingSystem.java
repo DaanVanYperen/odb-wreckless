@@ -2,13 +2,16 @@ package net.mostlyoriginal.game.system.detection;
 
 import com.artemis.Aspect;
 import com.artemis.E;
+import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.physics.Frozen;
 import net.mostlyoriginal.game.component.Cashable;
 import net.mostlyoriginal.game.component.ChainColor;
 import net.mostlyoriginal.game.component.Chainable;
+import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.system.GridSnapSystem;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
+import net.mostlyoriginal.game.system.map.EntitySpawnerSystem;
 
 /**
  * @author Daan van Yperen
@@ -28,6 +31,9 @@ public class ChainingSystem extends FluidIteratingSystem {
     private int activeChains = 0;
     private int activePitstopChains = 0;
     private int cameraGridOffset;
+    private EntitySpawnerSystem entitySpawnerSystem;
+
+    private float randomRacerCooldown = 10;
 
     class Chain {
         public int length;
@@ -114,10 +120,20 @@ public class ChainingSystem extends FluidIteratingSystem {
 
         collectChains();
 
+        handleRandomRacers();
+
         rewardLongColorChains();
         rewardUnbrokenPitstopChains();
 
         resetChains();
+    }
+
+    private void handleRandomRacers() {
+        randomRacerCooldown -= world.delta;
+        if (randomRacerCooldown <= 0) {
+            randomRacerCooldown += MathUtils.random(0.5f, 3);
+            randomlyFireCar();
+        }
     }
 
     private void rewardUnbrokenPitstopChains() {
@@ -189,6 +205,33 @@ public class ChainingSystem extends FluidIteratingSystem {
     private void prepareForReward(E e, Cell cell) {
         e
                 .removeChainable();
+    }
+
+    public void randomlyFireCar() {
+        int[] emptyRows = new int[HEIGHT];
+        int rows = 0;
+
+        for (int y = 0; y < HEIGHT; y++) {
+            boolean occupied = false;
+            for (int x = 0; x < WIDTH; x++) {
+                final Cell cell = grid[y][x];
+
+                // sorry, cell occupied.
+                if (cell.eCar != null || cell.ePitstop != null) {
+                    occupied = true;
+                    break;
+                }
+            }
+
+            // reached the end! :)
+            if (!occupied)
+                emptyRows[rows++] = y;
+        }
+
+        if (rows > 0) {
+            int y = emptyRows[MathUtils.random(0, rows - 1)];
+            entitySpawnerSystem.assembleRacer(cameraGridOffset * G.CELL_SIZE - G.CELL_SIZE, y * G.CELL_SIZE, ChainColor.random().name());
+        }
     }
 
     private void collectChains() {

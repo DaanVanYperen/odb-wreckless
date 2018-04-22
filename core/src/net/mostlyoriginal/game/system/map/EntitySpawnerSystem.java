@@ -97,7 +97,7 @@ public class EntitySpawnerSystem extends BaseSystem {
         return e;
     }
 
-    private E assembleRacer(int x, int y, String color) {
+    public E assembleRacer(int x, int y, String color) {
         final E e = E()
                 .pos(x, y)
                 .angle()
