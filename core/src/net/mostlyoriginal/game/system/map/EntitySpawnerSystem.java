@@ -71,6 +71,7 @@ public class EntitySpawnerSystem extends BaseSystem {
         final E e = E()
                 .pos(x, y)
                 .angle()
+                .origin(0.5f, 0.5f)
                 .render(G.LAYER_GREMLIN)
                 .crashable()
                 .snapToGrid()
@@ -137,6 +138,7 @@ public class EntitySpawnerSystem extends BaseSystem {
         int gracepaddingY = 4;
         E playerCar = E().anim("player-idle")
                 .pos(x - 14, y)
+                .origin(0.5f, 0.5f)
                 .render(G.LAYER_PLAYER)
                 .snapToGridX((int) x / G.CELL_SIZE)
                 .snapToGridY((int) y / G.CELL_SIZE)
@@ -145,12 +147,9 @@ public class EntitySpawnerSystem extends BaseSystem {
                 //.gravity()
                 .wallSensor()
                 .player()
-                .diesFromWalls(true)
                 .teamTeam(G.TEAM_PLAYERS)
                 .tag("player")
-                .shipControlled()
-                .shieldHp(shipData.hp)
-                .shieldMaxHp(shipData.hp);
+                .shipControlled();
 
 //        E().anim("player-hook")
 //                .pos(x, y)
