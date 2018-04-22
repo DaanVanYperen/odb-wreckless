@@ -19,7 +19,7 @@ public class G {
 
     public static final boolean PRODUCTION = false;
 
-    public static final boolean DEBUG_SKIP_INTRO = (!PRODUCTION && false);
+    public static final boolean DEBUG_SKIP_MUSIC = (!PRODUCTION && false);
     public static final boolean DEBUG_NO_MUSIC = (!PRODUCTION && false);
     public static final int CELL_SIZE = 32;
 

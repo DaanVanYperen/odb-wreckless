@@ -67,7 +67,7 @@ public class TowedSystem extends FluidIteratingSystem {
         if (cargo != null) {
             cargo.removeTowed();
             if (violently) {
-                cargo.snapToGridX(cargo.snapToGridX()-3);
+                //cargo.snapToGridX(cargo.snapToGridX()-3);
                 disconnectCargoFrom(cargo, true);
             }
         }

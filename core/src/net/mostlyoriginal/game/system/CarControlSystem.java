@@ -109,7 +109,7 @@ public class CarControlSystem extends FluidIteratingSystem {
 //        entityWithTag("camera")
 //                .physicsVx(scrolling ? G.CAMERA_SCROLL_SPEED : 0);
 //
-//        entityWithTag("camera").posX(e.posX());
+        entityWithTag("camera").posY(e.posY());
     }
 
     private void fireGuns(E e) {
