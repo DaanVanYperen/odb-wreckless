@@ -31,7 +31,7 @@ public class SpinoutSystem extends FluidIteratingSystem {
     @Override
     protected void process(E e) {
 
-        e.spinoutFactor(e.spinoutFactor() + world.delta * 0.5f);
+        e.spinoutFactor(e.spinoutFactor() + world.delta * 0.5f * e.spinoutSpeed());
         if (e.spinoutFactor() < 1) {
             final float a = 1 - Interpolation.linear.apply(e.spinoutFactor());
 
