@@ -103,4 +103,8 @@ public class GridSnapSystem extends FluidIteratingSystem {
         return (int) (cY - (cY % G.CELL_SIZE)) / G.CELL_SIZE;
     }
 
+    public void instaSnap(E eCar) {
+        eCar.posX(gridX(eCar) * G.CELL_SIZE);
+        eCar.posY(gridY(eCar) * G.CELL_SIZE);
+    }
 }

@@ -129,9 +129,11 @@ public class ChainingSystem extends FluidIteratingSystem {
 
     private void cashoutChain(Chain chain, Cashable.Type type) {
         for (int i = 0; i < chain.length; i++) {
-            prepareForReward(chain.cells[i].eCar
+            final E eCar = chain.cells[i].eCar;
+            prepareForReward(eCar
                     .cashableChainLength(chain.length)
                     .cashableType(type), chain.cells[i]);
+            gridSnapSystem.instaSnap(eCar);
         }
     }
 
