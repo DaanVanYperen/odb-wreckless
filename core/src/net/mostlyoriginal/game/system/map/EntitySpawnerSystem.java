@@ -85,6 +85,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .origin(0.5f, 0.5f)
                 .render(G.LAYER_GREMLIN)
                 .snapToGrid()
+                .angleRotation(MathUtils.random(0,360))
                 .towable()
                 .frozen(true)
                 .teamTeam(TEAM_ENEMIES)

@@ -241,4 +241,53 @@
    <property name="type" value="FROGGER"/>
   </properties>
  </tile>
+ <tile id="320">
+  <properties>
+   <property name="down" type="bool" value="false"/>
+   <property name="entity" value="pilon"/>
+  </properties>
+ </tile>
+ <tile id="321">
+  <properties>
+   <property name="down" type="bool" value="true"/>
+   <property name="entity" value="pilon"/>
+  </properties>
+ </tile>
+ <tile id="322">
+  <properties>
+   <property name="entity" value="barricade"/>
+  </properties>
+ </tile>
+ <tile id="325">
+  <properties>
+   <property name="entity" value="oilslick"/>
+  </properties>
+ </tile>
+ <tile id="326">
+  <properties>
+   <property name="entity" value="oilslick"/>
+  </properties>
+ </tile>
+ <tile id="352">
+  <properties>
+   <property name="down" type="bool" value="false"/>
+   <property name="entity" value="drum"/>
+  </properties>
+ </tile>
+ <tile id="353">
+  <properties>
+   <property name="down" type="bool" value="true"/>
+   <property name="entity" value="drum"/>
+  </properties>
+ </tile>
+ <tile id="357">
+  <properties>
+   <property name="entity" value="oilslick"/>
+  </properties>
+ </tile>
+ <tile id="358">
+  <properties>
+   <property name="entity" value="oilslick"/>
+  </properties>
+ </tile>
 </tileset>
