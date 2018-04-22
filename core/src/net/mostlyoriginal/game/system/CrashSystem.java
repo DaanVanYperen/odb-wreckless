@@ -26,7 +26,7 @@ public class CrashSystem extends BaseEntitySystem {
     private EBag onGrid;
 
     public CrashSystem() {
-        super(Aspect.all(Crashable.class).exclude(Towed.class, Frozen.class, Spinout.class));
+        super(Aspect.all(Crashable.class).exclude(Towed.class, Frozen.class));
     }
 
     @Override
@@ -44,6 +44,8 @@ public class CrashSystem extends BaseEntitySystem {
 
     private void crashTest(E a, E b) {
         if (overlaps(a, b)) {
+
+            if ( a.hasSpinout() && b.hasSpinout() ) return;
 
 
             final float angle = v.set(a.posX() + a.boundsCx(), a.posY() + a.boundsCy())
