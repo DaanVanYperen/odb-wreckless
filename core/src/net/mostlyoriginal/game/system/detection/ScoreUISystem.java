@@ -15,6 +15,7 @@ import net.mostlyoriginal.game.component.Dialog;
 import net.mostlyoriginal.game.component.DialogData;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.LineData;
+import net.mostlyoriginal.game.screen.GameScreen;
 import net.mostlyoriginal.game.system.CarControlSystem;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.map.EntitySpawnerSystem;
@@ -35,6 +36,8 @@ public class ScoreUISystem extends BaseSystem {
 
 
     private int score = 0;
+    private boolean finished;
+    private float finishedTime;
 
     @Override
     protected void initialize() {
@@ -47,40 +50,52 @@ public class ScoreUISystem extends BaseSystem {
                 .renderLayer(G.LAYER_PLAYER + 100);
     }
 
-    public void addPoints( int points) {
+    public void displayScorecard() {
+        E.E()
+                .labelText("FINAL SCORE " + getDecimalFormattedString("" + score))
+                .labelAlign(Label.Align.RIGHT)
+                .fontFontName("italshuge")
+                .tint(1f, 1f, 0f, 1f)
+                .pos(cameraSystem.camera.position.x, cameraSystem.camera.position.y)
+                .renderLayer(G.LAYER_PLAYER + 100);
+        E.E()
+                .labelText("Play again? Press space")
+                .labelAlign(Label.Align.RIGHT)
+                .fontFontName("ital")
+                .tint(1f, 1f, 1f, 1f)
+                .pos(cameraSystem.camera.position.x, cameraSystem.camera.position.y - 40)
+                .renderLayer(G.LAYER_PLAYER + 100);
+    }
+
+    public void addPoints(int points) {
         score += points;
-        eScore.labelText(getDecimalFormattedString(""+score));
+        eScore.labelText(getDecimalFormattedString("" + score));
+        finished = true;
     }
 
 
-    public static String getDecimalFormattedString(String value)
-    {
+    public static String getDecimalFormattedString(String value) {
         StringTokenizer lst = new StringTokenizer(value, ".");
         String str1 = value;
         String str2 = "";
-        if (lst.countTokens() > 1)
-        {
+        if (lst.countTokens() > 1) {
             str1 = lst.nextToken();
             str2 = lst.nextToken();
         }
         String str3 = "";
         int i = 0;
         int j = -1 + str1.length();
-        if (str1.charAt( -1 + str1.length()) == '.')
-        {
+        if (str1.charAt(-1 + str1.length()) == '.') {
             j--;
             str3 = ".";
         }
-        for (int k = j;; k--)
-        {
-            if (k < 0)
-            {
+        for (int k = j; ; k--) {
+            if (k < 0) {
                 if (str2.length() > 0)
                     str3 = str3 + "." + str2;
                 return str3;
             }
-            if (i == 3)
-            {
+            if (i == 3) {
                 str3 = "," + str3;
                 i = 0;
             }
@@ -95,5 +110,13 @@ public class ScoreUISystem extends BaseSystem {
         eScore.posX(cameraSystem.camera.position.x - (G.SCREEN_WIDTH / G.CAMERA_ZOOM) / 2);
         eScore.posY(cameraSystem.camera.position.y + (G.SCREEN_HEIGHT / G.CAMERA_ZOOM) / 2 - 10);
 
+        if (finished) {
+            finishedTime += world.delta;
+
+            if (finishedTime > 1f && (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.E))) {
+                E.E().transitionScreen(GameScreen.class);
+
+            }
+        }
     }
 }

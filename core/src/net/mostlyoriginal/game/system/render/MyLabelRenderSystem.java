@@ -82,7 +82,7 @@ public class MyLabelRenderSystem extends DeferredEntityProcessingSystem {
                     break;
                 case RIGHT:
                     glyphLayout.setText(font,label.text);
-                    font.draw(batch, label.text, pos.xy.x - glyphLayout.width, pos.xy.y);
+                    font.draw(batch, label.text, pos.xy.x - glyphLayout.width * 0.5f, pos.xy.y);
                     break;
             }
         }

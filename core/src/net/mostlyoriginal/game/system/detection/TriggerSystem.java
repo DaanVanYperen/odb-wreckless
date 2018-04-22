@@ -2,16 +2,10 @@ package net.mostlyoriginal.game.system.detection;
 
 import com.artemis.Aspect;
 import com.artemis.E;
-import net.mostlyoriginal.api.component.basic.Angle;
 import net.mostlyoriginal.api.component.basic.Pos;
-import net.mostlyoriginal.api.operation.JamOperationFactory;
-import net.mostlyoriginal.api.operation.OperationFactory;
-import net.mostlyoriginal.game.component.Exit;
-import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.Trigger;
 import net.mostlyoriginal.game.screen.GameScreen;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
-import net.mostlyoriginal.game.system.render.TransitionSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 /**
@@ -20,6 +14,7 @@ import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 public class TriggerSystem extends FluidIteratingSystem {
 
     private GameScreenAssetSystem assetSystem;
+    private ScoreUISystem scoreUISystem;
 
     public TriggerSystem() {
         super(Aspect.all(Trigger.class, Pos.class));
@@ -34,11 +29,14 @@ public class TriggerSystem extends FluidIteratingSystem {
         if (overlaps(player, e)) {
             switch (e.triggerTrigger()) {
                 case "finish":
-                    entityWithTag("camera").removePhysics();
-                    player.removeShipControlled();
-                    player.removeSnapToGrid();
-                    player.physicsVx(300);
-                    player.physicsFriction(0);
+                    if (player.hasShipControlled()) {
+                        entityWithTag("camera").removePhysics();
+                        player.removeShipControlled();
+                        player.removeSnapToGrid();
+                        player.physicsVx(300);
+                        player.physicsFriction(0);
+                        scoreUISystem.displayScorecard();
+                    }
                     break;
 ////                case "start-running":
 ////                    player.running();
