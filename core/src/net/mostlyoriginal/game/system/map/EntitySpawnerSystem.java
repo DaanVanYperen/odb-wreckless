@@ -47,6 +47,9 @@ public class EntitySpawnerSystem extends BaseSystem {
             case "pitstop":
                 assemblePitstop((int) x, (int) y, (String) properties.get("color"),(Integer) properties.get("multiplier"));
                 return false;
+            case "trigger":
+                assembleTrigger(x, y, (String) properties.get("trigger"), (String) properties.get("parameter"));
+                return false;
             case "birds":
                 for (int i = 0, s = MathUtils.random(1, 3); i <= s; i++) {
                     assembleBird(x + MathUtils.random(G.CELL_SIZE), y + MathUtils.random(G.CELL_SIZE));
@@ -292,6 +295,10 @@ public class EntitySpawnerSystem extends BaseSystem {
         addArsenal(enemyShip, "enemy-guns", G.TEAM_ENEMIES, -180, shipData.arsenal, true);
     }
 
+    private void assembleTrigger(float x, float y, String trigger, String parameter) {
+        boolean tallTrigger = !trigger.equals("music");
+        E().pos(x, y - (tallTrigger ? 5000 : 0)).bounds(0, 0, 32, (tallTrigger ? 10000 : 32)).trigger(trigger).triggerParameter(parameter);
+    }
 
     public void spawnGremlin(float x, float y) {
         E robot = E().anim("gremlin-1-idle")

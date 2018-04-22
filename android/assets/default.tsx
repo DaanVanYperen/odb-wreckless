@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset name="default" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
  <image source="tileset.png" width="1024" height="1024"/>
+ <tile id="57">
+  <properties>
+   <property name="entity" value="trigger"/>
+   <property name="trigger" value="finish"/>
+  </properties>
+ </tile>
  <tile id="64">
   <properties>
    <property name="entity" value="player"/>
@@ -9,6 +15,12 @@
  <tile id="65">
   <properties>
    <property name="entity" value="player"/>
+  </properties>
+ </tile>
+ <tile id="89">
+  <properties>
+   <property name="entity" value="trigger"/>
+   <property name="trigger" value="finish"/>
   </properties>
  </tile>
  <tile id="96">
@@ -47,6 +59,12 @@
   <properties>
    <property name="color" value="BLUE"/>
    <property name="entity" value="pitstop"/>
+  </properties>
+ </tile>
+ <tile id="121">
+  <properties>
+   <property name="entity" value="trigger"/>
+   <property name="trigger" value="finish"/>
   </properties>
  </tile>
  <tile id="128">

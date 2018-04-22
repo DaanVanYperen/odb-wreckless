@@ -20,7 +20,6 @@ import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 public class TriggerSystem extends FluidIteratingSystem {
 
     private GameScreenAssetSystem assetSystem;
-    private FarewellSystem farewellSystem;
 
     public TriggerSystem() {
         super(Aspect.all(Trigger.class, Pos.class));
@@ -31,11 +30,13 @@ public class TriggerSystem extends FluidIteratingSystem {
     @Override
     protected void process(E e) {
         E player = entityWithTag("player");
-        E robot = entityWithTag("robot");
 
-        boolean robotOverlaps = overlaps(robot, e);
-        if (overlaps(player, e) || robotOverlaps) {
+        if (overlaps(player, e)) {
             switch (e.triggerTrigger()) {
+                case "finish":
+                    entityWithTag("camera").removePhysics();
+                    player.removeShipControlled();
+                    break;
 ////                case "start-running":
 ////                    player.running();
 ////                    player.removeCameraFocus();
@@ -81,7 +82,7 @@ public class TriggerSystem extends FluidIteratingSystem {
 
     private void playMusic(E e) {
         String song = e.triggerParameter();
-        if ( !song.equals(playingSong)) {
+        if (!song.equals(playingSong)) {
             playingSong = song;
             assetSystem.playMusicInGame(song);
         }

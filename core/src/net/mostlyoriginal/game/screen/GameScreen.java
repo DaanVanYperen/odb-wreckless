@@ -49,7 +49,7 @@ public class GameScreen extends WorldScreen {
                         new MapSystem(),
                         new ParticleSystem(),
 //                        new PowerSystem(),
-//                        new DialogSystem(),
+                        new DialogSystem(),
 //
                         new GameScreenAssetSystem(),
                         new ArsenalDataSystem(),
@@ -64,7 +64,7 @@ public class GameScreen extends WorldScreen {
                         new CollisionSystem(),
 //
 //                        // spawn
-//                        new TriggerSystem(),
+                        new TriggerSystem(),
 //                        new FarewellSystem(),
 //                        new SpoutSystem(),
 //
@@ -107,6 +107,8 @@ public class GameScreen extends WorldScreen {
                         new ClearScreenSystem(Color.valueOf("7B7A7F")),
 //                        new RenderBackgroundSystem(),
                         new MapRenderSystem(),
+
+                        new ScoreUISystem(),
 //
                         renderBatchingSystem = new RenderBatchingSystem(),
                         new MyAnimRenderSystem(renderBatchingSystem),
