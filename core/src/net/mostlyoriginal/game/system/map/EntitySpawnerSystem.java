@@ -45,7 +45,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 assembleCar((int) x, (int) y, (String) properties.get("color"));
                 break;
             case "pitstop":
-                assemblePitstop((int) x, (int) y, (String) properties.get("color"));
+                assemblePitstop((int) x, (int) y, (String) properties.get("color"),(Integer) properties.get("multiplier"));
                 return false;
             case "birds":
                 for (int i = 0, s = MathUtils.random(1, 3); i <= s; i++) {
@@ -88,12 +88,13 @@ public class EntitySpawnerSystem extends BaseSystem {
 
     }
 
-    private E assemblePitstop(int x, int y, String color) {
+    private E assemblePitstop(int x, int y, String color, Integer multiplier) {
         final E e = E()
                 .pos(x, y)
                 .render(G.LAYER_GREMLIN)
                 .teamTeam(TEAM_ENEMIES)
                 .chainableColor(ChainColor.valueOf(color))
+                .chainableMultiplier(multiplier != null ? multiplier : 1)
                 .chainablePitstop(true).bounds(0,0,G.CELL_SIZE,G.CELL_SIZE);
         return e;
     }

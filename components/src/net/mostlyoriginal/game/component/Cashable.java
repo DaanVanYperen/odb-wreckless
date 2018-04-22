@@ -13,6 +13,7 @@ public class Cashable extends Component {
     public boolean chainMulticolorPayout;
     public Type type;
     public float cooldown;
+    public int multiplier=1;
 
     public enum Type {
         COLOR,

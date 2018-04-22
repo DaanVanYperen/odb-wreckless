@@ -21,6 +21,7 @@ public class RewardSystem extends FluidIteratingSystem {
     private static final float FADEOUT_DURATION = 1f;
     private static final float GLOW_MAX_SCALE = 2f;
     private static final int SPACING_BETWEEN_BONUSES = 10;
+    private static final int PITSTOP_LENGTH_BONUS = 2;
 
     public RewardSystem() {
         super(Aspect.all(Cashable.class));
@@ -28,28 +29,36 @@ public class RewardSystem extends FluidIteratingSystem {
 
     private TowedSystem towedSystem;
 
-    int chainLengthShacklePoints[] = {10, 20, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000};
-    int chainLengthChainBonus[] = {0, 0, 200, 500, 1000, 1500, 2000, 4000, 8000, 10000, 10000, 10000, 10000, 10000, 10000};
-    int chainMulticolorBonus[] = {0, 0, 200, 500, 1000, 1500, 2000, 4000, 8000, 10000, 10000, 10000, 10000, 10000, 10000};
+    int chainLengthShacklePoints[] = {0, 10, 20, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000};
+    int chainLengthChainBonus[] = {0, 0, 0, 200, 500, 1000, 1500, 2000, 4000, 8000, 10000, 10000, 10000, 10000, 10000, 10000};
+    int chainMulticolorBonus[] = {0, 0, 0, 200, 500, 1000, 1500, 2000, 4000, 8000, 10000, 10000, 10000, 10000, 10000, 10000};
 
-    int rewardCount=0;
+    int rewardCount = 0;
 
     @Override
     protected void process(E shackle) {
-        shackle.cashableCooldown(shackle.cashableCooldown()-world.delta);
+        shackle.cashableCooldown(shackle.cashableCooldown() - world.delta);
 
 //        if ( shackle.cashableCooldown() <= 0 )
         {
             final int x = GridSnapSystem.gridX(shackle) * G.CELL_SIZE;
             final int y = GridSnapSystem.gridY(shackle) * G.CELL_SIZE;
 
-            rewardCount=0;
-            rewardPoints(chainLengthShacklePoints[shackle.cashableChainLength()], x , y);
-            if ( shackle.cashableChainBonusPayout() ) {
-                rewardBonus(chainLengthChainBonus[shackle.cashableChainLength()], x , y + (rewardCount * SPACING_BETWEEN_BONUSES), " CHAIN BONUS!");
+            rewardCount = 0;
+            int multiplier = Math.max(1,shackle.cashableMultiplier());
+            final boolean isPitstop = shackle.cashableType() == Cashable.Type.PITSTOP;
+            final int bonusLength = isPitstop ? PITSTOP_LENGTH_BONUS : 0;
+
+            if ( multiplier > 1 ) {
+                createFloaterLabel("x" + multiplier, x, y,  MathUtils.random(5, 10),   MathUtils.random(60, 65), "ital");
             }
-            if ( shackle.cashableChainMulticolorPayout() ) {
-                rewardBonus(chainMulticolorBonus[shackle.cashableChainLength()], x, y + (rewardCount * SPACING_BETWEEN_BONUSES), " MULTICOLOR BONUS!");
+
+            rewardPoints(multiplier*chainLengthShacklePoints[shackle.cashableChainLength() + bonusLength], x, y);
+            if (shackle.cashableChainBonusPayout()) {
+                rewardBonus(multiplier*chainLengthChainBonus[shackle.cashableChainLength() + bonusLength], x, y + (rewardCount * SPACING_BETWEEN_BONUSES), isPitstop ? " PITSTOP BONUS!" : " CHAIN BONUS!");
+            }
+            if (shackle.cashableChainMulticolorPayout()) {
+                rewardBonus(multiplier*chainMulticolorBonus[shackle.cashableChainLength()+ bonusLength], x, y + (rewardCount * SPACING_BETWEEN_BONUSES), " MULTICOLOR BONUS!");
             }
 
             sfx(shackle, x, y);
@@ -60,29 +69,32 @@ public class RewardSystem extends FluidIteratingSystem {
     }
 
     private void rewardPoints(int chainLengthShacklePoint, int x, int y) {
-        payout(chainLengthShacklePoint, "" + chainLengthShacklePoint, x, y + 20, MathUtils.random(5, 10), MathUtils.random(60,65));
+        payout(chainLengthShacklePoint, "" + chainLengthShacklePoint, x, y + 20, MathUtils.random(5, 10), MathUtils.random(60, 65), "italsmall");
     }
 
     private void rewardBonus(int chainLengthChainNonus, int x, int y, String suffix) {
-        payout(chainLengthChainNonus, "+" + chainLengthChainNonus + suffix, x +5, y , MathUtils.random(-10, 10), MathUtils.random(40,45));
+        payout(chainLengthChainNonus, "+" + chainLengthChainNonus + suffix, x + 5, y, MathUtils.random(-10, 10), MathUtils.random(40, 45), "ital");
     }
 
     private static final Tint YELLOW = new Tint("ffff00ff");
     ;
 
-    private void payout(int points, String label, int x, int y, int targetX, int targetY) {
-        if ( points == 0) return;
+    private void payout(int points, String label, int x, int y, int targetX, int targetY, String font) {
+        if (points == 0) return;
+        createFloaterLabel(label, x, y, targetX, targetY, font);
+        rewardCount++;
+    }
 
+    private void createFloaterLabel(String label, int x, int y, int targetX, int targetY, String font) {
         E.E()
                 .posX(x)
                 .posY(y)
                 .renderLayer(G.LAYER_PARTICLES + 1)
-                .fontScale(2f)
-                .fontFontName("ital")
+                .fontFontName(font)
                 .renderLayer(50000)
                 .physicsFriction(0)
                 .labelText(label)
-                .tint(1f,1f,1f,1f)
+                .tint(1f, 1f, 1f, 1f)
                 .script(sequence(
                         JamOperationFactory.tintBetween(YELLOW, Tint.WHITE, milliseconds(100), Interpolation.pow2Out),
                         parallel(
@@ -94,7 +106,6 @@ public class RewardSystem extends FluidIteratingSystem {
                         ),
                         deleteFromWorld()
                 ));
-        rewardCount++;
     }
 
     private void sfx(E shackle, float x, float y) {

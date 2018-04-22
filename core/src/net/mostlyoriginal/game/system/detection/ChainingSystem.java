@@ -2,7 +2,6 @@ package net.mostlyoriginal.game.system.detection;
 
 import com.artemis.Aspect;
 import com.artemis.E;
-import net.mostlyoriginal.api.component.basic.Bounds;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.game.component.Cashable;
 import net.mostlyoriginal.game.component.ChainColor;
@@ -17,7 +16,7 @@ public class ChainingSystem extends FluidIteratingSystem {
 
     private static final int WIDTH = 20; // base + 1 for easier scanning
     private static final int HEIGHT = 12; // base + 1 for easier scanning/
-    private static final int MAX_CHAINS = WIDTH * HEIGHT; // too many but safe. :)
+    private static final int MAX_CHAINS = WIDTH * HEIGHT * 2; // too many but safe. :)
     private static final int MAX_PITSTOP_CHAINS = 20;
     private int MAX_CHAIN_LENGTH = 10;
 
@@ -47,7 +46,8 @@ public class ChainingSystem extends FluidIteratingSystem {
     class Cell {
         E eCar;
         E ePitstop;
-        Chain chain;
+        Chain hChain;
+        Chain vChain;
         Chain pitstopChain;
         int x;
         int y;
@@ -60,7 +60,8 @@ public class ChainingSystem extends FluidIteratingSystem {
         void reset() {
             eCar = null;
             ePitstop = null;
-            chain = null;
+            hChain = null;
+            vChain = null;
             pitstopChain = null;
         }
     }
@@ -131,21 +132,36 @@ public class ChainingSystem extends FluidIteratingSystem {
         boolean chainBonusPayout = true;
         boolean chainMulticolorPayout = isMulticolorChain(chain);
 
+        int totalMultiplier = multiplierTotal(chain);
 
         for (int i = 0; i < chain.length; i++) {
             final E eCar = chain.cells[i].eCar;
-            if (chainBonusPayout) {
-                // payout chain bonus on first shackle.
+
+            if (chainBonusPayout && !eCar.cashableChainBonusPayout()) {
+                // payout chain bonus on first shackle that has none set yet.
                 eCar.cashableChainBonusPayout(true);
                 eCar.cashableChainMulticolorPayout(chainMulticolorPayout);
                 chainBonusPayout = false;
             }
-            eCar.cashableCooldown(i*125f);
+
+            eCar.cashableCooldown(i * 125f);
             prepareForReward(eCar
-                    .cashableChainLength(chain.length)
+                    .cashableMultiplier(totalMultiplier)
+                    .cashableChainLength(eCar.cashableChainLength() + chain.length) // increase length, in case of overlapping.
                     .cashableType(type), chain.cells[i]);
             gridSnapSystem.instaSnap(eCar);
         }
+    }
+
+    private int multiplierTotal(Chain chain) {
+        int result = 0;
+        for (int i = 0; i < chain.length; i++) {
+            final E pitstop = chain.cells[i].ePitstop;
+            if (pitstop != null && pitstop.hasChainable() && pitstop.chainableMultiplier() > 1) {
+                result += pitstop.chainableMultiplier();
+            }
+        }
+        return result;
     }
 
     private boolean isMulticolorChain(Chain chain) {
@@ -180,9 +196,14 @@ public class ChainingSystem extends FluidIteratingSystem {
             for (int x = 0; x < WIDTH; x++) {
                 final Cell cell = grid[y][x];
 
-                if (cell.eCar != null && cell.chain == null) {
-                    // new car chain!
-                    visit(cell, chains[activeChains++], cell.eCar.chainableColor());
+                if (cell.eCar != null) {
+                    // scan both horizontally and vertically
+                    if (cell.hChain == null) {
+                        visit(cell, chains[activeChains++], cell.eCar.chainableColor(), 1, 0);
+                    }
+                    if (cell.vChain == null) {
+                        visit(cell, chains[activeChains++], cell.eCar.chainableColor(), 0, 1);
+                    }
                 }
 
                 if (cell.ePitstop != null && cell.pitstopChain == null) {
@@ -218,20 +239,24 @@ public class ChainingSystem extends FluidIteratingSystem {
     private int[] dx = {0, 1, 0, -1};
     private int[] dy = {1, 0, -1, 0};
 
-    private void visit(Cell cell, Chain chain, ChainColor chainColor) {
-        if (cell.chain != null) return;
+    private void visit(Cell cell, Chain chain, ChainColor chainColor, int dx, int dy) {
 
-        cell.chain = chain;
+        if (dx != 0) {
+            if (cell.hChain != null) return;
+            cell.hChain = chain;
+        }
+        if (dy != 0) {
+            if (cell.vChain != null) return;
+            cell.vChain = chain;
+        }
         chain.add(cell);
 
-        for (int i = 0; i < 4; i++) {
-            final int nx = cell.x + dx[i];
-            final int ny = cell.y + dy[i];
-            if (nx >= 0 && ny >= 0 && nx < WIDTH && ny < HEIGHT) {
-                final Cell neighbour = grid[ny][nx];
-                if (neighbour.eCar != null && ChainColor.matches(chainColor, neighbour.eCar.chainableColor()))
-                    visit(neighbour, chain, chainColor);
-            }
+        final int nx = cell.x + dx;
+        final int ny = cell.y + dy;
+        if (nx >= 0 && ny >= 0 && nx < WIDTH && ny < HEIGHT) {
+            final Cell neighbour = grid[ny][nx];
+            if (neighbour.eCar != null && ChainColor.matches(chainColor, neighbour.eCar.chainableColor()))
+                visit(neighbour, chain, chainColor, dx, dy);
         }
     }
 

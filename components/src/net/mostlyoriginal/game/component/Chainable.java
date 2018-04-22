@@ -8,6 +8,7 @@ import com.artemis.Component;
 public class Chainable extends Component {
     public ChainColor color;
     public boolean pitstop;
+    public int multiplier=1;
     public Chainable() {
     }
 }
