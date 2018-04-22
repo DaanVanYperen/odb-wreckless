@@ -32,7 +32,17 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         loadSprites();
         loadSounds(
                 new String[]{
-                        "Explosion_1",
+                        "carsound_accel_1",
+                        "carsound_accel_2",
+                        "ann_breakdown_1",
+                        "ann_go_1",
+                        "ann_go_2",
+                        "ann_go_3",
+                        "ann_triple_1",
+                        "carsound_carpass_1",
+                        "carsound_carpass_2",
+                        "carsound_carpass_3",
+                        "carsound_skid_1",
                 }
         );
 
