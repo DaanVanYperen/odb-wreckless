@@ -79,6 +79,7 @@ public class GameScreen extends WorldScreen {
                         new DriftSystem(),
                         new GridSnapSystem(),
                         new AttachmentSystem(),
+                        new SpinoutSystem(),
 //                        new BirdBrainSystem(),
 //
 //                        // Physics.

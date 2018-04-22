@@ -84,7 +84,6 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .angle()
                 .origin(0.5f, 0.5f)
                 .render(G.LAYER_GREMLIN)
-                .crashable()
                 .snapToGrid()
                 .towable()
                 .frozen(true)
@@ -111,7 +110,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .snapToGridY(y / G.CELL_SIZE)
                 .snapToGridPixelsPerSecondX(MathUtils.random(250,310))
                 .script(sequence(
-                        delay(seconds(3)),
+                        delay(seconds(5)),
                         deleteFromWorld()
                 ))
                 .anim("car-" + color);
@@ -179,6 +178,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .snapToGridY((int) y / G.CELL_SIZE)
                 .snapToGridPixelsPerSecondX(196)
                 .mortal()
+                .crashable()
                 //.gravity()
                 .wallSensor()
                 .player()

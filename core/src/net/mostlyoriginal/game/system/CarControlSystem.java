@@ -10,10 +10,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.MathUtils;
 import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.physics.Physics;
-import net.mostlyoriginal.game.component.G;
-import net.mostlyoriginal.game.component.Pickup;
-import net.mostlyoriginal.game.component.ShipControlled;
-import net.mostlyoriginal.game.component.Socket;
+import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.component.map.WallSensor;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.detection.DialogSystem;
@@ -46,7 +43,7 @@ public class CarControlSystem extends FluidIteratingSystem {
 
 
     public CarControlSystem() {
-        super(Aspect.all(ShipControlled.class, WallSensor.class, Anim.class));
+        super(Aspect.all(ShipControlled.class, WallSensor.class, Anim.class).exclude(Spinout.class));
     }
 
     @Override

@@ -21,7 +21,7 @@ public class GridSnapSystem extends FluidIteratingSystem {
 
     public GridSnapSystem() {
 
-        super(Aspect.all(SnapToGrid.class));
+        super(Aspect.all(SnapToGrid.class).exclude(Spinout.class));
     }
 
     Vector2 v = new Vector2();
@@ -87,7 +87,9 @@ public class GridSnapSystem extends FluidIteratingSystem {
 
         final int maxAngle = drifting || towedDrifting ? 80 : 20;
 
-        e.angleRotation(MathUtils.clamp(towedDrifting ? speedY * maxAngle : speedY,  -maxAngle, maxAngle));
+        if ( e.hasTowed() || e.hasShipControlled() ) {
+            e.angleRotation(MathUtils.clamp(towedDrifting ? speedY * maxAngle : speedY, -maxAngle, maxAngle));
+        }
 
 
         // ideal vector.
