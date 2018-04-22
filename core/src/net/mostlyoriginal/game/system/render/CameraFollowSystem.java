@@ -59,5 +59,9 @@ public class CameraFollowSystem extends FluidIteratingSystem {
             cameraSystem.camera.update();
         }
     }
+
+    public float maxCameraX() {
+        return minCameraX() + (G.SCREEN_WIDTH / G.CAMERA_ZOOM);
+    }
 }
 

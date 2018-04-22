@@ -29,7 +29,7 @@ public class CameraUnfreezeSystem extends FluidIteratingSystem {
     protected void begin() {
         super.begin();
         final E camera = entityWithTag("camera");
-        maxX = cameraFollowSystem.minCameraX() + (G.SCREEN_WIDTH / G.CAMERA_ZOOM);
+        maxX = cameraFollowSystem.maxCameraX();
     }
 
     @Override

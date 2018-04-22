@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.utils.Array;
 import net.mostlyoriginal.api.utils.MapMask;
 import net.mostlyoriginal.game.component.G;
+import net.mostlyoriginal.game.system.render.PuzzleDirectorSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 /**
@@ -25,6 +26,7 @@ public class MapSystem extends BaseSystem {
     private EntitySpawnerSystem entitySpawnerSystem;
     private GameScreenAssetSystem assetSystem;
     private MapCollisionSystem mapCollisionSystem;
+    //private PuzzleDirectorSystem directorSystem;
 
     @Override
     protected void initialize() {

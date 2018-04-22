@@ -44,9 +44,9 @@ public class GameScreen extends WorldScreen {
                         new GroupManager(),
 
                         new ChainingSystem(),
-
                         new EntitySpawnerSystem(),
                         new MapSystem(),
+                        //new PuzzleDirectorSystem(),
                         new ParticleSystem(),
 //                        new PowerSystem(),
                         new DialogSystem(),

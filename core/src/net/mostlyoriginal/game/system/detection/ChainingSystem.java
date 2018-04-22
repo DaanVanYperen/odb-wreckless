@@ -3,6 +3,7 @@ package net.mostlyoriginal.game.system.detection;
 import com.artemis.Aspect;
 import com.artemis.E;
 import net.mostlyoriginal.api.component.basic.Pos;
+import net.mostlyoriginal.api.component.physics.Frozen;
 import net.mostlyoriginal.game.component.Cashable;
 import net.mostlyoriginal.game.component.ChainColor;
 import net.mostlyoriginal.game.component.Chainable;
@@ -67,7 +68,7 @@ public class ChainingSystem extends FluidIteratingSystem {
     }
 
     public ChainingSystem() {
-        super(Aspect.all(Chainable.class, Pos.class));
+        super(Aspect.all(Chainable.class, Pos.class).exclude(Frozen.class));
 
         for (int y = 0; y < HEIGHT; y++) {
             for (int x = 0; x < WIDTH; x++) {

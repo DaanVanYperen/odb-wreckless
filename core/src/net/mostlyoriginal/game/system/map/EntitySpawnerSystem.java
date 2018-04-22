@@ -78,7 +78,7 @@ public class EntitySpawnerSystem extends BaseSystem {
         return true;
     }
 
-    private E assembleCar(int x, int y, String color) {
+    public E assembleCar(int x, int y, String color) {
         final E e = E()
                 .pos(x, y)
                 .angle()
@@ -127,6 +127,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .render(G.LAYER_GREMLIN)
                 .teamTeam(TEAM_ENEMIES)
                 .chainableColor(ChainColor.valueOf(color))
+                .frozen()
                 .chainableMultiplier(multiplier != null ? multiplier : 1)
                 .chainablePitstop(true).bounds(0,0,G.CELL_SIZE,G.CELL_SIZE);
         return e;
