@@ -35,7 +35,7 @@ public class EnemyCleanupSystem extends FluidIteratingSystem {
 
     @Override
     protected void process(E e) {
-        if ( e.teamTeam() == G.TEAM_ENEMIES && e.posX() <= minX ) {
+        if ( e.teamTeam() == G.TEAM_ENEMIES && e.posX() <= minX && !e.hasTowed() ) {
             e.deleteFromWorld();
         }
     }
