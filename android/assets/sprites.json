@@ -209,8 +209,9 @@
       "comment": "Skidmarks for player car.",
       "x": 64,
       "y": 64,
-      "countX": 2,
+      "countX": 1,
       "countY": 1,
+      "width": 32,
       "height": 32
     },	
    {
@@ -218,40 +219,50 @@
       "comment": "Skidmarks for Blue car.",
       "x": 288,
       "y": 196,
-      "width": 32,
-      "height": 32,
+     "countX": 1,
+     "countY": 1,
+     "width": 32,
+      "height": 32
     },
     {
       "id": "car-GREEN-skidmarks",
       "comment": "Skidmarks for Green car.",
       "x": 288,
       "y": 128,
+      "countX": 1,
+      "countY": 1,
       "width": 32,
-      "height": 32,
+      "height": 32
     },
     {
       "id": "car-YELLOW-skidmarks",
       "comment": "Skidmarks for Yellow car.",
       "x": 288,
       "y": 160,
+      "countX": 1,
+      "countY": 1,
       "width": 32,
-      "height": 32,
+      "height": 32
     },
     {
       "id": "car-RED-skidmarks",
       "comment": "Skidmarks for Red car.",
       "x": 288,
       "y": 192,
+      "countX": 1,
+      "countY": 1,
       "width": 32,
-      "height": 32,
+      "height": 32
     },
     {
       "id": "car-PURPLE-skidmarks",
       "comment": "Skidmarks for Purple car.",
       "x": 288,
       "y": 224,
+      "countX": 1,
+      "countY": 1,
       "width": 32,
-      "height": 32,
+      "height": 32
     },	
   ]
 }

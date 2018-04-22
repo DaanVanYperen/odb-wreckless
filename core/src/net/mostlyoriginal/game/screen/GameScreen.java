@@ -94,6 +94,7 @@ public class GameScreen extends WorldScreen {
 //                        new SocketSystem(),
                         new PickupSystem(),
                         new CrashSystem(),
+                        new TireTrackSystem(),
 //
 //                        // Camera.
                         new CameraFollowSystem(),

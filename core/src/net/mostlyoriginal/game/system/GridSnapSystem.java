@@ -85,7 +85,7 @@ public class GridSnapSystem extends FluidIteratingSystem {
 
         e.posY(yDestination);
 
-        final int maxAngle = drifting || towedDrifting ? 80 : 20;
+        final int maxAngle = drifting || towedDrifting ? 80 : 30;
 
         if ( e.hasTowed() || e.hasShipControlled() ) {
             e.angleRotation(MathUtils.clamp(towedDrifting ? speedY * maxAngle : speedY, -maxAngle, maxAngle));
