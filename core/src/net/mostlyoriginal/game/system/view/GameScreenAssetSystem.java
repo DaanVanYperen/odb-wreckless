@@ -14,8 +14,6 @@ import net.mostlyoriginal.game.component.SpriteData;
 import net.mostlyoriginal.game.system.render.SpriteLibrary;
 
 import static net.mostlyoriginal.game.component.G.DEBUG_NO_MUSIC;
-import static net.mostlyoriginal.game.component.G.PLAYER_HEIGHT;
-import static net.mostlyoriginal.game.component.G.PLAYER_WIDTH;
 
 /**
  * @author Daan van Yperen
@@ -35,23 +33,6 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         loadSounds(
                 new String[]{
                         "Explosion_1",
-                        "Explosion_2",
-                        "Explosion_3",
-                        "Explosion_4",
-                        "Explosion_5",
-                        "bounce_1",
-                        "bounce_2",
-                        "bounce_3",
-                        "bounce_4",
-                        "Misc_1",
-                        "Misc_2",
-                        "bang",
-                        "beepboop",
-                        "boom",
-                        "Detect_1",
-                        "Laser_shoot_1",
-                        "pew",
-                        "woosh_1",
                 }
         );
 
@@ -68,9 +49,6 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         music.play();
         music.setPan(0, 0.1f);
 
-        if (!G.DEBUG_SKIP_INTRO) {
-            playSfx("LD_troop_prologue");
-        }
     }
 
     public void playMusicInGame(String song) {
@@ -83,13 +61,15 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     }
 
     public void stopMusic() {
-        if ( music != null ) music.stop();
+        if (music != null) music.stop();
     }
 
     @Override
     protected void initialize() {
         super.initialize();
-        //playMusicInGame("something1.mp3");
+        if (!G.DEBUG_SKIP_MUSIC) {
+            playMusicInGame("wrecklessblues.mp3");
+        }
     }
 
     private void loadSprites() {
@@ -97,7 +77,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         spriteLibrary = json.fromJson(SpriteLibrary.class, Gdx.files.internal("sprites.json"));
         for (SpriteData sprite : spriteLibrary.sprites) {
             Animation animation = add(sprite.id, sprite.x, sprite.y, sprite.width, sprite.height, sprite.countX, sprite.countY, this.tileset, sprite.milliseconds * 0.001f);
-            if ( !sprite.repeat ) animation.setPlayMode(Animation.PlayMode.NORMAL);
+            if (!sprite.repeat) animation.setPlayMode(Animation.PlayMode.NORMAL);
         }
     }
 
@@ -105,6 +85,6 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     public void boundToAnim(int entity, int gracepaddingX, int gracepaddingY) {
         E e = E.E(entity);
         TextureRegion frame = ((Animation<TextureRegion>) get(e.animId())).getKeyFrame(0);
-        e.bounds(gracepaddingX, gracepaddingY, frame.getRegionWidth() -gracepaddingX, frame.getRegionHeight()-gracepaddingY);
+        e.bounds(gracepaddingX, gracepaddingY, frame.getRegionWidth() - gracepaddingX, frame.getRegionHeight() - gracepaddingY);
     }
 }
