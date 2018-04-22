@@ -8,5 +8,10 @@ public enum ChainColor {
     GREEN,
     YELLOW,
     RED,
-    PURPLE
+    PURPLE,
+    ANY;
+
+    public static boolean matches(ChainColor a, ChainColor b) {
+        return a != null && b != null && (b == ANY || a == ANY || b == a);
+    }
 }

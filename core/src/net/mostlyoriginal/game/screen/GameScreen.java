@@ -7,6 +7,7 @@ import com.artemis.link.EntityLinkManager;
 import com.artemis.managers.GroupManager;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.graphics.Color;
+import net.mostlyoriginal.api.manager.FontManager;
 import net.mostlyoriginal.api.screen.core.WorldScreen;
 import net.mostlyoriginal.api.system.camera.CameraShakeSystem;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
@@ -56,7 +57,7 @@ public class GameScreen extends WorldScreen {
 //                        new DialogDataSystem(),
                         new FlightPatternDataSystem(),
                         new GameScreenSetupSystem(),
-//                        new FontManager(),
+                        new FontManager(),
 //
 //                        // sensors.
                         new WallSensorSystem(),
@@ -110,7 +111,7 @@ public class GameScreen extends WorldScreen {
                         renderBatchingSystem = new RenderBatchingSystem(),
                         new MyAnimRenderSystem(renderBatchingSystem),
                         new BoundingBoxRenderSystem(renderBatchingSystem),
-//                        new MyLabelRenderSystem(renderBatchingSystem),
+                        new MyLabelRenderSystem(renderBatchingSystem),
                         new AdditiveRenderSystem(),
                         new MapRenderInFrontSystem(),
 //                        new TerminalSystem(),

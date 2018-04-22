@@ -128,13 +128,36 @@ public class ChainingSystem extends FluidIteratingSystem {
     }
 
     private void cashoutChain(Chain chain, Cashable.Type type) {
+        boolean chainBonusPayout = true;
+        boolean chainMulticolorPayout = isMulticolorChain(chain);
+
+
         for (int i = 0; i < chain.length; i++) {
             final E eCar = chain.cells[i].eCar;
+            if (chainBonusPayout) {
+                // payout chain bonus on first shackle.
+                eCar.cashableChainBonusPayout(true);
+                eCar.cashableChainMulticolorPayout(chainMulticolorPayout);
+                chainBonusPayout = false;
+            }
+            eCar.cashableCooldown(i*125f);
             prepareForReward(eCar
                     .cashableChainLength(chain.length)
                     .cashableType(type), chain.cells[i]);
             gridSnapSystem.instaSnap(eCar);
         }
+    }
+
+    private boolean isMulticolorChain(Chain chain) {
+        ChainColor lastColor = null;
+        for (int i = 0; i < chain.length; i++) {
+            final E eCar = chain.cells[i].eCar;
+            if (lastColor != null && ChainColor.matches(lastColor, eCar.chainableColor())) {
+                return true;
+            }
+            lastColor = eCar.chainableColor();
+        }
+        return false;
     }
 
     private void rewardLongColorChains() {
@@ -175,7 +198,7 @@ public class ChainingSystem extends FluidIteratingSystem {
         if (cell.pitstopChain != null || cell.ePitstop == null) return;
 
         // We don't care about pitstops with (wrong) cars.
-        if (cell.eCar == null || cell.eCar.chainableColor() != cell.ePitstop.chainableColor()) {
+        if (cell.eCar == null || !ChainColor.matches(cell.eCar.chainableColor(), cell.ePitstop.chainableColor())) {
             c.broken = true;
         }
 
@@ -206,7 +229,7 @@ public class ChainingSystem extends FluidIteratingSystem {
             final int ny = cell.y + dy[i];
             if (nx >= 0 && ny >= 0 && nx < WIDTH && ny < HEIGHT) {
                 final Cell neighbour = grid[ny][nx];
-                if (neighbour.eCar != null && chainColor == neighbour.eCar.chainableColor())
+                if (neighbour.eCar != null && ChainColor.matches(chainColor, neighbour.eCar.chainableColor()))
                     visit(neighbour, chain, chainColor);
             }
         }

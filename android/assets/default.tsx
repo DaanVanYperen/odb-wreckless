@@ -23,6 +23,20 @@
    <property name="entity" value="car"/>
   </properties>
  </tile>
+ <tile id="108">
+  <properties>
+   <property name="color" value="BLUE"/>
+   <property name="entity" value="pitstop"/>
+   <property name="multiplier" type="int" value="3"/>
+  </properties>
+ </tile>
+ <tile id="109">
+  <properties>
+   <property name="color" value="BLUE"/>
+   <property name="entity" value="pitstop"/>
+   <property name="multiplier" type="int" value="2"/>
+  </properties>
+ </tile>
  <tile id="110">
   <properties>
    <property name="color" value="BLUE"/>
@@ -45,6 +59,20 @@
   <properties>
    <property name="color" value="GREEN"/>
    <property name="entity" value="car"/>
+  </properties>
+ </tile>
+ <tile id="140">
+  <properties>
+   <property name="color" value="GREEN"/>
+   <property name="entity" value="pitstop"/>
+   <property name="multiplier" type="int" value="3"/>
+  </properties>
+ </tile>
+ <tile id="141">
+  <properties>
+   <property name="color" value="GREEN"/>
+   <property name="entity" value="pitstop"/>
+   <property name="multiplier" type="int" value="2"/>
   </properties>
  </tile>
  <tile id="142">
@@ -71,6 +99,20 @@
    <property name="entity" value="car"/>
   </properties>
  </tile>
+ <tile id="172">
+  <properties>
+   <property name="color" value="YELLOW"/>
+   <property name="entity" value="pitstop"/>
+   <property name="multiplier" type="int" value="3"/>
+  </properties>
+ </tile>
+ <tile id="173">
+  <properties>
+   <property name="color" value="YELLOW"/>
+   <property name="entity" value="pitstop"/>
+   <property name="multiplier" type="int" value="2"/>
+  </properties>
+ </tile>
  <tile id="174">
   <properties>
    <property name="color" value="YELLOW"/>
@@ -93,6 +135,20 @@
   <properties>
    <property name="color" value="RED"/>
    <property name="entity" value="car"/>
+  </properties>
+ </tile>
+ <tile id="204">
+  <properties>
+   <property name="color" value="RED"/>
+   <property name="entity" value="pitstop"/>
+   <property name="multiplier" type="int" value="3"/>
+  </properties>
+ </tile>
+ <tile id="205">
+  <properties>
+   <property name="color" value="RED"/>
+   <property name="entity" value="pitstop"/>
+   <property name="multiplier" type="int" value="2"/>
   </properties>
  </tile>
  <tile id="206">
@@ -119,6 +175,20 @@
    <property name="entity" value="car"/>
   </properties>
  </tile>
+ <tile id="236">
+  <properties>
+   <property name="color" value="PURPLE"/>
+   <property name="entity" value="pitstop"/>
+   <property name="multiplier" type="int" value="3"/>
+  </properties>
+ </tile>
+ <tile id="237">
+  <properties>
+   <property name="color" value="PURPLE"/>
+   <property name="entity" value="pitstop"/>
+   <property name="multiplier" type="int" value="2"/>
+  </properties>
+ </tile>
  <tile id="238">
   <properties>
    <property name="color" value="PURPLE"/>
@@ -128,6 +198,12 @@
  <tile id="239">
   <properties>
    <property name="color" value="PURPLE"/>
+   <property name="entity" value="pitstop"/>
+  </properties>
+ </tile>
+ <tile id="240">
+  <properties>
+   <property name="color" value="ANY"/>
    <property name="entity" value="pitstop"/>
   </properties>
  </tile>
