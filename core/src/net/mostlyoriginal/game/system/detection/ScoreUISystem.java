@@ -9,7 +9,10 @@ import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import net.mostlyoriginal.api.component.basic.Pos;
+import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.component.ui.Label;
+import net.mostlyoriginal.api.operation.JamOperationFactory;
+import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
 import net.mostlyoriginal.game.component.Dialog;
 import net.mostlyoriginal.game.component.DialogData;
@@ -24,6 +27,9 @@ import net.mostlyoriginal.game.system.render.MyAnimRenderSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 import java.util.StringTokenizer;
+
+import static net.mostlyoriginal.api.operation.OperationFactory.*;
+import static net.mostlyoriginal.api.utils.Duration.milliseconds;
 
 /**
  * @author Daan van Yperen
@@ -62,15 +68,19 @@ public class ScoreUISystem extends BaseSystem {
                 .labelText("Play again? Press space")
                 .labelAlign(Label.Align.RIGHT)
                 .fontFontName("ital")
-                .tint(1f, 1f, 1f, 1f)
+                .tint(1f, 1f, 1f, 0f)
                 .pos(cameraSystem.camera.position.x, cameraSystem.camera.position.y - 40)
+                .script(sequence(
+                        delay(milliseconds(250)),
+                        JamOperationFactory.tintTo(Tint.WHITE)
+                ))
                 .renderLayer(G.LAYER_PLAYER + 100);
+        finished = true;
     }
 
     public void addPoints(int points) {
         score += points;
         eScore.labelText(getDecimalFormattedString("" + score));
-        finished = true;
     }
 
 
