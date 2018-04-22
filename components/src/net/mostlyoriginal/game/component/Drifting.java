@@ -6,8 +6,6 @@ import com.artemis.annotations.EntityId;
 /**
  * @author Daan van Yperen
  */
-public class Towed extends Component {
-    @EntityId
-    public int entityId;
-    public boolean drifting;
+public class Drifting extends Component {
+    public int dx; public int dy;
 }

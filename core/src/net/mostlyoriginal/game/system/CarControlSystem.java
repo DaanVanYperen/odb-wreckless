@@ -65,21 +65,27 @@ public class CarControlSystem extends FluidIteratingSystem {
 
         fireGuns(e);
 
+
         e.animLoop(true);
         if (!e.hasDead()) {
-            if (Gdx.input.isKeyPressed(Input.Keys.SPACE)||Gdx.input.isKeyPressed(Input.Keys.E)) {
-                towedSystem.disconnectCargoFrom(e,true);
+            if (Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.isKeyPressed(Input.Keys.E)) {
+                e.shipControlledReleasing(true);
+            } else {
+                if ( e.shipControlledReleasing()) {
+                    towedSystem.disconnectCargoFrom(e,true);
+                }
+                e.shipControlledReleasing(false);
             }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.A)||Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-                if (Gdx.input.isKeyJustPressed(Input.Keys.A)||Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                if (Gdx.input.isKeyJustPressed(Input.Keys.A) || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
                     e.animAge(0);
                 }
                 dx = -MOVEMENT_FACTOR;
                 e.animId("player-left");
                 e.animLoop(false);
-            } else if (Gdx.input.isKeyPressed(Input.Keys.D)||Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-                if (Gdx.input.isKeyJustPressed(Input.Keys.D)||Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+            } else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+                if (Gdx.input.isKeyJustPressed(Input.Keys.D) || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
                     e.animAge(0);
                 }
                 dx = MOVEMENT_FACTOR;
@@ -87,9 +93,9 @@ public class CarControlSystem extends FluidIteratingSystem {
                 e.animLoop(false);
             }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.W)||Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
                 dy = MOVEMENT_FACTOR;
-            } else if (Gdx.input.isKeyPressed(Input.Keys.S)||Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            } else if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
                 dy = -MOVEMENT_FACTOR;
             }
         }
@@ -98,9 +104,17 @@ public class CarControlSystem extends FluidIteratingSystem {
             if (Gdx.input.isKeyJustPressed(Input.Keys.F6)) MapCollisionSystem.DEBUG = !MapCollisionSystem.DEBUG;
         }
 
+        // if starting to release tows and moving up and down initiates a drift.
+        if ( e.shipControlledReleasing() && dy != 0 )
+        {
+            e.driftingDy(dy);
+        } else {e.removeDrifting();}
+
         //whistle(e, playerAnimPrefix);
 
-            gridSnapSystem.moveRelativeToSelf(e, dx*3, dy*3);
+        e.shipControlledDx(dx * 3);
+        e.shipControlledDy(dy * 3);
+        gridSnapSystem.moveRelativeToSelf(e, dx * 3, dy * 3);
 
 //
 //        if (scrolling) {

@@ -75,6 +75,7 @@ public class GameScreen extends WorldScreen {
                         new CarControlSystem(),
                         new TowableSystem(),
                         new TowedSystem(),
+                        new DriftSystem(),
                         new GridSnapSystem(),
                         new AttachmentSystem(),
 //                        new BirdBrainSystem(),

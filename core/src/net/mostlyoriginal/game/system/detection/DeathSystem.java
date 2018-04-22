@@ -120,7 +120,7 @@ public class DeathSystem extends FluidIteratingSystem {
             if (e.deadCooldown() <= 0) {
 
                 // unpower sockets.
-                if (e.isShipControlled()) {
+                if (e.hasShipControlled()) {
                     doExit();
                     e.removeDead().removeMortal();
                 } else {

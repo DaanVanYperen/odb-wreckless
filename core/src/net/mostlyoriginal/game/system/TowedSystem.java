@@ -81,7 +81,7 @@ public class TowedSystem extends FluidIteratingSystem {
         } else disconnectCargoFrom(e, false);
     }
 
-    private E getCargo(E e) {
+    public E getCargo(E e) {
         return e.hasTowing() && e.towingEntityId() != -1 ? E(e.towingEntityId()) : null;
     }
 
