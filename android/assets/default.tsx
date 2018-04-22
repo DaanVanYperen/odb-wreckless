@@ -131,4 +131,10 @@
    <property name="entity" value="pitstop"/>
   </properties>
  </tile>
+ <tile id="256">
+  <properties>
+   <property name="entity" value="hazard"/>
+   <property name="type" value="FROGGER"/>
+  </properties>
+ </tile>
 </tileset>

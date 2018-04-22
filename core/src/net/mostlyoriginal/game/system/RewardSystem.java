@@ -16,6 +16,7 @@ import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import static com.artemis.E.E;
 import static net.mostlyoriginal.api.component.graphics.Tint.WHITE;
 import static net.mostlyoriginal.api.operation.OperationFactory.*;
+import static net.mostlyoriginal.api.utils.Duration.milliseconds;
 
 /**
  * @author Daan van Yperen
@@ -40,22 +41,17 @@ public class RewardSystem extends FluidIteratingSystem {
     }
 
     private void sfx(E shackle) {
-        final float x = shackle.posX();
-        final float y = shackle.posY();
+        final float x = GridSnapSystem.gridX(shackle) * G.CELL_SIZE;
+        final float y = GridSnapSystem.gridY(shackle) * G.CELL_SIZE;
         final float compensateForScaling = ((G.CELL_SIZE * GLOW_MAX_SCALE)-G.CELL_SIZE) * 0.5f;
 
         E.E()
                 .posX(x)
                 .posY(y)
                 .renderLayer(G.LAYER_PARTICLES)
-                .glowAnim(shackle.animId())
-                .tint(1f, 1f, 1f, 1f)
+                .anim(shackle.animId() + "-score")
                 .script(sequence(
-                        parallel(
-                                JamOperationFactory.moveBetween(x, y, x - compensateForScaling, y - compensateForScaling, FADEOUT_DURATION, Interpolation.pow2Out),
-                                JamOperationFactory.scaleBetween(1f, GLOW_MAX_SCALE, FADEOUT_DURATION, Interpolation.pow2Out),
-                                JamOperationFactory.tintBetween(WHITE, Tint.TRANSPARENT, FADEOUT_DURATION, Interpolation.pow2Out)
-                        ),
+                        delay(milliseconds(250)),
                         deleteFromWorld()
                 ));
     }
