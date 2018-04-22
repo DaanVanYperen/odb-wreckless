@@ -5,12 +5,17 @@ import com.artemis.E;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.system.TowedSystem;
 import net.mostlyoriginal.game.system.detection.PickupSystem;
 import net.mostlyoriginal.game.system.view.*;
 
 import static com.artemis.E.E;
+import static net.mostlyoriginal.api.operation.OperationFactory.delay;
+import static net.mostlyoriginal.api.operation.OperationFactory.deleteFromWorld;
+import static net.mostlyoriginal.api.operation.OperationFactory.sequence;
+import static net.mostlyoriginal.api.utils.Duration.seconds;
 import static net.mostlyoriginal.game.component.G.*;
 
 /**
@@ -41,6 +46,9 @@ public class EntitySpawnerSystem extends BaseSystem {
             case "player":
                 assemblePlayer(x, y, shipDataSystem.get("player"));
                 break;
+            case "startinggrid":
+                assembleRacer((int) x, (int) y, ChainColor.random().name());
+                return false;
             case "car":
                 assembleCar((int) x, (int) y, (String) properties.get("color"));
                 break;
@@ -84,6 +92,28 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .chainableColor(ChainColor.valueOf(color))
                 .snapToGridX(x / G.CELL_SIZE)
                 .snapToGridY(y / G.CELL_SIZE)
+                .anim("car-" + color);
+        gameScreenAssetSystem.boundToAnim(e.id(), 0, 0);
+        return e;
+    }
+
+    private E assembleRacer(int x, int y, String color) {
+        final E e = E()
+                .pos(x, y)
+                .angle()
+                .origin(0.5f, 0.5f)
+                .render(G.LAYER_GREMLIN)
+                .crashable()
+                .snapToGrid()
+                .teamTeam(TEAM_ENEMIES)
+                .chainableColor(ChainColor.valueOf(color))
+                .snapToGridX(x / G.CELL_SIZE + G.CELL_SIZE * 100)
+                .snapToGridY(y / G.CELL_SIZE)
+                .snapToGridPixelsPerSecondX(MathUtils.random(250,310))
+                .script(sequence(
+                        delay(seconds(3)),
+                        deleteFromWorld()
+                ))
                 .anim("car-" + color);
         gameScreenAssetSystem.boundToAnim(e.id(), 0, 0);
         return e;

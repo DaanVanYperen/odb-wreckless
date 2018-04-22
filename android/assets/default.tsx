@@ -17,6 +17,16 @@
    <property name="entity" value="player"/>
   </properties>
  </tile>
+ <tile id="85">
+  <properties>
+   <property name="entity" value="startinggrid"/>
+  </properties>
+ </tile>
+ <tile id="86">
+  <properties>
+   <property name="entity" value="startinggrid"/>
+  </properties>
+ </tile>
  <tile id="89">
   <properties>
    <property name="entity" value="trigger"/>
