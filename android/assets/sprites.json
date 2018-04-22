@@ -175,6 +175,17 @@
       "countY": 1,
       "width": 16,
       "height": 16
+    },
+	{
+      "id": "startinglights",
+      "comment": "Starting lights counting down to the race.",
+      "x": 0,
+      "y": 704,
+      "countX": 6,
+      "countY": 1,
+	  "milliseconds": 1000,
+      "width": 160,
+      "height": 128
     }
   ]
 }
