@@ -80,7 +80,7 @@ public class RewardSystem extends FluidIteratingSystem {
     protected void process(E shackle) {
         shackle.cashableCooldown(shackle.cashableCooldown() - world.delta);
 
-
+        
         textDelay = 1 + shackle.cashableCooldown();
 
 //        if ( shackle.cashableCooldown() <= 0 )

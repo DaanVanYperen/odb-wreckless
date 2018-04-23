@@ -105,7 +105,7 @@ public class CarControlSystem extends FluidIteratingSystem {
         if ( e.shipControlledReleasing() && dy != 0 )
         {
             if ( !e.hasDrifting() ) {
-                G.sfx.play("carsound_skid_1");
+                G.sfx.play("carsound_skid_2", 0.5f);
             }
             e.driftingDy(dy);
         } else {e.removeDrifting();}

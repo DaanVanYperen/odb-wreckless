@@ -46,7 +46,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
                         "carsound_carpass_2",
                         "carsound_carpass_3",
                         "carsound_oilskid_1",
-                        "carsound_skid_1",
+                        "carsound_skid_2",
                         "countdown_3",
                         //"crash",
                         "crash_1",
