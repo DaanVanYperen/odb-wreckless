@@ -54,6 +54,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
                         "crash_1",
                         "crash_2",
                         "FAIL",
+                        "hook",
                         //"frog_bleh_1",
                         "frog_godwhy",
                         //"frog_mylegs_1",

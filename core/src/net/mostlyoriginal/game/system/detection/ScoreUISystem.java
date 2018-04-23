@@ -1,38 +1,23 @@
 package net.mostlyoriginal.game.system.detection;
 
-import com.artemis.Aspect;
 import com.artemis.BaseSystem;
 import com.artemis.E;
-import com.artemis.Entity;
-import com.artemis.managers.GroupManager;
-import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
-import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.component.ui.Label;
 import net.mostlyoriginal.api.operation.JamOperationFactory;
-import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
-import net.mostlyoriginal.game.component.Dialog;
-import net.mostlyoriginal.game.component.DialogData;
 import net.mostlyoriginal.game.component.G;
-import net.mostlyoriginal.game.component.LineData;
 import net.mostlyoriginal.game.screen.GameScreen;
-import net.mostlyoriginal.game.system.CarControlSystem;
 import net.mostlyoriginal.game.system.TutorialInputSystem;
-import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
-import net.mostlyoriginal.game.system.map.EntitySpawnerSystem;
 import net.mostlyoriginal.game.system.map.MapSystem;
 import net.mostlyoriginal.game.system.render.CameraFollowSystem;
-import net.mostlyoriginal.game.system.render.MyAnimRenderSystem;
 import net.mostlyoriginal.game.system.render.TransitionSystem;
-import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 import java.util.StringTokenizer;
 
-import static com.badlogic.gdx.Input.Keys.F5;
 import static net.mostlyoriginal.api.operation.OperationFactory.*;
 import static net.mostlyoriginal.api.utils.Duration.milliseconds;
 
@@ -49,10 +34,10 @@ public class ScoreUISystem extends BaseSystem {
     private int score = 0;
     private boolean finished;
     private float finishedTime;
-    private boolean pressed=false;
+    private boolean pressed = false;
     private TutorialInputSystem tutorialInputSystem;
     private TransitionSystem transitionSystem;
-    private Integer targetLevel=0;
+    private Integer targetLevel = 0;
     private MapSystem mapSystem;
 
     @Override
@@ -67,11 +52,12 @@ public class ScoreUISystem extends BaseSystem {
     }
 
     public void displayScorecard() {
-        if ( !tutorialInputSystem.tutorialMode && !finished ) {
-            saveScore();
+        if (!tutorialInputSystem.tutorialMode && !finished) {
+            boolean newHighscore = saveScore();
 
+            final String decimalScore = getDecimalFormattedString("" + score);
             E.E()
-                    .labelText("FINAL SCORE " + getDecimalFormattedString("" + score))
+                    .labelText((newHighscore ? "NEW HIGHSCORE! " : "SCORED ") + decimalScore)
                     .labelAlign(Label.Align.RIGHT)
                     .fontFontName("italshuge")
                     .tint(1f, 1f, 0f, 1f)
@@ -92,10 +78,15 @@ public class ScoreUISystem extends BaseSystem {
         finished = true;
     }
 
-    private void saveScore() {
+    private boolean saveScore() {
         Preferences prefs = Gdx.app.getPreferences("ld41wreckless");
-        prefs.putInteger("highscore_" + mapSystem.activeLevel,score);
-        prefs.flush();
+        final String key = "highscore_" + mapSystem.activeLevel;
+        if (prefs.getInteger(key, score) < score) {
+            prefs.putInteger(key, score);
+            prefs.flush();
+            return true;
+        }
+        return false;
     }
 
     public void addPoints(int points) {
@@ -140,7 +131,7 @@ public class ScoreUISystem extends BaseSystem {
         eScore.posX(cameraSystem.camera.position.x - (G.SCREEN_WIDTH / G.CAMERA_ZOOM) / 2);
         eScore.posY(cameraSystem.camera.position.y + (G.SCREEN_HEIGHT / G.CAMERA_ZOOM) / 2 - 10);
 
-        if ( Gdx.input.isKeyPressed(F5) && G.DEBUG_ENABLED) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) && !finished) {
             displayScorecard();
         }
 
@@ -148,26 +139,19 @@ public class ScoreUISystem extends BaseSystem {
             finishedTime += world.delta;
 
             if (finishedTime > 1f && (tutorialInputSystem.tutorialMode || Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.E))) {
-                pressed=true;
-                G.level=targetLevel;
+                pressed = true;
+                G.level = targetLevel;
                 transitionSystem.transition(GameScreen.class, 0.1f);
             }
         }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            pressed=true;
-            G.level=targetLevel;
-            transitionSystem.transition(GameScreen.class, 0.1f);
-        }
-
     }
 
     public void targetLevel(Integer level) {
         targetLevel = level;
-        if ( level == 2 || level == 3 ) {
-            pressed=true;
-            finished=true;
-            G.level=targetLevel;
+        if (level == 2 || level == 3) {
+            pressed = true;
+            finished = true;
+            G.level = targetLevel;
             transitionSystem.transition(GameScreen.class, 0.1f);
         }
     }

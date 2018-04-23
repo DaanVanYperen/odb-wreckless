@@ -5,10 +5,7 @@ import com.artemis.E;
 import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.api.system.physics.CollisionSystem;
 import net.mostlyoriginal.game.api.EBag;
-import net.mostlyoriginal.game.component.SnapToGrid;
-import net.mostlyoriginal.game.component.Towable;
-import net.mostlyoriginal.game.component.Towed;
-import net.mostlyoriginal.game.component.Towing;
+import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 
 import static com.artemis.E.E;
@@ -37,6 +34,7 @@ public class TowableSystem extends FluidIteratingSystem {
     protected void process(E e) {
         if ( overlaps(e, player)) {
             towedSystem.hookOnto(player, e);
+            G.sfx.play("hook");
         }
     }
 
