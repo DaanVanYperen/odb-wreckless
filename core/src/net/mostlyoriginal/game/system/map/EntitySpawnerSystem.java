@@ -9,7 +9,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.system.TowedSystem;
-import net.mostlyoriginal.game.system.detection.PickupSystem;
 import net.mostlyoriginal.game.system.detection.ScoreUISystem;
 import net.mostlyoriginal.game.system.view.*;
 
@@ -31,9 +30,6 @@ public class EntitySpawnerSystem extends BaseSystem {
 //    private SpoutSystem spoutSystem;
     private GameScreenAssetSystem gameScreenAssetSystem;
     private ShipDataSystem shipDataSystem;
-    private ArsenalDataSystem arsenalDataSystem;
-    private FlightPatternDataSystem flightPatternDataSystem;
-    private PickupSystem pickupSystem;
     private TowedSystem towedSystem;
     private float raceStartingCooldown;
 
@@ -96,11 +92,6 @@ public class EntitySpawnerSystem extends BaseSystem {
                 assemblePowerup(x, y);
                 return true;
             default:
-                ShipData shipData = shipDataSystem.get(entity);
-                if (shipData != null) {
-                    assembleEnemy(x, y, shipData);
-                    return true;
-                }
                 return false;
             //throw new RuntimeException("No idea how to spawn entity of type " + entity);
         }
@@ -346,92 +337,6 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .ethereal(true)
                 .physicsFriction(0);
 
-    }
-
-    public void addArsenal(E ship, String group, int team, int shipFacingAngle, String arsenal, boolean frozen) {
-        if (arsenal != null) {
-            ArsenalData data = arsenalDataSystem.get(arsenal);
-            if (data.guns != null) {
-                for (GunData gun : data.guns) {
-                    addGun(ship, gun, group, team, shipFacingAngle, frozen);
-                }
-            }
-        }
-    }
-
-    private void addGun(E e, GunData gunData, String group, int team, int shipFacingAngle, boolean frozen) {
-        float angle = gunData.angle + shipFacingAngle + 90;
-        v2.set(0, gunData.x).rotate(angle);
-        E gun = E()
-                .pos(e.posX(), e.posY())
-                .bounds(0, 0, 5, 5)
-                .group(group)
-                .attachedXo((int) v2.x + (int) e.boundsCx() - 3)
-                .attachedYo((int) v2.y + (int) e.boundsCy() - 3)
-                .attachedParent(e.id())
-                .teamTeam(team)
-                .spoutAngle(0)
-                .spoutType(Spout.Type.BULLET)
-                .spoutSprayInterval(60f / gunData.rpm)
-                .gunData(gunData)
-                .angleRotate(angle);
-
-        if (gunData.cooldown > 0) {
-            gun.spoutCooldown(gunData.cooldown);
-        }
-        if (gunData.duration > 0) {
-            gun.spoutSprayDuration(gunData.duration);
-        }
-
-        if (frozen) {
-            gun.frozen();
-        }
-
-        if (team == TEAM_ENEMIES) {
-            gun.shooting(true); // ai always shoots.
-        }
-    }
-
-    private E assembleBattery(float x, float y, String batteryType) {
-        return E().anim(batteryType)
-                .pos(x, y)
-                .physics().pickup()
-                .type(batteryType)
-                .render(G.LAYER_PLAYER - 1)
-                .gravity()
-                .bounds(-8, -8, 24, 24)
-                .wallSensor();
-    }
-
-    private void assembleEnemy(float x, float y, ShipData shipData) {
-        int gracepaddingX = 2;
-        int gracepaddingY = 0;
-        E enemyShip = E()
-                .pos(x, y)
-                .physics()
-                .physicsFriction(0)
-                .mortal()
-                .shipData(shipData)
-                //.physicsVr(50)
-                .angle()
-                .deadly()
-                .flightPatternData(flightPatternDataSystem.get(shipData.flight))
-                .teamTeam(TEAM_ENEMIES)
-                .render(G.LAYER_GREMLIN + shipData.layerOffset)
-                .shieldHp(shipData.hp)
-                .origin(shipData.originX, shipData.originY)
-                .flying()
-                .frozen()
-                .anim(shipData.anim);
-
-        if ("boss".equals(shipData.id)) {
-            enemyShip.tag("boss");
-        }
-
-        gameScreenAssetSystem.boundToAnim(enemyShip.id(), gracepaddingX, gracepaddingY);
-        enemyShip.pos(x - enemyShip.boundsCx(), y - enemyShip.boundsCy());
-
-        addArsenal(enemyShip, "enemy-guns", G.TEAM_ENEMIES, -180, shipData.arsenal, true);
     }
 
     private void assembleTrigger(float x, float y, String trigger, Integer parameter) {

@@ -1,11 +1,7 @@
 package net.mostlyoriginal.game.system.map;
 
 import com.artemis.Aspect;
-import com.artemis.BaseSystem;
 import com.artemis.E;
-import com.badlogic.gdx.maps.MapProperties;
-import net.mostlyoriginal.api.system.physics.SocketSystem;
-import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.PriorityAnim;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 

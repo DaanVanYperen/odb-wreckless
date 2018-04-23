@@ -11,7 +11,6 @@ import net.mostlyoriginal.api.component.physics.Attached;
 import net.mostlyoriginal.api.operation.JamOperationFactory;
 import net.mostlyoriginal.api.system.camera.CameraShakeSystem;
 import net.mostlyoriginal.api.system.camera.CameraSystem;
-import net.mostlyoriginal.api.system.physics.SocketSystem;
 import net.mostlyoriginal.game.api.EBag;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.screen.GameScreen;
@@ -41,7 +40,6 @@ public class DeathSystem extends FluidIteratingSystem {
     private DialogSystem dialogSystem;
     private CameraSystem cameraSystem;
     private EBag deadlies;
-    private SocketSystem socketSystem;
     private CameraShakeSystem cameraShakeSystem;
     private CarControlSystem carControlSystem;
 
@@ -103,7 +101,6 @@ public class DeathSystem extends FluidIteratingSystem {
 
                 if (e.hasSocket()) {
                     e.socketEntityId(0);
-                    socketSystem.power(e, false);
                     e.removeMortal();
                     return;
                 }

@@ -53,10 +53,8 @@ public class GameScreen extends WorldScreen {
                         new DialogSystem(),
 //
                         new GameScreenAssetSystem(),
-                        new ArsenalDataSystem(),
                         new ShipDataSystem(),
 //                        new DialogDataSystem(),
-                        new FlightPatternDataSystem(),
                         new GameScreenSetupSystem(),
                         new FontManager(),
 //
@@ -73,7 +71,7 @@ public class GameScreen extends WorldScreen {
                         new CameraUnfreezeSystem(),
                         new EnemyCleanupSystem(),
                         new FollowSystem(),
-                        new FlightPatternControlSystem(),
+                        //new FlightPatternControlSystem(),
                         new KeyboardInputSystem(),
                         new TutorialInputSystem(),
                         new CarControlSystem(),
@@ -96,7 +94,6 @@ public class GameScreen extends WorldScreen {
 //                        new FootstepSystem(),
                         new CarriedSystem(),
 //                        new SocketSystem(),
-                        new PickupSystem(),
                         new CrashSystem(),
                         new TireTrackSystem(),
 //

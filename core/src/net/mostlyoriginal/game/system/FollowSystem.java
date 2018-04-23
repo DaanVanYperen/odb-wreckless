@@ -2,12 +2,9 @@ package net.mostlyoriginal.game.system;
 
 import com.artemis.Aspect;
 import com.artemis.E;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import net.mostlyoriginal.api.component.basic.Bounds;
 import net.mostlyoriginal.api.component.graphics.Anim;
 import net.mostlyoriginal.api.component.physics.Physics;
-import net.mostlyoriginal.api.system.physics.SocketSystem;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.component.map.WallSensor;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;

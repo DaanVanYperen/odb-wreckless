@@ -6,7 +6,6 @@ import com.badlogic.gdx.utils.Json;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.Settings;
 import net.mostlyoriginal.game.screen.GameScreen;
-import net.mostlyoriginal.game.screen.detection.OdbFeatureScreen;
 
 public class GdxArtemisGame extends Game {
 
