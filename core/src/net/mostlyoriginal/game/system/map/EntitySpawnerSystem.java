@@ -5,9 +5,7 @@ import com.artemis.E;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.game.component.*;
-import net.mostlyoriginal.game.system.CarControlSystem;
 import net.mostlyoriginal.game.system.TowedSystem;
 import net.mostlyoriginal.game.system.detection.PickupSystem;
 import net.mostlyoriginal.game.system.view.*;
@@ -58,7 +56,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 assembleStartingLights((int) x, (int) y);
                 return true;
             case "startinggrid":
-                assembleRacer((int) x, (int) y, ChainColor.random().name());
+                assembleRacer((int) x, (int) y, ChainColor.random().name(), seconds(5 + 4));
                 return false;
             case "car":
                 assembleCar((int) x, (int) y, (String) properties.get("color"));
@@ -177,7 +175,7 @@ public class EntitySpawnerSystem extends BaseSystem {
         return e;
     }
 
-    public E assembleRacer(int x, int y, String color) {
+    public E assembleRacer(int x, int y, String color, float fadeDelay) {
         final E e = E()
                 .pos(x, y)
                 .angle()
@@ -193,7 +191,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .snapToGridY(y / G.CELL_SIZE)
                 .snapToGridPixelsPerSecondX((int) (MathUtils.random(250f, 310f) * 0.9))
                 .script(sequence(
-                        delay(seconds(5)),
+                        delay(fadeDelay),
                         deleteFromWorld()
                 ))
                 .anim("car-" + color);
@@ -318,7 +316,7 @@ public class EntitySpawnerSystem extends BaseSystem {
         E()
                 .pos(x, y)
                 .cameraFocus()
-                .physicsVx(G.CAMERA_SCROLL_SPEED)
+                .physicsVx(0)
                 .tag("camera")
                 .ethereal(true)
                 .physicsFriction(0);

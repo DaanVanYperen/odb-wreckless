@@ -15,6 +15,8 @@ import net.mostlyoriginal.game.system.TutorialInputSystem;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.map.EntitySpawnerSystem;
 
+import static net.mostlyoriginal.api.utils.Duration.seconds;
+
 /**
  * @author Daan van Yperen
  */
@@ -245,7 +247,7 @@ public class ChainingSystem extends FluidIteratingSystem {
 
         if (rows > 0) {
             int y = emptyRows[MathUtils.random(0, rows - 1)];
-            entitySpawnerSystem.assembleRacer(cameraGridOffset * G.CELL_SIZE - G.CELL_SIZE, y * G.CELL_SIZE, ChainColor.random().name());
+            entitySpawnerSystem.assembleRacer(cameraGridOffset * G.CELL_SIZE - G.CELL_SIZE, y * G.CELL_SIZE, ChainColor.random().name(), seconds(5));
         }
     }
 
