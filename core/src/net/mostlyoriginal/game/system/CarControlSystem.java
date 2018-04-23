@@ -104,6 +104,9 @@ public class CarControlSystem extends FluidIteratingSystem {
         // if starting to release tows and moving up and down initiates a drift.
         if ( e.shipControlledReleasing() && dy != 0 )
         {
+            if ( !e.hasDrifting() ) {
+                G.sfx.play("carsound_skid_1");
+            }
             e.driftingDy(dy);
         } else {e.removeDrifting();}
 

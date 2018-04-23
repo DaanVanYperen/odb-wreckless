@@ -11,6 +11,7 @@ import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.physics.Frozen;
 import net.mostlyoriginal.game.api.EBag;
 import net.mostlyoriginal.game.component.Crashable;
+import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.Towed;
 
 import static com.artemis.E.E;
@@ -49,6 +50,10 @@ public class CrashSystem extends BaseEntitySystem {
                     .sub(b.posX() + b.boundsCx(), b.posY() + b.boundsCy()).angle();
 
             if ( a.hasHazard() || b.hasHazard() ) angle = MathUtils.random(360);
+
+            if ( !a.hasSpinout() || !b.hasSpinout()) {
+                //G.sfx.play(a.hasOilslick() || b.hasOilslick() ? "carsound_oilskid_1" : "carsound_skid_1");
+            }
 
             // hazards don't cause spinouts (yet).
             if (!a.hasHazard()) spinOut(b, angle + 180);

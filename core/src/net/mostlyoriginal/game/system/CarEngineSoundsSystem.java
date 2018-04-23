@@ -10,8 +10,9 @@ import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
  */
 public class CarEngineSoundsSystem extends FluidIteratingSystem {
 
-    private static final float REV_CHANGE_CYCLE = 0.60f;
-    private static final float REV_CYCLE = 0.14f;
+    private static final float REV_CHANGE_CYCLE = 0.40f;
+    private static final float REV_CYCLE = 0.23f;
+    private static final float VOLUME = 0.5f;
 
     public CarEngineSoundsSystem() {
         super(Aspect.all(ShipControlled.class));
@@ -19,54 +20,27 @@ public class CarEngineSoundsSystem extends FluidIteratingSystem {
 
     String nextSfx = "";
     float cooldown = 0;
-    boolean highRev = false;
+    boolean oldRev = false;
 
     @Override
     protected void process(E e) {
         if (world.delta == 0) return;
 
+        final int dx = e.shipControlledDx();
+        final int dy = e.shipControlledDy();
+        boolean curRev = !(dx == 0 && dy == 0);
+        boolean revChange = oldRev != curRev;
+
         cooldown -= world.delta;
-        if (cooldown <= 0) {
-            final int dx = e.shipControlledDx();
-            final int dy = e.shipControlledDx();
+        if (cooldown <= 0 || revChange) {
+            cooldown = REV_CYCLE;
+            oldRev = curRev;
 
-            String sfx = "truck_revlow";
-
-            if ( e.hasSpinout() ) {
-                if (highRev) {
-                    cooldown += REV_CHANGE_CYCLE;
-                    G.sfx.play("truck_revdown_fast", 2f);
-                }
-                else {
-                    cooldown += REV_CYCLE;
-                    G.sfx.play("truck_revlow", 2f);
-                }
-                highRev=false;
-                return;
-            }
-
-            if (highRev) {
-                if (dx == 0 && dy == 0) {
-                    cooldown += 0;
-                    sfx = "truck_revdown_fast";
-                    highRev = false;
-                } else {
-                    cooldown += REV_CYCLE;
-                    sfx = "truck_revhigh";
-                }
-            } else {
-                if (dx != 0 || dy != 0) {
-                    cooldown += 0;
-                    sfx = "truck_revup_fast";
-                    highRev = true;
-                } else {
-                    cooldown += REV_CYCLE;
-                    sfx = "truck_revlow";
-                }
-
-            }
-            G.sfx.play(sfx, 2f);
-
+            if (revChange) {
+                cooldown = REV_CHANGE_CYCLE;
+                G.sfx.play(curRev ? "truck_revup_fast" : "truck_revdown_fast", VOLUME);
+            } else
+                G.sfx.play(curRev ? "truck_revhigh" : "truck_revlow", VOLUME);
         }
     }
 }
