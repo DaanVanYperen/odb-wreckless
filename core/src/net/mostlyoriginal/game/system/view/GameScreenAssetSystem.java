@@ -4,9 +4,11 @@ import com.artemis.E;
 import com.artemis.annotations.Wire;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Json;
 import net.mostlyoriginal.api.manager.AbstractAssetSystem;
 import net.mostlyoriginal.game.client.SfxHandler;
@@ -46,11 +48,11 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
                         "carsound_oilskid_1",
                         "carsound_skid_1",
                         "countdown_3",
-                        "crash",
+                        //"crash",
                         "crash_1",
                         "crash_2",
                         "FAIL",
-                        "frog_bleh_1",
+                        //"frog_bleh_1",
                         "frog_godwhy",
                         //"frog_mylegs_1",
                         //"frog_mylegs_2",
@@ -66,6 +68,8 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
                         "truck_revhigh",
                         "truck_revlow",
                         "truck_revup",
+                        "truck_revdown_fast",
+                        "truck_revup_fast",
                         //"wreck_happy",
                 }
         );
@@ -77,6 +81,10 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
             @Override
             public void play(String sfx) {
                 GameScreenAssetSystem.this.playSfx(sfx);
+            }
+            @Override
+            public void play(String sfx, float volumeFactor) {
+                GameScreenAssetSystem.this.playSfx(sfx,volumeFactor);
             }
 
             @Override
@@ -102,7 +110,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         music = Gdx.audio.newMusic(Gdx.files.internal("Music/" + song));
         music.setLooping(true);
         music.play();
-        music.setPan(0, 0.12f);
+        music.setPan(0, 0.08f);
     }
 
     public void stopMusic() {
@@ -113,7 +121,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     protected void initialize() {
         super.initialize();
         if (!G.DEBUG_SKIP_MUSIC) {
-            playMusicInGame("wrecklessblues.mp3");
+           // playMusicInGame("wrecklessblues.mp3");
         }
     }
 
@@ -126,6 +134,15 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         }
     }
 
+    public void playSfx(String name, float sfxFactor) {
+        if (sfxVolume > 0) {
+            Sound sfx = getSfx(name);
+            if (sfx != null) {
+                sfx.stop();
+                sfx.play(sfxVolume * sfxFactor, 1, 0);
+            }
+        }
+    }
 
     public void boundToAnim(int entity, int gracepaddingX, int gracepaddingY) {
         E e = E.E(entity);
