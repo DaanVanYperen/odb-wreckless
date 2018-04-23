@@ -35,7 +35,7 @@ public class SpinoutSystem extends FluidIteratingSystem {
         if (e.spinoutFactor() < 1) {
             final float a = 1 - Interpolation.linear.apply(e.spinoutFactor());
 
-            v2.set( 0,world.delta * 50 * a).rotate(e.spinoutDirection());
+            v2.set( 0,world.delta * (e.spinoutSpeed() >= 2 ? 200 : 50) * a).rotate(e.spinoutDirection());
 
             e.posX(e.posX() + v2.x);
             e.posY(e.posY() + v2.y);
