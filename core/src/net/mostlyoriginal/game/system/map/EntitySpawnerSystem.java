@@ -75,7 +75,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                         (String) properties.get("hitSound"));
                 break;
             case "oilslick":
-                assembleOilslick((int) x, (int) y);
+                assembleOilslick((int) x, (int) y, (String) properties.get("anim"));
                 return false;
             case "trigger":
                 assembleTrigger(x, y, (String) properties.get("trigger"), (String) properties.get("parameter"));
@@ -126,12 +126,16 @@ public class EntitySpawnerSystem extends BaseSystem {
 
     }
 
-    private void assembleOilslick(int x, int y) {
+    private void assembleOilslick(int x, int y, String anim) {
         final E e = E().pos(x, y)
                 .crashable()
                 .bounds(10, 10, 20, 20)
                 .frozen()
                 .oilslick();
+
+        if ( anim != null ) {
+            e.anim(anim).renderLayer(G.LAYER_GREMLIN-6);
+        }
     }
 
     private void assembleHazard(int x, int y, Boolean down, String spriteUp, String spriteDown, String hitSound) {

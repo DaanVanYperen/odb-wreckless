@@ -272,6 +272,7 @@
  </tile>
  <tile id="325">
   <properties>
+   <property name="anim" value="oil-slick-2"/>
    <property name="entity" value="oilslick"/>
   </properties>
  </tile>
@@ -298,11 +299,13 @@
  </tile>
  <tile id="357">
   <properties>
+   <property name="anim" value="oil-slick-3"/>
    <property name="entity" value="oilslick"/>
   </properties>
  </tile>
  <tile id="358">
   <properties>
+   <property name="anim" value="oil-slick-1"/>
    <property name="entity" value="oilslick"/>
   </properties>
  </tile>
