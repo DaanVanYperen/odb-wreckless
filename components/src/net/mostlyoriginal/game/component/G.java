@@ -8,6 +8,7 @@ import net.mostlyoriginal.game.client.UriHandler;
  * @author Daan van Yperen
  */
 public class G {
+    public static boolean DEBUG_ENABLED=true;
     public static final float ROBOT_HOVER_ABOVE_PLAYER_HEIGHT = 8;
     public static final float BARS_NEEDED_FOR_BREAKING_DOOR = 3;
     public static final int LAYER_PARTICLES = 2000;

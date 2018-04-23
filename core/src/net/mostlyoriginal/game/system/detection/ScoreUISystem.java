@@ -32,6 +32,7 @@ import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 import java.util.StringTokenizer;
 
+import static com.badlogic.gdx.Input.Keys.F5;
 import static net.mostlyoriginal.api.operation.OperationFactory.*;
 import static net.mostlyoriginal.api.utils.Duration.milliseconds;
 
@@ -67,10 +68,7 @@ public class ScoreUISystem extends BaseSystem {
 
     public void displayScorecard() {
         if ( !tutorialInputSystem.tutorialMode && !finished ) {
-
-            Preferences prefs = Gdx.app.getPreferences("ld41wreckless");
-            prefs.putInteger("highscore_" + mapSystem.activeLevel,score);
-            prefs.flush();
+            saveScore();
 
             E.E()
                     .labelText("FINAL SCORE " + getDecimalFormattedString("" + score))
@@ -92,6 +90,12 @@ public class ScoreUISystem extends BaseSystem {
                     .renderLayer(G.LAYER_PLAYER + 100);
         }
         finished = true;
+    }
+
+    private void saveScore() {
+        Preferences prefs = Gdx.app.getPreferences("ld41wreckless");
+        prefs.putInteger("highscore_" + mapSystem.activeLevel,score);
+        prefs.flush();
     }
 
     public void addPoints(int points) {
@@ -136,6 +140,10 @@ public class ScoreUISystem extends BaseSystem {
         eScore.posX(cameraSystem.camera.position.x - (G.SCREEN_WIDTH / G.CAMERA_ZOOM) / 2);
         eScore.posY(cameraSystem.camera.position.y + (G.SCREEN_HEIGHT / G.CAMERA_ZOOM) / 2 - 10);
 
+        if ( Gdx.input.isKeyPressed(F5) && G.DEBUG_ENABLED) {
+            displayScorecard();
+        }
+
         if (finished && !pressed) {
             finishedTime += world.delta;
 
@@ -158,6 +166,7 @@ public class ScoreUISystem extends BaseSystem {
         targetLevel = level;
         if ( level == 2 || level == 3 ) {
             pressed=true;
+            finished=true;
             G.level=targetLevel;
             transitionSystem.transition(GameScreen.class, 0.1f);
         }

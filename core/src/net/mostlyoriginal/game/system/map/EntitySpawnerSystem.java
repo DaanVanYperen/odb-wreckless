@@ -210,7 +210,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .snapToGrid()
                 .tireTrack()
                 .teamTeam(TEAM_ENEMIES)
-                .tint(1f, 1f, 1f, 0.7f)
+                .tint(1f, 1f, 1f, 0.9f)
                 .chainableColor(ChainColor.valueOf(color))
                 .snapToGridX(x / G.CELL_SIZE + G.CELL_SIZE * 100)
                 .snapToGridY(y / G.CELL_SIZE)

@@ -20,6 +20,8 @@ import net.mostlyoriginal.game.system.map.MapSystem;
 import net.mostlyoriginal.game.system.render.MyAnimRenderSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
+import static com.badlogic.gdx.Input.Keys.F5;
+
 /**
  * @author Daan van Yperen
  */
