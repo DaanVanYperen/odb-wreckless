@@ -238,13 +238,12 @@
       "comment": "Starting lights counting down to the race.",
       "x": 0,
       "y": 704,
-      "countX": 6,
-      "countY": 1, 
+      "countX": 1,
+      "countY": 7, 
 	  "milliseconds": 1000,
-      "width": 160,
-      "height": 128
+      "width": 128,
+      "height": 32
     },
-	
     {
       "id": "player-skidmarks",
       "comment": "Skidmarks for player car.",
@@ -314,7 +313,7 @@
       "countY": 1,
       "width": 32,
       "height": 64,
-      "milliseconds": 50,
+      "milliseconds": 80,
       "repeat": true
     },
     {
@@ -326,7 +325,7 @@
       "countY": 1,
       "width": 32,
       "height": 32,
-      "milliseconds": 50,
+      "milliseconds": 80,
       "repeat": true
     },
     {
@@ -338,7 +337,7 @@
       "countY": 1,
       "width": 32,
       "height": 32,
-      "milliseconds": 50,
+      "milliseconds": 80,
       "repeat": true
     },
   ]
