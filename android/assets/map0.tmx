@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" tiledversion="1.0.2" orientation="orthogonal" renderorder="right-down" width="50" height="13" tilewidth="32" tileheight="32" nextobjectid="1">
+ <properties>
+  <property name="racerCooldown" type="float" value="-1"/>
+ </properties>
  <tileset firstgid="1" source="default.tsx"/>
  <layer name="behind" width="50" height="13">
   <data encoding="base64">
