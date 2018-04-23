@@ -239,7 +239,7 @@
       "x": 0,
       "y": 704,
       "countX": 6,
-      "countY": 1,
+      "countY": 1, 
 	  "milliseconds": 1000,
       "width": 160,
       "height": 128
@@ -305,5 +305,41 @@
       "width": 32,
       "height": 32
     },	
+    {
+      "id": "oil-slick-1",
+      "comment": "Big oil slick.",
+      "x": 544,
+      "y": 512,
+      "countX": 9,
+      "countY": 1,
+      "width": 32,
+      "height": 64,
+      "milliseconds": 50,
+      "repeat": true
+    },
+    {
+      "id": "oil-slick-2",
+      "comment": "Small oil slick.",
+      "x": 544,
+      "y": 576,
+      "countX": 8,
+      "countY": 1,
+      "width": 32,
+      "height": 32,
+      "milliseconds": 50,
+      "repeat": true
+    },
+    {
+      "id": "oil-slick-3",
+      "comment": "Other small oil slick.",
+      "x": 544,
+      "y": 608,
+      "countX": 7,
+      "countY": 1,
+      "width": 32,
+      "height": 32,
+      "milliseconds": 50,
+      "repeat": true
+    },
   ]
 }
