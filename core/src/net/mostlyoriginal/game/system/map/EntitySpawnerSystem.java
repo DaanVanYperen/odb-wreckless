@@ -140,7 +140,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .chainableColor(ChainColor.valueOf(color))
                 .snapToGridX(x / G.CELL_SIZE + G.CELL_SIZE * 100)
                 .snapToGridY(y / G.CELL_SIZE)
-                .snapToGridPixelsPerSecondX(MathUtils.random(250, 310))
+                .snapToGridPixelsPerSecondX((int) (MathUtils.random(250f, 310f)*0.9))
                 .script(sequence(
                         delay(seconds(5)),
                         deleteFromWorld()
