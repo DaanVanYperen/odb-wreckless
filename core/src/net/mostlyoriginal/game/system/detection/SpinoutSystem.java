@@ -23,7 +23,7 @@ public class SpinoutSystem extends FluidIteratingSystem {
     private EntitySpawnerSystem entitySpawnerSystem;
 
     public SpinoutSystem() {
-        super(Aspect.all(Spinout.class));
+        super(Aspect.all(Spinout.class).exclude(Frozen.class));
     }
 
     Vector2 v2 = new Vector2();

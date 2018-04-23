@@ -57,7 +57,8 @@ public class CrashSystem extends BaseEntitySystem {
     }
 
     private void spinOut(E e, float v) {
-        if ( e.hasHazard() && e.hasSpinout() && e.spinoutFactor() < 0.5f) return;
+        if ( e.hasOilslick() ) return;
+        if (e.hasSpinout() && e.spinoutFactor() < ( e.hasHazard() ? 0.5f : 0.3f) ) return;
         e.spinout();
         e.spinoutSpeed(e.hasShipControlled() ? MathUtils.random(2f, 3f) : MathUtils.random(1f, 2f));
         e.spinoutDirection(v);
