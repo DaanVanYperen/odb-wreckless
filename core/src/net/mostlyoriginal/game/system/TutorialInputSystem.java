@@ -9,6 +9,7 @@ import net.mostlyoriginal.game.component.Inputs;
 import net.mostlyoriginal.game.component.ShipControlled;
 import net.mostlyoriginal.game.screen.GameScreen;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
+import net.mostlyoriginal.game.system.render.TransitionSystem;
 
 /**
  * @author Daan van Yperen
@@ -19,6 +20,7 @@ public class TutorialInputSystem extends FluidIteratingSystem {
     public boolean tutorialMode;
     private E player;
     private boolean pressed;
+    private TransitionSystem transitionSystem;
 
     public TutorialInputSystem() {
         super(Aspect.all(Inputs.class).exclude(ShipControlled.class));
@@ -39,7 +41,7 @@ public class TutorialInputSystem extends FluidIteratingSystem {
                 if (Gdx.input.isKeyJustPressed(Input.Keys.E) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                     G.level = 1;
                     pressed = true;
-                    E.E().transitionScreen(GameScreen.class);
+                    transitionSystem.transition(GameScreen.class, 0.1f);
                 }
             }
 
@@ -55,7 +57,7 @@ public class TutorialInputSystem extends FluidIteratingSystem {
 
     @Override
     protected void process(E e) {
-        if (player != null && overlaps(e, player)) {
+        if (tutorialMode && player != null && overlaps(e, player)) {
             final Inputs p = player.getInputs();
             final Inputs in = e.getInputs();
 

@@ -25,6 +25,7 @@ import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.map.EntitySpawnerSystem;
 import net.mostlyoriginal.game.system.render.CameraFollowSystem;
 import net.mostlyoriginal.game.system.render.MyAnimRenderSystem;
+import net.mostlyoriginal.game.system.render.TransitionSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
 import java.util.StringTokenizer;
@@ -47,6 +48,7 @@ public class ScoreUISystem extends BaseSystem {
     private float finishedTime;
     private boolean pressed=false;
     private TutorialInputSystem tutorialInputSystem;
+    private TransitionSystem transitionSystem;
 
     @Override
     protected void initialize() {
@@ -138,7 +140,7 @@ public class ScoreUISystem extends BaseSystem {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             pressed=true;
             G.level=0;
-            E.E().transitionScreen(GameScreen.class);
+            transitionSystem.transition(GameScreen.class, 0.1f);
         }
 
     }
