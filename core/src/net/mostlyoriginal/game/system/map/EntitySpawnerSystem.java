@@ -56,7 +56,11 @@ public class EntitySpawnerSystem extends BaseSystem {
                 assemblePitstop((int) x, (int) y, (String) properties.get("color"), (Integer) properties.get("multiplier"));
                 return false;
             case "hazard":
-                assembleHazard((int) x, (int) y, (Boolean) properties.get("down"), (String) properties.get("sprite-up"), (String) properties.get("sprite-down"));
+                assembleHazard((int) x, (int) y,
+                        (Boolean) properties.get("down"),
+                        (String) properties.get("sprite-up"),
+                        (String) properties.get("sprite-down"),
+                        (String) properties.get("hitSound"));
                 break;
             case "oilslick":
                 assembleOilslick((int) x, (int) y);
@@ -87,23 +91,30 @@ public class EntitySpawnerSystem extends BaseSystem {
     private void assembleOilslick(int x, int y) {
         final E e = E().pos(x, y)
                 .crashable()
-                .bounds(10,10,20,20)
+                .bounds(10, 10, 20, 20)
                 .frozen()
                 .oilslick();
     }
 
-    private void assembleHazard(int x, int y, Boolean down, String spriteUp, String spriteDown) {
+    private void assembleHazard(int x, int y, Boolean down, String spriteUp, String spriteDown, String hitSound) {
         final E e = E().pos(x, y)
                 .angleRotation(down ? MathUtils.random(0f, 360f) : 0f)
                 .crashable()
                 .hazardDown(down)
                 .hazardSpriteDown(spriteDown)
                 .hazardSpriteUp(spriteUp)
-                .origin(0.5f,0.5f)
-                .tint(1f,1f,1f,0.7f)
+                .hazardHitSound(hitSound)
+                .origin(0.5f, 0.5f)
+                .tint(1f, 1f, 1f, 0.7f)
                 .frozen()
                 .anim(down ? spriteDown : spriteUp)
                 .renderLayer(G.LAYER_GREMLIN - 5);
+
+        if ("frogger".equals(spriteUp)) {
+            e
+                    .snapToGridX(x / G.CELL_SIZE)
+                    .snapToGridY(20);
+        }
         gameScreenAssetSystem.boundToAnim(e.id(), 4, 4);
     }
 
@@ -136,11 +147,11 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .snapToGrid()
                 .tireTrack()
                 .teamTeam(TEAM_ENEMIES)
-                .tint(1f,1f,1f,0.7f)
+                .tint(1f, 1f, 1f, 0.7f)
                 .chainableColor(ChainColor.valueOf(color))
                 .snapToGridX(x / G.CELL_SIZE + G.CELL_SIZE * 100)
                 .snapToGridY(y / G.CELL_SIZE)
-                .snapToGridPixelsPerSecondX((int) (MathUtils.random(250f, 310f)*0.9))
+                .snapToGridPixelsPerSecondX((int) (MathUtils.random(250f, 310f) * 0.9))
                 .script(sequence(
                         delay(seconds(5)),
                         deleteFromWorld()

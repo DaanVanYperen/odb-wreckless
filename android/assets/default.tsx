@@ -239,6 +239,7 @@
   <properties>
    <property name="down" type="bool" value="false"/>
    <property name="entity" value="hazard"/>
+   <property name="hitSound" value="frog_godwhy"/>
    <property name="sprite-down" value="frogger-down"/>
    <property name="sprite-up" value="frogger"/>
   </properties>

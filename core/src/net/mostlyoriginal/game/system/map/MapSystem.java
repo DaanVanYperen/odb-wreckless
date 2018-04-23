@@ -30,7 +30,7 @@ public class MapSystem extends BaseSystem {
 
     @Override
     protected void initialize() {
-        map = new TmxMapLoader().load("map" + (G.level) + ".tmx");
+        map = new TmxMapLoader().load("map" + (G.level+1) + ".tmx");
 
         layers = new Array<TiledMapTileLayer>();
         for (MapLayer rawLayer : map.getLayers()) {

@@ -9,4 +9,5 @@ public class Hazard extends Component {
     public boolean down;
     public String spriteUp;
     public String spriteDown;
+    public String hitSound;
 }

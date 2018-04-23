@@ -214,7 +214,8 @@
       "x": 0,
       "y": 256,
       "width": 32,
-      "height": 32
+      "height": 32,
+      "countX": 3
     },
     {
       "id": "frogger-down",
