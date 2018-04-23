@@ -435,7 +435,7 @@ public class EntitySpawnerSystem extends BaseSystem {
     }
 
     private void assembleTrigger(float x, float y, String trigger, Integer parameter) {
-        boolean tallTrigger = !trigger.equals("music") && !trigger.equals("finish");
+        boolean tallTrigger = false;
         E().pos(x, y - (tallTrigger ? 5000 : 0)).bounds(0, 0, 32, (tallTrigger ? 10000 : 32)).trigger(trigger).triggerParameter(""+parameter);
     }
 

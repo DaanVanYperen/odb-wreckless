@@ -70,6 +70,7 @@ public class ScoreUISystem extends BaseSystem {
 
             Preferences prefs = Gdx.app.getPreferences("ld41wreckless");
             prefs.putInteger("highscore_" + mapSystem.activeLevel,score);
+            prefs.flush();
 
             E.E()
                     .labelText("FINAL SCORE " + getDecimalFormattedString("" + score))
