@@ -78,7 +78,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 assembleOilslick((int) x, (int) y, (String) properties.get("anim"));
                 return false;
             case "trigger":
-                assembleTrigger(x, y, (String) properties.get("trigger"), (String) properties.get("parameter"));
+                assembleTrigger(x, y, (String) properties.get("trigger"), (Integer) properties.get("tolevel"));
                 return false;
             case "birds":
                 for (int i = 0, s = MathUtils.random(1, 3); i <= s; i++) {
@@ -155,6 +155,8 @@ public class EntitySpawnerSystem extends BaseSystem {
         if ("frogger".equals(spriteUp)) {
             e
                     .snapToGridX(x / G.CELL_SIZE)
+                    .snapToGridPixelsPerSecondY(60)
+                    .tint(1f,1f,1f,1f)
                     .snapToGridY(20);
         }
         gameScreenAssetSystem.boundToAnim(e.id(), 4, 4);
@@ -413,9 +415,9 @@ public class EntitySpawnerSystem extends BaseSystem {
         addArsenal(enemyShip, "enemy-guns", G.TEAM_ENEMIES, -180, shipData.arsenal, true);
     }
 
-    private void assembleTrigger(float x, float y, String trigger, String parameter) {
+    private void assembleTrigger(float x, float y, String trigger, Integer parameter) {
         boolean tallTrigger = !trigger.equals("music");
-        E().pos(x, y - (tallTrigger ? 5000 : 0)).bounds(0, 0, 32, (tallTrigger ? 10000 : 32)).trigger(trigger).triggerParameter(parameter);
+        E().pos(x, y - (tallTrigger ? 5000 : 0)).bounds(0, 0, 32, (tallTrigger ? 10000 : 32)).trigger(trigger).triggerParameter(""+parameter);
     }
 
     public void spawnGremlin(float x, float y) {

@@ -49,6 +49,7 @@ public class ScoreUISystem extends BaseSystem {
     private boolean pressed=false;
     private TutorialInputSystem tutorialInputSystem;
     private TransitionSystem transitionSystem;
+    private Integer targetLevel=0;
 
     @Override
     protected void initialize() {
@@ -132,16 +133,25 @@ public class ScoreUISystem extends BaseSystem {
 
             if (finishedTime > 1f && (tutorialInputSystem.tutorialMode || Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.E))) {
                 pressed=true;
-                G.level=0;
-                E.E().transitionScreen(GameScreen.class);
+                G.level=targetLevel;
+                transitionSystem.transition(GameScreen.class, 0.1f);
             }
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             pressed=true;
-            G.level=0;
+            G.level=targetLevel;
             transitionSystem.transition(GameScreen.class, 0.1f);
         }
 
+    }
+
+    public void targetLevel(Integer level) {
+        targetLevel = level;
+        if ( level == 2 || level == 3 ) {
+            pressed=true;
+            G.level=targetLevel;
+            transitionSystem.transition(GameScreen.class, 0.1f);
+        }
     }
 }

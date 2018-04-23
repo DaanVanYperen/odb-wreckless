@@ -8,6 +8,7 @@ import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.detection.ChainingSystem;
 import net.mostlyoriginal.game.system.map.EntitySpawnerSystem;
+import net.mostlyoriginal.game.system.map.MapSystem;
 
 import static com.artemis.E.E;
 
@@ -16,10 +17,12 @@ import static com.artemis.E.E;
  */
 public class GridSnapSystem extends FluidIteratingSystem {
 
-    private static final int MAX_LANE = 11;
+    private static int MAX_LANE = 11;
     private static final int MIN_LANE = 1;
     private ChainingSystem chainingSystem;
     private EntitySpawnerSystem entitySpawnerSystem;
+    private MapSystem mapSystem;
+    private CarControlSystem carControlSystem;
 
     public GridSnapSystem() {
 
@@ -31,6 +34,8 @@ public class GridSnapSystem extends FluidIteratingSystem {
     @Override
     protected void begin() {
         super.begin();
+        if ( MAX_LANE < mapSystem.height-2 )
+            MAX_LANE=mapSystem.height-2;
     }
 
     @Override
@@ -71,7 +76,7 @@ public class GridSnapSystem extends FluidIteratingSystem {
         } else {
 
             if (isOnDesiredGrid) {
-                if ( e.hasShipControlled() ) {
+                if ( e.hasShipControlled() && !carControlSystem.noautomove ) {
                     xDestination = e.posX() + maxSpeedX * 0.3f * world.delta;
                     e.snapToGridX(gridX(e)); // assume our current location is our desired location.
                     e.posX(xDestination);

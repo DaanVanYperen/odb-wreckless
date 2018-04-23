@@ -45,6 +45,7 @@ public class CarControlSystem extends FluidIteratingSystem {
     private boolean tutorialMode;
     private MapSystem mapSystem;
     private EntitySpawnerSystem entitySpawnerSystem;
+    public boolean noautomove;
 
 
     public CarControlSystem() {
@@ -138,18 +139,23 @@ public class CarControlSystem extends FluidIteratingSystem {
         final E camera = entityWithTag("camera");
         camera.posY(e.posY());
 
-        targetScrollSpeed = dx < 0 ? G.CAMERA_SCROLL_SPEED * 0.9f : (dx > 0 ? G.CAMERA_SCROLL_SPEED * 1.5f : G.CAMERA_SCROLL_SPEED);
-        if (camera.posX() > e.posX()) targetScrollSpeed *= 0.2f;
-        if (camera.posX() + (G.SCREEN_WIDTH / G.CAMERA_ZOOM) * 0.5f < e.posX()) targetScrollSpeed *= 1.4f;
+        if ( noautomove) {
+            camera.physicsVx(0);
+            camera.posX(e.posX());
+        } else {
+            targetScrollSpeed = dx < 0 ? G.CAMERA_SCROLL_SPEED * 0.9f : (dx > 0 ? G.CAMERA_SCROLL_SPEED * 1.5f : G.CAMERA_SCROLL_SPEED);
+            if (camera.posX() > e.posX()) targetScrollSpeed *= 0.2f;
+            if (camera.posX() + (G.SCREEN_WIDTH / G.CAMERA_ZOOM) * 0.5f < e.posX()) targetScrollSpeed *= 1.4f;
 
-        final float delta = (targetScrollSpeed - scrollSpeed) * 2f;
+            final float delta = (targetScrollSpeed - scrollSpeed) * 2f;
 
-        if (targetScrollSpeed < scrollSpeed)
-            scrollSpeed = MathUtils.clamp(scrollSpeed + delta * world.delta, targetScrollSpeed, scrollSpeed);
-        if (targetScrollSpeed > scrollSpeed)
-            scrollSpeed = MathUtils.clamp(scrollSpeed + delta * world.delta, scrollSpeed, targetScrollSpeed);
+            if (targetScrollSpeed < scrollSpeed)
+                scrollSpeed = MathUtils.clamp(scrollSpeed + delta * world.delta, targetScrollSpeed, scrollSpeed);
+            if (targetScrollSpeed > scrollSpeed)
+                scrollSpeed = MathUtils.clamp(scrollSpeed + delta * world.delta, scrollSpeed, targetScrollSpeed);
 
-        camera.physicsVx(scrollSpeed);
+            camera.physicsVx(scrollSpeed);
+        }
     }
 
     float scrollSpeed = G.CAMERA_SCROLL_SPEED;

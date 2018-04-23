@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.utils.Array;
 import net.mostlyoriginal.api.utils.MapMask;
 import net.mostlyoriginal.game.component.G;
+import net.mostlyoriginal.game.system.CarControlSystem;
 import net.mostlyoriginal.game.system.render.PuzzleDirectorSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
@@ -26,11 +27,18 @@ public class MapSystem extends BaseSystem {
     private EntitySpawnerSystem entitySpawnerSystem;
     private GameScreenAssetSystem assetSystem;
     private MapCollisionSystem mapCollisionSystem;
+    public MapProperties properties;
+    private CarControlSystem carControlSystem;
     //private PuzzleDirectorSystem directorSystem;
 
     @Override
     protected void initialize() {
         map = new TmxMapLoader().load("map" + (G.level) + ".tmx");
+
+        properties = map.getProperties();
+        if ( properties.containsKey("noautomove") ) {
+            carControlSystem.noautomove=true;
+        }
 
         layers = new Array<TiledMapTileLayer>();
         for (MapLayer rawLayer : map.getLayers()) {

@@ -36,6 +36,7 @@ public class TriggerSystem extends FluidIteratingSystem {
                         player.physicsVx(300);
                         player.physicsFriction(0);
 
+                        scoreUISystem.targetLevel(Integer.valueOf(e.triggerParameter()));
                         scoreUISystem.displayScorecard();
                     }
                     break;

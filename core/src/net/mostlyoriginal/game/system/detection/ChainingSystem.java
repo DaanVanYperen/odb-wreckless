@@ -1,4 +1,4 @@
-package net.mostlyoriginal.game.system.detection;
+        package net.mostlyoriginal.game.system.detection;
 
 import com.artemis.Aspect;
 import com.artemis.E;
@@ -14,6 +14,7 @@ import net.mostlyoriginal.game.system.RewardSystem;
 import net.mostlyoriginal.game.system.TutorialInputSystem;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.map.EntitySpawnerSystem;
+import net.mostlyoriginal.game.system.map.MapSystem;
 
 import static net.mostlyoriginal.api.utils.Duration.seconds;
 
@@ -40,6 +41,7 @@ public class ChainingSystem extends FluidIteratingSystem {
 
     private float randomRacerCooldown = 10;
     private RewardSystem rewardSystem;
+    private MapSystem mapSystem;
 
     class Chain {
         public int length;
@@ -145,7 +147,8 @@ public class ChainingSystem extends FluidIteratingSystem {
     private void handleRandomRacers() {
         randomRacerCooldown -= world.delta;
         if (randomRacerCooldown <= 0) {
-            randomRacerCooldown += MathUtils.random(0.5f, 3);
+            final Float racerCooldown = (Float) mapSystem.properties.get("racerCooldown");
+            randomRacerCooldown += racerCooldown > 0 ? MathUtils.random(0.5f, 3) * racerCooldown : 9999999;
             randomlyFireCar();
         }
     }
