@@ -58,19 +58,24 @@ public class CrashSystem extends BaseEntitySystem {
             // hazards don't cause spinouts (yet).
             if (!a.hasHazard()) spinOut(b, angle + 180);
             if (!b.hasHazard()) spinOut(a, angle);
+
         }
     }
 
     private void spinOut(E e, float v) {
         if ( e.hasOilslick() ) return;
         if (e.hasSpinout() && e.spinoutFactor() < ( e.hasHazard() ? 0.5f : 0.3f) ) return;
+        if (e.hasHazard() )
+        {
+            G.sfx.play("pop_1",0.7f);
+        }
         e.spinout();
         e.spinoutSpeed(e.hasShipControlled() ? MathUtils.random(2.5f, 3f) : MathUtils.random(2.5f, 3f));
         e.spinoutDirection(v);
         e.spinoutAngle(MathUtils.random(400, 600) * (MathUtils.randomBoolean() ? 1 : -1));
         knockDownHazard(e);
         if ( e.hasHazard() && e.hazardHitSound() != null ) {
-            G.sfx.play(e.hazardHitSound(),1.5f);
+            G.sfx.play(e.hazardHitSound(),2f);
             e
                     .removeHazard()
                     .removeCrashable()
