@@ -52,7 +52,8 @@ public class SpinoutSystem extends FluidIteratingSystem {
             e.removeSpinout();
             if (e.hasChainable()) {
                 final E e1 = entitySpawnerSystem.assembleCar((int) e.posX(), (int) e.posY(), e.chainableColor().name());
-                e1.angleRotation(e.angleRotation());
+                e1.angleRotation(e.angleRotation())
+                .renderLayer(e.renderLayer());
                 e.script(OperationFactory.deleteFromWorld());
             }
         }

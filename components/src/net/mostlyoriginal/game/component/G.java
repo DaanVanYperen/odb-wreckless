@@ -9,12 +9,13 @@ import net.mostlyoriginal.game.client.UriHandler;
 public class G {
     public static final float ROBOT_HOVER_ABOVE_PLAYER_HEIGHT = 8;
     public static final float BARS_NEEDED_FOR_BREAKING_DOOR = 3;
-    public static final int LAYER_PARTICLES = 1200;
+    public static final int LAYER_PARTICLES = 2000;
     public static final int LAYER_GREMLIN = 998;
+    public static final int LAYERS_RESERVED_FOR_CARS = 300;
     public static final int TEAM_PLAYERS = 2;
     public static final int TEAM_ENEMIES = 0;
     public static final int LAYER_BIRDS = 1005;
-    public static final int LAYER_DIALOGS = 2000;
+    public static final int LAYER_DIALOGS = 2100;
     public static final int PLAYER_WIDTH = 46;
     public static final int PLAYER_HEIGHT = 39;
     public static final float CAMERA_SCROLL_SPEED = 40;
@@ -27,7 +28,7 @@ public class G {
     public static final int CELL_SIZE = 32;
 
 
-    public static final int LAYER_PLAYER = 1000;
+    public static final int LAYER_PLAYER = 1500;
     public static final int LAYER_PLAYER_ROBOT = 996;
     public static final int LAYER_PLAYER_ROBOT_BATTERY = 997;
 
