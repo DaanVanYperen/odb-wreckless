@@ -39,7 +39,7 @@ public class G {
     public static final int SCREEN_WIDTH = 1280;
     public static final int SCREEN_HEIGHT = 720;
 
-    public static int level = 1;
+    public static int level = 0;
     public static float ROBOT_FLY_ABOVE_PLAYER_HEIGHT = 8;
 
     public static final float BAR_PER_SECOND_LOST_FOR_FLYING = 0.05f;

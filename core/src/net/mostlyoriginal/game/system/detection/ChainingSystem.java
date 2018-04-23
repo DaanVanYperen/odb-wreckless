@@ -11,6 +11,7 @@ import net.mostlyoriginal.game.component.Chainable;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.system.GridSnapSystem;
 import net.mostlyoriginal.game.system.RewardSystem;
+import net.mostlyoriginal.game.system.TutorialInputSystem;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.map.EntitySpawnerSystem;
 
@@ -33,6 +34,7 @@ public class ChainingSystem extends FluidIteratingSystem {
     private int activePitstopChains = 0;
     private int cameraGridOffset;
     private EntitySpawnerSystem entitySpawnerSystem;
+    private TutorialInputSystem tutorialInputSystem;
 
     private float randomRacerCooldown = 10;
     private RewardSystem rewardSystem;
@@ -128,7 +130,9 @@ public class ChainingSystem extends FluidIteratingSystem {
 
         collectChains();
 
-        handleRandomRacers();
+        if ( !tutorialInputSystem.tutorialMode ) {
+            handleRandomRacers();
+        }
 
         rewardLongColorChains();
         rewardUnbrokenPitstopChains();

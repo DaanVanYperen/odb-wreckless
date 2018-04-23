@@ -15,6 +15,7 @@ import net.mostlyoriginal.game.component.map.WallSensor;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.detection.DialogSystem;
 import net.mostlyoriginal.game.system.map.MapCollisionSystem;
+import net.mostlyoriginal.game.system.map.MapSystem;
 import net.mostlyoriginal.game.system.render.MyAnimRenderSystem;
 import net.mostlyoriginal.game.system.view.GameScreenAssetSystem;
 
@@ -40,6 +41,8 @@ public class CarControlSystem extends FluidIteratingSystem {
     private TowedSystem towedSystem;
 
     public boolean scrolling = true;
+    private boolean tutorialMode;
+    private MapSystem mapSystem;
 
 
     public CarControlSystem() {
@@ -49,7 +52,6 @@ public class CarControlSystem extends FluidIteratingSystem {
     @Override
     protected void process(E e) {
         if (world.delta == 0) return;
-
 
         String playerAnimPrefix = "player-";
 
@@ -65,35 +67,42 @@ public class CarControlSystem extends FluidIteratingSystem {
 
         e.animLoop(true);
         if (!e.hasDead()) {
-            if (Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.isKeyPressed(Input.Keys.E)) {
+            final boolean space = e.inputsFire();
+            if (space) {
                 e.shipControlledReleasing(true);
             } else {
-                if ( e.shipControlledReleasing()) {
-                    towedSystem.disconnectCargoFrom(e,true);
+                if (e.shipControlledReleasing()) {
+                    towedSystem.disconnectCargoFrom(e, true);
                 }
                 e.shipControlledReleasing(false);
             }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-                if (Gdx.input.isKeyJustPressed(Input.Keys.A) || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+            Inputs inputs = e.getInputs();
+
+            if (inputs.left) {
+                if (inputs.justLeft) {
                     e.animAge(0);
                 }
                 dx = -MOVEMENT_FACTOR;
                 e.animId("player-left");
                 e.animLoop(false);
-            } else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-                if (Gdx.input.isKeyJustPressed(Input.Keys.D) || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-                    e.animAge(0);
+            } else {
+                if (inputs.right) {
+                    if (inputs.justRight) {
+                        e.animAge(0);
+                    }
+                    dx = MOVEMENT_FACTOR;
+                    e.animId("player-right");
+                    e.animLoop(false);
                 }
-                dx = MOVEMENT_FACTOR;
-                e.animId("player-right");
-                e.animLoop(false);
             }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            if (inputs.up) {
                 dy = MOVEMENT_FACTOR;
-            } else if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-                dy = -MOVEMENT_FACTOR;
+            } else {
+                if (inputs.down) {
+                    dy = -MOVEMENT_FACTOR;
+                }
             }
         }
 
@@ -102,13 +111,14 @@ public class CarControlSystem extends FluidIteratingSystem {
         }
 
         // if starting to release tows and moving up and down initiates a drift.
-        if ( e.shipControlledReleasing() && dy != 0 )
-        {
-            if ( !e.hasDrifting() ) {
+        if (e.shipControlledReleasing() && dy != 0) {
+            if (!e.hasDrifting()) {
                 G.sfx.play("carsound_skid_2", 0.5f);
             }
             e.driftingDy(dy);
-        } else {e.removeDrifting();}
+        } else {
+            e.removeDrifting();
+        }
 
         //whistle(e, playerAnimPrefix);
 
@@ -127,13 +137,15 @@ public class CarControlSystem extends FluidIteratingSystem {
         camera.posY(e.posY());
 
         targetScrollSpeed = dx < 0 ? G.CAMERA_SCROLL_SPEED * 0.9f : (dx > 0 ? G.CAMERA_SCROLL_SPEED * 1.5f : G.CAMERA_SCROLL_SPEED);
-        if ( camera.posX() > e.posX() ) targetScrollSpeed *= 0.2f;
-        if ( camera.posX() + (G.SCREEN_WIDTH / G.CAMERA_ZOOM ) * 0.5f < e.posX() ) targetScrollSpeed *= 1.4f;
+        if (camera.posX() > e.posX()) targetScrollSpeed *= 0.2f;
+        if (camera.posX() + (G.SCREEN_WIDTH / G.CAMERA_ZOOM) * 0.5f < e.posX()) targetScrollSpeed *= 1.4f;
 
         final float delta = (targetScrollSpeed - scrollSpeed) * 2f;
 
-        if ( targetScrollSpeed < scrollSpeed ) scrollSpeed = MathUtils.clamp(scrollSpeed + delta * world.delta, targetScrollSpeed, scrollSpeed);
-        if ( targetScrollSpeed > scrollSpeed ) scrollSpeed = MathUtils.clamp(scrollSpeed + delta * world.delta, scrollSpeed, targetScrollSpeed);
+        if (targetScrollSpeed < scrollSpeed)
+            scrollSpeed = MathUtils.clamp(scrollSpeed + delta * world.delta, targetScrollSpeed, scrollSpeed);
+        if (targetScrollSpeed > scrollSpeed)
+            scrollSpeed = MathUtils.clamp(scrollSpeed + delta * world.delta, scrollSpeed, targetScrollSpeed);
 
         camera.physicsVx(scrollSpeed);
     }

@@ -234,7 +234,7 @@
       "height": 32
     },
 	{
-      "id": "startinglights",
+      "id": "startinglightss",
       "comment": "Starting lights counting down to the race.",
       "x": 0,
       "y": 704,

@@ -20,7 +20,7 @@ import static net.mostlyoriginal.game.component.G.*;
 
 /**
  * @author Daan van Yperen
- */
+ligh */
 public class EntitySpawnerSystem extends BaseSystem {
 
     //    private SocketSystem socketSystem;
@@ -44,8 +44,11 @@ public class EntitySpawnerSystem extends BaseSystem {
 
         switch (entity) {
             case "player":
-                assemblePlayer(x, y, shipDataSystem.get("player"));
+                assemblePlayer(x, y, shipDataSystem.get("player"), (boolean)properties.get("tutorial"));
                 break;
+            case "startinglights":
+                assembleStartingLights((int) x, (int) y);
+                return true;
             case "startinggrid":
                 assembleRacer((int) x, (int) y, ChainColor.random().name());
                 return false;
@@ -54,6 +57,9 @@ public class EntitySpawnerSystem extends BaseSystem {
                 break;
             case "pitstop":
                 assemblePitstop((int) x, (int) y, (String) properties.get("color"), (Integer) properties.get("multiplier"));
+                return false;
+            case "control":
+                assembleControl((int) x, (int) y, (String) properties.get("type"));
                 return false;
             case "hazard":
                 assembleHazard((int) x, (int) y,
@@ -86,6 +92,30 @@ public class EntitySpawnerSystem extends BaseSystem {
             //throw new RuntimeException("No idea how to spawn entity of type " + entity);
         }
         return true;
+    }
+
+    private void assembleControl(int x, int y, String type) {
+        final E e = E()
+                .pos(x, y)
+                .render(G.LAYER_GREMLIN)
+                .bounds(0,0,G.CELL_SIZE,G.CELL_SIZE)
+                .teamTeam(TEAM_ENEMIES)
+                .inputsDown("down".equals(type))
+                .inputsLeft("left".equals(type))
+                .inputsRight("right".equals(type))
+                .inputsUp("up".equals(type))
+                .inputsJustFire("e".equals(type))
+                .inputsFire("holde".equals(type))
+                .frozen();
+    }
+
+    private void assembleStartingLights(int x, int y) {
+        G.sfx.play("countdown_3");
+        final E e = E().pos(x - 160 / 2, y - 128 / 2)
+                .anim("startinglightss")
+                .renderLayer(G.LAYER_DIALOGS);
+        gameScreenAssetSystem.boundToAnim(e.id(), 4, 4);
+
     }
 
     private void assembleOilslick(int x, int y) {
@@ -210,7 +240,7 @@ public class EntitySpawnerSystem extends BaseSystem {
 
     Vector2 v2 = new Vector2();
 
-    private void assemblePlayer(float x, float y, ShipData shipData) {
+    private void assemblePlayer(float x, float y, ShipData shipData, boolean mode) {
         int gracepaddingX = 16;
         int gracepaddingY = 4;
         E playerCar = E().anim("player-idle")
@@ -228,7 +258,8 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .player()
                 .teamTeam(G.TEAM_PLAYERS)
                 .tag("player")
-                .shipControlled();
+                .shipControlled()
+                .shipControlledTutorial(mode);
 
 //        E().anim("player-hook")
 //                .pos(x, y)

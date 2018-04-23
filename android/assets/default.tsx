@@ -10,11 +10,13 @@
  <tile id="64">
   <properties>
    <property name="entity" value="player"/>
+   <property name="tutorial" type="bool" value="false"/>
   </properties>
  </tile>
  <tile id="65">
   <properties>
    <property name="entity" value="player"/>
+   <property name="tutorial" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="85">
@@ -302,6 +304,41 @@
  <tile id="358">
   <properties>
    <property name="entity" value="oilslick"/>
+  </properties>
+ </tile>
+ <tile id="426">
+  <properties>
+   <property name="entity" value="control"/>
+   <property name="type" value="right"/>
+  </properties>
+ </tile>
+ <tile id="427">
+  <properties>
+   <property name="entity" value="control"/>
+   <property name="type" value="down"/>
+  </properties>
+ </tile>
+ <tile id="428">
+  <properties>
+   <property name="entity" value="control"/>
+   <property name="type" value="up"/>
+  </properties>
+ </tile>
+ <tile id="430">
+  <properties>
+   <property name="entity" value="control"/>
+   <property name="type" value="e"/>
+  </properties>
+ </tile>
+ <tile id="431">
+  <properties>
+   <property name="entity" value="control"/>
+   <property name="type" value="holde"/>
+  </properties>
+ </tile>
+ <tile id="805">
+  <properties>
+   <property name="entity" value="startinglights"/>
   </properties>
  </tile>
 </tileset>
