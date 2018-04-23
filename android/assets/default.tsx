@@ -237,25 +237,34 @@
  </tile>
  <tile id="256">
   <properties>
+   <property name="down" type="bool" value="false"/>
    <property name="entity" value="hazard"/>
-   <property name="type" value="FROGGER"/>
+   <property name="sprite-down" value="frogger-down"/>
+   <property name="sprite-up" value="frogger"/>
   </properties>
  </tile>
  <tile id="320">
   <properties>
    <property name="down" type="bool" value="false"/>
-   <property name="entity" value="pilon"/>
+   <property name="entity" value="hazard"/>
+   <property name="sprite-down" value="pylon-down"/>
+   <property name="sprite-up" value="pylon"/>
   </properties>
  </tile>
  <tile id="321">
   <properties>
    <property name="down" type="bool" value="true"/>
-   <property name="entity" value="pilon"/>
+   <property name="entity" value="hazard"/>
+   <property name="sprite-down" value="pylon-down"/>
+   <property name="sprite-up" value="pylon"/>
   </properties>
  </tile>
  <tile id="322">
   <properties>
-   <property name="entity" value="barricade"/>
+   <property name="down" type="bool" value="false"/>
+   <property name="entity" value="hazard"/>
+   <property name="sprite-down" value="barricade"/>
+   <property name="sprite-up" value="barricade"/>
   </properties>
  </tile>
  <tile id="325">
@@ -271,13 +280,17 @@
  <tile id="352">
   <properties>
    <property name="down" type="bool" value="false"/>
-   <property name="entity" value="drum"/>
+   <property name="entity" value="hazard"/>
+   <property name="sprite-down" value="drum-down"/>
+   <property name="sprite-up" value="drum"/>
   </properties>
  </tile>
  <tile id="353">
   <properties>
    <property name="down" type="bool" value="true"/>
-   <property name="entity" value="drum"/>
+   <property name="entity" value="hazard"/>
+   <property name="sprite-down" value="drum-down"/>
+   <property name="sprite-up" value="drum"/>
   </properties>
  </tile>
  <tile id="357">

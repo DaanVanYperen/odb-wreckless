@@ -11,10 +11,7 @@ import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.physics.Frozen;
 import net.mostlyoriginal.game.api.EBag;
 import net.mostlyoriginal.game.component.Crashable;
-import net.mostlyoriginal.game.component.SnapToGrid;
-import net.mostlyoriginal.game.component.Spinout;
 import net.mostlyoriginal.game.component.Towed;
-import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 
 import static com.artemis.E.E;
 
@@ -45,23 +42,40 @@ public class CrashSystem extends BaseEntitySystem {
     private void crashTest(E a, E b) {
         if (overlaps(a, b)) {
 
-            if ( a.hasSpinout() && b.hasSpinout() ) return;
+            if (a.hasSpinout() && b.hasSpinout()) return;
 
 
-            final float angle = v.set(a.posX() + a.boundsCx(), a.posY() + a.boundsCy())
+            float angle = v.set(a.posX() + a.boundsCx(), a.posY() + a.boundsCy())
                     .sub(b.posX() + b.boundsCx(), b.posY() + b.boundsCy()).angle();
 
-            a.spinout();
-            b.spinout();
+            if ( a.hasHazard() || b.hasHazard() ) angle = MathUtils.random(360);
 
-            // Avoid taking control away from the player for too long.
-            a.spinoutSpeed(a.hasShipControlled() ? MathUtils.random(2f, 3f) : MathUtils.random(1f, 2f));
-            b.spinoutSpeed(b.hasShipControlled() ? MathUtils.random(2f, 3f) : MathUtils.random(1f, 2f));
+            // hazards don't cause spinouts (yet).
+            if (!a.hasHazard()) spinOut(b, angle + 180);
+            if (!b.hasHazard()) spinOut(a, angle);
+        }
+    }
 
-            a.spinoutDirection(angle);
-            b.spinoutDirection(angle + 180);
-            a.spinoutAngle(MathUtils.random(400,600) * (MathUtils.randomBoolean() ? 1 : -1));
-            b.spinoutAngle(MathUtils.random(400,600) * (MathUtils.randomBoolean() ? 1 : -1));
+    private void spinOut(E e, float v) {
+        if ( e.hasHazard() && e.hasSpinout() && e.spinoutFactor() < 0.5f) return;
+        e.spinout();
+        e.spinoutSpeed(e.hasShipControlled() ? MathUtils.random(2f, 3f) : MathUtils.random(1f, 2f));
+        e.spinoutDirection(v);
+        e.spinoutAngle(MathUtils.random(400, 600) * (MathUtils.randomBoolean() ? 1 : -1));
+        knockDownHazard(e);
+    }
+
+    private void knockDownHazard(E e) {
+        if (e.hasHazard()) {
+            if ( !e.hazardDown() ) {
+                e.anim(e.hazardSpriteDown());
+                e.hazardDown(true);
+            } else {
+                if ( MathUtils.random(0,100) < 5 ) {
+                    e.anim(e.hazardSpriteUp());
+                    e.hazardDown(false);
+                }
+            }
         }
     }
 
