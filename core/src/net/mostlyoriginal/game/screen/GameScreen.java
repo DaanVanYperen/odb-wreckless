@@ -36,6 +36,7 @@ public class GameScreen extends WorldScreen {
     @Override
     protected World createWorld() {
         RenderBatchingSystem renderBatchingSystem;
+        //G.net.openURI("http://www.zarbloid.io/?highscore=ANBVJAIOSDGCHYHE");
         return new World(new WorldConfigurationBuilder()
                 .dependsOn(EntityLinkManager.class, ProfilerPlugin.class, OperationsPlugin.class)
                 .with(

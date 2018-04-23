@@ -1,5 +1,8 @@
 package net.mostlyoriginal.game.component;
 
+import com.badlogic.gdx.Gdx;
+import net.mostlyoriginal.game.client.UriHandler;
+
 /**
  * @author Daan van Yperen
  */
@@ -42,4 +45,9 @@ public class G {
     public static final float BAR_PER_SECOND_LOST_FOR_WALKING = 0.01f;
     public static final float BARS_FOR_BATTERY = 3.5f;
     public static int LAYER_DOOR = 990;
+    public static UriHandler net = new UriHandler() {
+        public void openURI(String URI) {
+            Gdx.net.openURI(URI);
+        }
+    };
 }
