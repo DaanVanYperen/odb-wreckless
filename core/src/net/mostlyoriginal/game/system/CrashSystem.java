@@ -55,8 +55,8 @@ public class CrashSystem extends BaseEntitySystem {
             b.spinout();
 
             // Avoid taking control away from the player for too long.
-            a.spinoutSpeed(a.hasShipControlled() ? MathUtils.random(0.5f, 1f) : MathUtils.random(1f, 2f));
-            b.spinoutSpeed(a.hasShipControlled() ?  MathUtils.random(0.5f, 1f) : MathUtils.random(1f, 2f));
+            a.spinoutSpeed(a.hasShipControlled() ? MathUtils.random(2f, 3f) : MathUtils.random(1f, 2f));
+            b.spinoutSpeed(b.hasShipControlled() ? MathUtils.random(2f, 3f) : MathUtils.random(1f, 2f));
 
             a.spinoutDirection(angle);
             b.spinoutDirection(angle + 180);

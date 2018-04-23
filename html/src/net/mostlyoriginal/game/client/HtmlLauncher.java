@@ -6,6 +6,7 @@ import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
 import com.badlogic.gdx.backends.gwt.preloader.Preloader;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 import net.mostlyoriginal.game.GdxArtemisGame;
 import net.mostlyoriginal.game.component.G;
@@ -14,6 +15,12 @@ public class HtmlLauncher extends GwtApplication {
 
     @Override
     public GwtApplicationConfiguration getConfig() {
+        G.net = new UriHandler() {
+            @Override
+            public void openURI(String URI) {
+                Window.Location.assign(URI);
+            }
+        };
         GwtApplicationConfiguration configuration = new GwtApplicationConfiguration(G.SCREEN_WIDTH, G.SCREEN_HEIGHT);
         return configuration;
     }

@@ -35,6 +35,7 @@ public class TriggerSystem extends FluidIteratingSystem {
                         player.removeSnapToGrid();
                         player.physicsVx(300);
                         player.physicsFriction(0);
+
                         scoreUISystem.displayScorecard();
                     }
                     break;
