@@ -100,10 +100,11 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .hazardSpriteDown(spriteDown)
                 .hazardSpriteUp(spriteUp)
                 .origin(0.5f,0.5f)
+                .tint(1f,1f,1f,0.7f)
                 .frozen()
                 .anim(down ? spriteDown : spriteUp)
                 .renderLayer(G.LAYER_GREMLIN - 5);
-        gameScreenAssetSystem.boundToAnim(e.id(), -2, -2);
+        gameScreenAssetSystem.boundToAnim(e.id(), 4, 4);
     }
 
     public E assembleCar(int x, int y, String color) {
