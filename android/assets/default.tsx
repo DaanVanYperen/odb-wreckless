@@ -303,6 +303,22 @@
    <property name="sprite-up" value="drum"/>
   </properties>
  </tile>
+ <tile id="354">
+  <properties>
+   <property name="down" type="bool" value="false"/>
+   <property name="entity" value="hazard"/>
+   <property name="sprite-down" value="shrub"/>
+   <property name="sprite-up" value="shrub-down"/>
+  </properties>
+ </tile>
+ <tile id="355">
+  <properties>
+   <property name="down" type="bool" value="false"/>
+   <property name="entity" value="hazard"/>
+   <property name="sprite-down" value="shrub2"/>
+   <property name="sprite-up" value="shrub2-down"/>
+  </properties>
+ </tile>
  <tile id="357">
   <properties>
    <property name="anim" value="oil-slick-3"/>
@@ -313,6 +329,22 @@
   <properties>
    <property name="anim" value="oil-slick-1"/>
    <property name="entity" value="oilslick"/>
+  </properties>
+ </tile>
+ <tile id="386">
+  <properties>
+   <property name="down" type="bool" value="true"/>
+   <property name="entity" value="hazard"/>
+   <property name="sprite-down" value="shrub"/>
+   <property name="sprite-up" value="shrub-down"/>
+  </properties>
+ </tile>
+ <tile id="387">
+  <properties>
+   <property name="down" type="bool" value="true"/>
+   <property name="entity" value="hazard"/>
+   <property name="sprite-down" value="shrub2"/>
+   <property name="sprite-up" value="shrub2-down"/>
   </properties>
  </tile>
  <tile id="426">
@@ -359,6 +391,18 @@
    <property name="invisible" type="bool" value="true"/>
    <property name="tolevel" type="int" value="3"/>
    <property name="trigger" value="finish"/>
+  </properties>
+ </tile>
+ <tile id="497">
+  <properties>
+   <property name="entity" value="display"/>
+   <property name="show" value="highscore_2"/>
+  </properties>
+ </tile>
+ <tile id="498">
+  <properties>
+   <property name="entity" value="display"/>
+   <property name="show" value="highscore_3"/>
   </properties>
  </tile>
  <tile id="805">

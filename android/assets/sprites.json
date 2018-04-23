@@ -233,6 +233,38 @@
       "width": 32,
       "height": 32
     },
+    {
+      "id": "shrub",
+      "comment": "",
+      "x": 64,
+      "y": 352,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "shrub-down",
+      "comment": "",
+      "x": 64,
+      "y": 352,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "shrub2",
+      "comment": "",
+      "x": 96,
+      "y": 384,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "shrub2-down",
+      "comment": "",
+      "x": 96,
+      "y": 384,
+      "width": 32,
+      "height": 32
+    },
 	{
       "id": "startinglightss",
       "comment": "Starting lights counting down to the race.",

@@ -29,11 +29,13 @@ public class MapSystem extends BaseSystem {
     private MapCollisionSystem mapCollisionSystem;
     public MapProperties properties;
     private CarControlSystem carControlSystem;
+    public int activeLevel=-1;
     //private PuzzleDirectorSystem directorSystem;
 
     @Override
     protected void initialize() {
         map = new TmxMapLoader().load("map" + (G.level) + ".tmx");
+        activeLevel = G.level;
 
         properties = map.getProperties();
         if ( properties.containsKey("noautomove") ) {

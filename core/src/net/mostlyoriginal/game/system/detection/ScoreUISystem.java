@@ -8,6 +8,7 @@ import com.artemis.managers.GroupManager;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Preferences;
 import net.mostlyoriginal.api.component.basic.Pos;
 import net.mostlyoriginal.api.component.graphics.Tint;
 import net.mostlyoriginal.api.component.ui.Label;
@@ -23,6 +24,7 @@ import net.mostlyoriginal.game.system.CarControlSystem;
 import net.mostlyoriginal.game.system.TutorialInputSystem;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.map.EntitySpawnerSystem;
+import net.mostlyoriginal.game.system.map.MapSystem;
 import net.mostlyoriginal.game.system.render.CameraFollowSystem;
 import net.mostlyoriginal.game.system.render.MyAnimRenderSystem;
 import net.mostlyoriginal.game.system.render.TransitionSystem;
@@ -50,6 +52,7 @@ public class ScoreUISystem extends BaseSystem {
     private TutorialInputSystem tutorialInputSystem;
     private TransitionSystem transitionSystem;
     private Integer targetLevel=0;
+    private MapSystem mapSystem;
 
     @Override
     protected void initialize() {
@@ -64,6 +67,10 @@ public class ScoreUISystem extends BaseSystem {
 
     public void displayScorecard() {
         if ( !tutorialInputSystem.tutorialMode && !finished ) {
+
+            Preferences prefs = Gdx.app.getPreferences("prefs");
+            prefs.putInteger("highscore_" + mapSystem.activeLevel,score);
+
             E.E()
                     .labelText("FINAL SCORE " + getDecimalFormattedString("" + score))
                     .labelAlign(Label.Align.RIGHT)

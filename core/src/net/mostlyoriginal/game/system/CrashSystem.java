@@ -70,7 +70,7 @@ public class CrashSystem extends BaseEntitySystem {
         e.spinoutAngle(MathUtils.random(400, 600) * (MathUtils.randomBoolean() ? 1 : -1));
         knockDownHazard(e);
         if ( e.hasHazard() && e.hazardHitSound() != null ) {
-            G.sfx.play(e.hazardHitSound());
+            G.sfx.play(e.hazardHitSound(),1.5f);
             e
                     .removeHazard()
                     .removeCrashable()

@@ -2,6 +2,7 @@ package net.mostlyoriginal.game.system.map;
 
 import com.artemis.BaseSystem;
 import com.artemis.E;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -47,6 +48,7 @@ public class EntitySpawnerSystem extends BaseSystem {
     public boolean spawnEntity(float x, float y, MapProperties properties) {
 
         final String entity = (String) properties.get("entity");
+
 
         switch (entity) {
             case "player":
@@ -416,7 +418,7 @@ public class EntitySpawnerSystem extends BaseSystem {
     }
 
     private void assembleTrigger(float x, float y, String trigger, Integer parameter) {
-        boolean tallTrigger = !trigger.equals("music");
+        boolean tallTrigger = !trigger.equals("music") && !trigger.equals("finish");
         E().pos(x, y - (tallTrigger ? 5000 : 0)).bounds(0, 0, 32, (tallTrigger ? 10000 : 32)).trigger(trigger).triggerParameter(""+parameter);
     }
 
