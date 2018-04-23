@@ -13,7 +13,7 @@ import static com.artemis.E.E;
  */
 public class TowedSystem extends FluidIteratingSystem {
 
-    private static final int MAXIMUM_TOWS = 7;
+    private static final int MAXIMUM_TOWS = 9;
     GridSnapSystem gridSnapSystem;
 
     public TowedSystem() {

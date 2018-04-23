@@ -24,6 +24,7 @@ public class RewardSystem extends FluidIteratingSystem {
     private static final int SPACING_BETWEEN_BONUSES = 10;
     private static final int PITSTOP_LENGTH_BONUS = 2;
     private static final int MS_DELAY_PER_TEXTITEM = 40;
+    private int bonusMultiplier;
 
     public RewardSystem() {
         super(Aspect.all(Cashable.class));
@@ -35,11 +36,45 @@ public class RewardSystem extends FluidIteratingSystem {
     int chainLengthChainBonus[] = {0, 0, 0, 200, 500, 1000, 1500, 2000, 4000, 8000, 10000, 10000, 10000, 10000, 10000, 10000};
     int chainMulticolorBonus[] = {0, 0, 0, 200, 500, 1000, 1500, 2000, 4000, 8000, 10000, 10000, 10000, 10000, 10000, 10000};
     String chainMulticolorBonusRewardSound[] = {"rewardsound_1", "rewardsound_1", "rewardsound_1", "rewardsound_1", "rewardsound_1", "rewardsound_1", "rewardsound_1", "rewardsound_1", "rewardsound_1", "rewardsound_1",};
+    String chainLenghBonusText[] = {
+            " CHAIN BONUS!",
+            " CHAIN BONUS!",
+            " CHAIN BONUS!",
+            " CHAIN BONUS!",
+            " CHAIN BONUS! (x4)",
+            " CHAIN BONUS! (x5)",
+            " CHAIN BONUS! (x6)",
+            " CHAIN BONUS! (x7)",
+            " CHAIN BONUS! (x8)",
+            " CHAIN BONUS! (x9)",
+            " CHAIN BONUS! (x10)",
+            " CHAIN BONUS! (x11)",
+            " CHAIN BONUS! (x12)"};
+    String pitstopChainBonusText[] = {
+            " PITSTOP BONUS!",
+            " MINI PITSTOP BONUS!",
+            " TINY PITSTOP BONUS!",
+            " PITSTOP BONUS! (x3)",
+            " PITSTOP BONUS! (x4)",
+            " PITSTOP BONUS! (x5)",
+            " PITSTOP BONUS! (x6)",
+            " PITSTOP BONUS! (x7)",
+            " PITSTOP BONUS! (x8)",
+            " PITSTOP BONUS! (x9)",
+            " PITSTOP BONUS! (x10)",
+            " PITSTOP BONUS! (x11)",
+            " PITSTOP BONUS! (x12)"};
 
     int rewardCount = 0;
     float textDelay = MS_DELAY_PER_TEXTITEM;
 
     ScoreUISystem scoreUISystem;
+
+    @Override
+    protected void end() {
+        super.end();
+        bonusMultiplier = 0;
+    }
 
     @Override
     protected void process(E shackle) {
@@ -54,7 +89,7 @@ public class RewardSystem extends FluidIteratingSystem {
             final int y = GridSnapSystem.gridY(shackle) * G.CELL_SIZE;
 
             rewardCount = 0;
-            int multiplier = Math.max(1, shackle.cashableMultiplier());
+            int multiplier = Math.max(1, shackle.cashableMultiplier() + (bonusMultiplier - 1));
             final boolean isPitstop = shackle.cashableType() == Cashable.Type.PITSTOP;
             final int bonusLength = isPitstop ? PITSTOP_LENGTH_BONUS : 0;
 
@@ -70,7 +105,7 @@ public class RewardSystem extends FluidIteratingSystem {
             if (shackle.cashableChainBonusPayout()) {
                 textDelay = shackle.cashableCooldown() + 300;
                 G.sfx.playDelayed(chainMulticolorBonusRewardSound[totalLength], milliseconds(textDelay));
-                rewardBonus(multiplier * chainLengthChainBonus[totalLength], x, y + G.CELL_SIZE + (rewardCount * SPACING_BETWEEN_BONUSES), isPitstop ? " PITSTOP BONUS!" : " CHAIN BONUS!");
+                rewardBonus(multiplier * chainLengthChainBonus[totalLength], x, y + G.CELL_SIZE + (rewardCount * SPACING_BETWEEN_BONUSES), isPitstop ? pitstopChainBonusText[totalLength - PITSTOP_LENGTH_BONUS] : chainLenghBonusText[totalLength]);
             }
             if (shackle.cashableChainMulticolorPayout()) {
                 textDelay = shackle.cashableCooldown() + 500;
@@ -145,4 +180,7 @@ public class RewardSystem extends FluidIteratingSystem {
         }
     }
 
+    public void chainFinished() {
+        bonusMultiplier++;
+    }
 }

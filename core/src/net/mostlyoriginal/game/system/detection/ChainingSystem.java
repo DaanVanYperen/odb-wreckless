@@ -10,6 +10,7 @@ import net.mostlyoriginal.game.component.ChainColor;
 import net.mostlyoriginal.game.component.Chainable;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.system.GridSnapSystem;
+import net.mostlyoriginal.game.system.RewardSystem;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.map.EntitySpawnerSystem;
 
@@ -34,6 +35,7 @@ public class ChainingSystem extends FluidIteratingSystem {
     private EntitySpawnerSystem entitySpawnerSystem;
 
     private float randomRacerCooldown = 10;
+    private RewardSystem rewardSystem;
 
     class Chain {
         public int length;
@@ -53,6 +55,7 @@ public class ChainingSystem extends FluidIteratingSystem {
     class Cell {
         E eCar;
         E ePitstop;
+        E eTowedCar;
         Chain hChain;
         Chain vChain;
         Chain pitstopChain;
@@ -70,6 +73,11 @@ public class ChainingSystem extends FluidIteratingSystem {
             hChain = null;
             vChain = null;
             pitstopChain = null;
+            eTowedCar = null;
+        }
+
+        public E anyCar() {
+            return eCar != null ? eCar : eTowedCar;
         }
     }
 
@@ -151,8 +159,11 @@ public class ChainingSystem extends FluidIteratingSystem {
 
         int totalMultiplier = multiplierTotal(chain);
 
+        rewardSystem.chainFinished();
+
         for (int i = 0; i < chain.length; i++) {
-            final E eCar = chain.cells[i].eCar;
+            final Cell cell = chain.cells[i];
+            final E eCar = cell.anyCar();
 
             if (chainBonusPayout && !eCar.cashableChainBonusPayout()) {
                 // payout chain bonus on first shackle that has none set yet.
@@ -165,7 +176,7 @@ public class ChainingSystem extends FluidIteratingSystem {
             prepareForReward(eCar
                     .cashableMultiplier(totalMultiplier)
                     .cashableChainLength(eCar.cashableChainLength() + chain.length) // increase length, in case of overlapping.
-                    .cashableType(type), chain.cells[i]);
+                    .cashableType(type), cell);
             gridSnapSystem.instaSnap(eCar);
         }
     }
@@ -184,7 +195,7 @@ public class ChainingSystem extends FluidIteratingSystem {
     private boolean isMulticolorChain(Chain chain) {
         ChainColor lastColor = null;
         for (int i = 0; i < chain.length; i++) {
-            final E eCar = chain.cells[i].eCar;
+            final E eCar = chain.cells[i].anyCar();
             if (lastColor != null && !ChainColor.matches(lastColor, eCar.chainableColor())) {
                 return true;
             }
@@ -236,6 +247,8 @@ public class ChainingSystem extends FluidIteratingSystem {
 
     private void collectChains() {
         // scan north-east, excluding outer rim to speed up visit logic.
+
+
         for (int y = 0; y < HEIGHT; y++) {
             for (int x = 0; x < WIDTH; x++) {
                 final Cell cell = grid[y][x];
@@ -263,7 +276,10 @@ public class ChainingSystem extends FluidIteratingSystem {
         if (cell.pitstopChain != null || cell.ePitstop == null) return;
 
         // We don't care about pitstops with (wrong) cars.
-        if (cell.eCar == null || !ChainColor.matches(cell.eCar.chainableColor(), cell.ePitstop.chainableColor())) {
+        if (
+                (cell.eCar == null || !ChainColor.matches(cell.eCar.chainableColor(), cell.ePitstop.chainableColor())) &&
+                        (cell.eTowedCar == null || !ChainColor.matches(cell.eTowedCar.chainableColor(), cell.ePitstop.chainableColor()))
+                        ) {
             c.broken = true;
         }
 
@@ -315,6 +331,7 @@ public class ChainingSystem extends FluidIteratingSystem {
     @Override
     protected void process(E e) {
 
+
         final int gridX = GridSnapSystem.gridX(e);
         final int gridY = GridSnapSystem.gridY(e);
 
@@ -327,7 +344,11 @@ public class ChainingSystem extends FluidIteratingSystem {
             if (e.chainablePitstop()) {
                 grid[gridY][localGridX].ePitstop = e;
             } else {
-                grid[gridY][localGridX].eCar = e;
+                if (e.hasTowed()) {
+                    grid[gridY][localGridX].eTowedCar = e;
+                } else {
+                    grid[gridY][localGridX].eCar = e;
+                }
             }
         }
     }
