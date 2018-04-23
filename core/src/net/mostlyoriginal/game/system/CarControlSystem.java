@@ -120,8 +120,23 @@ public class CarControlSystem extends FluidIteratingSystem {
 //        entityWithTag("camera")
 //                .physicsVx(scrolling ? G.CAMERA_SCROLL_SPEED : 0);
 //
-        entityWithTag("camera").posY(e.posY());
+        final E camera = entityWithTag("camera");
+        camera.posY(e.posY());
+
+        targetScrollSpeed = dx < 0 ? G.CAMERA_SCROLL_SPEED * 0.9f : (dx > 0 ? G.CAMERA_SCROLL_SPEED * 1.5f : G.CAMERA_SCROLL_SPEED);
+        if ( camera.posX() > e.posX() ) targetScrollSpeed *= 0.2f;
+        if ( camera.posX() + (G.SCREEN_WIDTH / G.CAMERA_ZOOM ) * 0.5f < e.posX() ) targetScrollSpeed *= 1.4f;
+
+        final float delta = (targetScrollSpeed - scrollSpeed) * 2f;
+
+        if ( targetScrollSpeed < scrollSpeed ) scrollSpeed = MathUtils.clamp(scrollSpeed + delta * world.delta, targetScrollSpeed, scrollSpeed);
+        if ( targetScrollSpeed > scrollSpeed ) scrollSpeed = MathUtils.clamp(scrollSpeed + delta * world.delta, scrollSpeed, targetScrollSpeed);
+
+        camera.physicsVx(scrollSpeed);
     }
+
+    float scrollSpeed = G.CAMERA_SCROLL_SPEED;
+    float targetScrollSpeed = scrollSpeed;
 
     private void fireGuns(E e) {
         boolean firing = !e.hasDead() && (Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.isKeyPressed(Input.Keys.E));

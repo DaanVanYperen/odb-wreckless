@@ -87,7 +87,7 @@ public class EntitySpawnerSystem extends BaseSystem {
     private void assembleOilslick(int x, int y) {
         final E e = E().pos(x, y)
                 .crashable()
-                .bounds(4,4,28,28)
+                .bounds(10,10,20,20)
                 .frozen()
                 .oilslick();
     }
@@ -266,7 +266,7 @@ public class EntitySpawnerSystem extends BaseSystem {
         E()
                 .pos(x, y)
                 .cameraFocus()
-                .physicsVx(50f)
+                .physicsVx(G.CAMERA_SCROLL_SPEED)
                 .tag("camera")
                 .ethereal(true)
                 .physicsFriction(0);
