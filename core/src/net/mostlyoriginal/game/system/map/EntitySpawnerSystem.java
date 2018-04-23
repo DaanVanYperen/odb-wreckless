@@ -53,8 +53,11 @@ public class EntitySpawnerSystem extends BaseSystem {
                 assembleCar((int) x, (int) y, (String) properties.get("color"));
                 break;
             case "pitstop":
-                assemblePitstop((int) x, (int) y, (String) properties.get("color"),(Integer) properties.get("multiplier"));
+                assemblePitstop((int) x, (int) y, (String) properties.get("color"), (Integer) properties.get("multiplier"));
                 return false;
+            case "hazard":
+                assembleHazard((int) x, (int) y, (Boolean) properties.get("down"), (String) properties.get("sprite-up"), (String) properties.get("sprite-down"));
+                break;
             case "trigger":
                 assembleTrigger(x, y, (String) properties.get("trigger"), (String) properties.get("parameter"));
                 return false;
@@ -78,6 +81,19 @@ public class EntitySpawnerSystem extends BaseSystem {
         return true;
     }
 
+    private void assembleHazard(int x, int y, Boolean down, String spriteUp, String spriteDown) {
+        final E e = E().pos(x, y)
+                .angleRotation(down ? MathUtils.random(0f, 360f) : 0f)
+                .crashable()
+                .hazardDown(down)
+                .hazardSpriteDown(spriteDown)
+                .hazardSpriteUp(spriteUp)
+                .origin(0.5f,0.5f)
+                .anim(down ? spriteDown : spriteUp)
+                .renderLayer(G.LAYER_GREMLIN - 5);
+        gameScreenAssetSystem.boundToAnim(e.id(), -2, -2);
+    }
+
     public E assembleCar(int x, int y, String color) {
         final E e = E()
                 .pos(x, y)
@@ -85,7 +101,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .origin(0.5f, 0.5f)
                 .render(G.LAYER_GREMLIN)
                 .snapToGrid()
-                .angleRotation(MathUtils.random(0,360))
+                .angleRotation(MathUtils.random(0, 360))
                 .towable()
                 .frozen(true)
                 .teamTeam(TEAM_ENEMIES)
@@ -110,7 +126,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .chainableColor(ChainColor.valueOf(color))
                 .snapToGridX(x / G.CELL_SIZE + G.CELL_SIZE * 100)
                 .snapToGridY(y / G.CELL_SIZE)
-                .snapToGridPixelsPerSecondX(MathUtils.random(250,310))
+                .snapToGridPixelsPerSecondX(MathUtils.random(250, 310))
                 .script(sequence(
                         delay(seconds(5)),
                         deleteFromWorld()
@@ -130,7 +146,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .chainableColor(ChainColor.valueOf(color))
                 .frozen()
                 .chainableMultiplier(multiplier != null ? multiplier : 1)
-                .chainablePitstop(true).bounds(0,0,G.CELL_SIZE,G.CELL_SIZE);
+                .chainablePitstop(true).bounds(0, 0, G.CELL_SIZE, G.CELL_SIZE);
         return e;
     }
 

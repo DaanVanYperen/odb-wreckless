@@ -176,21 +176,61 @@
       "width": 16,
       "height": 16
     },
-	{
-      "id": "skidmark-asphalt",
-      "comment": "Skidmarks on asphalt surface",
-      "x": 544,
+    {
+      "id": "pylon",
+      "comment": "",
+      "x": 0,
       "y": 320,
-      "width": 9,
-      "height": 5
+      "width": 32,
+      "height": 32
     },
-	{
-      "id": "skidmark-dirt",
-      "comment": "Skidmarks on dirt or grass surface",
-      "x": 553,
+    {
+      "id": "pylon-down",
+      "comment": "",
+      "x": 32,
       "y": 320,
-      "width": 9,
-      "height": 5
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "drum",
+      "comment": "",
+      "x": 0,
+      "y": 352,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "drum-down",
+      "comment": "",
+      "x": 32,
+      "y": 352,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "frogger",
+      "comment": "",
+      "x": 0,
+      "y": 256,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "frogger-down",
+      "comment": "",
+      "x": 224,
+      "y": 256,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "barricade",
+      "comment": "",
+      "x": 64,
+      "y": 320,
+      "width": 32,
+      "height": 32
     },
 	{
       "id": "startinglights",
