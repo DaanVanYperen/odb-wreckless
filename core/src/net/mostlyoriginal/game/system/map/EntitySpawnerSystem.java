@@ -58,6 +58,9 @@ public class EntitySpawnerSystem extends BaseSystem {
             case "hazard":
                 assembleHazard((int) x, (int) y, (Boolean) properties.get("down"), (String) properties.get("sprite-up"), (String) properties.get("sprite-down"));
                 break;
+            case "oilslick":
+                assembleOilslick((int) x, (int) y);
+                return false;
             case "trigger":
                 assembleTrigger(x, y, (String) properties.get("trigger"), (String) properties.get("parameter"));
                 return false;
@@ -81,6 +84,14 @@ public class EntitySpawnerSystem extends BaseSystem {
         return true;
     }
 
+    private void assembleOilslick(int x, int y) {
+        final E e = E().pos(x, y)
+                .crashable()
+                .bounds(4,4,28,28)
+                .frozen()
+                .oilslick();
+    }
+
     private void assembleHazard(int x, int y, Boolean down, String spriteUp, String spriteDown) {
         final E e = E().pos(x, y)
                 .angleRotation(down ? MathUtils.random(0f, 360f) : 0f)
@@ -89,6 +100,7 @@ public class EntitySpawnerSystem extends BaseSystem {
                 .hazardSpriteDown(spriteDown)
                 .hazardSpriteUp(spriteUp)
                 .origin(0.5f,0.5f)
+                .frozen()
                 .anim(down ? spriteDown : spriteUp)
                 .renderLayer(G.LAYER_GREMLIN - 5);
         gameScreenAssetSystem.boundToAnim(e.id(), -2, -2);
