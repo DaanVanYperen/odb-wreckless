@@ -67,6 +67,10 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
                         "rewardsound_1", // used
                         "rewardsound_2",
                         "rewardsound_3", // used
+                        "chain_1",
+                        "chain_2",
+                        "chain_3",
+                        "chain_4",
                         "truck_revdown",
                         "truck_revhigh",
                         "truck_revlow",
