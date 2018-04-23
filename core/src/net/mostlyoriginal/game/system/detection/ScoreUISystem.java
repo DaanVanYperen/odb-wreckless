@@ -60,7 +60,7 @@ public class ScoreUISystem extends BaseSystem {
     }
 
     public void displayScorecard() {
-        if ( !tutorialInputSystem.tutorialMode ) {
+        if ( !tutorialInputSystem.tutorialMode && !finished ) {
             E.E()
                     .labelText("FINAL SCORE " + getDecimalFormattedString("" + score))
                     .labelAlign(Label.Align.RIGHT)
