@@ -3,12 +3,14 @@ package net.mostlyoriginal.game.system.map;
 import com.artemis.BaseSystem;
 import com.artemis.E;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.system.TowedSystem;
 import net.mostlyoriginal.game.system.detection.PickupSystem;
+import net.mostlyoriginal.game.system.detection.ScoreUISystem;
 import net.mostlyoriginal.game.system.view.*;
 
 import static com.artemis.E.E;
@@ -69,6 +71,9 @@ public class EntitySpawnerSystem extends BaseSystem {
             case "control":
                 assembleControl((int) x, (int) y, (String) properties.get("type"));
                 return false;
+            case "display":
+                assembleDisplay((int) x, (int) y, (String) properties.get("show"));
+                break;
             case "hazard":
                 assembleHazard((int) x, (int) y,
                         (Boolean) properties.get("down"),
@@ -100,6 +105,18 @@ public class EntitySpawnerSystem extends BaseSystem {
             //throw new RuntimeException("No idea how to spawn entity of type " + entity);
         }
         return true;
+    }
+
+    private void assembleDisplay(int x, int y, String s) {
+
+        Preferences prefs = Gdx.app.getPreferences("ld41wreckless");
+        final int score = prefs.getInteger(s, 0);
+
+        E e = E().pos(x,y+32)
+                .render(G.LAYER_GREMLIN-20)
+                .fontFontName("ital")
+                .labelText(score == 0 ? "No highscore" : "Highscore: " + ScoreUISystem.getDecimalFormattedString(Integer.toString(score)));
+
     }
 
     private void assembleControl(int x, int y, String type) {

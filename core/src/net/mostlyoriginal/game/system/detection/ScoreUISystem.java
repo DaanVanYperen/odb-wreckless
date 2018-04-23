@@ -68,7 +68,7 @@ public class ScoreUISystem extends BaseSystem {
     public void displayScorecard() {
         if ( !tutorialInputSystem.tutorialMode && !finished ) {
 
-            Preferences prefs = Gdx.app.getPreferences("prefs");
+            Preferences prefs = Gdx.app.getPreferences("ld41wreckless");
             prefs.putInteger("highscore_" + mapSystem.activeLevel,score);
 
             E.E()
