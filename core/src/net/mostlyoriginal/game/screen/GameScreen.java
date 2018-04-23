@@ -123,7 +123,8 @@ public class GameScreen extends WorldScreen {
                         //new ExitSystem(),
 //                        new DeathSystem(),
 //                        new HealthUISystem(),
-                        new TransitionSystem(GdxArtemisGame.getInstance())
+                        new TransitionSystem(GdxArtemisGame.getInstance()),
+                        new SfxSystem()
                 ).build());
     }
 

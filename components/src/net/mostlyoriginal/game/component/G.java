@@ -1,6 +1,7 @@
 package net.mostlyoriginal.game.component;
 
 import com.badlogic.gdx.Gdx;
+import net.mostlyoriginal.game.client.SfxHandler;
 import net.mostlyoriginal.game.client.UriHandler;
 
 /**
@@ -51,4 +52,5 @@ public class G {
             Gdx.net.openURI(URI);
         }
     };
+    public static SfxHandler sfx;
 }

@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Json;
 import net.mostlyoriginal.api.manager.AbstractAssetSystem;
+import net.mostlyoriginal.game.client.SfxHandler;
 import net.mostlyoriginal.game.component.G;
 import net.mostlyoriginal.game.component.SpriteData;
 import net.mostlyoriginal.game.system.render.SpriteLibrary;
@@ -32,23 +33,57 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
         loadSprites();
         loadSounds(
                 new String[]{
+                        //"ann_breakdown_1",
+                        //"ann_go_1",
+                        //"ann_go_2",
+                        //"ann_go_3",
+                        //"ann_triple_1",
                         "carsound_accel_1",
                         "carsound_accel_2",
-                        "ann_breakdown_1",
-                        "ann_go_1",
-                        "ann_go_2",
-                        "ann_go_3",
-                        "ann_triple_1",
                         "carsound_carpass_1",
                         "carsound_carpass_2",
                         "carsound_carpass_3",
+                        "carsound_oilskid_1",
                         "carsound_skid_1",
+                        "countdown_3",
+                        "crash",
+                        "crash_1",
+                        "crash_2",
+                        "FAIL",
+                        "frog_bleh_1",
+                        "frog_godwhy",
+                        //"frog_mylegs_1",
+                        //"frog_mylegs_2",
+                        //"misc_1",
+                        //"misc_2",
+                        //"misc_3",
+                        "pop_1", // used
+                        "pop_2", // used
+                        "rewardsound_1", // used
+                        "rewardsound_2",
+                        "rewardsound_3", // used
+                        "truck_revdown",
+                        "truck_revhigh",
+                        "truck_revlow",
+                        "truck_revup",
+                        //"wreck_happy",
                 }
         );
 
         Texture tiles = new Texture("tileset.png");
 
         //playMusicTitle();
+        G.sfx = new SfxHandler() {
+            @Override
+            public void play(String sfx) {
+                GameScreenAssetSystem.this.playSfx(sfx);
+            }
+
+            @Override
+            public void playDelayed(String sfx, float delay) {
+                E.E().sfxName(sfx).sfxCooldown(delay);
+            }
+        };
     }
 
     private void playMusicTitle() {
