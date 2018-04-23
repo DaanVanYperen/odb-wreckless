@@ -121,7 +121,7 @@ public class GameScreenAssetSystem extends AbstractAssetSystem {
     protected void initialize() {
         super.initialize();
         if (!G.DEBUG_SKIP_MUSIC) {
-           // playMusicInGame("wrecklessblues.mp3");
+           playMusicInGame("wrecklessblues.mp3");
         }
     }
 
