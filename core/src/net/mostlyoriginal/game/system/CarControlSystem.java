@@ -14,6 +14,7 @@ import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.component.map.WallSensor;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.detection.DialogSystem;
+import net.mostlyoriginal.game.system.map.EntitySpawnerSystem;
 import net.mostlyoriginal.game.system.map.MapCollisionSystem;
 import net.mostlyoriginal.game.system.map.MapSystem;
 import net.mostlyoriginal.game.system.render.MyAnimRenderSystem;
@@ -43,6 +44,7 @@ public class CarControlSystem extends FluidIteratingSystem {
     public boolean scrolling = true;
     private boolean tutorialMode;
     private MapSystem mapSystem;
+    private EntitySpawnerSystem entitySpawnerSystem;
 
 
     public CarControlSystem() {
@@ -51,7 +53,7 @@ public class CarControlSystem extends FluidIteratingSystem {
 
     @Override
     protected void process(E e) {
-        if (world.delta == 0) return;
+        if (world.delta == 0 || !entitySpawnerSystem.raceStarted()) return;
 
         String playerAnimPrefix = "player-";
 

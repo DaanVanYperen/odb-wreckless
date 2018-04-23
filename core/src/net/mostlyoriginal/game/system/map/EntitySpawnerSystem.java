@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.api.operation.OperationFactory;
 import net.mostlyoriginal.game.component.*;
+import net.mostlyoriginal.game.system.CarControlSystem;
 import net.mostlyoriginal.game.system.TowedSystem;
 import net.mostlyoriginal.game.system.detection.PickupSystem;
 import net.mostlyoriginal.game.system.view.*;
@@ -15,6 +16,7 @@ import static com.artemis.E.E;
 import static net.mostlyoriginal.api.operation.OperationFactory.delay;
 import static net.mostlyoriginal.api.operation.OperationFactory.deleteFromWorld;
 import static net.mostlyoriginal.api.operation.OperationFactory.sequence;
+import static net.mostlyoriginal.api.utils.Duration.milliseconds;
 import static net.mostlyoriginal.api.utils.Duration.seconds;
 import static net.mostlyoriginal.game.component.G.*;
 
@@ -32,9 +34,15 @@ public class EntitySpawnerSystem extends BaseSystem {
     private FlightPatternDataSystem flightPatternDataSystem;
     private PickupSystem pickupSystem;
     private TowedSystem towedSystem;
+    private float raceStartingCooldown;
 
     @Override
     protected void processSystem() {
+        raceStartingCooldown -= world.delta;
+    }
+
+    public boolean raceStarted() {
+        return raceStartingCooldown <= 0;
     }
 
 
@@ -113,7 +121,9 @@ public class EntitySpawnerSystem extends BaseSystem {
         G.sfx.play("countdown_3");
         final E e = E().pos(x - 160 / 2, y - 128 / 2)
                 .anim("startinglightss")
-                .renderLayer(G.LAYER_DIALOGS);
+                .renderLayer(G.LAYER_DIALOGS)
+                .script(sequence(delay(milliseconds(4000)), deleteFromWorld()));
+        raceStartingCooldown = 4.2f;
         gameScreenAssetSystem.boundToAnim(e.id(), 4, 4);
 
     }

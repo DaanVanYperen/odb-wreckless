@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import net.mostlyoriginal.game.component.*;
 import net.mostlyoriginal.game.system.common.FluidIteratingSystem;
 import net.mostlyoriginal.game.system.detection.ChainingSystem;
+import net.mostlyoriginal.game.system.map.EntitySpawnerSystem;
 
 import static com.artemis.E.E;
 
@@ -18,6 +19,7 @@ public class GridSnapSystem extends FluidIteratingSystem {
     private static final int MAX_LANE = 11;
     private static final int MIN_LANE = 1;
     private ChainingSystem chainingSystem;
+    private EntitySpawnerSystem entitySpawnerSystem;
 
     public GridSnapSystem() {
 
@@ -33,7 +35,7 @@ public class GridSnapSystem extends FluidIteratingSystem {
 
     @Override
     protected void process(E e) {
-        if (world.delta == 0) return;
+        if (world.delta == 0 || !entitySpawnerSystem.raceStarted()) return;
 
         float maxSpeedX = e.snapToGridPixelsPerSecondX();
         float maxSpeedY = e.snapToGridPixelsPerSecondY();
