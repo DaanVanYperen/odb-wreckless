@@ -25,6 +25,7 @@ public class TransitionSystem extends EntityProcessingSystem {
 
     private Game game;
     private GameScreenAssetSystem assetSystem;
+    private boolean triggered=false;
 
     public TransitionSystem(Game game) {
         super(Aspect.all(Transition.class));
@@ -46,11 +47,14 @@ public class TransitionSystem extends EntityProcessingSystem {
 
     @Override
     protected void process(Entity e) {
-        try {
-            assetSystem.stopMusic();
-            game.setScreen(ClassReflection.newInstance(E(e).transitionScreen()));
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
+        if ( !triggered ) {
+            triggered=true;
+            try {
+                assetSystem.stopMusic();
+                game.setScreen(ClassReflection.newInstance(E(e).transitionScreen()));
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 }

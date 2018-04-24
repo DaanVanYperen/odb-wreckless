@@ -47,14 +47,11 @@ public class GameScreen extends WorldScreen {
                         new ChainingSystem(),
                         new EntitySpawnerSystem(),
                         new MapSystem(),
-                        //new PuzzleDirectorSystem(),
                         new ParticleSystem(),
-//                        new PowerSystem(),
                         new DialogSystem(),
 //
                         new GameScreenAssetSystem(),
                         new ShipDataSystem(),
-//                        new DialogDataSystem(),
                         new GameScreenSetupSystem(),
                         new FontManager(),
 //
@@ -64,14 +61,11 @@ public class GameScreen extends WorldScreen {
 //
 //                        // spawn
                         new TriggerSystem(),
-//                        new FarewellSystem(),
-//                        new SpoutSystem(),
-//
+
 //                        // Control and logic.
                         new CameraUnfreezeSystem(),
                         new EnemyCleanupSystem(),
                         new FollowSystem(),
-                        //new FlightPatternControlSystem(),
                         new KeyboardInputSystem(),
                         new TutorialInputSystem(),
                         new CarControlSystem(),
@@ -82,8 +76,7 @@ public class GameScreen extends WorldScreen {
                         new GridSnapSystem(),
                         new AttachmentSystem(),
                         new SpinoutSystem(),
-//                        new BirdBrainSystem(),
-//
+
 //                        // Physics.
                         new GravitySystem(),
                         new MapCollisionSystem(),
@@ -91,9 +84,7 @@ public class GameScreen extends WorldScreen {
                         new PhysicsSystem(),
 //
 //                        // Effects.
-//                        new FootstepSystem(),
                         new CarriedSystem(),
-//                        new SocketSystem(),
                         new CrashSystem(),
                         new TireTrackSystem(),
 //
@@ -106,27 +97,21 @@ public class GameScreen extends WorldScreen {
                         new RewardSystem(),
                         new PriorityAnimSystem(),
 //
-//                        new JumpAttackSystem(),
-//
                         new ClearScreenSystem(Color.valueOf("7B7A7F")),
-//                        new RenderBackgroundSystem(),
                         new MapRenderSystem(),
 
-//
+
                         renderBatchingSystem = new RenderBatchingSystem(),
                         new MyAnimRenderSystem(renderBatchingSystem),
                         new BoundingBoxRenderSystem(renderBatchingSystem),
                         new MyLabelRenderSystem(renderBatchingSystem),
                         new AdditiveRenderSystem(),
                         new MapRenderInFrontSystem(),
-//                        new TerminalSystem(),
-                        //new ExitSystem(),
-//                        new DeathSystem(),
-//                        new HealthUISystem(),
 
-                        new SfxSystem(),
-                        new TransitionSystem(GdxArtemisGame.getInstance())
-                ).build());
+
+                        new SfxSystem()
+                ).with(WorldConfigurationBuilder.Priority.LOWEST,new TransitionSystem(GdxArtemisGame.getInstance()))
+                .build());
     }
 
 }

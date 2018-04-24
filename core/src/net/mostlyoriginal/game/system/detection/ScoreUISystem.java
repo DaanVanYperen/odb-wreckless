@@ -32,8 +32,8 @@ public class ScoreUISystem extends BaseSystem {
 
 
     private int score = 0;
-    private boolean finished;
-    private float finishedTime;
+    private boolean finished = false;
+    private float finishedTime =0;
     private boolean pressed = false;
     private TutorialInputSystem tutorialInputSystem;
     private TransitionSystem transitionSystem;
@@ -57,12 +57,21 @@ public class ScoreUISystem extends BaseSystem {
 
             final String decimalScore = getDecimalFormattedString("" + score);
             E.E()
-                    .labelText((newHighscore ? "NEW HIGHSCORE! " : "SCORED ") + decimalScore)
+                    .labelText((newHighscore ? "NEW HIGHSCORE! " : "SCORE ") + decimalScore)
                     .labelAlign(Label.Align.RIGHT)
                     .fontFontName("italshuge")
                     .tint(1f, 1f, 0f, 1f)
-                    .pos(cameraSystem.camera.position.x, cameraSystem.camera.position.y)
+                    .pos(cameraSystem.camera.position.x, cameraSystem.camera.position.y+16)
                     .renderLayer(G.LAYER_PLAYER + 100);
+
+            E.E()
+                    .labelText(scoreAsText(score))
+                    .labelAlign(Label.Align.RIGHT)
+                    .fontFontName("ital")
+                    .tint(1f, 1f, 0.2f, 1f)
+                    .pos(cameraSystem.camera.position.x, cameraSystem.camera.position.y-20)
+                    .renderLayer(G.LAYER_PLAYER + 101);
+
             E.E()
                     .labelText("Play again? Press space")
                     .labelAlign(Label.Align.RIGHT)
@@ -71,11 +80,29 @@ public class ScoreUISystem extends BaseSystem {
                     .pos(cameraSystem.camera.position.x, cameraSystem.camera.position.y - 40)
                     .script(sequence(
                             delay(milliseconds(250)),
-                            JamOperationFactory.tintTo(Tint.WHITE)
+                            JamOperationFactory.tintBetween(Tint.TRANSPARENT, Tint.WHITE, milliseconds(100))
                     ))
-                    .renderLayer(G.LAYER_PLAYER + 100);
+                    .renderLayer(G.LAYER_PLAYER + 102);
         }
         finished = true;
+    }
+
+    private String scoreAsText(int score) {
+        if ( score > 1000000 ) return "TUGGIONAIRE";
+        if ( score > 500000 ) return "Wait, how, where!?";
+        if ( score > 400000 ) return "Ok this isn't possible is it?";
+        if ( score > 300000 ) return "Tugotron 5000";
+        if ( score > 200000 ) return "Lord of the Track";
+        if ( score > 150000 ) return "Bested the developers!";
+        if ( score > 100000 ) return "Tow King";
+        if ( score >  90000 ) return "Lord of the Pylons";
+        if ( score >  80000 ) return "Burning Rubber";
+        if ( score >  60000 ) return "Oil Slick";
+        if ( score >  40000 ) return "Abandoned Shopping Cart";
+        if ( score >  20000 ) return "Rally Granny";
+        if ( score >  10000 ) return "Sunday Driver";
+        if ( score >   1000 ) return "Parking Brake";
+        return "Didn't even try";
     }
 
     private boolean saveScore() {
