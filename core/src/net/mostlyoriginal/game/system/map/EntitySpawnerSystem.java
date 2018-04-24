@@ -100,7 +100,7 @@ public class EntitySpawnerSystem extends BaseSystem {
 
     private void assembleDisplay(int x, int y, String s) {
 
-        Preferences prefs = Gdx.app.getPreferences("ld41wreckless");
+        Preferences prefs = Gdx.app.getPreferences("ld41wrecklessR2");
         final int score = prefs.getInteger(s, 0);
 
         E e = E().pos(x,y+32)

@@ -79,9 +79,9 @@ public class ScoreUISystem extends BaseSystem {
     }
 
     private boolean saveScore() {
-        Preferences prefs = Gdx.app.getPreferences("ld41wreckless");
+        Preferences prefs = Gdx.app.getPreferences("ld41wrecklessR2");
         final String key = "highscore_" + mapSystem.activeLevel;
-        if (prefs.getInteger(key, score) < score) {
+        if (!prefs.contains(key) || prefs.getInteger(key, score) < score) {
             prefs.putInteger(key, score);
             prefs.flush();
             return true;
