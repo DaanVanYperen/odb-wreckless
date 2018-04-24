@@ -81,7 +81,8 @@ public class EntitySpawnerSystem extends BaseSystem {
                 assembleOilslick((int) x, (int) y, (String) properties.get("anim"));
                 return false;
             case "trigger":
-                assembleTrigger(x, y, (String) properties.get("trigger"), (Integer) properties.get("tolevel"));
+                final Integer toLevel = (Integer) properties.get("tolevel");
+                assembleTrigger(x, y, (String) properties.get("trigger"), toLevel);
                 return false;
             case "birds":
                 for (int i = 0, s = MathUtils.random(1, 3); i <= s; i++) {

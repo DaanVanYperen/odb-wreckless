@@ -4,7 +4,6 @@
  <tile id="57">
   <properties>
    <property name="entity" value="trigger"/>
-   <property name="invisible" type="bool" value="false"/>
    <property name="tolevel" type="int" value="0"/>
    <property name="trigger" value="finish"/>
   </properties>
@@ -34,7 +33,6 @@
  <tile id="89">
   <properties>
    <property name="entity" value="trigger"/>
-   <property name="invisible" type="bool" value="false"/>
    <property name="tolevel" type="int" value="0"/>
    <property name="trigger" value="finish"/>
   </properties>
@@ -80,7 +78,6 @@
  <tile id="121">
   <properties>
    <property name="entity" value="trigger"/>
-   <property name="invisible" type="bool" value="false"/>
    <property name="tolevel" type="int" value="0"/>
    <property name="trigger" value="finish"/>
   </properties>
